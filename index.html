@@ -1325,6 +1325,19 @@ input,select{font:inherit}
 .rec-kw{
   font-size:.62rem;font-weight:700;padding:.13rem .42rem;
   border-radius:5px;background:rgba(8,123,255,0.1);
+  border:1px solid rgba(8,123,255,0.2);color:var(--blue2);
+  transition:all .2s;
+}
+.rec-kw-clickable{
+  cursor:pointer;
+}
+.rec-kw-clickable:hover{
+  background:rgba(8,123,255,0.22);
+  border-color:rgba(8,123,255,0.5);
+  color:#fff;
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(8,123,255,0.3);
+}
   color:#7bbfff;border:1px solid rgba(8,123,255,0.18);
 }
 .rec-day-goal{
@@ -1376,6 +1389,61 @@ input,select{font:inherit}
 .kw-row:hover{background:rgba(255,255,255,0.025)}
 .kw-code{background:rgba(255,153,0,0.09);border:1px solid rgba(255,153,0,0.18);padding:.18rem .45rem;border-radius:5px;font-size:.68rem;color:var(--gold2);flex-shrink:0;font-family:monospace;max-width:195px;word-break:break-word}
 .kw-answer{font-size:.82rem;font-weight:700;color:var(--ok2)}
+
+/* ── TERMINOLOGY GYM v2 ── */
+.gym-jump-btn{
+  display:inline-flex;align-items:center;gap:.3rem;
+  padding:.25rem .65rem;border-radius:999px;
+  font-size:.68rem;font-weight:700;cursor:pointer;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.1);
+  color:var(--muted);
+  transition:all .2s cubic-bezier(.4,0,.2,1);
+}
+.gym-cat{transition:border-color .2s,box-shadow .2s}
+.gym-row{
+  display:flex;align-items:flex-start;gap:.6rem;
+  padding:.5rem .6rem;
+  border-radius:8px;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  transition:background .15s,transform .15s;
+}
+.gym-row:last-child{border-bottom:none}
+.gym-row-clickable{cursor:pointer}
+.gym-row-clickable:hover{
+  background:rgba(255,255,255,0.04);
+  transform:translateX(3px);
+}
+.gym-row-kw{flex:1;min-width:0}
+.gym-kw-dots{display:flex;flex-wrap:wrap;gap:.3rem}
+.gym-kw-chip{
+  display:inline-block;
+  font-size:.62rem;font-weight:700;
+  padding:.12rem .4rem;border-radius:5px;
+  background:rgba(255,153,0,0.08);
+  border:1px solid rgba(255,153,0,0.16);
+  color:var(--gold2);
+  font-family:monospace;
+  line-height:1.4;
+}
+.gym-row-arrow{
+  color:rgba(255,255,255,0.2);font-size:.8rem;
+  flex-shrink:0;padding-top:.1rem;
+}
+.gym-row-answer{
+  flex:1;min-width:0;
+  display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;
+}
+.gym-learn-link{
+  font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--blue2);font-weight:800;
+  padding:.1rem .35rem;border-radius:4px;
+  background:rgba(8,123,255,0.1);
+  border:1px solid rgba(8,123,255,0.2);
+  opacity:.7;
+  transition:opacity .15s;
+}
+.gym-row-clickable:hover .gym-learn-link{opacity:1}
 .toast{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(5,8,22,0.97);backdrop-filter:blur(20px);color:var(--text);padding:.55rem 1.2rem;border-radius:999px;font-size:.82rem;font-weight:700;opacity:0;transition:all .3s;pointer-events:none;z-index:200;white-space:nowrap;border:1px solid var(--border2);box-shadow:0 8px 32px rgba(0,0,0,0.5)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.toast-ok{border-color:rgba(34,197,94,0.3)}
@@ -1497,20 +1565,21 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
 @keyframes ccCountdownTick{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 
 /* ── CC WRAPPER (adds grid background overlay) ── */
-.cc-wrapper{position:relative}
+.cc-wrapper{position:relative;padding-bottom:.5rem}
 .cc-wrapper::before{
-  content:'';position:fixed;top:0;left:0;right:0;bottom:0;
+  content:'';position:absolute;top:0;left:-40px;right:-40px;bottom:0;
   background-image:
-    linear-gradient(rgba(8,123,255,0.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(8,123,255,0.035) 1px,transparent 1px);
-  background-size:40px 40px;
+    linear-gradient(rgba(8,123,255,0.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(8,123,255,0.028) 1px,transparent 1px);
+  background-size:44px 44px;
   pointer-events:none;z-index:0;
   animation:ccGridPulse 6s ease-in-out infinite;
+  border-radius:0;
 }
 
 /* ── CC HEADER ── */
 .cc-header{
-  position:relative;overflow:hidden;
+  position:relative;overflow:hidden;z-index:1;
   border-radius:var(--radius-xl);
   margin-bottom:.85rem;
   padding:0;
@@ -1650,6 +1719,7 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
 .cc-intel{
   display:grid;grid-template-columns:repeat(4,1fr);
   gap:.75rem;margin-bottom:.85rem;
+  position:relative;z-index:1;
 }
 @media(max-width:950px){.cc-intel{grid-template-columns:1fr 1fr}}
 @media(max-width:500px){.cc-intel{grid-template-columns:1fr}}
@@ -1729,6 +1799,7 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
 .cc-mid{
   display:grid;grid-template-columns:1.4fr 1fr;
   gap:.75rem;margin-bottom:.85rem;
+  position:relative;z-index:1;
 }
 @media(max-width:750px){.cc-mid{grid-template-columns:1fr}}
 
@@ -1830,6 +1901,7 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
 .cc-actions{
   display:grid;grid-template-columns:repeat(4,1fr);
   gap:.7rem;margin-bottom:.85rem;
+  position:relative;z-index:1;
 }
 @media(max-width:700px){.cc-actions{grid-template-columns:repeat(2,1fr)}}
 
@@ -2011,107 +2083,186 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
 .kt-hook-label{font-size:.55rem;text-transform:uppercase;letter-spacing:.1em;opacity:.7;margin-bottom:2px}
 
 /* ═══════════════════════════════════════════
-   PREMIUM 3D FLASHCARDS
+   PREMIUM FLASHCARDS (opacity swap — works in all browsers)
 ═══════════════════════════════════════════ */
 .flashcard-3d{
-  perspective:1200px;
   cursor:pointer;
   user-select:none;
   margin-bottom:1rem;
-  min-height:200px;
+  position:relative;
+  min-height:340px;
 }
 .flashcard-3d-inner{
   position:relative;
-  transition:transform .65s cubic-bezier(.4,.2,.2,1);
-  transform-style:preserve-3d;
-  min-height:200px;
-  border-radius:22px;
+  min-height:340px;
+  height:340px;
+  border-radius:24px;
 }
-.flashcard-3d.flipped .flashcard-3d-inner{transform:rotateY(180deg)}
+.flashcard-3d:hover .flashcard-3d-inner{
+  box-shadow:0 32px 80px rgba(0,0,0,0.6),0 0 60px rgba(59,168,255,0.12);
+}
 .fc3-face{
-  position:absolute;width:100%;
-  backface-visibility:hidden;-webkit-backface-visibility:hidden;
-  border-radius:22px;
-  padding:1.6rem;
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  border-radius:24px;
+  padding:1.8rem 2rem;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;min-height:200px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.06);
-  overflow:hidden;
+  text-align:center;
+  box-shadow:0 24px 70px rgba(0,0,0,0.55),0 0 0 1px rgba(255,255,255,0.07);
+  overflow-y:auto;overflow-x:hidden;
+  transition:opacity .45s cubic-bezier(.4,0,.2,1), transform .45s cubic-bezier(.4,0,.2,1);
 }
 .fc3-face::before{
   content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
-}
-.fc3-front{
-  background:linear-gradient(145deg,#0a1535,#070e28,#050c1e);
-  border:1px solid rgba(59,168,255,0.2);
-}
-.fc3-front::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:80px;
-  background:radial-gradient(ellipse at 50% 100%,rgba(59,168,255,0.1),transparent);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
   pointer-events:none;
 }
+/* Shimmer overlay on hover */
+.fc3-face::after{
+  content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent);
+  transition:left .6s ease;pointer-events:none;
+}
+.flashcard-3d:hover .fc3-face::after{left:150%}
+.fc3-front{
+  background:linear-gradient(145deg,#0c1a40,#071226,#040d1e);
+  border:1px solid rgba(59,168,255,0.22);
+  box-shadow:0 24px 70px rgba(0,0,0,0.55),0 0 40px rgba(59,168,255,0.06) inset;
+  opacity:1;
+  transform:scale(1);
+  z-index:2;
+  pointer-events:auto;
+}
+.fc3-front::before{
+  background:linear-gradient(90deg,transparent,rgba(59,168,255,0.4),rgba(0,207,255,0.3),transparent);
+}
+/* Bottom glow */
+.fc3-front .fc3-bottom-glow{
+  position:absolute;bottom:0;left:0;right:0;height:80px;
+  background:radial-gradient(ellipse at 50% 100%,rgba(59,168,255,0.14),transparent);
+  border-radius:0 0 24px 24px;pointer-events:none;
+}
 .fc3-back{
-  background:linear-gradient(145deg,#071a12,#040e0a,#030d08);
-  border:1px solid rgba(34,197,94,0.25);
-  transform:rotateY(180deg);
+  background:linear-gradient(145deg,#061a10,#030f09,#020c06);
+  border:1px solid rgba(16,201,149,0.28);
+  box-shadow:0 24px 70px rgba(0,0,0,0.55),0 0 40px rgba(16,201,149,0.06) inset;
+  opacity:0;
+  transform:scale(0.96);
+  z-index:1;
+  pointer-events:none;
+}
+.fc3-back::before{
+  background:linear-gradient(90deg,transparent,rgba(16,201,149,0.4),rgba(52,237,182,0.25),transparent);
 }
 .fc3-back::after{
   content:'';position:absolute;bottom:0;left:0;right:0;height:80px;
-  background:radial-gradient(ellipse at 50% 100%,rgba(34,197,94,0.12),transparent);
+  background:radial-gradient(ellipse at 50% 100%,rgba(16,201,149,0.14),transparent);
+  pointer-events:none;border-radius:0 0 24px 24px;
+}
+/* FLIPPED STATE */
+.flashcard-3d.flipped .fc3-front{
+  opacity:0;
+  transform:scale(0.96);
+  z-index:1;
   pointer-events:none;
 }
+.flashcard-3d.flipped .fc3-back{
+  opacity:1;
+  transform:scale(1);
+  z-index:2;
+  pointer-events:auto;
+}
+.flashcard-3d.flipped .flashcard-3d-inner{
+  box-shadow:0 32px 80px rgba(0,0,0,0.6),0 0 60px rgba(16,201,149,0.15);
+}
 .fc3-domain{
-  font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;
-  font-weight:800;margin-bottom:.8rem;
-  padding:.2rem .7rem;border-radius:999px;
-  background:rgba(59,168,255,0.1);border:1px solid rgba(59,168,255,0.2);
+  font-size:.58rem;text-transform:uppercase;letter-spacing:.15em;
+  font-weight:900;margin-bottom:.85rem;
+  padding:.25rem .8rem;border-radius:999px;
+  background:linear-gradient(135deg,rgba(59,168,255,0.14),rgba(0,207,255,0.08));
+  border:1px solid rgba(59,168,255,0.28);
   color:var(--blue2);
+  box-shadow:0 0 16px rgba(59,168,255,0.2),inset 0 1px 0 rgba(255,255,255,0.1);
 }
 .fc3-question{
-  font-size:1rem;font-weight:700;line-height:1.65;color:var(--text);
-  margin-bottom:.8rem;
+  font-size:1.02rem;font-weight:700;line-height:1.7;color:var(--text);
+  margin-bottom:.85rem;text-shadow:0 2px 8px rgba(0,0,0,0.3);
 }
 .fc3-hint{
-  font-size:.7rem;color:var(--muted);
+  font-size:.7rem;color:rgba(255,255,255,0.4);
   display:flex;align-items:center;gap:.3rem;
-  animation:fc3Pulse 2s ease-in-out infinite;
+  animation:fc3Pulse 2.4s ease-in-out infinite;
+  padding:.35rem .75rem;border-radius:999px;
+  background:rgba(59,168,255,0.05);border:1px solid rgba(59,168,255,0.1);
 }
-@keyframes fc3Pulse{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes fc3Pulse{
+  0%,100%{opacity:.4;transform:translateY(0)}
+  50%{opacity:1;transform:translateY(-3px)}
+}
 .fc3-answer-label{
-  font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;
-  color:var(--green2);font-weight:800;margin-bottom:.6rem;
-  display:flex;align-items:center;gap:.3rem;
+  font-size:.62rem;text-transform:uppercase;letter-spacing:.14em;
+  color:var(--green2);font-weight:900;margin-bottom:.65rem;
+  display:flex;align-items:center;gap:.35rem;
+  padding:.25rem .75rem;border-radius:999px;
+  background:rgba(16,201,149,0.1);border:1px solid rgba(16,201,149,0.25);
+  box-shadow:0 0 14px rgba(16,201,149,0.15);
 }
 .fc3-answer{
-  font-size:.95rem;font-weight:800;color:var(--green2);
-  margin-bottom:.7rem;line-height:1.4;
+  font-size:1rem;font-weight:800;color:var(--green2);
+  margin-bottom:.75rem;line-height:1.5;
+  text-shadow:0 0 20px rgba(16,201,149,0.3);
 }
 .fc3-rationale{
-  font-size:.78rem;color:rgba(255,255,255,0.6);
-  line-height:1.65;
-  background:rgba(34,197,94,0.06);
-  border:1px solid rgba(34,197,94,0.1);
-  border-radius:10px;padding:.6rem .8rem;
+  font-size:.78rem;color:rgba(255,255,255,0.65);
+  line-height:1.7;
+  background:linear-gradient(135deg,rgba(16,201,149,0.07),rgba(16,201,149,0.03));
+  border:1px solid rgba(16,201,149,0.14);
+  border-radius:12px;padding:.7rem .95rem;
   width:100%;text-align:left;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
 }
 /* Nav row */
 .fc3-nav{
   display:flex;align-items:center;justify-content:center;
-  gap:.6rem;flex-wrap:wrap;margin-top:.5rem;
+  gap:.7rem;flex-wrap:wrap;margin-top:.6rem;
 }
 /* Progress dots */
 .fc3-dots{
-  display:flex;gap:4px;flex-wrap:wrap;justify-content:center;
-  margin-top:.75rem;max-width:100%;overflow:hidden;
+  display:flex;gap:5px;flex-wrap:wrap;justify-content:center;
+  margin-top:.8rem;max-width:100%;overflow:hidden;
 }
 .fc3-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:rgba(255,255,255,0.1);
-  transition:all .2s;cursor:pointer;
+  width:9px;height:9px;border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  transition:all .3s cubic-bezier(.4,0,.2,1);cursor:pointer;
+  border:1px solid rgba(255,255,255,0.05);
 }
-.fc3-dot.active{background:var(--blue2);box-shadow:0 0 8px var(--blue);transform:scale(1.4)}
-.fc3-dot.seen{background:rgba(34,197,94,0.5)}
+.fc3-dot:hover{background:rgba(255,255,255,0.2);transform:scale(1.3)}
+.fc3-dot.active{
+  background:var(--blue2);
+  box-shadow:0 0 10px var(--blue),0 0 20px rgba(0,207,255,0.3);
+  transform:scale(1.5);
+  border-color:var(--blue2);
+}
+.fc3-dot.seen{background:linear-gradient(135deg,var(--ok),var(--green2));box-shadow:0 0 6px rgba(16,201,149,0.4)}
+
+/* Storyline strip */
+.fc3-story{
+  margin-top:.85rem;
+  padding:.65rem 1rem;
+  background:linear-gradient(135deg,rgba(255,153,0,0.07),rgba(255,120,0,0.03));
+  border:1px solid rgba(255,153,0,0.18);
+  border-left:3px solid var(--gold);
+  border-radius:0 12px 12px 0;
+  font-size:.76rem;line-height:1.65;
+  color:rgba(255,255,255,0.72);
+  text-align:left;
+  animation:storyFadeIn .4s ease .1s both;
+}
+.fc3-story-label{
+  font-size:.58rem;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--gold);font-weight:900;margin-bottom:.3rem;display:flex;align-items:center;gap:.35rem;
+}
+@keyframes storyFadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
 /* ═══════════════════════════════════════════
    PREMIUM WEEKLY FLASHCARD DECK TABS
@@ -2451,13 +2602,14 @@ function navigate(tab){
   setTimeout(()=>{
     if(tab==='home') el.innerHTML=renderHome();
     else if(tab==='diagnostic'||tab==='interview prep') el.innerHTML=renderDiagnosticMenu();
-    else if(tab==='practice'||tab==='learn') el.innerHTML=renderPracticeMenu();
+    else if(tab==='learn') el.innerHTML=renderLearnHub();
+    else if(tab==='practice') el.innerHTML=renderPracticeMenu();
     else if(tab==='mock') el.innerHTML=renderMockMenu();
-    else if(tab==='progress'||tab==='achievements') el.innerHTML=renderProgress();
+    else if(tab==='progress') el.innerHTML=renderProgress();
+    else if(tab==='achievements') el.innerHTML=renderAchievements();
     else if(tab==='flashcards'){el.innerHTML=renderPracticeMenu();setTimeout(()=>switchPracticeTab('flashcards'),50);}
-    else if(tab==='terminology'){el.innerHTML=renderPracticeMenu();setTimeout(()=>switchPracticeTab('terms'),50);}
-    else if(tab==='universe'||tab==='architecture lab') el.innerHTML=renderUniverse();
     else if(tab==='terminology') el.innerHTML=renderTerminologyGym();
+    else if(tab==='universe'||tab==='architecture lab') el.innerHTML=renderUniverse();
     else if(tab==='games') el.innerHTML=renderGamesArena();
     else if(tab==='settings') el.innerHTML=renderSettings();
     else if(tab==='roadmap') el.innerHTML=renderStudyRoadmap();
@@ -3074,11 +3226,7 @@ function renderHomeCommandCenter(days,due,overall,mockCount,totalAttempted,domai
       </div>
       <!-- Chart area -->
       <div style="position:relative;border-radius:12px;overflow:hidden;border:1px solid rgba(8,123,255,0.1);background:rgba(0,0,0,0.3)">
-        <!-- Y-axis label overlay -->
-        <div style="position:absolute;top:0;left:0;bottom:0;width:28px;display:flex;flex-direction:column;justify-content:space-between;padding:6px 2px 6px 2px;z-index:2;pointer-events:none">
-          ${[100,75,50,25,0].map(v=>`<span style="font-size:7px;color:rgba(255,255,255,0.2);font-weight:700;text-align:right;display:block">${v}</span>`).join('')}
-        </div>
-        <svg class="cc-sparkline" viewBox="0 0 ${sparkW} ${sparkH+16}" preserveAspectRatio="none" style="height:100px;display:block;width:100%;padding-left:28px;box-sizing:border-box">
+        <svg viewBox="0 0 ${sparkW+32} ${sparkH+32}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block;min-height:90px">
           <defs>
             <linearGradient id="sgArea" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="${scoreColor}" stop-opacity="0.35"/>
@@ -3088,27 +3236,24 @@ function renderHomeCommandCenter(days,due,overall,mockCount,totalAttempted,domai
             <filter id="sgGlow"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
             <filter id="dotGlow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
-          <!-- Grid lines -->
-          ${[25,50,75].map(v=>{
-            const gy=sparkH-((v-0)/(100-0))*sparkH+8;
-            return `<line x1="0" y1="${gy}" x2="${sparkW}" y2="${gy}" stroke="rgba(255,255,255,0.045)" stroke-width="1"/>
-                    <text x="2" y="${gy-3}" font-size="7.5" fill="rgba(255,255,255,0.2)" font-weight="700">${v}%</text>`;
+          <!-- Y-axis labels -->
+          ${[100,75,50,25,0].map((v,i)=>{
+            const gy=16+((100-v)/100)*sparkH;
+            return `<text x="1" y="${gy+3}" font-size="7" fill="rgba(255,255,255,0.22)" font-weight="700" text-anchor="start">${v}</text>
+                    <line x1="28" y1="${gy}" x2="${sparkW+28}" y2="${gy}" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>`;
           }).join('')}
           <!-- 70% pass line -->
-          <line x1="0" y1="${sparkH-((70)/(100))*sparkH+8}" x2="${sparkW}" y2="${sparkH-((70)/(100))*sparkH+8}"
-            stroke="rgba(16,201,149,0.3)" stroke-width="1" stroke-dasharray="4 3"/>
-          <text x="${sparkW-22}" y="${sparkH-((70)/(100))*sparkH+5}" font-size="7" fill="rgba(16,201,149,0.5)" font-weight="700">Pass</text>
-          <!-- Area fill -->
-          <path d="${linePath} L${sparkW},${sparkH+8} L0,${sparkH+8} Z" fill="url(#sgArea)" transform="translate(0,8)"/>
-          <!-- Line -->
-          <path d="${linePath}" fill="none" stroke="${scoreColor}" stroke-width="2.5"
-            stroke-linejoin="round" stroke-linecap="round"
-            filter="url(#sgGlow)" transform="translate(0,8)" opacity=".95"/>
-          <!-- Data points + labels -->
-          ${sparkYs.map((y,i)=>`
-            <circle cx="${sparkXs[i]}" cy="${y+8}" r="4" fill="${scoreColor}" stroke="rgba(3,8,20,0.9)" stroke-width="2" filter="url(#dotGlow)" opacity=".95"/>
-            <text x="${sparkXs[i]}" y="${y+8-10}" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.75)" font-weight="800">${sparkData[i]}%</text>
-          `).join('')}
+          ${(()=>{const py=16+((100-70)/100)*sparkH;return `<line x1="28" y1="${py}" x2="${sparkW+28}" y2="${py}" stroke="rgba(16,201,149,0.35)" stroke-width="1" stroke-dasharray="4 3"/>
+          <text x="${sparkW+16}" y="${py-2}" font-size="7" fill="rgba(16,201,149,0.6)" font-weight="700">Pass</text>`;})()}
+          <!-- Area + line (offset by 28px for y-axis labels) -->
+          <g transform="translate(28,16)">
+            <path d="${linePath} L${sparkW},${sparkH} L0,${sparkH} Z" fill="url(#sgArea)"/>
+            <path d="${linePath}" fill="none" stroke="${scoreColor}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" filter="url(#sgGlow)" opacity=".95"/>
+            ${sparkYs.map((y,i)=>`
+              <circle cx="${sparkXs[i]}" cy="${y}" r="4" fill="${scoreColor}" stroke="rgba(3,8,20,0.9)" stroke-width="2" filter="url(#dotGlow)" opacity=".95"/>
+              <text x="${sparkXs[i]}" y="${y-9}" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.8)" font-weight="800">${sparkData[i]}%</text>
+            `).join('')}
+          </g>
         </svg>
       </div>
       <div style="display:flex;justify-content:space-between;margin-top:.45rem">
@@ -3372,6 +3517,221 @@ function onDiagnosticComplete(results){
 // ═══════════════════════════════════════════════════════════════
 //  PRACTICE
 // ═══════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+//  LEARN HUB — structured learning, not random practice
+// ═══════════════════════════════════════════════════════════════
+function renderLearnHub(){
+  const domainData=[
+    {d:'Cloud Concepts',      col:'#3BA8FF', pct:24, icon:'aws_learning_galaxy_individual_icons/02-cloud-server.png',
+     topics:[
+       {label:'6 Advantages of Cloud', hint:'Elasticity, CapEx→OpEx, speed, global reach, economies of scale, no capacity guessing'},
+       {label:'CapEx vs OpEx', hint:'Capital Expenditure = buy hardware upfront. OpEx = pay-as-you-go cloud model'},
+       {label:'IaaS / PaaS / SaaS', hint:'Infrastructure / Platform / Software as a Service — different abstraction levels'},
+       {label:'Deployment Models — Public / Private / Hybrid', hint:'Public=AWS cloud. Private=on-prem. Hybrid=both connected'},
+       {label:'Well-Architected 6 Pillars', hint:'Operational Excellence, Security, Reliability, Performance, Cost Optimization, Sustainability'},
+       {label:'Global Infrastructure — Region / AZ / Edge', hint:'Regions contain AZs (data centres). Edge Locations serve CloudFront CDN'},
+     ]},
+    {d:'Security and Compliance', col:'#FFB020', pct:30, icon:'aws_learning_galaxy_individual_icons/03-cloud-security.png',
+     topics:[
+       {label:'Shared Responsibility Model', hint:'AWS = cloud (hardware, AZs). YOU = in the cloud (OS, data, IAM, app config)'},
+       {label:'IAM — Users / Groups / Roles / Policies', hint:'Users=people. Groups=collections. Roles=temp credentials. Policies=permissions JSON'},
+       {label:'MFA & Least Privilege', hint:'Always enable MFA on root. Grant only the minimum permissions needed — nothing more'},
+       {label:'Shield, WAF, GuardDuty, Macie, Inspector', hint:'DDoS / L7 filter / ML threats / S3 PII / EC2 vulnerabilities'},
+       {label:'KMS, CloudHSM, Secrets Manager, ACM', hint:'Managed keys / Dedicated HSM / Auto-rotate secrets / Free SSL certs'},
+       {label:'CloudTrail, Config, Trusted Advisor, Artifact', hint:'API log / Config changes / Best-practice recs / Compliance reports'},
+       {label:'Organizations & SCP, Control Tower', hint:'Multi-account billing. SCPs override even AdministratorAccess. Control Tower = landing zone'},
+     ]},
+    {d:'Cloud Technology and Services', col:'#10C995', pct:34, icon:'aws_learning_galaxy_individual_icons/01-microchip.png',
+     topics:[
+       {label:'Compute — EC2, Lambda, ECS, EKS, Fargate, Beanstalk', hint:'VMs / Serverless / Docker / Kubernetes / Serverless containers / PaaS'},
+       {label:'Storage — S3, EBS, EFS, Instance Store, Glacier', hint:'Object / Block-1AZ / NFS-many / Ephemeral / Archive'},
+       {label:'Databases — RDS, Aurora, DynamoDB, Redshift, ElastiCache', hint:'Managed SQL / Fast Aurora / NoSQL / Data warehouse / Cache'},
+       {label:'Networking — VPC, Security Groups, NACLs, Route 53, CloudFront, ELB', hint:'Private network / Stateful FW / Stateless FW / DNS / CDN / Load balancer'},
+       {label:'Migration — Snowball, Snowmobile, DMS, DataSync', hint:'50-80TB / 100PB+ / Database migration / Online data sync'},
+       {label:'Monitoring — CloudWatch, CloudTrail, X-Ray, Systems Manager', hint:'Metrics+alarms / API audit / Tracing / Automation'},
+     ]},
+    {d:'Billing, Pricing and Support', col:'#E9A92F', pct:12, icon:'aws_learning_galaxy_individual_icons/09-analytics.png',
+     topics:[
+       {label:'Pricing Models — On-Demand, Reserved, Spot, Savings Plans, Dedicated', hint:'Pay/hr / 1-3yr commit / Spare capacity (interrupted) / Flexible commit / Physical server'},
+       {label:'Cost Tools — Cost Explorer, Budgets, Pricing Calculator, Consolidated Billing', hint:'Visualise / Alert / Estimate / One bill + volume discount'},
+       {label:'Support Plans — Basic → Developer → Business → Enterprise', hint:'Free / $29+ / $100+ / $15,000+. Business = 24/7 phone. Enterprise = TAM'},
+       {label:'AWS Free Tier — 12-month / Always Free / Trial', hint:'750 hrs t2.micro / 1M Lambda / 90-day trials'},
+     ]},
+  ];
+  return `
+  <div class="section-header" style="margin-bottom:1rem">
+    <h1 style="display:flex;align-items:center;gap:.6rem">
+      <span style="font-size:1.6rem">📚</span> Learn
+    </h1>
+    <span style="font-size:.8rem;color:var(--muted)">Structured concept study · Understand before you practice</span>
+  </div>
+
+  <!-- HOW TO USE THIS PAGE -->
+  <div style="padding:.75rem 1.1rem;border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(8,123,255,0.1),rgba(16,201,149,0.05));border:1px solid rgba(8,123,255,0.22);margin-bottom:1.1rem;border-left:3px solid var(--blue);position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--blue),var(--blue2),transparent)"></div>
+    <div style="font-size:.72rem;font-weight:800;color:var(--blue2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem">📖 Learn → Practice → Flashcard workflow</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem">
+      <div style="display:flex;align-items:flex-start;gap:.5rem;font-size:.78rem;color:var(--muted);line-height:1.5">
+        <span style="color:var(--blue2);font-weight:900;flex-shrink:0">1.</span>
+        <span>Read each topic. Click any topic to <strong style="color:var(--text)">drill questions</strong> on that concept.</span>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:.5rem;font-size:.78rem;color:var(--muted);line-height:1.5">
+        <span style="color:var(--blue2);font-weight:900;flex-shrink:0">2.</span>
+        <span>Hit <strong style="color:var(--text)">Practice 10 Qs</strong> to test the full domain with scored feedback.</span>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:.5rem;font-size:.78rem;color:var(--muted);line-height:1.5">
+        <span style="color:var(--blue2);font-weight:900;flex-shrink:0">3.</span>
+        <span>Use <strong style="color:var(--text)">Week Flashcards</strong> to drill terms before you sleep.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN LEARNING CARDS -->
+  <div style="display:flex;flex-direction:column;gap:.85rem">
+    ${domainData.map(item=>{
+      const acc=domainAccuracy(item.d)||0;
+      const count=window.QUESTIONS.filter(q=>q.domain===item.d).length;
+      const attempted=window.QUESTIONS.filter(q=>q.domain===item.d&&progress[q.id]&&progress[q.id].attempts>0).length;
+      return `<div class="learn-domain-card" style="--ldc:${item.col}">
+        <div class="learn-domain-header">
+          <div class="learn-domain-icon-wrap" style="background:linear-gradient(145deg,${item.col}22,${item.col}08);border:1px solid ${item.col}40;box-shadow:0 0 16px ${item.col}25">
+            <img src="${item.icon}" alt="" style="width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 0 6px ${item.col}99)" onerror="this.style.display='none'">
+          </div>
+          <div style="flex:1">
+            <div style="font-size:.95rem;font-weight:800;color:var(--text)">${item.d}</div>
+            <div style="display:flex;align-items:center;gap:.5rem;margin-top:.2rem;flex-wrap:wrap">
+              <span style="font-size:.65rem;font-weight:800;padding:.12rem .45rem;border-radius:5px;background:${item.col}22;color:${item.col};border:1px solid ${item.col}44">${item.pct}% of exam</span>
+              <span style="font-size:.65rem;color:var(--muted)">${attempted}/${count} questions attempted</span>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:1.5rem;font-weight:900;color:${acc>=70?'var(--ok)':acc>=40?'var(--gold)':'var(--red)'}">${acc}%</div>
+            <div style="font-size:.6rem;color:var(--muted)">mastery</div>
+          </div>
+        </div>
+        <div style="padding:0 1rem .3rem;height:4px;background:rgba(255,255,255,0.05);border-radius:999px;overflow:hidden;margin-bottom:.6rem">
+          <div style="height:100%;width:${acc}%;background:linear-gradient(90deg,${item.col},${item.col}99);border-radius:999px;box-shadow:0 0 8px ${item.col}60;transition:width .8s cubic-bezier(.4,0,.2,1)"></div>
+        </div>
+        <div class="learn-topics-list">
+          ${item.topics.map(t=>`<div class="learn-topic-row" onclick="startPractice('domain','${item.d}',10)" title="${t.hint}">
+            <span class="learn-topic-dot" style="background:${item.col};box-shadow:0 0 6px ${item.col}80"></span>
+            <div style="flex:1">
+              <span class="learn-topic-text">${t.label}</span>
+              <div style="font-size:.62rem;color:var(--muted);margin-top:.12rem;line-height:1.4">${t.hint}</div>
+            </div>
+            <span class="learn-topic-arrow" style="color:${item.col};flex-shrink:0">Practice →</span>
+          </div>`).join('')}
+        </div>
+        <div style="display:flex;gap:.5rem;padding:.85rem 1rem;border-top:1px solid rgba(255,255,255,0.05);flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" onclick="startPractice('domain','${item.d}',10)" style="background:linear-gradient(135deg,${item.col}cc,${item.col}88);border:none;box-shadow:0 4px 16px ${item.col}40">▶ Practice 10 Qs</button>
+          <button class="btn btn-secondary btn-sm" onclick="startPractice('domain','${item.d}',20)">20 Qs</button>
+          <button class="btn btn-secondary btn-sm" onclick="startPractice('domain','${item.d}',0)">All</button>
+          <button class="btn btn-secondary btn-sm" onclick="navigate('weekly-flashcards')" style="margin-left:auto">🃏 Flashcards →</button>
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  ACHIEVEMENTS — separate from Progress
+// ═══════════════════════════════════════════════════════════════
+function renderAchievements(){
+  const level=Math.floor(xp/200)+1;
+  const totalAttempted=Object.values(progress).filter(p=>p.attempts>0).length;
+  const mastered=Object.values(progress).filter(p=>p.interval===INTERVALS.length-1&&p.correct>0).length;
+  const mockCount=history.filter(h=>h.mode==='mock').length;
+  const mockBest=mockCount>0?Math.max(...history.filter(h=>h.mode==='mock').map(m=>m.score)):null;
+  const overall=overallAccuracy();
+  const achDefs=[
+    {id:'first-q',   icon:'🎯', label:'First Shot',       desc:'Answered your first question',                   col:'#3BA8FF',  unlocked:totalAttempted>=1,  next:10},
+    {id:'ten-q',     icon:'⚡', label:'Getting Warmed Up', desc:'Attempted 10 questions',                         col:'#FFB020',  unlocked:totalAttempted>=10, next:50},
+    {id:'fifty-q',   icon:'🔥', label:'On A Roll',         desc:'Attempted 50 questions',                         col:'#FF9900',  unlocked:totalAttempted>=50, next:100},
+    {id:'hundred-q', icon:'💯', label:'Centurion',          desc:'Attempted 100 questions',                        col:'#E9A92F',  unlocked:totalAttempted>=100},
+    {id:'mastered10',icon:'🧠', label:'Memory Maker',      desc:'Mastered 10 questions via spaced repetition',    col:'#10C995',  unlocked:mastered>=10,       next:50},
+    {id:'mastered50',icon:'🌟', label:'Knowledge Bank',    desc:'Mastered 50 questions',                          col:'#22C55E',  unlocked:mastered>=50},
+    {id:'first-mock',icon:'🏆', label:'Exam Champion',     desc:'Completed your first mock exam',                 col:'#E9A92F',  unlocked:mockCount>=1},
+    {id:'pass-mock', icon:'🎖️', label:'Mock Passer',       desc:'Scored 70%+ on a mock exam',                    col:'#10C995',  unlocked:mockBest!==null&&mockBest>=70},
+    {id:'ace-mock',  icon:'👑', label:'AWS Ace',            desc:'Scored 90%+ on a mock exam',                    col:'#FFD700',  unlocked:mockBest!==null&&mockBest>=90},
+    {id:'streak3',   icon:'🔥', label:'Streak Builder',    desc:'3-day study streak',                             col:'#FF6B35',  unlocked:streak.count>=3,    next:7},
+    {id:'streak7',   icon:'🌊', label:'Week Warrior',      desc:'7-day study streak',                             col:'#EF4444',  unlocked:streak.count>=7,    next:14},
+    {id:'streak14',  icon:'⚔️', label:'Fortnight Fighter', desc:'14-day study streak',                            col:'#B91C1C',  unlocked:streak.count>=14},
+    {id:'lvl5',      icon:'🚀', label:'Level 5',            desc:'Reached Level 5',                                col:'#8B5CF6',  unlocked:level>=5,           next:10},
+    {id:'lvl10',     icon:'🌌', label:'Level 10',           desc:'Reached Level 10',                               col:'#6D28D9',  unlocked:level>=10},
+    {id:'accuracy80',icon:'🎯', label:'Sharp Shooter',     desc:'80%+ overall accuracy',                          col:'#059669',  unlocked:overall!==null&&overall>=80},
+    {id:'accuracy90',icon:'💎', label:'Diamond Accuracy',  desc:'90%+ overall accuracy',                          col:'#2563EB',  unlocked:overall!==null&&overall>=90},
+    {id:'all-domains',icon:'🗺️',label:'Domain Ranger',     desc:'Practiced all 4 domains',                       col:'#D97706',  unlocked:DOMAINS.every(d=>domainAccuracy(d)!==null)},
+    {id:'legend',    icon:'🏅', label:'AWS Legend',         desc:'90%+ readiness + 7-day streak',                 col:'#F59E0B',  unlocked:mockBest!==null&&mockBest>=90&&streak.count>=7},
+  ];
+  const unlocked=achDefs.filter(a=>a.unlocked).length;
+  const nextBadge=achDefs.find(a=>!a.unlocked);
+
+  return `
+  <div class="section-header" style="margin-bottom:1rem">
+    <h1 style="display:flex;align-items:center;gap:.6rem"><span style="font-size:1.6rem">🏆</span> Achievements</h1>
+    <span style="font-size:.8rem;color:var(--muted)">${unlocked} of ${achDefs.length} badges unlocked</span>
+  </div>
+
+  <!-- RANK HERO -->
+  <div class="glass-card gold-card animate-in" style="margin-bottom:1rem;position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold2),transparent)"></div>
+    <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;padding:.2rem 0">
+      <!-- Level ring -->
+      <div style="position:relative;width:100px;height:100px;flex-shrink:0">
+        ${ringHTML(Math.round((xp%200)/200*100),`#E9A92F`,100,8)}
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center">
+          <div style="font-size:1.8rem;line-height:1">👑</div>
+          <div style="font-size:1rem;font-weight:900;color:var(--gold)">Lv ${level}</div>
+        </div>
+      </div>
+      <!-- Stats -->
+      <div style="flex:1;min-width:180px">
+        <div style="font-size:1.1rem;font-weight:900;color:var(--gold);margin-bottom:.15rem">Cloud Dreamer</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem">${xp} XP total · ${200-(xp%200)} XP to Level ${level+1}</div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:999px;height:7px;overflow:hidden;margin-bottom:.6rem">
+          <div style="height:100%;width:${((xp%200)/200*100).toFixed(0)}%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:999px;box-shadow:0 0 12px rgba(233,169,47,0.5);transition:width .8s"></div>
+        </div>
+        <div style="display:flex;gap:1.2rem;flex-wrap:wrap">
+          <div style="text-align:center"><div style="font-size:1.1rem;font-weight:900;color:var(--gold)">🔥 ${streak.count}</div><div style="font-size:.58rem;color:var(--muted);text-transform:uppercase">Streak</div></div>
+          <div style="text-align:center"><div style="font-size:1.1rem;font-weight:900;color:var(--ok)">${mastered}</div><div style="font-size:.58rem;color:var(--muted);text-transform:uppercase">Mastered</div></div>
+          <div style="text-align:center"><div style="font-size:1.1rem;font-weight:900;color:var(--blue2)">${totalAttempted}</div><div style="font-size:.58rem;color:var(--muted);text-transform:uppercase">Attempted</div></div>
+          <div style="text-align:center"><div style="font-size:1.1rem;font-weight:900;color:${mockBest!==null&&mockBest>=70?'var(--ok)':'var(--muted)'}">${mockBest!==null?mockBest+'%':'—'}</div><div style="font-size:.58rem;color:var(--muted);text-transform:uppercase">Best Mock</div></div>
+        </div>
+      </div>
+      <!-- Badge count -->
+      <div style="text-align:center;padding:.8rem 1.2rem;background:rgba(233,169,47,0.08);border-radius:var(--radius-lg);border:1px solid rgba(233,169,47,0.2)">
+        <div style="font-size:2.2rem;font-weight:900;color:var(--gold)">${unlocked}</div>
+        <div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Badges<br>Unlocked</div>
+        <div style="font-size:.7rem;color:var(--gold2);margin-top:.3rem">${achDefs.length - unlocked} remaining</div>
+      </div>
+    </div>
+    ${nextBadge?`<div style="margin-top:.8rem;padding:.6rem .8rem;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:.6rem">
+      <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">🎯 Next badge:</span>
+      <span style="font-size:1.1rem">${nextBadge.icon}</span>
+      <span style="font-size:.8rem;font-weight:700;color:${nextBadge.col}">${nextBadge.label}</span>
+      <span style="font-size:.74rem;color:var(--muted)">— ${nextBadge.desc}</span>
+    </div>`:''}
+  </div>
+
+  <!-- PROGRESS LINK -->
+  <div style="margin-bottom:.8rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+    <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted2)">🏅 All Badges</div>
+    <button class="btn btn-secondary btn-sm" onclick="navigate('progress')" style="font-size:.68rem">📊 View Progress Stats →</button>
+  </div>
+
+  <!-- BADGES GRID -->
+  <div class="ach-grid">
+    ${achDefs.map(a=>`
+    <div class="ach-card ${a.unlocked?'ach-unlocked':'ach-locked'}" style="${a.unlocked?`--ach-col:${a.col}`:''}">
+      <div class="ach-card-glow"></div>
+      <div class="ach-card-icon" style="${a.unlocked?`filter:drop-shadow(0 0 12px ${a.col}90)`:'filter:grayscale(1) opacity(.3)'}">${a.icon}</div>
+      <div class="ach-card-label">${a.label}</div>
+      <div class="ach-card-desc">${a.desc}</div>
+      ${a.unlocked?`<div class="ach-card-badge" style="background:${a.col};box-shadow:0 0 10px ${a.col}80">✓</div>`:`<div class="ach-card-badge" style="background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.2)">🔒</div>`}
+    </div>`).join('')}
+  </div>`;
+}
+
 function renderPracticeMenu(){
   return `<div class="practice-header"><h1>🎯 Practice</h1></div>
   <div class="sub-tabs" id="practice-subtabs">
@@ -3555,7 +3915,7 @@ function renderUniverse(){
 // ═══════════════════════════════════════════════════════════════
 function renderExamKeywords(){
   const cats=[
-    {title:'🔍 Audit, Monitoring & Config',color:'var(--blue)',week:'W6/W7',patterns:[
+    {title:'🔍 Audit, Monitoring & Config',color:'var(--blue)',week:'W6/W7',domain:'Cloud Technology and Services',patterns:[
       ['audit trail · who did what · who deleted · API call','CloudTrail — CCTV for your account'],
       ['CPU utilization · metric · alarm · threshold · dashboard','CloudWatch — ICU monitor (performance)'],
       ['configuration change · compliance rule · resource state over time · drift','AWS Config — tracks what your resources looked like'],
@@ -3563,7 +3923,7 @@ function renderExamKeywords(){
       ['trace request · performance bottleneck · slow microservice','X-Ray — distributed tracing MRI'],
       ['log analysis · operational insights · anomaly detection','CloudWatch Logs Insights'],
     ]},
-    {title:'🛡️ Security & Identity',color:'var(--sec)',week:'W6',patterns:[
+    {title:'🛡️ Security & Identity',color:'var(--sec)',week:'W6',domain:'Security and Compliance',patterns:[
       ['vulnerability · CVE · patch · EC2 security scan','Inspector — building inspector for EC2/containers'],
       ['threat · malicious · unusual API · credential exfiltration','GuardDuty — AI detective in your logs'],
       ['sensitive data · PII · credit card · SSN in S3','Macie — PII metal detector for S3'],
@@ -3584,7 +3944,7 @@ function renderExamKeywords(){
       ['multiple accounts · central governance · consolidated bill','AWS Organizations + SCPs'],
       ['guardrail · prevent even admin · deny all in OU','SCP — speed limiter even admins can\'t bypass'],
     ]},
-    {title:'🌐 Networking',color:'var(--cc)',week:'W5',patterns:[
+    {title:'🌐 Networking',color:'var(--cc)',week:'W5',domain:'Cloud Technology and Services',patterns:[
       ['DNS · domain name resolution · routing policy','Route 53 — GPS + phonebook'],
       ['CDN · content delivery · edge cache · global low latency','CloudFront — teleporter for content'],
       ['distribute traffic · load balance · health check · ALB','Elastic Load Balancing (ALB=Layer7, NLB=Layer4)'],
@@ -3598,7 +3958,7 @@ function renderExamKeywords(){
       ['REST API · HTTP API · serverless backend · API management','API Gateway — managed API front door'],
       ['VPC endpoint · private access to S3 without internet','VPC Gateway/Interface Endpoint'],
     ]},
-    {title:'💾 Storage',color:'var(--tech)',week:'W3',patterns:[
+    {title:'💾 Storage',color:'var(--tech)',week:'W3',domain:'Cloud Technology and Services',patterns:[
       ['object storage · bucket · static website · 11 nines durable','S3 — infinite filing cabinet'],
       ['block storage · virtual hard drive · attached to EC2 · one AZ','EBS — USB drive for one EC2'],
       ['shared file system · NFS · mount multiple EC2 simultaneously','EFS — shared network drive for many EC2s'],
@@ -3613,7 +3973,7 @@ function renderExamKeywords(){
       ['Windows file share · SMB · Active Directory','FSx for Windows File Server'],
       ['high performance computing · HPC · ML workloads · Lustre','FSx for Lustre — HPC/ML file system'],
     ]},
-    {title:'🗄️ Databases',color:'var(--ok)',week:'W4',patterns:[
+    {title:'🗄️ Databases',color:'var(--ok)',week:'W4',domain:'Cloud Technology and Services',patterns:[
       ['NoSQL · key-value · document · single-digit millisecond · serverless','DynamoDB — Formula 1 database'],
       ['managed relational · MySQL · PostgreSQL · MariaDB · SQL','RDS — managed SQL restaurant kitchen'],
       ['5x MySQL performance · cloud-native · 6 copies across 3 AZs','Aurora — fastest managed relational DB'],
@@ -3628,7 +3988,7 @@ function renderExamKeywords(){
       ['MongoDB compatible · document database · managed','DocumentDB — managed MongoDB'],
       ['durable Redis · primary database use · persists restarts','MemoryDB for Redis — persistent Redis'],
     ]},
-    {title:'⚙️ Compute',color:'var(--gold)',week:'W2',patterns:[
+    {title:'⚙️ Compute',color:'var(--gold)',week:'W2',domain:'Cloud Technology and Services',patterns:[
       ['virtual server · manage OS · IaaS · you patch it','EC2 — your rented virtual computer'],
       ['serverless · event-driven · no server · max 15 minutes','Lambda — magic genie compute'],
       ['containers · Docker · no Kubernetes · ECS','Amazon ECS — Docker orchestra'],
@@ -3642,7 +4002,7 @@ function renderExamKeywords(){
       ['interruptible · batch · spot · up to 90% off · 2-min warning','Spot Instances — standby ticket'],
       ['flexible discount · commit $/hr · Lambda + EC2 + Fargate','Savings Plans — flexible subscription commitment'],
     ]},
-    {title:'🚀 Migration & Integration',color:'#FF9900',week:'W8',patterns:[
+    {title:'🚀 Migration & Integration',color:'#FF9900',week:'W8',domain:'Cloud Technology and Services',patterns:[
       ['message queue · decouple · one consumer · async · producer-consumer','SQS — post box between services'],
       ['pub-sub · fan out · all subscribers · notification · broadcast','SNS — school PA system'],
       ['event bus · SaaS events · serverless routing · replace CloudWatch Events','EventBridge — event traffic controller'],
@@ -3654,7 +4014,7 @@ function renderExamKeywords(){
       ['automated file sync · NFS/SMB · on-prem to S3/EFS · fast','DataSync — automated file courier'],
       ['SFTP · FTP · FTPS · transfer files into S3 · legacy workflows','Transfer Family — legacy file transfer to S3'],
     ]},
-    {title:'🤖 Developer Tools & ML',color:'var(--purple)',week:'W9',patterns:[
+    {title:'🤖 Developer Tools & ML',color:'var(--purple)',week:'W9',domain:'Cloud Technology and Services',patterns:[
       ['CI/CD pipeline · build test deploy · automate release','CodePipeline — automated deployment runway'],
       ['managed build service · compile · test · no build server','CodeBuild — managed compiler'],
       ['ML platform · build train deploy · Jupyter · models','SageMaker — ML laboratory'],
@@ -3668,7 +4028,7 @@ function renderExamKeywords(){
       ['foundation models · Claude · Llama · Titan · no training needed','Bedrock — foundation model API'],
       ['cloud contact centre · call centre · pay per minute · AI chatbot','Amazon Connect — cloud call centre'],
     ]},
-    {title:'💰 Billing & Support',color:'var(--bill)',week:'W1/W10',patterns:[
+    {title:'💰 Billing & Support',color:'var(--bill)',week:'W1/W10',domain:'Billing, Pricing and Support',patterns:[
       ['estimate cost BEFORE deploying · plan budget · what will it cost','Pricing Calculator — quote builder'],
       ['view PAST spending · analyse · filter by service · forecast','Cost Explorer — rearview billing mirror'],
       ['alert when spending threshold hit · prevent overspend','Budgets — spending speedometer alarm'],
@@ -3681,7 +4041,7 @@ function renderExamKeywords(){
       ['cost · performance · security · fault tolerance · service limits · 5 checks','Trusted Advisor — 5-pillar advisor'],
       ['Always Free · 12-Month Free · Trials · free tier types','3 types of Free Tier — know the difference'],
     ]},
-    {title:'🎯 Exam Traps — Read These Last Night',color:'var(--red)',week:'W10',patterns:[
+    {title:'🎯 Exam Traps — Read These Last Night',color:'var(--red)',week:'W10',domain:'All',patterns:[
       ['"who deleted" · "who made this API call" · audit log','= CloudTrail (NOT CloudWatch)'],
       ['"CPU is high" · "set an alarm" · "monitor performance"','= CloudWatch (NOT CloudTrail)'],
       ['"serverless containers" · "no EC2 to manage"','= Fargate (NOT ECS alone)'],
@@ -3701,17 +4061,42 @@ function renderExamKeywords(){
       ['"petabyte" · "data warehouse" · "analytics" · "OLAP"','= Redshift (NOT RDS or DynamoDB)'],
     ]},
   ];
-  return `<div class="section-header"><h1>🏋️ Terminology Gym</h1><span class="muted">See the keyword → know the answer before reading all options</span></div>
-  <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem">
-    ${cats.map((c,i)=>`<button onclick="document.querySelectorAll('.kw-section')[${i}].scrollIntoView({behavior:'smooth'})" style="padding:.25rem .6rem;border-radius:999px;font-size:.68rem;font-weight:700;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--muted)">${c.title.split(' ')[0]} ${c.title.split(' ')[1]}</button>`).join('')}
+  
+  return `<div class="section-header"><h1>🏋️ Terminology Gym</h1><span class="muted">See the keyword → know the answer · Click to practice that topic</span></div>
+  
+  <!-- INSTRUCTION CARD -->
+  <div style="padding:.75rem 1.1rem;border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(233,169,47,0.1),rgba(16,201,149,0.05));border:1px solid rgba(233,169,47,0.22);margin-bottom:1.1rem;border-left:3px solid var(--gold)">
+    <div style="font-size:.72rem;font-weight:800;color:var(--gold2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem">💡 How to use this page</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.5rem">
+      <div style="font-size:.78rem;color:var(--muted);line-height:1.6">
+        <strong style="color:var(--text)">1.</strong> Read the keywords on the left
+      </div>
+      <div style="font-size:.78rem;color:var(--muted);line-height:1.6">
+        <strong style="color:var(--text)">2.</strong> Think of the answer service
+      </div>
+      <div style="font-size:.78rem;color:var(--muted);line-height:1.6">
+        <strong style="color:var(--text)">3.</strong> Click the category title to <strong style="color:var(--gold)">practice questions</strong>
+      </div>
+    </div>
   </div>
-  ${cats.map(cat=>`<div class="glass-card animate-in kw-section" style="margin-bottom:.85rem;border-left:3px solid ${cat.color}">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem;flex-wrap:wrap;gap:.3rem">
-      <h3 style="color:${cat.color};margin:0">${cat.title}</h3>
+
+  <!-- QUICK JUMP -->
+  <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem">
+    ${cats.map((c,i)=>`<button onclick="document.querySelectorAll('.kw-section')[${i}].scrollIntoView({behavior:'smooth'})" style="padding:.25rem .6rem;border-radius:999px;font-size:.68rem;font-weight:700;cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--muted);transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.borderColor='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.1)'">${c.title.split(' ')[0]} ${c.title.split(' ')[1]}</button>`).join('')}
+  </div>
+
+  <!-- KEYWORD CATEGORIES -->
+  ${cats.map(cat=>`<div class="glass-card animate-in kw-section" style="margin-bottom:.85rem;border-left:3px solid ${cat.color};position:relative;overflow:hidden;cursor:pointer;transition:all .22s" onclick="${cat.domain!=='All'?`startPractice('domain','${cat.domain}',15)`:`navigate('practice')`}" onmouseover="this.style.borderLeftWidth='5px';this.style.boxShadow='0 0 24px ${cat.color}20'" onmouseout="this.style.borderLeftWidth='3px';this.style.boxShadow=''">
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,${cat.color},transparent);opacity:.6"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem;flex-wrap:wrap;gap:.4rem">
+      <h3 style="color:${cat.color};margin:0;font-size:.95rem;display:flex;align-items:center;gap:.5rem">
+        ${cat.title}
+        ${cat.domain!=='All'?`<span style="font-size:.6rem;font-weight:700;padding:.15rem .5rem;border-radius:999px;background:${cat.color}18;border:1px solid ${cat.color}35;color:${cat.color};cursor:pointer" onclick="event.stopPropagation();startPractice('domain','${cat.domain}',15)" title="Practice 15 questions on ${cat.domain}">⚡ Practice →</span>`:''}
+      </h3>
       <span style="font-size:.62rem;color:var(--muted);background:rgba(255,255,255,0.05);padding:.15rem .5rem;border-radius:999px">${cat.week}</span>
     </div>
     ${cat.patterns.map(([pattern,answer])=>`<div class="kw-row">
-      <code class="kw-code">${pattern}</code>
+      <code class="kw-code" style="cursor:text">${pattern}</code>
       <span style="color:var(--muted);font-size:.8rem;flex-shrink:0">→</span>
       <strong class="kw-answer">${answer}</strong>
     </div>`).join('')}
@@ -3909,6 +4294,7 @@ function renderFlashcardItem(q,idx,total){
   if(!q) return '';
   const correctOpts=q.options.filter(o=>q.correct.some(c=>o.startsWith(c+'.')));
   const rationale=getRationale(q);
+  const story=getFlashcardStory(q);
   return `<div class="flashcard-3d" id="flashcard" onclick="flipCard3d()">
     <div class="flashcard-3d-inner">
       <div class="fc3-face fc3-front">
@@ -3923,12 +4309,93 @@ function renderFlashcardItem(q,idx,total){
         <div class="fc3-answer-label">✅ Correct Answer</div>
         <div class="fc3-answer">${correctOpts.join(' · ')}</div>
         ${rationale?`<div class="fc3-rationale">${rationale}</div>`:''}
+        ${story?`<div class="fc3-story"><div class="fc3-story-label">🎬 Remember it</div>${story}</div>`:''}
       </div>
     </div>
   </div>`;
 }
 
-function flipCard3d(){const el=document.getElementById('flashcard');if(el) el.classList.toggle('flipped');}
+function flipCard3d(){
+  const el=document.getElementById('flashcard');
+  if(!el) return;
+  el.classList.toggle('flipped');
+  // Flash pulse on the visible face
+  const inner=el.querySelector('.flashcard-3d-inner');
+  if(inner){
+    inner.style.filter='brightness(1.25)';
+    setTimeout(()=>{inner.style.filter='';},140);
+  }
+}
+
+/* ─── Storyline memory hooks keyed by tag/keyword in the question ─── */
+function getFlashcardStory(q){
+  const text=(q.stem+' '+(q.tags||[]).join(' ')+' '+q.domain).toLowerCase();
+  const stories=[
+    // Security
+    {keys:['cloudtrail'],s:'🕵️ The CEO asks "WHO deleted our S3 bucket last night?" — CloudTrail is the security camera. It records every API call with a timestamp and name. If the exam says "audit", "who did", "API history" → CloudTrail.'},
+    {keys:['cloudwatch'],s:'📊 Your app is running but feels slow. CloudWatch is the fitness tracker strapped to it — it watches CPU, memory, error rates in real time and screams via Alarms when something looks wrong. "Metric / alarm / dashboard" → CloudWatch.'},
+    {keys:['guardduty'],s:'🛡️ Imagine a silent threat detector scanning your logs 24/7 for hackers. GuardDuty uses machine learning to spot unusual login patterns, crypto mining, and account abuse — without you lifting a finger. "Threat detection / unusual activity" → GuardDuty.'},
+    {keys:['aws config'],s:'📸 Config is a time-machine for your infrastructure settings. It snapshots every resource\'s config and lets you rewind: "What did my security group look like last Tuesday?" Exam says "compliance / config history" → Config (not CloudTrail!).'},
+    {keys:['shield'],s:'🧱 Your website is under a DDoS flood — thousands of bots hammering it. AWS Shield absorbs the flood. Standard is free and automatic. Advanced adds 24/7 experts + SLA. "DDoS protection" → Shield.'},
+    {keys:['waf'],s:'🔎 Think of WAF as a bouncer at the door checking IDs. It inspects HTTP requests and blocks SQL injection, XSS, bad bots. It works at the application layer (Layer 7). "Block specific web requests / SQL injection" → WAF.'},
+    {keys:['iam','identity and access'],s:'🔑 IAM is the keymaster. Users get keys (credentials), Roles get temporary passes, Policies are the rulebook. The golden rule: least privilege — give only the access the job needs. "Who can do what" → IAM.'},
+    {keys:['kms','key management'],s:'🔐 KMS is a vault of encryption keys. You never see the master key — AWS manages it inside hardware security modules. Every time you encrypt an S3 object or EBS volume, KMS is the locksmith. "Encryption keys / CMK" → KMS.'},
+    {keys:['security group'],s:'🏠 Security Groups are bouncers at the apartment door (instance level). Stateful: if you let someone IN, their response automatically gets OUT — no extra rule needed. Allow rules only, no deny.'},
+    {keys:['network acl','nacl'],s:'🏢 NACLs are security at the building entrance (subnet level). Stateless: you must explicitly allow BOTH the inbound request AND the outbound response. Can allow AND deny. Exam: "subnet firewall / stateless" → NACL.'},
+    // Storage
+    {keys:['s3','simple storage'],s:'🪣 S3 is a giant magic locker — store any file, any size, access it via URL anywhere on Earth. 11 nines of durability = if you stored 10M objects, you\'d lose one every 10,000 years. "Object storage / static website / backup" → S3.'},
+    {keys:['ebs','elastic block'],s:'💽 EBS is a hard drive that lives in AWS but plugs into your EC2 — one drive, one instance, same Availability Zone. If your EC2 crashes, your data stays on the EBS. "Block storage / attached to EC2" → EBS.'},
+    {keys:['efs','elastic file'],s:'📂 EFS is a shared network drive. 10 EC2 instances can all mount it at once and read/write the same files. It auto-scales as you add data. "Shared / NFS / multiple instances" → EFS.'},
+    {keys:['glacier','s3 glacier'],s:'🧊 Glacier is a cold storage vault — cheap as chips but slow to retrieve. For compliance archives where you save files "just in case" and rarely touch them. "Archive / long-term / cheap storage" → Glacier.'},
+    // Compute
+    {keys:['ec2','elastic compute'],s:'🖥️ EC2 is renting a computer in the cloud. You pick the CPU, RAM, OS — it\'s your machine. You manage the OS, patches, apps. "Virtual machine / server in cloud / full control" → EC2.'},
+    {keys:['lambda'],s:'⚡ Lambda: code without servers. Upload a function, it sleeps until triggered (by S3 upload, API call, timer), runs in milliseconds, then disappears. You pay only for the milliseconds it runs. "Serverless / event-driven / no server management" → Lambda.'},
+    {keys:['elastic beanstalk'],s:'🌱 Elastic Beanstalk is the lazy developer\'s rocket ship. Upload your code (Node, Python, Java, etc.), and AWS automatically provisions EC2, load balancer, auto-scaling, monitoring. You still own the resources. "Deploy app without managing infra" → Beanstalk.'},
+    {keys:['fargate'],s:'📦 Fargate = serverless containers. You write Docker images, Fargate runs them — no EC2 to manage, no cluster maintenance. It scales automatically. "Run containers without managing servers" → Fargate.'},
+    {keys:['auto scaling'],s:'📈 Imagine a restaurant that magically hires more waiters on Friday night and sends them home on Tuesday morning. Auto Scaling adds EC2 instances when load spikes and removes them when quiet. You pay only for what you use.'},
+    // Networking
+    {keys:['vpc','virtual private cloud'],s:'🏙️ VPC is your private city inside AWS. You control the streets (subnets), traffic lights (NACLs), and door locks (Security Groups). Public subnets face the internet; private subnets are hidden.'},
+    {keys:['cloudfront'],s:'🚀 CloudFront is a global delivery network — it caches your content on 400+ edge locations worldwide. Users in Tokyo get your content from Tokyo, not Virginia. "CDN / low latency / cache" → CloudFront.'},
+    {keys:['route 53'],s:'📡 Route 53 is AWS\'s GPS for the internet. It translates "example.com" into an IP address (DNS). It can also route traffic based on health, latency, or geolocation. "DNS / domain / routing" → Route 53.'},
+    {keys:['direct connect'],s:'🔌 Direct Connect is a dedicated physical fiber cable from your office to AWS — not the public internet. Consistent bandwidth, lower latency, more security. "Dedicated / private connection / hybrid" → Direct Connect.'},
+    {keys:['transit gateway'],s:'🌐 Transit Gateway is a mega hub airport. Instead of connecting 50 VPCs to each other with 1,225 wires, you connect everything to one central hub. "Connect multiple VPCs / hub and spoke" → Transit Gateway.'},
+    // Databases
+    {keys:['rds','relational database'],s:'🗃️ RDS is a managed SQL database (MySQL, PostgreSQL, Oracle, etc.) — AWS handles backups, patches, and failover. You just run queries. "SQL / relational / managed database" → RDS.'},
+    {keys:['dynamodb'],s:'⚡ DynamoDB is AWS\'s turbocharged NoSQL table. Millisecond response no matter how much data. No schema to design. "NoSQL / key-value / single-digit millisecond / serverless scale" → DynamoDB.'},
+    {keys:['aurora'],s:'🌟 Aurora is AWS\'s premium MySQL/PostgreSQL — up to 5× faster than standard MySQL, 6 copies of your data across 3 AZs, auto-healing. "High performance / MySQL compatible / fully managed" → Aurora.'},
+    {keys:['elasticache'],s:'🏎️ ElastiCache puts Redis or Memcached in front of your database — a blazing in-memory cache. Instead of hitting the DB for every read, the cache answers in microseconds. "Caching / in-memory / Redis / reduce DB load" → ElastiCache.'},
+    // Messaging
+    {keys:['sqs','simple queue'],s:'📬 SQS is a postal mailbox between services. Service A drops a message in, Service B picks it up when ready — they never talk directly. If B crashes, messages wait safely. "Decouple / queue / async" → SQS.'},
+    {keys:['sns','simple notification'],s:'📢 SNS is a megaphone. One message goes IN, it fans out to everyone subscribed (email, SMS, Lambda, SQS). "Pub/sub / fan out / broadcast / notification" → SNS.'},
+    // Pricing
+    {keys:['reserved instance'],s:'🏷️ Reserved Instances = buying a gym membership upfront. Pay for 1 or 3 years, save up to 72%. Best for steady, predictable workloads (like your production database that runs 24/7).'},
+    {keys:['savings plan'],s:'💰 Savings Plans = committing to spend $X per hour on compute. More flexible than Reserved Instances — it applies across EC2, Lambda, and Fargate regardless of instance type. Same savings, more freedom.'},
+    {keys:['spot instance'],s:'⚡ Spot Instances are AWS\'s leftover capacity, sold at up to 90% discount — but AWS can reclaim them with 2 minutes notice. Perfect for jobs that can be interrupted: batch processing, rendering, ML training.'},
+    {keys:['on-demand'],s:'☕ On-Demand is pay-as-you-go — like a coffee shop. No commitment, highest price. Best for unpredictable or short-term workloads where you need to start/stop any time.'},
+    // Support
+    {keys:['trusted advisor'],s:'🧙 Trusted Advisor is a wise robot that scans your AWS account and says "Hey, you have an S3 bucket with no encryption" or "You\'re 95% over your service limit." Free checks for cost, security, and fault tolerance.'},
+    {keys:['well-architected'],s:'🏛️ The Well-Architected Framework is AWS\'s blueprint for great cloud buildings. Six pillars: Operational Excellence, Security, Reliability, Performance, Cost, Sustainability. The exam loves asking which pillar a scenario belongs to.'},
+    // Migration
+    {keys:['snowball'],s:'📦 Snowball is a literal physical hard drive AWS ships to you. You fill it with terabytes of data, ship it back, AWS uploads it. When internet upload would take months → Snowball.'},
+    {keys:['database migration','dms'],s:'🔄 DMS (Database Migration Service) moves your database to AWS with minimal downtime. It continuously syncs changes so your old DB and new DB stay in sync until cutover day.'},
+    // General cloud
+    {keys:['high availability'],s:'🏗️ High Availability means your app keeps working even if one data center has a fire. Spread across multiple AZs (Availability Zones) so if one goes dark, another takes over seamlessly.'},
+    {keys:['fault toleran'],s:'🔁 Fault Tolerance means zero impact when something fails — not just surviving, but not even noticing. Requires redundant components that take over instantly. More expensive than HA but no downtime at all.'},
+    {keys:['elasticity'],s:'🎈 Elasticity is AWS\'s superpower: scale UP automatically when demand spikes (Black Friday), scale DOWN when quiet (Tuesday 3am). You pay only for what you need, right when you need it.'},
+    {keys:['shared responsibility'],s:'🤝 Think of AWS as a landlord. AWS owns the building (physical hardware, hypervisor, global network). YOU own what\'s inside your apartment (OS, apps, data, IAM config). "Who is responsible for X?" — if it\'s the building → AWS; if it\'s the apartment → You.'},
+  ];
+  for(const entry of stories){
+    if(entry.keys.some(k=>text.includes(k))) return entry.s;
+  }
+  // Generic domain-level fallback
+  const domainStories={
+    'Security':`🔐 Security mantra: Least Privilege + Defense in Depth. Give users only what they need, layer controls at every level (IAM → SG → NACL → encryption), and always assume breach.`,
+    'Cloud Technology and Services':`☁️ AWS services follow a pattern: "managed" means AWS handles the undifferentiated heavy lifting (patches, backups, scaling) so you focus on your application logic.`,
+    'Cloud Concepts':`🌍 Core cloud value props: Trade capital expense for operational expense, benefit from massive economies of scale, stop guessing capacity, increase speed & agility, go global in minutes.`,
+    'Billing, Pricing and Support':`💳 AWS billing trick: spot when a question is about estimating future cost (Pricing Calculator) vs analyzing current spend (Cost Explorer) vs setting alerts (Budgets).`,
+  };
+  return domainStories[q.domain]||'';
+}
 
 function fcNav(dir){
   const c=document.getElementById('flashcard-container');
@@ -3938,12 +4405,31 @@ function fcNav(dir){
   if(idx<0||idx>=pool.length) return;
   c.dataset.idx=idx;
   const q=getQ(pool[idx]);
+  // Cinematic slide transition
   const fc=document.getElementById('flashcard');
-  if(fc) fc.outerHTML=renderFlashcardItem(q,idx,pool.length);
+  if(fc){
+    fc.style.transition='opacity .18s ease,transform .18s cubic-bezier(.4,0,.2,1)';
+    fc.style.opacity='0';
+    fc.style.transform=`translateX(${dir>0?'30px':'-30px'})`;
+    setTimeout(()=>{
+      fc.outerHTML=renderFlashcardItem(q,idx,pool.length);
+      const newFc=document.getElementById('flashcard');
+      if(newFc){
+        newFc.style.opacity='0';newFc.style.transform=`translateX(${dir>0?'-20px':'20px'})`;
+        requestAnimationFrame(()=>{
+          newFc.style.transition='opacity .28s ease,transform .28s cubic-bezier(.4,0,.2,1)';
+          newFc.style.opacity='1';newFc.style.transform='translateX(0)';
+        });
+      }
+    },180);
+  } else {
+    const fcEl=document.getElementById('flashcard');
+    if(fcEl) fcEl.outerHTML=renderFlashcardItem(q,idx,pool.length);
+  }
   document.getElementById('fc-counter').textContent=`${idx+1} / ${pool.length}`;
   document.getElementById('fc-prev').disabled=idx===0;
   document.getElementById('fc-next').disabled=idx===pool.length-1;
-  document.querySelectorAll('.fc3-dot').forEach((d,i)=>{d.classList.toggle('active',i===idx);if(i<idx) d.classList.add('seen');});
+  document.querySelectorAll('.fc3-dot').forEach((d,i)=>{d.classList.toggle('active',i===idx);if(i<idx) d.classList.add('seen');else if(i>idx) d.classList.remove('seen');});
 }
 
 function fcJump(idx){
@@ -4331,44 +4817,101 @@ function renderProgress(){
   const mastered=Object.values(progress).filter(p=>p.interval===INTERVALS.length-1&&p.correct>0).length;
   const top=getTopConfusions(5),mocks=history.filter(h=>h.mode==='mock');
   const level=Math.floor(xp/200)+1;
-  return `<div class="section-header"><h1>📊 Progress & Achievements</h1></div>
-  <div class="glass-card gold-card animate-in" style="margin-bottom:1rem">
-    <div style="display:flex;align-items:center;gap:1.1rem;flex-wrap:wrap">
-      <img src="assets/04-aws-certified-badge.png" alt="Badge" style="width:65px;height:65px;object-fit:contain;border-radius:50%;border:2px solid rgba(255,153,0,0.4);box-shadow:0 0 20px rgba(255,153,0,0.3)">
-      <div style="flex:1">
-        <div style="font-size:1rem;font-weight:800">Level ${level} · Cloud Dreamer</div>
-        <div class="muted" style="font-size:.82rem">${xp} XP total · ${200-(xp%200)} XP to Level ${level+1}</div>
-        <div class="progress-wrap" style="margin-top:.5rem;height:7px"><div class="progress-fill ok" style="width:${((xp%200)/200*100).toFixed(0)}%;height:7px"></div></div>
+  const dueCount=dueItems().length;
+  const totalQs=window.QUESTIONS?window.QUESTIONS.length:0;
+  const coveragePct=totalQs>0?Math.round(totalAttempted/totalQs*100):0;
+
+  return `
+  <div class="section-header" style="margin-bottom:1rem">
+    <h1 style="display:flex;align-items:center;gap:.6rem"><span style="font-size:1.6rem">📊</span> Your Progress</h1>
+    <span style="font-size:.8rem;color:var(--muted)">Question history · Domain mastery · Mock scores</span>
+  </div>
+
+  <!-- HERO PROGRESS CARD -->
+  <div class="glass-card blue-card animate-in" style="margin-bottom:1rem;padding:1.4rem 1.5rem;position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),var(--blue2),transparent)"></div>
+    <div style="display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap">
+      <!-- Readiness ring -->
+      <div style="position:relative;width:88px;height:88px;flex-shrink:0">
+        ${ringHTML(overall||0, overall>=80?'#22C55E':overall>=60?'#FF9900':'#EF4444', 88, 8)}
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center">
+          <div style="font-size:1.2rem;font-weight:900;color:${overall>=80?'var(--ok)':overall>=60?'var(--gold)':'var(--red)'}">${overall===null?'—':overall+'%'}</div>
+          <div style="font-size:.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">accuracy</div>
+        </div>
       </div>
-      <div style="text-align:center"><div style="font-size:2.5rem;font-weight:900;color:var(--gold)">🔥 ${streak.count}</div><div class="muted" style="font-size:.7rem;text-transform:uppercase;letter-spacing:.05em">Day streak</div></div>
+      <!-- Stats -->
+      <div style="flex:1;min-width:200px">
+        <div style="font-size:1.1rem;font-weight:900;color:var(--text);margin-bottom:.2rem">Level ${level} · Cloud Dreamer</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-bottom:.6rem">${xp} XP total · ${200-(xp%200)} XP to Level ${level+1}</div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:999px;height:6px;overflow:hidden;margin-bottom:.5rem">
+          <div style="height:100%;width:${((xp%200)/200*100).toFixed(0)}%;background:linear-gradient(90deg,var(--blue),var(--blue2));border-radius:999px;box-shadow:0 0 10px var(--blue)60;transition:width .8s"></div>
+        </div>
+        <div style="display:flex;gap:1.5rem;flex-wrap:wrap">
+          <div><span style="font-size:1.2rem;font-weight:900;color:var(--gold)">🔥 ${streak.count}</span><div style="font-size:.6rem;color:var(--muted);text-transform:uppercase">Streak</div></div>
+          <div><span style="font-size:1.2rem;font-weight:900;color:var(--blue2)">${totalAttempted}</span><div style="font-size:.6rem;color:var(--muted);text-transform:uppercase">Attempted</div></div>
+          <div><span style="font-size:1.2rem;font-weight:900;color:var(--ok)">${mastered}</span><div style="font-size:.6rem;color:var(--muted);text-transform:uppercase">Mastered</div></div>
+          <div><span style="font-size:1.2rem;font-weight:900;color:${dueCount>0?'var(--red)':'var(--ok)'}">${dueCount}</span><div style="font-size:.6rem;color:var(--muted);text-transform:uppercase">Due Today</div></div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="grid-4" style="margin-bottom:1rem">
-    <div class="stat"><div class="stat-num" style="color:${overall===null?'var(--muted)':overall>=80?'var(--ok)':overall>=60?'var(--gold)':'var(--red)'}">${overall===null?'—':overall+'%'}</div><div class="stat-label">Overall</div></div>
-    <div class="stat"><div class="stat-num" style="color:var(--info)">${totalAttempted}</div><div class="stat-label">Attempted</div></div>
-    <div class="stat"><div class="stat-num" style="color:var(--ok)">${mastered}</div><div class="stat-label">Mastered</div></div>
-    <div class="stat"><div class="stat-num" style="color:${dueItems().length>0?'var(--red)':'var(--ok)'}">${dueItems().length}</div><div class="stat-label">Due</div></div>
+
+  <!-- QUESTION COVERAGE -->
+  <div class="glass-card animate-in" style="margin-bottom:1rem;padding:1rem 1.2rem">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;flex-wrap:wrap;gap:.4rem">
+      <div style="font-size:.82rem;font-weight:800;color:var(--text)">📚 Question Bank Coverage</div>
+      <span style="font-size:.72rem;color:var(--blue2);font-weight:800">${totalAttempted} / ${totalQs} questions · ${coveragePct}%</span>
+    </div>
+    <div style="background:rgba(255,255,255,0.05);border-radius:999px;height:8px;overflow:hidden;margin-bottom:.5rem">
+      <div style="height:100%;width:${coveragePct}%;background:linear-gradient(90deg,var(--blue),var(--blue2));border-radius:999px;box-shadow:0 0 12px rgba(8,123,255,0.5);transition:width 1s cubic-bezier(.4,0,.2,1)"></div>
+    </div>
+    ${dueCount>0?`<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+      <span style="font-size:.74rem;color:var(--red2)">📌 ${dueCount} items due for spaced repetition review</span>
+      <button class="btn btn-primary btn-sm" onclick="startPractice('due')" style="background:linear-gradient(135deg,rgba(239,68,68,0.9),rgba(200,30,30,0.9))">Review Now →</button>
+    </div>`:`<span style="font-size:.74rem;color:var(--ok)">✅ No items due right now — you're ahead of schedule!</span>`}
   </div>
+
+  <!-- DOMAIN ACCURACY -->
   <div class="glass-card animate-in" style="margin-bottom:1rem">
-    <h2>Domain Accuracy</h2>
+    <div style="font-size:.82rem;font-weight:800;color:var(--text);margin-bottom:1rem">🎯 Domain Accuracy Breakdown</div>
     ${DOMAINS.map(d=>{
       const acc=domainAccuracy(d),pct=acc||0,color=DOMAIN_COLOR[d];
       const qs=window.QUESTIONS.filter(q=>q.domain===d),att=qs.filter(q=>progress[q.id]&&progress[q.id].attempts>0).length;
-      return `<div style="margin-bottom:1rem">
-        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.35rem">
-          <div style="position:relative;width:52px;height:52px;flex-shrink:0">${ringHTML(pct,color,52,6)}<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.82rem;font-weight:900;color:${color}">${pct}%</div></div>
-          <div style="flex:1">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem">
-              <span style="display:flex;align-items:center;gap:.4rem">${DOMAIN_EMOJI[d]}<span class="badge ${DOMAIN_BADGE[d]}">${DOMAIN_SHORT[d]}</span><span style="font-size:.83rem">${d}</span></span>
-              <span style="font-weight:800;color:${acc===null?'var(--muted)':color};font-size:.85rem">${att}/${qs.length}</span>
-            </div>
-            <div class="progress-wrap" style="height:7px"><div class="progress-fill" style="width:${pct}%;height:7px;background:linear-gradient(90deg,${color},${color}99)"></div></div>
+      const attPct=qs.length?Math.round(att/qs.length*100):0;
+      return `<div style="margin-bottom:1.1rem">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.4rem">
+          <div style="position:relative;width:56px;height:56px;flex-shrink:0">
+            ${ringHTML(pct,color,56,6)}
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.78rem;font-weight:900;color:${color}">${pct}%</div>
           </div>
+          <div style="flex:1">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem;flex-wrap:wrap;gap:.3rem">
+              <span style="display:flex;align-items:center;gap:.4rem;font-size:.85rem;font-weight:700">${DOMAIN_EMOJI[d]} ${d}</span>
+              <span style="font-size:.72rem;color:var(--muted)">${att}/${qs.length} attempted (${attPct}%)</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.06);border-radius:999px;height:7px;overflow:hidden">
+              <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,${color},${color}aa);border-radius:999px;box-shadow:0 0 10px ${color}60;transition:width .8s cubic-bezier(.4,0,.2,1)"></div>
+            </div>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="startPractice('domain','${d}',10)" style="font-size:.62rem;padding:.25rem .6rem;border-color:${color}40;color:${color}">Practice →</button>
         </div>
       </div>`;
     }).join('')}
   </div>
-  ${mocks.length>0?`<div class="glass-card animate-in" style="margin-bottom:1rem"><h2>Mock Exam History</h2>${renderMockChart(mocks)}</div>`:''}`;
+
+  <!-- MOCK HISTORY -->
+  ${mocks.length>0?`
+  <div class="glass-card animate-in" style="margin-bottom:1rem">
+    <div style="font-size:.82rem;font-weight:800;color:var(--text);margin-bottom:.8rem">📈 Mock Exam History</div>
+    ${renderMockChart(mocks)}
+  </div>`:''}
+
+  <!-- QUICK ACTIONS -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem;margin-bottom:1rem">
+    <button class="btn btn-primary" onclick="navigate('achievements')" style="padding:.75rem;font-size:.8rem;display:flex;align-items:center;justify-content:center;gap:.4rem">🏆 View Achievements →</button>
+    <button class="btn btn-secondary" onclick="startPractice('weakness')" style="padding:.75rem;font-size:.8rem">🔁 Weakness Drill</button>
+    <button class="btn btn-secondary" onclick="navigate('recommendation')" style="padding:.75rem;font-size:.8rem">🎓 Study Plan</button>
+  </div>`;
 }
 function renderMockChart(mocks){
   const recent=mocks.slice(-10),max=100,chartH=80;
@@ -4734,7 +5277,16 @@ function renderRecommendation(){
         </div>
 
         <div class="rec-keywords">
-          ${d.keywords.map(k=>`<span class="rec-kw">${k}</span>`).join('')}
+          ${d.keywords.map(k=>{
+            // Map keyword to domain for navigation
+            const kwDomain=
+              ['CapEx','OpEx','IaaS','PaaS','SaaS','Well-Architected','Reliability','Operational Excellence','Cost Optimization','Sustainability','Hybrid','Direct Connect','Public cloud','Private cloud'].some(w=>k.toLowerCase().includes(w.toLowerCase()))?'Cloud Concepts':
+              ['IAM','least privilege','IAM Role','IAM Policy','Shield','WAF','GuardDuty','Macie','Inspector','KMS','CloudHSM','MFA','SCP','Shared Responsibility','CloudTrail','Config','Trusted Advisor','Artifact','Organizations','Control Tower','Security pillar'].some(w=>k.toLowerCase().includes(w.toLowerCase()))?'Security and Compliance':
+              ['EC2','Lambda','Fargate','ECS','EKS','S3','EBS','EFS','RDS','Aurora','DynamoDB','Redshift','ElastiCache','Beanstalk','VPC','Security Group','NACL','Route 53','CloudFront','ELB','Snowball','Snowmobile','DMS','CloudWatch','X-Ray'].some(w=>k.toLowerCase().includes(w.toLowerCase()))?'Cloud Technology and Services':
+              ['On-Demand','Reserved','Spot','Savings Plans','Dedicated','Cost Explorer','Budgets','Pricing Calculator','Consolidated Billing','Business Support','Enterprise Support','Free Tier'].some(w=>k.toLowerCase().includes(w.toLowerCase()))?'Billing, Pricing and Support':null;
+            const kwOnclick=kwDomain?`onclick="startPractice('domain','${kwDomain}',10)" title="Practice ${kwDomain} questions on ${k}"`:`onclick="navigate('practice')" title="Open practice"`;
+            return `<span class="rec-kw rec-kw-clickable" ${kwOnclick}>${k}</span>`;
+          }).join('')}
         </div>
 
         <div class="rec-day-goal">🎯 By end of this session: ${d.goal}</div>
@@ -4811,35 +5363,56 @@ function renderStudyRoadmap(){
     ${plan.days.map(d=>{
       const isToday=d.date===today;
       const isPast=today>d.date;
+      // Domain mapping per day
+      const dayDomainMap=['Cloud Concepts','Security and Compliance','Security and Compliance','Security and Compliance','Cloud Technology and Services','Cloud Technology and Services','Billing, Pricing and Support','Cloud Technology and Services'];
+      const dayDomain=dayDomainMap[Math.min(d.day-1,dayDomainMap.length-1)];
+      const dayDomainColor={'Cloud Concepts':'#3BA8FF','Security and Compliance':'#FFB020','Cloud Technology and Services':'#10C995','Billing, Pricing and Support':'#E9A92F'}[dayDomain]||d.color;
+      const isMockDay=d.day===8;
       return `
       <div style="border:1px solid ${isToday?d.color+'60':'rgba(255,255,255,0.07)'};border-radius:14px;padding:.85rem 1rem;margin-bottom:.6rem;background:${isToday?`rgba(255,153,0,0.06)`:'rgba(255,255,255,0.02)'};${isToday?`box-shadow:0 0 16px ${d.color}20`:''}">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:${isToday?'.75rem':'.3rem'};flex-wrap:wrap;gap:.4rem">
-          <div style="display:flex;align-items:center;gap:.5rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;flex-wrap:wrap;gap:.4rem">
+          <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
             <span style="font-size:1.1rem">${d.emoji}</span>
             <span style="font-weight:800;font-size:.88rem;color:${isToday?d.color:'var(--text)'}">${d.label}</span>
             <span style="padding:.12rem .5rem;border-radius:999px;font-size:.62rem;font-weight:800;background:${d.color}20;color:${d.color};border:1px solid ${d.color}40">${d.theme}</span>
             ${isToday?`<span style="padding:.12rem .5rem;border-radius:999px;font-size:.62rem;font-weight:800;background:rgba(255,153,0,0.2);color:var(--gold);border:1px solid rgba(255,153,0,0.4)">● TODAY</span>`:''}
-            ${isPast&&!isToday?`<span style="font-size:.7rem;color:var(--muted)">✓ Past</span>`:''}
+            ${isPast&&!isToday?`<span style="font-size:.7rem;color:var(--ok)">✓ Done</span>`:''}
           </div>
           <div style="font-size:.72rem;color:var(--muted)">${d.focus}</div>
         </div>
+
         ${isToday?`
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:.6rem">
+        <!-- TODAY: Full 3-block layout -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.6rem;margin-bottom:.75rem">
           ${[d.morning,d.afternoon,d.evening].map((s,i)=>`
-          <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:.6rem;border:1px solid rgba(255,255,255,0.07)">
-            <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.07em;color:${['#FFB020','#3BA8FF','#8B5CF6'][i]};font-weight:800;margin-bottom:.3rem">${['🌅','☀️','🌙'][i]} ${s.duration}</div>
-            <div style="font-size:.75rem;font-weight:700;margin-bottom:.3rem">${s.title}</div>
-            ${s.tasks.map(t=>`<div style="font-size:.68rem;color:var(--muted);padding:.1rem 0;border-bottom:1px solid rgba(255,255,255,0.04)">• ${t}</div>`).join('')}
+          <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:.65rem;border:1px solid rgba(255,255,255,0.07)">
+            <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.07em;color:${['#FFB020','#3BA8FF','#8B5CF6'][i]};font-weight:800;margin-bottom:.3rem">${['🌅 Morning','☀️ Afternoon','🌙 Evening'][i]} · ${s.duration}</div>
+            <div style="font-size:.78rem;font-weight:700;margin-bottom:.35rem;color:var(--text)">${s.title}</div>
+            ${s.tasks.map(t=>`<div style="font-size:.66rem;color:var(--muted);padding:.1rem 0;border-bottom:1px solid rgba(255,255,255,0.04);line-height:1.5">• ${t}</div>`).join('')}
           </div>`).join('')}
         </div>
-        <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
-          <span style="font-size:.75rem;font-weight:800;color:var(--gold)">🎯 ${d.target}</span>
-          <button class="btn btn-primary btn-sm" onclick="navigate('weekly-flashcards');window._startDeck=${d.weekFlashcards-1}">Start Week ${d.weekFlashcards} Flashcards →</button>
-          <button class="btn btn-secondary btn-sm" onclick="startPractice('domain','${['Cloud Concepts','Security and Compliance','Cloud Technology and Services','Cloud Technology and Services','Cloud Technology and Services','Cloud Technology and Services','Billing, Pricing and Support','Cloud Technology and Services','Cloud Technology and Services','Security and Compliance'][d.day-1]}',20)">Practice Questions →</button>
+        <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;padding:.6rem .7rem;background:rgba(255,255,255,0.03);border-radius:10px;border:1px solid rgba(255,255,255,0.06)">
+          <span style="font-size:.74rem;font-weight:800;color:var(--gold);flex:1">🎯 ${d.target}</span>
+          <button class="btn btn-primary btn-sm" onclick="navigate('weekly-flashcards');window._startDeck=${d.weekFlashcards-1}">🃏 Week ${d.weekFlashcards} Flashcards</button>
+          ${isMockDay
+            ?`<button class="btn btn-primary btn-sm" onclick="navigate('mock')" style="background:linear-gradient(135deg,rgba(176,138,255,0.9),rgba(128,85,245,0.9))">🎯 Start Mock Exam →</button>`
+            :`<button class="btn btn-secondary btn-sm" onclick="startPractice('domain','${dayDomain}',20)" style="border-color:${dayDomainColor}40;color:${dayDomainColor}">⚡ Practice 20 Qs</button>`}
         </div>`:`
-        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
-          <span style="font-size:.75rem;color:var(--muted)">🎯 ${d.target}</span>
-          ${!isPast?`<button class="btn btn-secondary btn-sm" onclick="navigate('weekly-flashcards');window._startDeck=${d.weekFlashcards-1}">Week ${d.weekFlashcards} Flashcards</button>`:''}
+
+        <!-- OTHER DAYS: Compact with sessions + practice CTA -->
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.5rem">
+          ${[d.morning,d.afternoon,d.evening].map((s,i)=>`
+          <div style="flex:1;min-width:130px;background:rgba(255,255,255,0.03);border-radius:8px;padding:.5rem .6rem;border:1px solid rgba(255,255,255,0.05)">
+            <div style="font-size:.55rem;text-transform:uppercase;letter-spacing:.06em;color:${['#FFB020','#3BA8FF','#8B5CF6'][i]};font-weight:800;margin-bottom:.2rem">${['🌅','☀️','🌙'][i]} ${s.duration}</div>
+            <div style="font-size:.7rem;font-weight:700;color:var(--muted)">${s.title}</div>
+          </div>`).join('')}
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+          <span style="font-size:.7rem;color:var(--muted);flex:1">🎯 ${d.target}</span>
+          <button class="btn btn-secondary btn-sm" onclick="navigate('weekly-flashcards');window._startDeck=${d.weekFlashcards-1}" style="font-size:.64rem;padding:.25rem .6rem">🃏 W${d.weekFlashcards}</button>
+          ${isMockDay
+            ?`<button class="btn btn-secondary btn-sm" onclick="navigate('mock')" style="font-size:.64rem;padding:.25rem .6rem;border-color:rgba(176,138,255,0.3);color:var(--purple2)">🎯 Mock Exam</button>`
+            :`<button class="btn btn-secondary btn-sm" onclick="startPractice('domain','${dayDomain}',10)" style="font-size:.64rem;padding:.25rem .6rem;border-color:${dayDomainColor}30;color:${dayDomainColor}">⚡ Practice Qs</button>`}
         </div>`}
       </div>`;
     }).join('')}
@@ -4940,34 +5513,50 @@ function renderWeeklyFlashcards(){
 
 function renderWeekCard(deck,idx){
   const card=deck.cards[idx];
+  const story=getWFCStory(card);
   return `
-  <div class="flashcard-3d" id="wfc-card" onclick="toggleWFC()" style="min-height:230px">
-    <div class="flashcard-3d-inner" id="wfc-inner" style="min-height:230px;border-radius:22px">
-      <div class="fc3-face fc3-front" style="border-color:${deck.color}35;min-height:230px">
+  <div class="flashcard-3d" id="wfc-card" onclick="toggleWFC()">
+    <div class="flashcard-3d-inner" id="wfc-inner">
+      <div class="fc3-face fc3-front" style="border-color:${deck.color}35">
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,${deck.color},transparent);border-radius:22px 22px 0 0"></div>
         <div style="position:absolute;bottom:0;left:0;right:0;height:60px;background:radial-gradient(ellipse at 50% 100%,${deck.color}18,transparent);border-radius:0 0 22px 22px;pointer-events:none"></div>
         <div style="font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:${deck.color};margin-bottom:.75rem;padding:.2rem .7rem;border-radius:999px;background:${deck.color}15;border:1px solid ${deck.color}30">${deck.emoji} ${deck.title} · Card ${idx+1}</div>
         <div style="font-size:1.02rem;font-weight:700;line-height:1.65;color:var(--text);margin-bottom:.8rem;max-width:90%">${card.q}</div>
         <div class="fc3-hint">👆 Tap card to reveal answer</div>
       </div>
-      <div class="fc3-face fc3-back" style="border-color:${deck.color}25;min-height:230px">
+      <div class="fc3-face fc3-back" style="border-color:${deck.color}25;overflow-y:auto">
         <div style="position:absolute;bottom:0;left:0;right:0;height:60px;background:radial-gradient(ellipse at 50% 100%,${deck.color}12,transparent);border-radius:0 0 22px 22px;pointer-events:none"></div>
         <div class="fc3-answer-label" style="color:${deck.color}">✅ Answer</div>
         <div style="font-size:.92rem;font-weight:700;line-height:1.75;color:var(--text);margin-bottom:.75rem;max-width:92%;white-space:pre-line">${card.a}</div>
-        ${card.tip?`<div style="padding:.55rem .85rem;background:rgba(255,153,0,0.08);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;font-size:.78rem;line-height:1.6;width:100%;text-align:left">
+        ${card.tip?`<div style="padding:.55rem .85rem;background:rgba(255,153,0,0.08);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;font-size:.78rem;line-height:1.6;width:100%;text-align:left;flex-shrink:0">
           <span style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-weight:800;display:block;margin-bottom:.2rem">⚡ Exam Tip</span>
           ${card.tip}
         </div>`:''}
+        ${story?`<div class="fc3-story" style="flex-shrink:0"><div class="fc3-story-label">🎬 Remember it</div>${story}</div>`:''}
       </div>
     </div>
   </div>`;
+}
+
+function getWFCStory(card){
+  if(!card) return '';
+  const text=(card.q+' '+(card.a||'')).toLowerCase();
+  // reuse same story engine
+  const fakeQ={stem:card.q,tags:[],domain:''};
+  return getFlashcardStory(fakeQ);
 }
 
 function toggleWFC(){
   cardFlipped=!cardFlipped;
   const inner=document.getElementById('wfc-inner');
   const card=document.getElementById('wfc-card');
-  if(card) card.classList.toggle('flipped',cardFlipped);
+  if(card){
+    card.classList.toggle('flipped',cardFlipped);
+    if(inner){
+      inner.style.filter='brightness(1.2)';
+      setTimeout(()=>{inner.style.filter='';},140);
+    }
+  }
 }
 function wfcNav(dir){
   const deck=window.FLASHCARD_DECKS[currentDeck];
@@ -5005,8 +5594,467 @@ function startAutoFlash(){
   },4000);
 }
 
-navigate('home');function renderTerminologyGym(){
-  return `<div class="section-header"><h1>🏋️ Terminology Gym</h1><span class="muted">Exam keywords mapped to answers — from your Praesignis curriculum</span></div>` + renderExamKeywords().split('</div>').slice(1).join('</div>');
+navigate('home');
+
+// ═══════════════════════════════════════════════════════════════
+//  TERMINOLOGY GYM — Full standalone page (sidebar: Terminology Gym)
+//  = Exam Keywords + Key Terms in one integrated experience
+// ═══════════════════════════════════════════════════════════════
+function renderTerminologyGym(){
+
+  // ── FULL SERVICE DETAIL MAP (Praesignis curriculum) ─────────
+  const SERVICES = {
+    'CloudTrail': {
+      domain:'Security and Compliance', color:'#3BA8FF',
+      tagline:'Audit log — CCTV for your AWS account',
+      what:'Records EVERY API call made in your account: who made it, from which IP, at what time, and what parameters were used.',
+      when:['Someone asks "who deleted that resource?"','Compliance audit requires an activity trail','Detecting unauthorized access or unusual behaviour'],
+      notFor:['Monitoring CPU or performance metrics (use CloudWatch)','Alerting on thresholds'],
+      trick:'CloudTrail = WHO DID WHAT. CloudWatch = IS THE APP HEALTHY.',
+    },
+    'CloudWatch': {
+      domain:'Cloud Technology and Services', color:'#10C995',
+      tagline:'Monitoring — metrics, logs, and alarms',
+      what:'Collects performance metrics (CPU, memory, network), stores application logs, and triggers alarms when thresholds are breached.',
+      when:['Set an alarm when CPU > 80%','Create a dashboard for all your services','Store Lambda function logs'],
+      notFor:['API activity audit (use CloudTrail)','Resource config changes (use Config)'],
+      trick:'CloudWatch = ICU MONITOR. CPU high? CloudWatch tells you. Who changed it? CloudTrail tells you.',
+    },
+    'AWS Config': {
+      domain:'Security and Compliance', color:'#FFB020',
+      tagline:'Configuration tracker — resource history over time',
+      what:'Continuously records configuration changes to your AWS resources and evaluates them against compliance rules.',
+      when:['"Was this S3 bucket public yesterday?"','Compliance rule: "all EC2 must have MFA"','Tracking configuration drift over time'],
+      notFor:['API call audit (CloudTrail)','Performance monitoring (CloudWatch)'],
+      trick:'Config = WHAT DID IT LOOK LIKE. Config tracks resource state, not API calls.',
+    },
+    'GuardDuty': {
+      domain:'Security and Compliance', color:'#EF4444',
+      tagline:'AI threat detector — reads logs and spots attacks',
+      what:'Uses ML to analyse CloudTrail, VPC Flow Logs, and DNS logs to detect threats like unusual API calls, suspicious IPs, and crypto-mining.',
+      when:['Detect credential exfiltration','Spot EC2 instance communicating with known malware IPs','Identify unusual account activity'],
+      notFor:['Blocking threats (GuardDuty detects, WAF/NACLs block)'],
+      trick:'GuardDuty = AI DETECTIVE. It reads clues from logs. Does NOT block — it alerts.',
+    },
+    'Inspector': {
+      domain:'Security and Compliance', color:'#FFB020',
+      tagline:'Vulnerability scanner for EC2 and containers',
+      what:'Automatically scans EC2 instances and container images for software vulnerabilities (CVEs) and unintended network exposure.',
+      when:['Scan EC2 for unpatched packages','Check container images for CVEs before deploy'],
+      notFor:['Monitoring runtime threats (GuardDuty)','Compliance reports (Artifact)'],
+      trick:'Inspector = BUILDING INSPECTOR. Checks for cracks (CVEs) before move-in.',
+    },
+    'Macie': {
+      domain:'Security and Compliance', color:'#EC4899',
+      tagline:'PII detector — scans S3 for sensitive data',
+      what:'Uses ML to discover and classify sensitive data (PII, credit cards, credentials) stored in S3 buckets.',
+      when:['Find if S3 has accidentally stored credit card numbers','Classify data for GDPR compliance'],
+      notFor:['Blocking threats (Macie classifies, does not block)'],
+      trick:'Macie = METAL DETECTOR at the S3 beach. Finds hidden sensitive data.',
+    },
+    'Shield': {
+      domain:'Security and Compliance', color:'#EF4444',
+      tagline:'DDoS protection — Standard free, Advanced $3k/mo',
+      what:'Protects AWS resources from DDoS attacks. Standard is automatic and free for all AWS customers. Advanced adds 24/7 response team and $3,000/month.',
+      when:['DDoS protection for CloudFront/Route 53/ELB','Layer 3 and Layer 4 attacks'],
+      notFor:['Layer 7 web attacks like SQL injection (use WAF)'],
+      trick:'Shield = RIOT SHIELD. Blocks volumetric attacks. WAF blocks smart attacks.',
+    },
+    'WAF': {
+      domain:'Security and Compliance', color:'#F59E0B',
+      tagline:'Web Application Firewall — blocks Layer 7 attacks',
+      what:'Inspects HTTP/HTTPS requests and blocks SQL injection, XSS, and other web exploits before they reach your application.',
+      when:['Block SQL injection attacks on your web app','Protect APIs from malicious requests','Layer 7 traffic filtering'],
+      notFor:['DDoS (volumetric) attacks — use Shield','Network-level filtering — use NACLs'],
+      trick:'WAF = LANGUAGE FILTER. Reads content of requests. Shield just blocks traffic floods.',
+    },
+    'KMS': {
+      domain:'Security and Compliance', color:'#8B5CF6',
+      tagline:'Key management — encrypt/decrypt with managed keys',
+      what:'Creates and manages encryption keys. Integrates with S3, EBS, RDS, Lambda to encrypt data at rest. Keys never leave KMS unencrypted.',
+      when:['Encrypt an S3 bucket','Encrypt an EBS volume','Rotate encryption keys automatically'],
+      notFor:['Storing passwords/secrets (use Secrets Manager)','Dedicated physical HSM (use CloudHSM)'],
+      trick:'KMS = BANK VAULT for encryption keys. Keys stay in vault — services borrow them.',
+    },
+    'Secrets Manager': {
+      domain:'Security and Compliance', color:'#10C995',
+      tagline:'Auto-rotating secret storage for passwords and API keys',
+      what:'Stores database passwords, API keys, and other secrets. Automatically rotates secrets on a schedule using Lambda.',
+      when:['Store RDS password and auto-rotate every 30 days','Share API keys without hardcoding in source code'],
+      notFor:['Encryption keys (use KMS)','Certificates (use ACM)'],
+      trick:'Secrets Manager = PASSWORD MANAGER that rotates your passwords automatically.',
+    },
+    'IAM Role': {
+      domain:'Security and Compliance', color:'#3BA8FF',
+      tagline:'Temporary credentials — no permanent keys stored',
+      what:'A set of permissions that can be assumed by services, users, or cross-account principals. Provides temporary credentials that expire automatically.',
+      when:['EC2 instance needs to read from S3','Lambda needs to write to DynamoDB','Cross-account access'],
+      notFor:['Long-term user access (use IAM user + access policy)'],
+      trick:'IAM Role = VISITOR BADGE. Grants temporary access. Never put access keys on EC2.',
+    },
+    'EC2': {
+      domain:'Cloud Technology and Services', color:'#FF9900',
+      tagline:'Virtual servers — IaaS, you manage the OS',
+      what:'Resizable virtual machines in the cloud. You choose OS, instance type, and storage. You are responsible for patching the OS and applications.',
+      when:['Run a web server or database you need full control over','Migrate an on-prem server to the cloud','Custom OS configuration required'],
+      notFor:['Serverless workloads (use Lambda)','Fully managed database (use RDS)'],
+      trick:'EC2 = RENTED COMPUTER. You pick it, you patch it. AWS just supplies the hardware.',
+    },
+    'Lambda': {
+      domain:'Cloud Technology and Services', color:'#F59E0B',
+      tagline:'Serverless compute — event-driven, max 15 minutes',
+      what:'Runs code in response to events (API calls, S3 uploads, DynamoDB streams). No servers to manage. Scales automatically. Pay per 100ms of execution.',
+      when:['Process an S3 upload trigger','Build a serverless API backend','Run scheduled jobs (cron)'],
+      notFor:['Long-running processes > 15 min (use EC2 or Fargate)','Stateful applications'],
+      trick:'Lambda = VENDING MACHINE. Put in an event, get output. No machine to maintain.',
+    },
+    'S3': {
+      domain:'Cloud Technology and Services', color:'#22C55E',
+      tagline:'Object storage — infinite, durable, HTTP-accessible',
+      what:'Store any file as an object in a bucket. Virtually unlimited storage, 11 nines durability (99.999999999%). Accessed via HTTPS API — not a file system.',
+      when:['Store images, videos, backups, logs','Host a static website','Data lake for analytics'],
+      notFor:['Block storage for EC2 (use EBS)','Shared file system (use EFS)'],
+      trick:'S3 = GIANT FILING CABINET in the sky. Perfect for files, terrible for databases.',
+    },
+    'RDS': {
+      domain:'Cloud Technology and Services', color:'#3BA8FF',
+      tagline:'Managed relational DB — AWS handles patching and failover',
+      what:'Managed MySQL, PostgreSQL, MariaDB, SQL Server, Oracle. AWS handles OS patching, backups, Multi-AZ failover. You focus on schema and queries.',
+      when:['Migrate an on-prem MySQL database','Need managed SQL with automated backups','Relational data with complex joins'],
+      notFor:['NoSQL (use DynamoDB)','Analytics at petabyte scale (use Redshift)'],
+      trick:'RDS = HIRING A DBA FROM AWS. They handle the boring stuff. You just query.',
+    },
+    'DynamoDB': {
+      domain:'Cloud Technology and Services', color:'#F59E0B',
+      tagline:'Serverless NoSQL — single-digit ms at any scale',
+      what:'Fully managed key-value and document NoSQL database. Serverless, auto-scales, provides single-digit millisecond latency at any scale.',
+      when:['Gaming leaderboards requiring ms response','Session storage','IoT device data at massive scale'],
+      notFor:['Complex SQL joins (use RDS)','Analytics (use Redshift or Athena)'],
+      trick:'DynamoDB = FORMULA 1 DATABASE. Absurdly fast, but only goes in one direction (key-value).',
+    },
+    'SQS': {
+      domain:'Cloud Technology and Services', color:'#8B5CF6',
+      tagline:'Message queue — one consumer, decouples services',
+      what:'Managed message queue. Producer sends a message; one consumer receives and deletes it. Queue holds messages until they are processed, decoupling components.',
+      when:['Decouple a web app from an image-processing backend','Buffer requests during traffic spikes','Ensure no messages are lost if consumer crashes'],
+      notFor:['Sending to multiple subscribers (use SNS)','Real-time streams (use Kinesis)'],
+      trick:'SQS = MAILBOX. One postman drops, one person picks up. SNS = MEGAPHONE.',
+    },
+    'SNS': {
+      domain:'Cloud Technology and Services', color:'#EC4899',
+      tagline:'Pub/Sub — one message fans out to many subscribers',
+      what:'Pub/Sub notification service. One publisher sends a message to a topic; ALL subscribers receive it simultaneously. Supports email, SMS, Lambda, SQS.',
+      when:['Send order confirmation email + SMS simultaneously','Fan out one event to multiple processing services','Notify an ops team via email and Slack'],
+      notFor:['Single-consumer queuing (use SQS)','Persistent message storage'],
+      trick:'SNS = SCHOOL PA SYSTEM. Principal speaks, everyone hears. SQS = one-to-one mailbox.',
+    },
+    'CloudFront': {
+      domain:'Cloud Technology and Services', color:'#3BA8FF',
+      tagline:'CDN — caches content at 400+ edge locations',
+      what:'Content Delivery Network. Caches copies of your content at 400+ edge locations worldwide, serving users from the nearest location for low latency.',
+      when:['Speed up a global website','Stream video with low buffer','Protect S3 origin from direct access'],
+      notFor:['Routing (use Route 53)','Improving non-HTTP application performance (use Global Accelerator)'],
+      trick:'CloudFront = TELEPORTER for your content. Copies appear near users instantly.',
+    },
+    'Route 53': {
+      domain:'Cloud Technology and Services', color:'#10C995',
+      tagline:'Managed DNS — routing policies, health checks',
+      what:'Highly available DNS service. Translates domain names to IP addresses. Supports routing policies: simple, weighted, latency-based, geolocation, failover.',
+      when:['Register and manage a domain','Route traffic to the nearest region','Failover to backup if primary fails'],
+      notFor:['CDN caching (use CloudFront)','Global acceleration (use Global Accelerator)'],
+      trick:'Route 53 = GPS + PHONEBOOK. Knows your domain and finds the best path.',
+    },
+    'On-Demand': {
+      domain:'Billing, Pricing and Support', color:'#FF9900',
+      tagline:'Pay per second — no commitment, full price',
+      what:'Pay for compute by the second (Linux) or hour (Windows) with no long-term commitment. Most expensive but most flexible.',
+      when:['Short-term or unpredictable workloads','Testing and development','Applications that cannot be interrupted'],
+      notFor:['Steady 24/7 workloads (use Reserved/Savings Plans)','Batch jobs (use Spot)'],
+      trick:'On-Demand = PAY-AS-YOU-GO coffee shop. Full price, zero commitment.',
+    },
+    'Reserved Instances': {
+      domain:'Billing, Pricing and Support', color:'#22C55E',
+      tagline:'1 or 3-year commitment — up to 72% off',
+      what:'Commit to a specific instance type in a region for 1 or 3 years. Up to 72% discount over On-Demand. Convertible RIs allow changing instance family.',
+      when:['Steady-state workloads running 24/7','Databases, application servers with predictable load'],
+      notFor:['Variable or unpredictable workloads','Short-term projects'],
+      trick:'Reserved = GYM MEMBERSHIP. Pay upfront for the year, save big. Skip a day, still pay.',
+    },
+    'Spot Instances': {
+      domain:'Billing, Pricing and Support', color:'#EF4444',
+      tagline:'Spare capacity — up to 90% off, can be interrupted',
+      what:'Use AWS spare capacity at up to 90% discount. AWS can reclaim with 2-minute warning. Best for fault-tolerant, interruptible batch workloads.',
+      when:['Batch data processing','ML training jobs','CI/CD pipelines that can restart'],
+      notFor:['Databases or apps that cannot tolerate interruption'],
+      trick:'Spot = STANDBY FLIGHT. Massive discount, but you might get bumped.',
+    },
+    'Cost Explorer': {
+      domain:'Billing, Pricing and Support', color:'#F59E0B',
+      tagline:'Visualise past spend — charts, filters, forecast',
+      what:'Shows historical spending patterns by service, account, region, or tag. Forecasts future costs based on trends.',
+      when:['Understand why my bill is high this month','Find which service is costing most','Plan budget for next quarter'],
+      notFor:['Estimating cost BEFORE deploying (use Pricing Calculator)','Alerting on thresholds (use Budgets)'],
+      trick:'Cost Explorer = CREDIT CARD STATEMENT with graphs. Looks backwards.',
+    },
+  };
+
+  // ── CATEGORIES (same as renderExamKeywords, but each row opens service detail) ─────
+  const cats=[
+    {title:'🔍 Audit, Monitoring & Config', color:'#3BA8FF', domain:'Cloud Technology and Services', week:'W6/W7', emoji:'🔍',
+     rows:[
+       {kw:'audit trail · who did what · who deleted · API call',   answer:'CloudTrail',           svc:'CloudTrail'},
+       {kw:'CPU utilization · metric · alarm · threshold · dashboard', answer:'CloudWatch',         svc:'CloudWatch'},
+       {kw:'configuration change · compliance rule · resource state over time', answer:'AWS Config', svc:'AWS Config'},
+       {kw:'best practice recommendation · cost · security · 5 pillars', answer:'Trusted Advisor',  svc:null},
+       {kw:'trace distributed request · find slow microservice · bottleneck', answer:'X-Ray',        svc:null},
+     ]},
+    {title:'🛡️ Security & Identity', color:'#FFB020', domain:'Security and Compliance', week:'W6', emoji:'🛡️',
+     rows:[
+       {kw:'vulnerability · CVE · EC2 security scan · patch assessment', answer:'Inspector',        svc:'Inspector'},
+       {kw:'threat · malicious · unusual API · credential exfiltration', answer:'GuardDuty',        svc:'GuardDuty'},
+       {kw:'sensitive data · PII · credit card · SSN in S3',             answer:'Macie',            svc:'Macie'},
+       {kw:'DDoS · distributed denial of service · Layer 3/4',           answer:'Shield (Standard free / Advanced $3k)', svc:'Shield'},
+       {kw:'SQL injection · XSS · web exploit · Layer 7 attack',         answer:'WAF',              svc:'WAF'},
+       {kw:'encryption key · encrypt at rest · CMK · rotate keys',       answer:'KMS',              svc:'KMS'},
+       {kw:'database password · API key · rotate secret automatically',  answer:'Secrets Manager',  svc:'Secrets Manager'},
+       {kw:'compliance report · SOC · ISO 27001 · PCI DSS download',     answer:'AWS Artifact',     svc:null},
+       {kw:'temporary credentials · EC2 app needs S3 access · role',     answer:'IAM Role',         svc:'IAM Role'},
+       {kw:'multiple accounts · central governance · consolidated bill',  answer:'AWS Organizations + SCPs', svc:null},
+       {kw:'guardrail · prevent even admin · deny across OU',             answer:'SCP (Service Control Policy)', svc:null},
+     ]},
+    {title:'🌐 Networking', color:'#087BFF', domain:'Cloud Technology and Services', week:'W5', emoji:'🌐',
+     rows:[
+       {kw:'DNS · domain name resolution · routing policy · health check', answer:'Route 53',       svc:'Route 53'},
+       {kw:'CDN · content delivery · edge cache · global low latency',     answer:'CloudFront',     svc:'CloudFront'},
+       {kw:'distribute traffic · load balance · ALB=Layer7 · NLB=Layer4',  answer:'Elastic Load Balancing (ELB)', svc:null},
+       {kw:'dedicated private connection · bypass internet · consistent bandwidth', answer:'Direct Connect', svc:null},
+       {kw:'stateful firewall · instance level · allow rules only',        answer:'Security Group', svc:null},
+       {kw:'stateless firewall · subnet level · allow AND deny',           answer:'NACL',           svc:null},
+       {kw:'REST API · serverless backend · HTTP API management',          answer:'API Gateway',    svc:null},
+     ]},
+    {title:'💾 Storage', color:'#22C55E', domain:'Cloud Technology and Services', week:'W3', emoji:'💾',
+     rows:[
+       {kw:'object storage · bucket · static website · 11 nines durable', answer:'S3',             svc:'S3'},
+       {kw:'block storage · virtual hard drive · attached to EC2 · one AZ', answer:'EBS',          svc:null},
+       {kw:'shared file system · NFS · mount multiple EC2 simultaneously', answer:'EFS',            svc:null},
+       {kw:'ephemeral · temporary · data lost on stop/terminate',          answer:'Instance Store', svc:null},
+       {kw:'archive · compliance · 7 years · rarely accessed',             answer:'S3 Glacier Deep Archive', svc:null},
+       {kw:'offline data transfer · physical device · 50–80 TB',          answer:'Snowball',       svc:null},
+       {kw:'100 PB+ · exabyte · actual 45-foot truck',                     answer:'Snowmobile',    svc:null},
+       {kw:'hybrid storage · on-prem connects to cloud · local cache',    answer:'Storage Gateway', svc:null},
+     ]},
+    {title:'🗄️ Databases', color:'#8B5CF6', domain:'Cloud Technology and Services', week:'W4', emoji:'🗄️',
+     rows:[
+       {kw:'NoSQL · key-value · single-digit millisecond · serverless DB', answer:'DynamoDB',      svc:'DynamoDB'},
+       {kw:'managed relational · MySQL · PostgreSQL · SQL',                answer:'RDS',            svc:'RDS'},
+       {kw:'5x MySQL performance · cloud-native · 6 copies across 3 AZs', answer:'Aurora',         svc:null},
+       {kw:'data warehouse · analytical SQL · petabyte scale · OLAP · BI', answer:'Redshift',      svc:null},
+       {kw:'serverless SQL on S3 · no database · pay per query',          answer:'Athena',         svc:null},
+       {kw:'in-memory cache · Redis · Memcached · reduce DB read load',   answer:'ElastiCache',    svc:null},
+       {kw:'high availability · automatic failover · standby in another AZ', answer:'RDS Multi-AZ (HA not performance)', svc:null},
+       {kw:'read scaling · offload reads · async copy · NOT for failover', answer:'RDS Read Replica (performance not HA)', svc:null},
+     ]},
+    {title:'⚙️ Compute', color:'#FF9900', domain:'Cloud Technology and Services', week:'W2', emoji:'⚙️',
+     rows:[
+       {kw:'virtual server · manage OS · IaaS · you patch it',            answer:'EC2',            svc:'EC2'},
+       {kw:'serverless · event-driven · no server · max 15 minutes',      answer:'Lambda',         svc:'Lambda'},
+       {kw:'serverless containers · no EC2 visible',                       answer:'Fargate',        svc:null},
+       {kw:'Kubernetes · managed control plane · K8s',                    answer:'EKS',            svc:null},
+       {kw:'PaaS · upload code · AWS handles deployment',                 answer:'Elastic Beanstalk', svc:null},
+       {kw:'steady 24/7 workload · 1 or 3 year · up to 72% off',         answer:'Reserved Instances', svc:'Reserved Instances'},
+       {kw:'interruptible · batch · up to 90% off · 2-min warning',       answer:'Spot Instances', svc:'Spot Instances'},
+       {kw:'flexible discount · commit $/hr · Lambda + EC2 + Fargate',    answer:'Savings Plans',  svc:null},
+     ]},
+    {title:'🚀 Integration & Migration', color:'#E879F9', domain:'Cloud Technology and Services', week:'W8', emoji:'🚀',
+     rows:[
+       {kw:'message queue · decouple · one consumer · async',             answer:'SQS',            svc:'SQS'},
+       {kw:'pub-sub · fan out · all subscribers · notification',          answer:'SNS',            svc:'SNS'},
+       {kw:'event bus · serverless routing · SaaS events',                answer:'EventBridge',    svc:null},
+       {kw:'workflow · coordinate Lambda · state machine · retry logic',  answer:'Step Functions', svc:null},
+       {kw:'migrate database · minimal downtime · heterogeneous',         answer:'DMS',            svc:null},
+       {kw:'lift and shift · no code changes · fastest migration',        answer:'Rehost',         svc:null},
+       {kw:'cloud-native redesign · microservices · most expensive',      answer:'Refactor',       svc:null},
+     ]},
+    {title:'💰 Billing & Support', color:'#E9A92F', domain:'Billing, Pricing and Support', week:'W1/W10', emoji:'💰',
+     rows:[
+       {kw:'estimate cost BEFORE deploying · plan budget',                answer:'Pricing Calculator', svc:null},
+       {kw:'view PAST spending · analyse · filter by service · forecast', answer:'Cost Explorer',  svc:'Cost Explorer'},
+       {kw:'alert when spending threshold hit · prevent overspend',       answer:'Budgets',        svc:null},
+       {kw:'one bill for all accounts · volume discounts',                answer:'Consolidated Billing via Organizations', svc:null},
+       {kw:'24/7 phone + chat support · minimum for production',          answer:'Business Support plan', svc:null},
+       {kw:'dedicated TAM · concierge · enterprise architecture review',  answer:'Enterprise Support plan', svc:null},
+     ]},
+    {title:'🎯 Exam Traps — Read These Last Night', color:'#EF4444', domain:'All', week:'W10', emoji:'🎯',
+     rows:[
+       {kw:'"who deleted" · "who made this API call" · audit log',        answer:'✅ CloudTrail — NOT CloudWatch',    svc:'CloudTrail'},
+       {kw:'"CPU is high" · "set an alarm" · "monitor performance"',      answer:'✅ CloudWatch — NOT CloudTrail',    svc:'CloudWatch'},
+       {kw:'"serverless containers" · "no EC2 to manage"',               answer:'✅ Fargate — NOT ECS alone',         svc:null},
+       {kw:'"decouple" · "queue" · "one consumer per message"',           answer:'✅ SQS — NOT SNS',                  svc:'SQS'},
+       {kw:'"fan out" · "pub-sub" · "all subscribers get it"',            answer:'✅ SNS — NOT SQS',                  svc:'SNS'},
+       {kw:'"high availability" · "failover" · "Multi-AZ"',               answer:'✅ RDS Multi-AZ — NOT Read Replica', svc:'RDS'},
+       {kw:'"read performance" · "offload reads" · "async copy"',         answer:'✅ Read Replica — NOT Multi-AZ',    svc:null},
+       {kw:'"EC2 app needs S3 access" · "permissions for service"',       answer:'✅ IAM Role — NEVER hard-code keys', svc:'IAM Role'},
+       {kw:'"compliance reports" · "SOC" · "ISO" · "PCI download"',       answer:'✅ Artifact — NOT Trusted Advisor', svc:null},
+       {kw:'"DDoS protection" · "Layer 3/4 attack"',                      answer:'✅ Shield — NOT WAF',               svc:'Shield'},
+       {kw:'"SQL injection" · "XSS" · "Layer 7" · "web attack"',          answer:'✅ WAF — NOT Shield',               svc:'WAF'},
+       {kw:'"NoSQL" · "key-value" · "single-digit ms" · "serverless DB"', answer:'✅ DynamoDB — NOT RDS',             svc:'DynamoDB'},
+       {kw:'"petabyte" · "data warehouse" · "analytics" · "OLAP"',        answer:'✅ Redshift — NOT RDS or DynamoDB', svc:null},
+       {kw:'"encrypt keys" · "rotate CMK"',                               answer:'✅ KMS — NOT Secrets Manager',      svc:'KMS'},
+       {kw:'"steady 24/7 workload" · "always running"',                   answer:'✅ Reserved/Savings Plans — NOT Spot', svc:'Reserved Instances'},
+     ]},
+  ];
+
+  return `
+  <div class="section-header" style="margin-bottom:1rem">
+    <h1 style="display:flex;align-items:center;gap:.6rem"><span style="font-size:1.5rem">🏋️</span> Terminology Gym</h1>
+    <span style="font-size:.8rem;color:var(--muted)">Keyword → Answer · Click any service to learn it deeply</span>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div style="padding:.8rem 1.1rem;border-radius:14px;background:linear-gradient(135deg,rgba(233,169,47,0.1),rgba(16,201,149,0.04));border:1px solid rgba(233,169,47,0.22);margin-bottom:1.1rem;border-left:3px solid var(--gold);position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold),var(--gold2),transparent)"></div>
+    <div style="font-size:.72rem;font-weight:800;color:var(--gold2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem">📌 How the exam uses keywords</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem">
+      <div style="font-size:.78rem;color:var(--muted);line-height:1.6"><strong style="color:var(--text)">1.</strong> You see a scenario question. Scan for trigger words on the left.</div>
+      <div style="font-size:.78rem;color:var(--muted);line-height:1.6"><strong style="color:var(--text)">2.</strong> Match the keywords → the answer almost always emerges.</div>
+      <div style="font-size:.78rem;color:var(--muted);line-height:1.6"><strong style="color:var(--text)">3.</strong> Click the <span style="color:var(--blue2)">service name</span> to see full details + practice questions.</div>
+    </div>
+  </div>
+
+  <!-- QUICK JUMP BAR -->
+  <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.1rem" id="gym-jumpbar">
+    ${cats.map((c,i)=>`<button 
+      class="gym-jump-btn"
+      onclick="document.querySelectorAll('.gym-cat')[${i}].scrollIntoView({behavior:'smooth',block:'start'})"
+      style="border-color:${c.color}30;color:var(--muted);"
+      onmouseover="this.style.borderColor='${c.color}70';this.style.color='${c.color}';this.style.background='${c.color}14'"
+      onmouseout="this.style.borderColor='${c.color}30';this.style.color='var(--muted)';this.style.background='rgba(255,255,255,0.03)'"
+    >${c.emoji} ${c.title.replace(/^[^ ]+ /,'').split(' ').slice(0,2).join(' ')}</button>`).join('')}
+  </div>
+
+  <!-- SERVICE DETAIL PANEL (shown when user clicks a service) -->
+  <div id="gym-svc-panel" style="display:none;margin-bottom:1.1rem"></div>
+
+  <!-- KEYWORD CATEGORIES -->
+  ${cats.map((cat,ci)=>`
+  <div class="gym-cat glass-card animate-in" style="margin-bottom:.8rem;border-left:3px solid ${cat.color};position:relative;overflow:hidden" id="gym-cat-${ci}">
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,${cat.color},transparent);opacity:.7"></div>
+
+    <!-- Category Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;flex-wrap:wrap;gap:.4rem">
+      <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+        <span style="font-size:1rem;font-weight:900;color:${cat.color}">${cat.title}</span>
+        <span style="font-size:.58rem;color:var(--muted);background:rgba(255,255,255,0.05);padding:.12rem .45rem;border-radius:999px">${cat.week}</span>
+      </div>
+      ${cat.domain!=='All'?`<button class="btn btn-secondary btn-sm" style="font-size:.62rem;padding:.22rem .6rem;border-color:${cat.color}35;color:${cat.color}" onclick="startPractice('domain','${cat.domain}',15)">⚡ Practice ${cat.domain==='Billing, Pricing and Support'?'Billing':'this domain'} →</button>`:''}
+    </div>
+
+    <!-- Keyword Rows -->
+    <div style="display:flex;flex-direction:column;gap:0">
+      ${cat.rows.map((row,ri)=>`<div class="gym-row ${row.svc?'gym-row-clickable':''}" 
+        onclick="${row.svc?`gymShowService('${row.svc.replace(/'/g,"\\'")}',${ci})`:'void(0)'}"
+        style="--gc:${cat.color}"
+      >
+        <div class="gym-row-kw">
+          <div class="gym-kw-dots">
+            ${row.kw.split(' · ').map(k=>`<span class="gym-kw-chip">${k}</span>`).join('')}
+          </div>
+        </div>
+        <div class="gym-row-arrow">→</div>
+        <div class="gym-row-answer">
+          <strong style="color:${cat.color==='#EF4444'?'#F87171':cat.color}">${row.answer}</strong>
+          ${row.svc?`<span class="gym-learn-link">View service ↗</span>`:''}
+        </div>
+      </div>`).join('')}
+    </div>
+  </div>`).join('')}`;
+}
+
+// ── SERVICE DETAIL PANEL ─────────────────────────────────────
+function gymShowService(svcName, catIdx){
+  const SERVICES = {
+    'CloudTrail': {domain:'Security and Compliance',color:'#3BA8FF',tagline:'Audit log — CCTV for your AWS account',what:'Records EVERY API call made in your account: who made it, from which IP, at what time, and what parameters were used.',when:['Someone asks "who deleted that resource?"','Compliance audit requires an activity trail','Detecting unauthorized access or unusual behaviour'],notFor:['Monitoring CPU or performance metrics (use CloudWatch)','Alerting on thresholds'],trick:'CloudTrail = WHO DID WHAT. CloudWatch = IS THE APP HEALTHY.'},
+    'CloudWatch': {domain:'Cloud Technology and Services',color:'#10C995',tagline:'Monitoring — metrics, logs, and alarms',what:'Collects performance metrics (CPU, memory, network), stores application logs, and triggers alarms when thresholds are breached.',when:['Set an alarm when CPU > 80%','Create a dashboard for all your services','Store Lambda function logs'],notFor:['API activity audit (use CloudTrail)','Resource config changes (use Config)'],trick:'CloudWatch = ICU MONITOR. CPU high? CloudWatch tells you. Who changed it? CloudTrail.'},
+    'AWS Config': {domain:'Security and Compliance',color:'#FFB020',tagline:'Configuration tracker — resource history over time',what:'Continuously records configuration changes to your AWS resources and evaluates them against compliance rules.',when:['"Was this S3 bucket public yesterday?"','Compliance rule: "all EC2 must have MFA"','Tracking configuration drift over time'],notFor:['API call audit (CloudTrail)','Performance monitoring (CloudWatch)'],trick:'Config = WHAT DID IT LOOK LIKE. Tracks resource state, not API calls.'},
+    'GuardDuty': {domain:'Security and Compliance',color:'#EF4444',tagline:'AI threat detector — reads logs and spots attacks',what:'Uses ML to analyse CloudTrail, VPC Flow Logs, and DNS logs to detect threats like unusual API calls, suspicious IPs, and crypto-mining.',when:['Detect credential exfiltration','Spot EC2 instance communicating with malware IPs','Identify unusual account activity'],notFor:['Blocking threats (GuardDuty detects, WAF/NACLs block)'],trick:'GuardDuty = AI DETECTIVE. It reads clues. Does NOT block — it alerts.'},
+    'Inspector': {domain:'Security and Compliance',color:'#FFB020',tagline:'Vulnerability scanner for EC2 and containers',what:'Automatically scans EC2 instances and container images for software vulnerabilities (CVEs) and unintended network exposure.',when:['Scan EC2 for unpatched packages','Check container images for CVEs before deploy'],notFor:['Monitoring runtime threats (GuardDuty)','Compliance reports (Artifact)'],trick:'Inspector = BUILDING INSPECTOR. Checks for cracks (CVEs) before move-in.'},
+    'Macie': {domain:'Security and Compliance',color:'#EC4899',tagline:'PII detector — scans S3 for sensitive data',what:'Uses ML to discover and classify sensitive data (PII, credit cards, credentials) stored in S3 buckets.',when:['Find if S3 accidentally stored credit cards','Classify data for GDPR compliance'],notFor:['Blocking threats (Macie classifies, does not block)'],trick:'Macie = METAL DETECTOR at the S3 beach. Finds hidden sensitive data.'},
+    'Shield': {domain:'Security and Compliance',color:'#EF4444',tagline:'DDoS protection — Standard free, Advanced $3k/mo',what:'Protects against DDoS attacks. Standard is automatic and free. Advanced adds 24/7 response team.',when:['DDoS protection for CloudFront/Route 53/ELB','Layer 3 and Layer 4 attacks'],notFor:['Layer 7 web attacks like SQL injection (use WAF)'],trick:'Shield = RIOT SHIELD. Blocks volumetric attacks. WAF blocks smart attacks.'},
+    'WAF': {domain:'Security and Compliance',color:'#F59E0B',tagline:'Web Application Firewall — blocks Layer 7 attacks',what:'Inspects HTTP/HTTPS requests and blocks SQL injection, XSS, and other web exploits before they reach your application.',when:['Block SQL injection on your web app','Protect APIs from malicious requests'],notFor:['DDoS (volumetric) attacks — use Shield','Network-level filtering — use NACLs'],trick:'WAF = LANGUAGE FILTER. Reads content of requests. Shield just blocks traffic floods.'},
+    'KMS': {domain:'Security and Compliance',color:'#8B5CF6',tagline:'Key management — encrypt/decrypt with managed keys',what:'Creates and manages encryption keys. Integrates with S3, EBS, RDS, Lambda to encrypt data at rest.',when:['Encrypt an S3 bucket or EBS volume','Rotate encryption keys automatically'],notFor:['Storing passwords/secrets (use Secrets Manager)','Dedicated physical HSM (use CloudHSM)'],trick:'KMS = BANK VAULT for encryption keys. Keys stay in vault — services borrow them.'},
+    'Secrets Manager': {domain:'Security and Compliance',color:'#10C995',tagline:'Auto-rotating secret storage for passwords and API keys',what:'Stores database passwords and API keys. Automatically rotates secrets on a schedule using Lambda.',when:['Store RDS password and auto-rotate every 30 days','Share API keys without hardcoding in source code'],notFor:['Encryption keys (use KMS)','Certificates (use ACM)'],trick:'Secrets Manager = PASSWORD MANAGER that rotates your passwords automatically.'},
+    'IAM Role': {domain:'Security and Compliance',color:'#3BA8FF',tagline:'Temporary credentials — no permanent keys stored',what:'A set of permissions assumed by services, users, or cross-account principals. Provides temporary credentials that expire automatically.',when:['EC2 instance needs to read from S3','Lambda needs to write to DynamoDB','Cross-account access'],notFor:['Never put access keys directly on EC2 — use a Role'],trick:'IAM Role = VISITOR BADGE. Grants temporary access. Never put access keys on EC2.'},
+    'EC2': {domain:'Cloud Technology and Services',color:'#FF9900',tagline:'Virtual servers — IaaS, you manage the OS',what:'Resizable virtual machines. You choose OS, instance type, storage. You are responsible for patching the OS and applications.',when:['Run a web server you need full control over','Migrate an on-prem server','Custom OS configuration required'],notFor:['Serverless workloads (use Lambda)','Fully managed database (use RDS)'],trick:'EC2 = RENTED COMPUTER. You pick it, you patch it. AWS supplies the hardware.'},
+    'Lambda': {domain:'Cloud Technology and Services',color:'#F59E0B',tagline:'Serverless compute — event-driven, max 15 minutes',what:'Runs code in response to events (API calls, S3 uploads, DynamoDB streams). No servers to manage. Pay per 100ms of execution.',when:['Process an S3 upload trigger','Build a serverless API backend','Run scheduled jobs'],notFor:['Long-running processes > 15 min (use EC2 or Fargate)'],trick:'Lambda = VENDING MACHINE. Put in an event, get output. No machine to maintain.'},
+    'S3': {domain:'Cloud Technology and Services',color:'#22C55E',tagline:'Object storage — infinite, durable, HTTP-accessible',what:'Store any file as an object in a bucket. Virtually unlimited storage, 11 nines durability. Accessed via HTTPS API.',when:['Store images, videos, backups, logs','Host a static website','Data lake for analytics'],notFor:['Block storage for EC2 (use EBS)','Shared file system (use EFS)'],trick:'S3 = GIANT FILING CABINET in the sky. Perfect for files, terrible for databases.'},
+    'RDS': {domain:'Cloud Technology and Services',color:'#3BA8FF',tagline:'Managed relational DB — AWS handles patching and failover',what:'Managed MySQL, PostgreSQL, MariaDB, SQL Server, Oracle. AWS handles OS patching, backups, Multi-AZ failover.',when:['Migrate an on-prem MySQL database','Need managed SQL with automated backups'],notFor:['NoSQL (use DynamoDB)','Analytics at petabyte scale (use Redshift)'],trick:'RDS = HIRING A DBA FROM AWS. They handle the boring stuff. You just query.'},
+    'DynamoDB': {domain:'Cloud Technology and Services',color:'#F59E0B',tagline:'Serverless NoSQL — single-digit ms at any scale',what:'Fully managed key-value NoSQL database. Serverless, auto-scales, provides single-digit millisecond latency at any scale.',when:['Gaming leaderboards requiring ms response','Session storage','IoT device data at massive scale'],notFor:['Complex SQL joins (use RDS)','Analytics (use Redshift or Athena)'],trick:'DynamoDB = FORMULA 1 DATABASE. Absurdly fast, only key-value direction.'},
+    'SQS': {domain:'Cloud Technology and Services',color:'#8B5CF6',tagline:'Message queue — one consumer, decouples services',what:'Managed message queue. Producer sends a message; one consumer receives and deletes it. Decouples components and buffers requests.',when:['Decouple a web app from an image-processing backend','Buffer requests during traffic spikes'],notFor:['Sending to multiple subscribers (use SNS)','Real-time streams (use Kinesis)'],trick:'SQS = MAILBOX. One postman drops, one person picks up. SNS = MEGAPHONE.'},
+    'SNS': {domain:'Cloud Technology and Services',color:'#EC4899',tagline:'Pub/Sub — one message fans out to many subscribers',what:'One publisher sends a message to a topic; ALL subscribers receive it simultaneously. Supports email, SMS, Lambda, SQS.',when:['Send order confirmation email + SMS simultaneously','Fan out one event to multiple services'],notFor:['Single-consumer queuing (use SQS)'],trick:'SNS = SCHOOL PA SYSTEM. Principal speaks, everyone hears.'},
+    'CloudFront': {domain:'Cloud Technology and Services',color:'#3BA8FF',tagline:'CDN — caches content at 400+ edge locations',what:'Content Delivery Network. Caches copies of your content at 400+ edge locations worldwide, serving users from the nearest location.',when:['Speed up a global website','Stream video with low buffer','Protect S3 origin from direct access'],notFor:['Routing (use Route 53)','Improving non-HTTP app performance (use Global Accelerator)'],trick:'CloudFront = TELEPORTER for your content. Copies appear near users instantly.'},
+    'Route 53': {domain:'Cloud Technology and Services',color:'#10C995',tagline:'Managed DNS — routing policies, health checks',what:'Highly available DNS. Translates domain names to IPs. Supports routing policies: simple, weighted, latency-based, geolocation, failover.',when:['Register and manage a domain','Route traffic to nearest region','Failover to backup if primary fails'],notFor:['CDN caching (use CloudFront)'],trick:'Route 53 = GPS + PHONEBOOK. Knows your domain and finds the best path.'},
+    'Reserved Instances': {domain:'Billing, Pricing and Support',color:'#22C55E',tagline:'1 or 3-year commitment — up to 72% off',what:'Commit to a specific instance type for 1 or 3 years. Up to 72% discount over On-Demand.',when:['Steady-state workloads running 24/7','Databases, application servers with predictable load'],notFor:['Variable workloads','Short-term projects'],trick:'Reserved = GYM MEMBERSHIP. Pay upfront for the year, save big.'},
+    'Spot Instances': {domain:'Billing, Pricing and Support',color:'#EF4444',tagline:'Spare capacity — up to 90% off, can be interrupted',what:'Use AWS spare capacity at up to 90% discount. AWS can reclaim with 2-minute warning. Best for fault-tolerant batch workloads.',when:['Batch data processing','ML training jobs','CI/CD pipelines that can restart'],notFor:['Databases or apps that cannot tolerate interruption'],trick:'Spot = STANDBY FLIGHT. Massive discount, but you might get bumped.'},
+    'Cost Explorer': {domain:'Billing, Pricing and Support',color:'#F59E0B',tagline:'Visualise past spend — charts, filters, forecast',what:'Shows historical spending patterns by service, account, region, or tag. Forecasts future costs based on trends.',when:['Understand why my bill is high this month','Find which service costs most'],notFor:['Estimating cost BEFORE deploying (use Pricing Calculator)','Alerting on thresholds (use Budgets)'],trick:'Cost Explorer = CREDIT CARD STATEMENT with graphs. Looks backwards.'},
+  };
+
+  const svc = SERVICES[svcName];
+  const panel = document.getElementById('gym-svc-panel');
+  if(!panel) return;
+
+  // If already showing this service, collapse it
+  if(panel.dataset.current===svcName && panel.style.display!=='none'){
+    panel.style.display='none';panel.dataset.current='';return;
+  }
+  panel.dataset.current=svcName;
+
+  const col = svc ? svc.color : '#087BFF';
+  panel.innerHTML = svc ? `
+  <div style="border-radius:16px;border:1px solid ${col}50;background:linear-gradient(145deg,${col}0d,rgba(5,10,25,0.98));padding:1.2rem 1.4rem;position:relative;overflow:hidden;box-shadow:0 0 40px ${col}18,0 8px 40px rgba(0,0,0,0.5)">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,${col},${col}99,transparent)"></div>
+    <!-- Header -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.85rem;flex-wrap:wrap;gap:.5rem">
+      <div>
+        <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:${col};font-weight:800;margin-bottom:.3rem">${svc.domain}</div>
+        <div style="font-size:1.1rem;font-weight:900;color:var(--text)">${svcName}</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-top:.1rem">${svc.tagline}</div>
+      </div>
+      <div style="display:flex;gap:.4rem;align-items:center;flex-wrap:wrap">
+        <button class="btn btn-primary btn-sm" onclick="startPractice('domain','${svc.domain}',15)" style="background:linear-gradient(135deg,${col}cc,${col}88);border:none;font-size:.7rem">⚡ Practice 15 Qs →</button>
+        <button class="btn btn-secondary btn-sm" onclick="document.getElementById('gym-svc-panel').style.display='none'" style="font-size:.68rem">✕ Close</button>
+      </div>
+    </div>
+    <!-- 3-col grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.85rem;margin-bottom:.85rem">
+      <!-- What it does -->
+      <div style="background:rgba(255,255,255,0.03);border-radius:12px;padding:.8rem;border:1px solid rgba(255,255,255,0.07)">
+        <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:${col};font-weight:800;margin-bottom:.4rem">📌 What it does</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.65">${svc.what}</div>
+      </div>
+      <!-- When to use -->
+      <div style="background:rgba(16,201,149,0.04);border-radius:12px;padding:.8rem;border:1px solid rgba(16,201,149,0.1)">
+        <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ok);font-weight:800;margin-bottom:.4rem">✅ Use it when</div>
+        ${svc.when.map(w=>`<div style="font-size:.74rem;color:var(--muted);padding:.18rem 0;display:flex;gap:.4rem;line-height:1.5"><span style="color:var(--ok);flex-shrink:0">•</span>${w}</div>`).join('')}
+      </div>
+      <!-- NOT for / exam trap -->
+      <div style="background:rgba(239,68,68,0.04);border-radius:12px;padding:.8rem;border:1px solid rgba(239,68,68,0.1)">
+        <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--red);font-weight:800;margin-bottom:.4rem">❌ NOT for</div>
+        ${svc.notFor.map(n=>`<div style="font-size:.74rem;color:var(--muted);padding:.18rem 0;display:flex;gap:.4rem;line-height:1.5"><span style="color:var(--red);flex-shrink:0">•</span>${n}</div>`).join('')}
+      </div>
+    </div>
+    <!-- Memory hook -->
+    <div style="padding:.7rem 1rem;background:rgba(233,169,47,0.07);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;display:flex;align-items:flex-start;gap:.6rem">
+      <span style="font-size:1.2rem;flex-shrink:0">🧠</span>
+      <div>
+        <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-weight:800;margin-bottom:.2rem">Memory Hook</div>
+        <div style="font-size:.82rem;color:var(--gold3);font-weight:600;line-height:1.6">${svc.trick}</div>
+      </div>
+    </div>
+  </div>` : `<div style="padding:.8rem;color:var(--muted);font-size:.82rem">No detail available for "${svcName}"</div>`;
+
+  panel.style.display='block';
+  // Smooth scroll to panel
+  setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),60);
 }
 
 applyTheme(appTheme);
