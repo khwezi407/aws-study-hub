@@ -4457,7 +4457,6 @@ function fcNav(dir){
   if(idx<0||idx>=pool.length) return;
   c.dataset.idx=idx;
   const q=getQ(pool[idx]);
-  // Cinematic slide transition
   const fc=document.getElementById('flashcard');
   if(fc){
     fc.style.transition='opacity .18s ease,transform .18s cubic-bezier(.4,0,.2,1)';
@@ -4467,21 +4466,27 @@ function fcNav(dir){
       fc.outerHTML=renderFlashcardItem(q,idx,pool.length);
       const newFc=document.getElementById('flashcard');
       if(newFc){
-        newFc.style.opacity='0';newFc.style.transform=`translateX(${dir>0?'-20px':'20px'})`;
+        newFc.style.opacity='0';
+        newFc.style.transform=`translateX(${dir>0?'-20px':'20px'})`;
         requestAnimationFrame(()=>{
           newFc.style.transition='opacity .28s ease,transform .28s cubic-bezier(.4,0,.2,1)';
-          newFc.style.opacity='1';newFc.style.transform='translateX(0)';
+          newFc.style.opacity='1';
+          newFc.style.transform='translateX(0)';
         });
       }
+      // Update nav controls after DOM is updated
+      const counter=document.getElementById('fc-counter');
+      const prev=document.getElementById('fc-prev');
+      const next=document.getElementById('fc-next');
+      if(counter) counter.textContent=`${idx+1} / ${pool.length}`;
+      if(prev) prev.disabled=idx===0;
+      if(next) next.disabled=idx===pool.length-1;
+      document.querySelectorAll('.fc3-dot').forEach((d,i)=>{
+        d.classList.toggle('active',i===idx);
+        if(i<idx) d.classList.add('seen'); else d.classList.remove('seen');
+      });
     },180);
-  } else {
-    const fcEl=document.getElementById('flashcard');
-    if(fcEl) fcEl.outerHTML=renderFlashcardItem(q,idx,pool.length);
   }
-  document.getElementById('fc-counter').textContent=`${idx+1} / ${pool.length}`;
-  document.getElementById('fc-prev').disabled=idx===0;
-  document.getElementById('fc-next').disabled=idx===pool.length-1;
-  document.querySelectorAll('.fc3-dot').forEach((d,i)=>{d.classList.toggle('active',i===idx);if(i<idx) d.classList.add('seen');else if(i>idx) d.classList.remove('seen');});
 }
 
 function fcJump(idx){
@@ -5009,22 +5014,8 @@ function attachTabListeners(tab){
   if(tab==='home') startLiveCountdown();
 }
 function attachFlashcardListeners(){
-  const container=document.getElementById('flashcard-container');if(!container) return;
-  const pool=JSON.parse(container.dataset.pool);let idx=parseInt(container.dataset.idx)||0;
-  const rebuild=()=>{
-    const q=getQ(pool[idx]);
-    container.innerHTML=renderFlashcardItem(q)+`
-    <div style="display:flex;gap:.5rem;margin-top:1rem;align-items:center;flex-wrap:wrap">
-      <button class="btn btn-secondary btn-sm" id="fc-prev" ${idx===0?'disabled':''}>← Prev</button>
-      <span class="muted" style="font-size:.85rem">${idx+1} / ${pool.length}</span>
-      <button class="btn btn-secondary btn-sm" id="fc-next" ${idx===pool.length-1?'disabled':''}>Next →</button>
-      <button class="btn btn-primary btn-sm" id="fc-flip">🔄 Flip Card</button>
-    </div>`;
-    attachFlashcardListeners();
-  };
-  document.getElementById('fc-flip')?.addEventListener('click',flipCard);
-  document.getElementById('fc-next')?.addEventListener('click',()=>{if(idx<pool.length-1){idx++;rebuild();}});
-  document.getElementById('fc-prev')?.addEventListener('click',()=>{if(idx>0){idx--;rebuild();}});
+  // Nav is handled by inline onclick handlers (fcNav/fcJump/flipCard3d).
+  // This function is kept as a no-op so existing call sites don't break.
 }
 
 // ═══════════════════════════════════════════════════════════════
