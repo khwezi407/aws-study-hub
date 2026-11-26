@@ -5524,9 +5524,9 @@ function renderWeeklyFlashcards(){
       </div>
     </div>
     <div class="sc-progress-wrap" style="margin-top:.7rem;height:5px">
-      <div class="sc-progress-fill" style="background:${deck.color};box-shadow:0 0 8px ${deck.color}50;width:${((currentCard+1)/deck.cards.length*100).toFixed(0)}%;height:5px;border-radius:999px;transition:width .4s"></div>
+      <div id="wfc-progress-bar" class="sc-progress-fill" style="background:${deck.color};box-shadow:0 0 8px ${deck.color}50;width:${((currentCard+1)/deck.cards.length*100).toFixed(0)}%;height:5px;border-radius:999px;transition:width .4s"></div>
     </div>
-    <div style="font-size:.68rem;color:var(--muted);margin-top:.3rem">Card ${currentCard+1} of ${deck.cards.length}</div>
+    <div style="font-size:.68rem;color:var(--muted);margin-top:.3rem" id="wfc-card-label">Card ${currentCard+1} of ${deck.cards.length}</div>
   </div>
 
   <!-- FLASHCARD -->
@@ -5537,7 +5537,7 @@ function renderWeeklyFlashcards(){
   <!-- NAVIGATION -->
   <div style="display:flex;align-items:center;justify-content:center;gap:.75rem;margin-top:1rem;flex-wrap:wrap">
     <button class="btn btn-secondary btn-sm" id="wfc-prev" onclick="wfcNav(-1)" ${currentCard===0?'disabled':''}>← Prev</button>
-    <span style="font-size:.85rem;color:var(--muted);font-weight:600">${currentCard+1} / ${deck.cards.length}</span>
+    <span id="wfc-nav-counter" style="font-size:.85rem;color:var(--muted);font-weight:600">${currentCard+1} / ${deck.cards.length}</span>
     <button class="btn btn-secondary btn-sm" id="wfc-next" onclick="wfcNav(1)" ${currentCard===deck.cards.length-1?'disabled':''}>Next →</button>
     <button class="btn btn-primary btn-sm" onclick="toggleWFC()">🔄 Flip</button>
   </div>
@@ -5605,12 +5605,37 @@ function wfcNav(dir){
   const deck=window.FLASHCARD_DECKS[currentDeck];
   currentCard=Math.max(0,Math.min(deck.cards.length-1,currentCard+dir));
   cardFlipped=false;
-  document.getElementById('wfc-container').innerHTML=renderWeekCard(deck,currentCard);
-  document.getElementById('main-content').innerHTML=renderWeeklyFlashcards();
+  // Only swap the card — never re-render the whole page (that resets currentCard to 0)
+  const container=document.getElementById('wfc-container');
+  if(container) container.innerHTML=renderWeekCard(deck,currentCard);
+  // Update prev/next buttons and counter
+  const prev=document.getElementById('wfc-prev');
+  const next=document.getElementById('wfc-next');
+  const counter=document.querySelector('#wfc-nav-counter');
+  if(prev) prev.disabled=currentCard===0;
+  if(next) next.disabled=currentCard===deck.cards.length-1;
+  if(counter) counter.textContent=`${currentCard+1} / ${deck.cards.length}`;
+  // Update progress bar
+  const bar=document.getElementById('wfc-progress-bar');
+  if(bar) bar.style.width=`${((currentCard+1)/deck.cards.length*100).toFixed(0)}%`;
+  const cardLabel=document.getElementById('wfc-card-label');
+  if(cardLabel) cardLabel.textContent=`Card ${currentCard+1} of ${deck.cards.length}`;
 }
 function jumpWFC(idx){
+  const deck=window.FLASHCARD_DECKS[currentDeck];
   currentCard=idx;cardFlipped=false;
-  document.getElementById('main-content').innerHTML=renderWeeklyFlashcards();
+  const container=document.getElementById('wfc-container');
+  if(container) container.innerHTML=renderWeekCard(deck,currentCard);
+  const prev=document.getElementById('wfc-prev');
+  const next=document.getElementById('wfc-next');
+  const counter=document.getElementById('wfc-nav-counter');
+  const bar=document.getElementById('wfc-progress-bar');
+  const cardLabel=document.getElementById('wfc-card-label');
+  if(prev) prev.disabled=currentCard===0;
+  if(next) next.disabled=currentCard===deck.cards.length-1;
+  if(counter) counter.textContent=`${currentCard+1} / ${deck.cards.length}`;
+  if(bar) bar.style.width=`${((currentCard+1)/deck.cards.length*100).toFixed(0)}%`;
+  if(cardLabel) cardLabel.textContent=`Card ${currentCard+1} of ${deck.cards.length}`;
 }
 function switchDeck(idx){
   currentDeck=idx;currentCard=0;cardFlipped=false;
