@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 48 48" role="img" aria-label="Interview Prep">
+  <defs>
+    <radialGradient id="bg" cx="32%" cy="24%" r="78%">
+      <stop offset="0" stop-color="#24395f"/>
+      <stop offset="0.62" stop-color="#101a32"/>
+      <stop offset="1" stop-color="#070d1b"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff2b0"/>
+      <stop offset="0.25" stop-color="#f7c65a"/>
+      <stop offset="0.62" stop-color="#c9871d"/>
+      <stop offset="1" stop-color="#ffe9a0"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#76dcff"/>
+      <stop offset="1" stop-color="#2876dc"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <circle cx="24" cy="24" r="22" fill="url(#bg)" stroke="#34496e" stroke-width="1.1"/>
+  <circle cx="24" cy="24" r="19.2" fill="none" stroke="#dba744" stroke-opacity=".34" stroke-width=".7"/>
+  <g fill="none" stroke="url(#gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <rect x="7" y="13" width="34" height="25" rx="4"/><path d="M17 13V8h14v5M7 23h34M20 23v4h8v-4"/>
+  </g>
+  <path d="M8 15a18 18 0 0 1 25-8" fill="none" stroke="url(#blue)" stroke-width=".8" stroke-linecap="round" opacity=".75"/>
+  <circle cx="39" cy="10" r="1.1" fill="#8bdcff" opacity=".9"/>
+</svg>

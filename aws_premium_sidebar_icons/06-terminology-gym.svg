@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 48 48" role="img" aria-label="Terminology Gym">
+  <defs>
+    <radialGradient id="bg" cx="32%" cy="24%" r="78%">
+      <stop offset="0" stop-color="#24395f"/>
+      <stop offset="0.62" stop-color="#101a32"/>
+      <stop offset="1" stop-color="#070d1b"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff2b0"/>
+      <stop offset="0.25" stop-color="#f7c65a"/>
+      <stop offset="0.62" stop-color="#c9871d"/>
+      <stop offset="1" stop-color="#ffe9a0"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#76dcff"/>
+      <stop offset="1" stop-color="#2876dc"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <circle cx="24" cy="24" r="22" fill="url(#bg)" stroke="#34496e" stroke-width="1.1"/>
+  <circle cx="24" cy="24" r="19.2" fill="none" stroke="#dba744" stroke-opacity=".34" stroke-width=".7"/>
+  <g fill="none" stroke="url(#gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <path d="M8 10h32v24H8zM13 15h22M13 21h15M13 27h18"/><path d="m19 5 5-3 5 3M19 39l5 3 5-3"/>
+  </g>
+  <path d="M8 15a18 18 0 0 1 25-8" fill="none" stroke="url(#blue)" stroke-width=".8" stroke-linecap="round" opacity=".75"/>
+  <circle cx="39" cy="10" r="1.1" fill="#8bdcff" opacity=".9"/>
+</svg>

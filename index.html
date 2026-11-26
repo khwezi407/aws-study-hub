@@ -17,62 +17,108 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   /* backgrounds */
-  --bg-deep:#050816;
-  --bg-mid:#080d20;
-  --bg-card:rgba(15,20,45,0.75);
-  --bg-card-solid:#0d1228;
-  --bg-sidebar:rgba(5,8,22,0.97);
+  --bg-deep:#050817;
+  --bg-mid:#08152D;
+  --bg-card:rgba(10,18,42,0.82);
+  --bg-card-solid:#0D2550;
+  --bg-sidebar:rgba(4,8,20,0.98);
 
   /* accents */
-  --gold:#FF9900;
-  --gold2:#FFB020;
-  --gold3:#FFD060;
-  --blue:#3BA8FF;
-  --blue2:#60BFFF;
-  --purple:#8B5CF6;
-  --purple2:#A78BFA;
-  --green:#22C55E;
-  --green2:#4ADE80;
+  --gold:#E9A92F;
+  --gold2:#FFD77A;
+  --gold3:#FFF0C0;
+  --blue:#087BFF;
+  --blue2:#00CFFF;
+  --purple:#8055F5;
+  --purple2:#B08AFF;
+  --green:#10C995;
+  --green2:#34EDB6;
   --red:#EF4444;
   --red2:#F87171;
 
   /* legacy aliases kept for JS compatibility */
-  --bg:#050816;
-  --bg2:#080d20;
-  --bg3:#0d1228;
-  --card:#0d1228;
-  --card2:#111830;
-  --border:rgba(255,255,255,0.08);
-  --border2:rgba(255,255,255,0.15);
-  --accent:#FF9900;--accent2:#FFB020;--accent3:#FFD060;
-  --ok:#22C55E;--ok2:#4ADE80;
+  --bg:#050817;
+  --bg2:#08152D;
+  --bg3:#0D2550;
+  --card:#0D2550;
+  --card2:#0a1535;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.14);
+  --accent:#E9A92F;--accent2:#FFD77A;--accent3:#FFF0C0;
+  --ok:#10C995;--ok2:#34EDB6;
   --err:#EF4444;--err2:#F87171;
-  --flag:#8B5CF6;--flag2:#A78BFA;
-  --info:#3BA8FF;--info2:#60BFFF;
-  --purple:#8B5CF6;--purple2:#A78BFA;
-  --text:#F0F6FF;--muted:rgba(240,246,255,0.5);--muted2:rgba(240,246,255,0.28);
-  --cc:#3BA8FF;--sec:#FFB020;--tech:#22C55E;--bill:#FF9900;
+  --flag:#8055F5;--flag2:#B08AFF;
+  --info:#087BFF;--info2:#00CFFF;
+  --purple:#8055F5;--purple2:#B08AFF;
+  --text:#F1F5FF;--muted:rgba(241,245,255,0.5);--muted2:rgba(241,245,255,0.28);
+  --cc:#087BFF;--sec:#FFD77A;--tech:#10C995;--bill:#E9A92F;
 
   /* shape */
   --radius:12px;--radius-lg:18px;--radius-xl:24px;
 
   /* glow helpers */
-  --glow-gold:0 0 24px rgba(255,153,0,0.35);
-  --glow-blue:0 0 24px rgba(59,168,255,0.35);
-  --glow-purple:0 0 24px rgba(139,92,246,0.35);
-  --glow-green:0 0 24px rgba(34,197,94,0.35);
+  --glow-gold:0 0 32px rgba(233,169,47,0.4);
+  --glow-blue:0 0 32px rgba(8,123,255,0.4);
+  --glow-purple:0 0 32px rgba(128,85,245,0.4);
+  --glow-green:0 0 32px rgba(16,201,149,0.4);
 
   /* sidebar */
-  --sidebar-w:210px;
+  --sidebar-w:218px;
 }
 
 /* ── RESETS ─────────────────────────────── */
 html{font-size:15px;scroll-behavior:smooth}
 body{
-  background:linear-gradient(160deg,var(--bg-deep) 0%,#0B1030 100%);
+  background:
+    radial-gradient(ellipse 80% 50% at 15% 20%,rgba(8,123,255,0.09) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 40% at 85% 75%,rgba(233,169,47,0.07) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 60% at 50% 50%,rgba(128,85,245,0.04) 0%,transparent 70%),
+    linear-gradient(170deg,#050817 0%,#08152D 45%,#0a1a3a 70%,#050c1e 100%);
   color:var(--text);
   font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
   min-height:100vh;line-height:1.6;overflow-x:hidden;
+}
+
+/* ── THEME: MIDNIGHT GREEN ──────────────── */
+body[data-theme="green"]{
+  --bg-deep:#020e08;
+  --bg-mid:#041209;
+  --bg-card:rgba(4,18,10,0.85);
+  --bg-card-solid:#061510;
+  --bg-sidebar:rgba(2,10,6,0.97);
+  --gold:#00ff88;
+  --gold2:#00e07a;
+  --gold3:#4dffa8;
+  --blue:#22C55E;
+  --blue2:#4ade80;
+  --purple:#00d4aa;
+  --purple2:#34d399;
+  --border:rgba(0,255,136,0.08);
+  --border2:rgba(0,255,136,0.18);
+  --accent:#00ff88;--accent2:#00e07a;--accent3:#4dffa8;
+  --glow-gold:0 0 24px rgba(0,255,136,0.35);
+  background:linear-gradient(160deg,#020e08 0%,#041a0f 100%);
+}
+
+/* ── THEME: DEEP PURPLE ─────────────────── */
+body[data-theme="purple"]{
+  --bg-deep:#07020e;
+  --bg-mid:#0d0520;
+  --bg-card:rgba(15,8,30,0.85);
+  --bg-card-solid:#100828;
+  --bg-sidebar:rgba(5,2,14,0.97);
+  --gold:#a855f7;
+  --gold2:#c084fc;
+  --gold3:#d8b4fe;
+  --blue:#818cf8;
+  --blue2:#a5b4fc;
+  --purple:#ec4899;
+  --purple2:#f472b6;
+  --border:rgba(168,85,247,0.1);
+  --border2:rgba(168,85,247,0.2);
+  --accent:#a855f7;--accent2:#c084fc;--accent3:#d8b4fe;
+  --glow-gold:0 0 24px rgba(168,85,247,0.4);
+  background:linear-gradient(160deg,#07020e 0%,#120530 100%);
 }
 button{cursor:pointer;font:inherit;border:none;background:none}
 input,select{font:inherit}
@@ -89,56 +135,125 @@ input,select{font:inherit}
 .sidebar{
   width:var(--sidebar-w);
   min-height:100vh;
-  background:var(--bg-sidebar);
-  border-right:1px solid rgba(255,153,0,0.12);
+  background:
+    linear-gradient(180deg,rgba(3,7,20,0.99) 0%,rgba(5,10,26,0.99) 60%,rgba(4,8,22,0.99) 100%);
+  border-right:1px solid rgba(8,123,255,0.18);
   display:flex;flex-direction:column;
   position:fixed;top:0;left:0;height:100vh;
   overflow-y:auto;overflow-x:hidden;
   z-index:50;
-  backdrop-filter:blur(20px);
+  backdrop-filter:blur(28px);
   transition:width .25s ease;
+  box-shadow:4px 0 60px rgba(0,0,0,0.75),inset -1px 0 0 rgba(8,123,255,0.1),2px 0 0 rgba(8,123,255,0.06);
+}
+/* ambient blue glow that drifts up the sidebar edge */
+.sidebar::before{
+  content:'';position:absolute;top:0;right:0;width:1px;height:40%;
+  background:linear-gradient(180deg,transparent,rgba(8,123,255,0.5),transparent);
+  animation:sidebarBeam 4s ease-in-out infinite;pointer-events:none;z-index:1;
+}
+@keyframes sidebarBeam{
+  0%,100%{top:0;opacity:.5}
+  50%{top:60%;opacity:1}
 }
 .sidebar::-webkit-scrollbar{width:3px}
-.sidebar::-webkit-scrollbar-thumb{background:rgba(255,153,0,0.2);border-radius:3px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(8,123,255,0.3);border-radius:3px}
 
 /* logo area */
 .sidebar-logo{
   display:flex;align-items:center;gap:.7rem;
   padding:1.1rem .9rem .9rem;
-  border-bottom:1px solid rgba(255,153,0,0.12);
+  border-bottom:1px solid rgba(8,123,255,0.1);
   flex-shrink:0;
+  position:relative;
+}
+.sidebar-logo::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(233,169,47,0.3),transparent);
 }
 .aws-logo-wrap{
-  width:40px;height:40px;border-radius:10px;
-  background:linear-gradient(135deg,#FF9900,#e07000);
+  width:40px;height:40px;border-radius:11px;
+  background:linear-gradient(135deg,#E9A92F,#c47800);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 20px rgba(255,153,0,0.5);
+  box-shadow:0 0 20px rgba(233,169,47,0.5),0 4px 12px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,220,100,0.3);
   flex-shrink:0;
 }
 .aws-logo-wrap svg{width:28px;height:18px}
 .sidebar-brand{line-height:1.25}
-.sidebar-brand-name{font-size:.82rem;font-weight:800;color:var(--text);display:block}
-.sidebar-brand-sub{font-size:.6rem;color:var(--gold);font-weight:600;display:block}
+.sidebar-brand-name{font-size:.8rem;font-weight:800;color:var(--text);display:block}
+.sidebar-brand-sub{font-size:.58rem;color:var(--gold);font-weight:600;display:block;letter-spacing:.04em}
 
 /* nav sections */
 .sidebar-section-label{
-  font-size:.58rem;text-transform:uppercase;letter-spacing:.12em;
+  font-size:.56rem;text-transform:uppercase;letter-spacing:.14em;
   color:var(--muted2);padding:.7rem .9rem .2rem;font-weight:700;
 }
 .nav-btn{
-  display:flex;align-items:center;gap:.6rem;
-  padding:.55rem .9rem;border-radius:var(--radius);
-  color:var(--muted);font-size:.8rem;font-weight:600;
-  transition:all .18s;width:100%;position:relative;
-  margin:1px 0;
+  display:flex;align-items:center;gap:.65rem;
+  padding:.54rem .9rem;border-radius:var(--radius);
+  color:var(--muted);font-size:.78rem;font-weight:600;
+  transition:all .22s cubic-bezier(.4,0,.2,1);width:100%;position:relative;
+  margin:1px 0;overflow:hidden;
 }
-.nav-btn .nav-icon{font-size:.95rem;width:1.1rem;text-align:center;flex-shrink:0}
-.nav-btn:hover{background:rgba(255,255,255,0.05);color:var(--text)}
+/* shimmer sweep on hover */
+.nav-btn::before{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.04),transparent);
+  transition:left .4s ease;pointer-events:none;
+}
+.nav-btn:hover::before{left:160%}
+/* active left-edge beacon */
+.nav-btn::after{
+  content:'';position:absolute;left:0;top:20%;height:60%;width:3px;
+  border-radius:0 3px 3px 0;
+  background:var(--gold);
+  box-shadow:0 0 10px rgba(233,169,47,0.9),0 0 20px rgba(233,169,47,0.4);
+  opacity:0;transform:scaleY(0);
+  transition:opacity .22s,transform .22s cubic-bezier(.4,0,.2,1);
+}
+.nav-btn.active::after{opacity:1;transform:scaleY(1)}
+
+.nav-btn .nav-icon{
+  width:34px;height:34px;text-align:center;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:10px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);
+  transition:all .22s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 2px 8px rgba(0,0,0,0.3);
+}
+.nav-btn .nav-icon img{
+  width:19px;height:19px;object-fit:contain;
+  opacity:.65;
+  transition:opacity .22s,transform .22s,filter .22s;
+  filter:saturate(0.7);
+}
+.nav-btn:hover{
+  background:rgba(8,123,255,0.09);
+  color:var(--text);
+}
+.nav-btn:hover .nav-icon{
+  background:rgba(8,123,255,0.18);
+  border-color:rgba(8,123,255,0.35);
+  box-shadow:0 0 14px rgba(8,123,255,0.25),0 2px 8px rgba(0,0,0,0.3);
+  transform:translateY(-1px);
+}
+.nav-btn:hover .nav-icon img{
+  opacity:1;transform:scale(1.12);filter:saturate(1.2);
+}
 .nav-btn.active{
-  background:linear-gradient(90deg,rgba(255,153,0,0.2),rgba(255,153,0,0.06));
+  background:linear-gradient(90deg,rgba(233,169,47,0.14),rgba(233,169,47,0.04) 70%,transparent);
   color:var(--gold2);
-  border-left:2px solid var(--gold);
-  padding-left:calc(.9rem - 2px);
+  padding-left:.9rem;
+}
+.nav-btn.active .nav-icon{
+  background:linear-gradient(135deg,rgba(233,169,47,0.22),rgba(233,169,47,0.08));
+  border-color:rgba(233,169,47,0.4);
+  box-shadow:0 0 16px rgba(233,169,47,0.3),0 2px 8px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,220,100,0.15);
+}
+.nav-btn.active .nav-icon img{
+  opacity:1;
+  filter:saturate(1.4) drop-shadow(0 0 5px rgba(233,169,47,0.7));
 }
 .nav-badge{
   font-size:.5rem;font-weight:800;padding:.1rem .35rem;
@@ -198,10 +313,11 @@ input,select{font:inherit}
 .topbar{
   display:flex;align-items:center;justify-content:flex-end;
   padding:.6rem 1.5rem;
-  background:rgba(5,8,22,0.8);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,0.06);
+  background:rgba(5,8,23,0.85);
+  backdrop-filter:blur(28px);
+  border-bottom:1px solid rgba(8,123,255,0.1);
   position:sticky;top:0;z-index:40;gap:.75rem;
+  box-shadow:0 2px 24px rgba(0,0,0,0.4);
 }
 .topbar-user{
   display:flex;align-items:center;gap:.6rem;
@@ -304,9 +420,31 @@ input,select{font:inherit}
   border-radius:var(--radius-xl);
   margin-bottom:1rem;
   min-height:220px;
-  background:linear-gradient(120deg,#07122a 0%,#0d1535 40%,#15183a 60%,#0d1535 100%);
-  border:1px solid rgba(59,168,255,0.2);
-  box-shadow:0 0 60px rgba(59,168,255,0.1),0 0 120px rgba(255,153,0,0.06),inset 0 1px 0 rgba(255,255,255,0.05);
+  background:linear-gradient(130deg,
+    #03091c 0%,
+    #050f2e 30%,
+    #07152e 60%,
+    #040c20 100%);
+  border:1px solid rgba(8,123,255,0.22);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.5),
+    0 8px 60px rgba(0,0,0,0.65),
+    0 0 80px rgba(8,123,255,0.1),
+    0 0 150px rgba(233,169,47,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    inset 0 0 60px rgba(8,123,255,0.03);
+}
+.hero-banner::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(8,123,255,0.5) 25%,
+    rgba(0,207,255,0.8) 45%,
+    rgba(233,169,47,0.8) 65%,
+    rgba(255,215,122,0.5) 85%,
+    transparent 100%);
+  box-shadow:0 0 16px rgba(8,123,255,0.3);
+  z-index:5;
 }
 .hero-bg-img{
   position:absolute;inset:0;width:100%;height:100%;
@@ -407,27 +545,31 @@ input,select{font:inherit}
   background:linear-gradient(90deg,transparent,currentColor,transparent);
   opacity:.25;
 }
-.stat-card:hover{transform:translateY(-4px)}
+.stat-card:hover{transform:translateY(-5px)}
 .stat-card.sc-streak{
   border-color:rgba(255,153,0,0.3);
-  box-shadow:0 0 24px rgba(255,153,0,0.12);
+  box-shadow:0 0 30px rgba(255,153,0,0.1),0 4px 24px rgba(0,0,0,0.5),inset 0 0 40px rgba(255,153,0,0.03);
+  background:linear-gradient(150deg,rgba(10,18,42,0.98),rgba(5,10,28,0.99));
 }
-.stat-card.sc-streak:hover{box-shadow:0 8px 32px rgba(255,153,0,0.25)}
+.stat-card.sc-streak:hover{box-shadow:0 10px 40px rgba(255,153,0,0.2),0 0 60px rgba(255,153,0,0.08)}
 .stat-card.sc-xp{
   border-color:rgba(255,176,32,0.3);
-  box-shadow:0 0 24px rgba(255,176,32,0.1);
+  box-shadow:0 0 30px rgba(255,176,32,0.08),0 4px 24px rgba(0,0,0,0.5),inset 0 0 40px rgba(255,176,32,0.03);
+  background:linear-gradient(150deg,rgba(10,18,42,0.98),rgba(5,10,28,0.99));
 }
-.stat-card.sc-xp:hover{box-shadow:0 8px 32px rgba(255,176,32,0.22)}
+.stat-card.sc-xp:hover{box-shadow:0 10px 40px rgba(255,176,32,0.2),0 0 60px rgba(255,176,32,0.08)}
 .stat-card.sc-readiness{
   border-color:rgba(34,197,94,0.3);
-  box-shadow:0 0 24px rgba(34,197,94,0.12);
+  box-shadow:0 0 30px rgba(34,197,94,0.1),0 4px 24px rgba(0,0,0,0.5),inset 0 0 40px rgba(34,197,94,0.03);
+  background:linear-gradient(150deg,rgba(8,18,38,0.98),rgba(5,12,26,0.99));
 }
-.stat-card.sc-readiness:hover{box-shadow:0 8px 32px rgba(34,197,94,0.25)}
+.stat-card.sc-readiness:hover{box-shadow:0 10px 40px rgba(34,197,94,0.2),0 0 60px rgba(34,197,94,0.08)}
 .stat-card.sc-practice{
   border-color:rgba(139,92,246,0.3);
-  box-shadow:0 0 24px rgba(139,92,246,0.1);
+  box-shadow:0 0 30px rgba(139,92,246,0.08),0 4px 24px rgba(0,0,0,0.5),inset 0 0 40px rgba(139,92,246,0.03);
+  background:linear-gradient(150deg,rgba(10,8,30,0.98),rgba(6,5,20,0.99));
 }
-.stat-card.sc-practice:hover{box-shadow:0 8px 32px rgba(139,92,246,0.22)}
+.stat-card.sc-practice:hover{box-shadow:0 10px 40px rgba(139,92,246,0.2),0 0 60px rgba(139,92,246,0.08)}
 
 .sc-header{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
 .sc-icon-wrap{
@@ -474,29 +616,30 @@ input,select{font:inherit}
 @media(max-width:800px){.mid-row{grid-template-columns:1fr}}
 
 .glass-card{
-  background:var(--bg-card);
-  backdrop-filter:blur(16px);
+  background:linear-gradient(150deg,rgba(8,18,46,0.96),rgba(5,12,30,0.98));
+  backdrop-filter:blur(20px);
   border-radius:20px;
   padding:1.1rem 1.25rem;
   position:relative;overflow:hidden;
-  border:1px solid rgba(255,255,255,0.08);
-  transition:transform .2s,box-shadow .2s;
+  border:1px solid rgba(255,255,255,0.07);
+  transition:transform .22s cubic-bezier(.4,0,.2,1),box-shadow .22s;
+  box-shadow:0 4px 36px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.05);
 }
-.glass-card:hover{transform:translateY(-3px)}
+.glass-card:hover{transform:translateY(-3px);box-shadow:0 14px 50px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.07)}
 .glass-card::before{
   content:'';position:absolute;top:0;left:0;right:0;height:1px;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);
 }
 .glass-card.gold-card{
-  border-color:rgba(255,153,0,0.2);
-  box-shadow:0 0 24px rgba(255,153,0,0.08);
+  border-color:rgba(233,169,47,0.2);
+  box-shadow:0 4px 36px rgba(0,0,0,0.5),0 0 40px rgba(233,169,47,0.07),inset 0 1px 0 rgba(255,220,100,0.08);
 }
-.glass-card.gold-card:hover{box-shadow:0 8px 40px rgba(255,153,0,0.18)}
+.glass-card.gold-card:hover{box-shadow:0 14px 50px rgba(0,0,0,0.6),0 0 60px rgba(233,169,47,0.1)}
 .glass-card.blue-card{
-  border-color:rgba(59,168,255,0.2);
-  box-shadow:0 0 24px rgba(59,168,255,0.08);
+  border-color:rgba(8,123,255,0.2);
+  box-shadow:0 4px 36px rgba(0,0,0,0.5),0 0 40px rgba(8,123,255,0.07),inset 0 1px 0 rgba(80,180,255,0.07);
 }
-.glass-card.blue-card:hover{box-shadow:0 8px 40px rgba(59,168,255,0.18)}
+.glass-card.blue-card:hover{box-shadow:0 14px 50px rgba(0,0,0,0.6),0 0 60px rgba(8,123,255,0.12)}
 
 .card-header{
   display:flex;align-items:center;justify-content:space-between;
@@ -539,40 +682,147 @@ input,select{font:inherit}
 .domain-ring-weight{font-size:.56rem;color:var(--muted2);text-align:center;margin-top:1px}
 
 /* galaxy */
-.galaxy-wrap{position:relative;height:200px}
+.galaxy-wrap{
+  position:relative;
+  height:260px;
+  overflow:hidden;
+  border-radius:14px;
+}
+@media(max-width:600px){.galaxy-wrap{height:220px}}
+
 .galaxy-bg-img{
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;border-radius:12px;opacity:.35;
+  object-fit:cover;border-radius:12px;opacity:.18;
 }
-.galaxy-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-.galaxy-center-btn{
-  width:72px;height:72px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,153,0,0.3) 0%,rgba(20,30,80,0.9) 60%);
-  border:2px solid rgba(255,153,0,0.6);
-  box-shadow:0 0 40px rgba(255,153,0,0.4),0 0 80px rgba(59,168,255,0.1);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;font-weight:900;color:rgba(255,153,0,0.95);
-  animation:galaxyPulse2 2s ease-in-out infinite;cursor:pointer;
-  letter-spacing:.03em;z-index:5;position:relative;
-}
-@keyframes galaxyPulse2{0%,100%{box-shadow:0 0 30px rgba(255,153,0,0.3),0 0 60px rgba(255,153,0,0.1)}50%{box-shadow:0 0 50px rgba(255,153,0,0.5),0 0 100px rgba(255,153,0,0.15)}}
-.galaxy-orbit{
+
+/* Orbital rings */
+.gx-ring{
   position:absolute;top:50%;left:50%;
-  border-radius:50%;border:1px solid;
-  pointer-events:none;transform:translate(-50%,-50%);
+  border-radius:50%;
+  border:1px solid rgba(59,168,255,0.18);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  animation:gxRingSpin linear infinite;
 }
-.galaxy-node{
-  position:absolute;transform:translate(-50%,-50%);
+.gx-ring.r1{width:140px;height:52px;animation-duration:18s;border-color:rgba(59,168,255,0.22)}
+.gx-ring.r2{width:240px;height:88px;animation-duration:28s;animation-direction:reverse;border-color:rgba(255,153,0,0.18)}
+.gx-ring.r3{width:320px;height:118px;animation-duration:40s;border-color:rgba(139,92,246,0.14)}
+@keyframes gxRingSpin{from{transform:translate(-50%,-50%) rotateX(72deg) rotate(0deg)}to{transform:translate(-50%,-50%) rotateX(72deg) rotate(360deg)}}
+
+/* Centre globe */
+.gx-center{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:10;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:80px;height:80px;border-radius:50%;
+  background:radial-gradient(circle at 38% 32%,#1a3a6a 0%,#071228 55%,#030a18 100%);
+  border:2px solid rgba(255,153,0,0.55);
+  box-shadow:
+    0 0 0 6px rgba(255,153,0,0.07),
+    0 0 30px rgba(255,153,0,0.4),
+    0 0 70px rgba(59,168,255,0.15),
+    inset 0 0 20px rgba(255,153,0,0.08);
+  cursor:pointer;
+  animation:gxGlobePulse 3s ease-in-out infinite;
+  transition:transform .2s;
+}
+.gx-center:hover{transform:translate(-50%,-50%) scale(1.1)}
+@keyframes gxGlobePulse{
+  0%,100%{box-shadow:0 0 0 6px rgba(255,153,0,0.07),0 0 30px rgba(255,153,0,0.4),0 0 70px rgba(59,168,255,0.15),inset 0 0 20px rgba(255,153,0,0.08)}
+  50%{box-shadow:0 0 0 10px rgba(255,153,0,0.05),0 0 50px rgba(255,153,0,0.6),0 0 100px rgba(59,168,255,0.2),inset 0 0 30px rgba(255,153,0,0.12)}
+}
+.gx-center-logo{
+  font-size:.9rem;font-weight:900;color:#fff;letter-spacing:.04em;line-height:1;
+}
+.gx-center-arc{
+  display:block;width:36px;height:4px;
+  border-bottom:3px solid #FF9900;
+  border-radius:0 0 50% 50%;
+  margin-top:1px;
+  box-shadow:0 2px 8px rgba(255,153,0,0.6);
+}
+.gx-center-label{font-size:.42rem;color:rgba(255,255,255,0.5);letter-spacing:.08em;margin-top:2px;text-transform:uppercase}
+
+/* Orbital nodes */
+.gx-node{
+  position:absolute;
+  transform:translate(-50%,-50%);
   display:flex;flex-direction:column;align-items:center;gap:3px;
-  cursor:pointer;z-index:4;
+  cursor:pointer;z-index:8;
+  transition:transform .2s;
 }
-.galaxy-node-icon{
-  width:38px;height:38px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:1rem;
-  border:2px solid;transition:all .2s;
+.gx-node:hover{transform:translate(-50%,-50%) scale(1.18)}
+.gx-node-icon-wrap{
+  position:relative;
+  width:46px;height:46px;
 }
-.galaxy-node:hover .galaxy-node-icon{transform:scale(1.25)}
-.galaxy-node-label{font-size:.58rem;font-weight:700;color:var(--text);white-space:nowrap;text-shadow:0 1px 6px rgba(0,0,0,0.9)}
+@media(max-width:600px){.gx-node-icon-wrap{width:38px;height:38px}}
+.gx-node-bg{
+  width:100%;height:100%;border-radius:14px;
+  background:rgba(5,12,30,0.88);
+  backdrop-filter:blur(8px);
+  border:1.5px solid;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;
+  box-shadow:0 4px 20px rgba(0,0,0,0.5);
+  transition:all .2s;
+  position:relative;overflow:hidden;
+}
+.gx-node-bg::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
+}
+.gx-node:hover .gx-node-bg{filter:brightness(1.3)}
+
+/* Progress arc around node */
+.gx-node-ring{
+  position:absolute;top:-3px;left:-3px;right:-3px;bottom:-3px;
+  border-radius:17px;
+  pointer-events:none;
+}
+
+.gx-node-label{
+  font-size:.6rem;font-weight:800;
+  color:#fff;
+  text-shadow:0 1px 8px rgba(0,0,0,1),0 0 12px rgba(0,0,0,0.9);
+  white-space:nowrap;
+  background:rgba(0,0,0,0.6);
+  padding:.08rem .35rem;
+  border-radius:4px;
+  backdrop-filter:blur(4px);
+}
+.gx-node-pct{
+  font-size:.52rem;font-weight:800;
+  opacity:.85;
+  margin-top:-2px;
+}
+
+/* Connection lines SVG */
+.gx-lines{
+  position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;z-index:2;
+}
+
+/* Floating particles */
+.gx-particle{
+  position:absolute;border-radius:50%;pointer-events:none;z-index:1;
+  animation:gxParticleFloat linear infinite;
+  opacity:0;
+}
+@keyframes gxParticleFloat{
+  0%{opacity:0;transform:translateY(0) scale(0)}
+  15%{opacity:1}
+  85%{opacity:.6}
+  100%{opacity:0;transform:translateY(-40px) scale(1.5)}
+}
+
+/* Node entry animation */
+@keyframes gxNodeIn{
+  from{opacity:0;transform:translate(-50%,-50%) scale(0.3)}
+  to{opacity:1;transform:translate(-50%,-50%) scale(1)}
+}
+.gx-node{animation:gxNodeIn .5s cubic-bezier(.34,1.56,.64,1) both}
 
 /* ═══════════════════════════════════════════
    BOTTOM ROW (3 cards)
@@ -674,24 +924,30 @@ input,select{font:inherit}
   display:inline-flex;align-items:center;gap:.4rem;
   padding:.55rem 1.2rem;border-radius:var(--radius);
   font-weight:700;font-size:.82rem;cursor:pointer;
-  transition:all .18s;position:relative;overflow:hidden;border:none;
+  transition:all .2s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;border:none;
 }
+.btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);transition:left .4s ease;pointer-events:none}
+.btn:hover::before{left:150%}
 .btn::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.08) 0%,transparent 50%);pointer-events:none}
 .btn-primary{
-  background:linear-gradient(135deg,var(--gold),#d97706);color:#0a0a0a;
-  box-shadow:0 4px 16px rgba(255,153,0,0.4),0 1px 0 rgba(255,255,255,0.2) inset;
+  background:linear-gradient(135deg,#E9A92F,#c47800,#E9A92F);
+  background-size:200% 100%;
+  color:#050817;
+  box-shadow:0 4px 20px rgba(233,169,47,0.45),0 1px 0 rgba(255,230,120,0.3) inset;
+  font-weight:800;
 }
-.btn-primary:hover{background:linear-gradient(135deg,var(--gold2),var(--gold));transform:translateY(-2px);box-shadow:0 6px 24px rgba(255,153,0,0.55)}
+.btn-primary:hover{background-position:100% 0;transform:translateY(-2px);box-shadow:0 8px 28px rgba(233,169,47,0.6)}
 .btn-purple{
-  background:linear-gradient(135deg,var(--purple),#6d28d9);color:#fff;
-  box-shadow:0 4px 16px rgba(139,92,246,0.4);
+  background:linear-gradient(135deg,var(--purple),#5a35c9);color:#fff;
+  box-shadow:0 4px 20px rgba(128,85,245,0.45);
 }
-.btn-purple:hover{background:linear-gradient(135deg,var(--purple2),var(--purple));transform:translateY(-2px);box-shadow:0 6px 24px rgba(139,92,246,0.55)}
+.btn-purple:hover{background:linear-gradient(135deg,var(--purple2),var(--purple));transform:translateY(-2px);box-shadow:0 8px 28px rgba(128,85,245,0.6)}
 .btn-secondary{
-  background:rgba(255,255,255,0.07);color:var(--text);
-  border:1px solid rgba(255,255,255,0.14);
+  background:rgba(255,255,255,0.06);color:var(--text);
+  border:1px solid rgba(255,255,255,0.12);
+  box-shadow:0 2px 8px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.06);
 }
-.btn-secondary:hover{background:rgba(255,255,255,0.12);transform:translateY(-1px)}
+.btn-secondary:hover{background:rgba(255,255,255,0.1);transform:translateY(-1px)}
 .btn-sm{padding:.38rem .9rem;font-size:.76rem}
 .btn-xs{padding:.25rem .6rem;font-size:.7rem}
 .btn-danger{background:rgba(239,68,68,0.12);color:var(--red);border:1px solid rgba(239,68,68,0.25)}
@@ -848,6 +1104,729 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
 .challenge-card-inner{background:linear-gradient(135deg,#2d1b69,#1e1b4b,#0f0a2a);border:1px solid rgba(139,92,246,0.3);border-radius:var(--radius-lg);padding:1.1rem 1.25rem;position:relative;overflow:hidden}
 .challenge-card-inner::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(167,139,250,0.3),transparent)}
 .challenge-glow{position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-size:4rem;opacity:.3;animation:trophySpin 6s linear infinite}
+
+/* ═══════════════════════════════════════════
+   LAYOUT TOGGLE — PREMIUM
+═══════════════════════════════════════════ */
+.layout-toggle{
+  display:flex;align-items:center;gap:.25rem;
+  background:rgba(5,10,28,0.85);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:999px;padding:.25rem;
+  margin-bottom:1rem;
+  width:fit-content;
+  box-shadow:0 4px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.05);
+  backdrop-filter:blur(16px);
+}
+.layout-btn{
+  padding:.35rem 1rem;border-radius:999px;
+  font-size:.72rem;font-weight:800;color:var(--muted);
+  transition:all .22s cubic-bezier(.4,0,.2,1);cursor:pointer;
+  display:flex;align-items:center;gap:.35rem;
+  border:none;background:none;letter-spacing:.01em;
+}
+.layout-btn.active{
+  background:linear-gradient(135deg,rgba(233,169,47,0.3),rgba(233,169,47,0.12));
+  color:var(--gold2);
+  box-shadow:0 0 16px rgba(233,169,47,0.3),inset 0 1px 0 rgba(255,220,100,0.2);
+  border:1px solid rgba(233,169,47,0.25);
+}
+.layout-btn:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.07)}
+
+/* ═══════════════════════════════════════════
+   THEME TOGGLE
+═══════════════════════════════════════════ */
+.theme-toggle{
+  display:flex;align-items:center;gap:.35rem;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:999px;padding:.25rem;
+  margin-bottom:0;width:fit-content;
+}
+.theme-btn{
+  padding:.28rem .7rem;border-radius:999px;
+  font-size:.68rem;font-weight:700;color:var(--muted);
+  transition:all .18s;cursor:pointer;
+  display:flex;align-items:center;gap:.3rem;
+  border:none;background:none;
+}
+.theme-btn.active{
+  background:rgba(255,255,255,0.1);
+  color:var(--text);
+  box-shadow:0 0 8px rgba(255,255,255,0.1);
+}
+.theme-btn:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.06)}
+/* Top controls bar holding both toggles */
+.home-controls{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;
+}
+
+/* ═══════════════════════════════════════════
+   COMMAND CENTER — PREMIUM AWS CONTROL ROOM
+═══════════════════════════════════════════ */
+
+/* Animated keyframes for CC */
+@keyframes ccBeaconPulse{0%,100%{opacity:0.6;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes ccScanLine{0%{transform:translateY(-100%);opacity:0}10%{opacity:0.4}90%{opacity:0.4}100%{transform:translateY(500%);opacity:0}}
+@keyframes ccNumberCount{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ccGlassShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes ccRingGlow{0%,100%{filter:drop-shadow(0 0 6px rgba(233,169,47,0.5))}50%{filter:drop-shadow(0 0 16px rgba(233,169,47,0.9))}}
+@keyframes ccMetricFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes ccParticleOrbit{from{transform:rotate(0deg) translateX(60px)}to{transform:rotate(360deg) translateX(60px)}}
+@keyframes ccHeaderBeam{0%{opacity:0;transform:scaleX(0)}30%{opacity:1}100%{opacity:0;transform:scaleX(1)}}
+@keyframes ccGridPulse{0%,100%{opacity:0.03}50%{opacity:0.07}}
+@keyframes ccCountdownTick{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+
+/* ── CC WRAPPER (adds grid background overlay) ── */
+.cc-wrapper{position:relative}
+.cc-wrapper::before{
+  content:'';position:fixed;top:0;left:0;right:0;bottom:0;
+  background-image:
+    linear-gradient(rgba(8,123,255,0.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(8,123,255,0.035) 1px,transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;z-index:0;
+  animation:ccGridPulse 6s ease-in-out infinite;
+}
+
+/* ── CC HEADER ── */
+.cc-header{
+  position:relative;overflow:hidden;
+  border-radius:var(--radius-xl);
+  margin-bottom:.85rem;
+  padding:0;
+  background:linear-gradient(130deg,
+    #03091c 0%,
+    #050e2a 25%,
+    #06142e 50%,
+    #03091a 75%,
+    #020710 100%);
+  border:1px solid rgba(8,123,255,0.28);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.6),
+    0 8px 60px rgba(0,0,0,0.7),
+    0 0 80px rgba(8,123,255,0.1),
+    0 0 160px rgba(233,169,47,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.07),
+    inset 0 0 60px rgba(8,123,255,0.04);
+}
+/* Top spectral line */
+.cc-header::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;z-index:10;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(8,123,255,0.6) 20%,
+    rgba(0,207,255,0.9) 40%,
+    rgba(233,169,47,0.9) 60%,
+    rgba(255,215,122,0.6) 80%,
+    transparent 100%);
+  box-shadow:0 0 20px rgba(8,123,255,0.4),0 0 40px rgba(233,169,47,0.2);
+}
+/* Scan line animation */
+.cc-header::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:60px;
+  background:linear-gradient(180deg,rgba(8,123,255,0.06) 0%,transparent 100%);
+  pointer-events:none;z-index:1;
+  animation:ccScanLine 8s ease-in-out infinite;
+}
+/* Grid content inside header */
+.cc-header-inner{
+  padding:1.4rem 1.75rem;position:relative;z-index:2;
+}
+.cc-header-grid{
+  display:grid;grid-template-columns:1fr auto;gap:1.2rem;align-items:center;
+}
+@media(max-width:700px){.cc-header-grid{grid-template-columns:1fr}}
+.cc-header-eyebrow{
+  font-size:.56rem;text-transform:uppercase;letter-spacing:.22em;
+  color:var(--blue2);font-weight:900;margin-bottom:.5rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.cc-header-eyebrow::before{
+  content:'';width:24px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--blue2));display:inline-block;
+}
+.cc-header-eyebrow::after{
+  content:'';flex:1;max-width:80px;height:1px;
+  background:linear-gradient(90deg,var(--blue2),transparent);display:inline-block;
+}
+.cc-beacon{
+  width:6px;height:6px;border-radius:50%;background:var(--green2);
+  box-shadow:0 0 10px var(--green2);
+  animation:ccBeaconPulse 2s ease-in-out infinite;
+  display:inline-block;flex-shrink:0;
+}
+.cc-header-title{
+  font-size:1.75rem;font-weight:900;line-height:1.08;letter-spacing:-.03em;color:#fff;
+  margin-bottom:.25rem;text-shadow:0 2px 20px rgba(8,123,255,0.3);
+}
+.cc-header-title .cc-gold{
+  background:linear-gradient(90deg,var(--gold) 0%,var(--gold2) 50%,var(--gold) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:ccGlassShimmer 4s linear infinite;
+  display:block;
+}
+.cc-header-sub{
+  font-size:.78rem;color:rgba(255,255,255,0.45);margin-bottom:1.1rem;
+  display:flex;align-items:center;gap:.6rem;
+}
+.cc-header-sub .cc-dot-sep{
+  width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.25);
+  display:inline-block;
+}
+.cc-header-actions{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+
+/* RIGHT SIDE: countdown + ring cluster */
+.cc-header-right{
+  display:flex;gap:1rem;align-items:center;flex-wrap:wrap;justify-content:flex-end;
+}
+/* Premium countdown block */
+.cc-countdown-compact{
+  display:flex;flex-direction:column;align-items:center;
+  background:linear-gradient(145deg,rgba(233,169,47,0.1),rgba(180,100,0,0.08));
+  border:1px solid rgba(233,169,47,0.3);
+  border-radius:18px;padding:1rem 1.5rem;
+  min-width:150px;position:relative;overflow:hidden;
+  box-shadow:
+    0 0 30px rgba(233,169,47,0.1),
+    0 4px 24px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,220,100,0.15),
+    inset 0 0 30px rgba(233,169,47,0.04);
+}
+.cc-countdown-compact::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(233,169,47,0.7),transparent);
+}
+.cc-countdown-compact-eyebrow{
+  font-size:.5rem;text-transform:uppercase;letter-spacing:.18em;
+  color:rgba(233,169,47,0.6);font-weight:800;margin-bottom:.4rem;
+}
+.cc-countdown-compact-days{
+  font-size:2.8rem;font-weight:900;color:var(--gold);line-height:1;
+  letter-spacing:-.05em;text-shadow:0 0 30px rgba(233,169,47,0.5);
+  animation:ccCountdownTick 2s ease-in-out infinite;
+}
+.cc-countdown-compact-label{
+  font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;
+  color:var(--gold2);font-weight:800;margin-top:.2rem;
+}
+.cc-countdown-compact-date{
+  font-size:.62rem;color:rgba(255,255,255,0.35);margin-top:.5rem;font-weight:600;
+  background:rgba(0,0,0,0.3);border-radius:999px;padding:.15rem .5rem;
+  border:1px solid rgba(255,255,255,0.08);
+}
+/* CC readiness ring */
+.cc-target-ring{
+  position:relative;width:96px;height:96px;flex-shrink:0;
+}
+.cc-target-ring svg{filter:drop-shadow(0 0 12px rgba(233,169,47,0.3))}
+.cc-target-ring-label{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;align-items:center;
+  pointer-events:none;text-align:center;
+}
+
+/* ── CC INTEL CARDS (metric row of 4) ── */
+.cc-intel{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:.75rem;margin-bottom:.85rem;
+}
+@media(max-width:950px){.cc-intel{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.cc-intel{grid-template-columns:1fr}}
+
+.cc-intel-card{
+  background:linear-gradient(150deg,
+    rgba(8,16,40,0.98) 0%,
+    rgba(5,10,26,0.99) 60%,
+    rgba(3,7,18,1) 100%);
+  border-radius:18px;padding:1rem 1.1rem;
+  border:1px solid rgba(255,255,255,0.08);
+  position:relative;overflow:hidden;
+  transition:transform .22s cubic-bezier(.4,0,.2,1),box-shadow .22s;
+  box-shadow:
+    0 4px 30px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.05),
+    inset 0 0 40px rgba(0,0,0,0.3);
+}
+.cc-intel-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 16px 50px rgba(0,0,0,0.6),0 0 30px var(--cc-card-glow,rgba(8,123,255,0.15)),inset 0 1px 0 rgba(255,255,255,0.08);
+}
+/* Top shimmer line per card, colored by accent */
+.cc-intel-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cc-card-accent,rgba(8,123,255,0.5)),transparent);
+}
+/* Inner corner light */
+.cc-intel-card::after{
+  content:'';position:absolute;top:-30px;right:-30px;
+  width:80px;height:80px;border-radius:50%;
+  background:var(--cc-card-accent,rgba(8,123,255,0.08));
+  filter:blur(20px);pointer-events:none;
+}
+/* Shimmer on hover */
+.cc-intel-card-shine{
+  position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.025),transparent);
+  transition:left .5s;pointer-events:none;
+}
+.cc-intel-card:hover .cc-intel-card-shine{left:150%}
+
+.cc-intel-icon-wrap{
+  width:40px;height:40px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:.7rem;
+  position:relative;overflow:hidden;
+  flex-shrink:0;
+}
+.cc-intel-icon-wrap img{width:28px;height:28px;object-fit:contain;position:relative;z-index:1}
+.cc-intel-icon-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(145deg,rgba(255,255,255,0.1),transparent 60%);
+  border-radius:inherit;
+}
+.cc-intel-value{
+  font-size:2.2rem;font-weight:900;line-height:1;letter-spacing:-.05em;
+  margin-bottom:.18rem;
+  animation:ccNumberCount .4s ease both;
+}
+.cc-intel-label{
+  font-size:.58rem;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--muted);font-weight:800;
+}
+.cc-intel-sub{font-size:.68rem;color:var(--muted);margin-top:.25rem;font-weight:600}
+.cc-intel-bar{
+  background:rgba(255,255,255,0.06);border-radius:999px;
+  height:4px;margin-top:.7rem;overflow:hidden;
+  position:relative;
+}
+.cc-intel-bar-fill{
+  height:100%;border-radius:999px;
+  transition:width 1.4s cubic-bezier(.4,0,.2,1) .3s;
+}
+
+/* ── CC BODY GRID (chart + domains side by side) ── */
+.cc-mid{
+  display:grid;grid-template-columns:1.4fr 1fr;
+  gap:.75rem;margin-bottom:.85rem;
+}
+@media(max-width:750px){.cc-mid{grid-template-columns:1fr}}
+
+/* Score history chart card */
+.cc-chart-card{
+  background:linear-gradient(150deg,rgba(5,12,30,0.99),rgba(3,8,20,1));
+  backdrop-filter:blur(24px);
+  border-radius:20px;padding:1.2rem 1.3rem;
+  border:1px solid rgba(8,123,255,0.18);
+  box-shadow:
+    0 4px 40px rgba(0,0,0,0.6),
+    0 0 40px rgba(8,123,255,0.06),
+    inset 0 1px 0 rgba(8,123,255,0.1),
+    inset 0 0 50px rgba(8,123,255,0.02);
+  position:relative;overflow:hidden;
+}
+.cc-chart-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,207,255,0.6),rgba(8,123,255,0.5),transparent);
+}
+.cc-chart-title{
+  font-size:.62rem;text-transform:uppercase;letter-spacing:.13em;
+  color:var(--muted);font-weight:800;margin-bottom:.85rem;
+  display:flex;align-items:center;gap:.5rem;justify-content:space-between;
+}
+.cc-chart-title-left{display:flex;align-items:center;gap:.5rem}
+.cc-chart-badge{
+  display:inline-flex;align-items:center;gap:.25rem;
+  background:rgba(8,123,255,0.1);border:1px solid rgba(8,123,255,0.25);
+  color:var(--blue2);font-size:.56rem;font-weight:800;
+  padding:.18rem .55rem;border-radius:999px;
+}
+.cc-sparkline{width:100%;height:90px}
+
+/* Domain breakdown card */
+.cc-domains-card{
+  background:linear-gradient(150deg,rgba(8,16,40,0.99),rgba(5,10,25,1));
+  backdrop-filter:blur(24px);
+  border-radius:20px;padding:1.2rem 1.3rem;
+  border:1px solid rgba(233,169,47,0.18);
+  box-shadow:
+    0 4px 40px rgba(0,0,0,0.6),
+    0 0 40px rgba(233,169,47,0.05),
+    inset 0 1px 0 rgba(255,220,100,0.1),
+    inset 0 0 50px rgba(233,169,47,0.02);
+  position:relative;overflow:hidden;
+}
+.cc-domains-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,215,122,0.6),rgba(233,169,47,0.5),transparent);
+}
+.cc-domain-row{
+  display:flex;align-items:center;gap:.7rem;
+  margin-bottom:.7rem;cursor:pointer;
+  padding:.35rem .4rem;border-radius:10px;
+  transition:background .15s,transform .15s;
+  position:relative;
+}
+.cc-domain-row:hover{background:rgba(255,255,255,0.04);transform:translateX(3px)}
+.cc-domain-row:last-of-type{margin-bottom:0}
+.cc-domain-icon-wrap{
+  width:30px;height:30px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;position:relative;overflow:hidden;
+}
+.cc-domain-icon-wrap img{width:20px;height:20px;object-fit:contain;position:relative;z-index:1}
+.cc-domain-label{font-size:.74rem;font-weight:700;color:var(--text);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cc-domain-track{
+  background:rgba(255,255,255,0.07);border-radius:999px;
+  height:6px;overflow:hidden;width:65px;flex-shrink:0;
+  position:relative;
+}
+.cc-domain-fill{
+  height:100%;border-radius:999px;
+  transition:width 1.2s cubic-bezier(.4,0,.2,1) .4s;
+  position:relative;
+}
+.cc-domain-fill::after{
+  content:'';position:absolute;top:0;right:0;
+  width:8px;height:100%;
+  background:inherit;filter:blur(4px);
+}
+.cc-domain-pct{font-size:.74rem;font-weight:900;min-width:2.8rem;text-align:right;flex-shrink:0}
+
+/* Mock stats mini panel inside domain card */
+.cc-mock-mini{
+  margin-top:.85rem;
+  padding:.75rem .9rem;
+  background:rgba(255,255,255,0.025);
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.07);
+  display:flex;align-items:center;gap:.7rem;
+}
+.cc-mock-mini-num{font-size:1.8rem;font-weight:900;color:var(--green);line-height:1;flex-shrink:0}
+.cc-mock-mini-text{font-size:.7rem;color:var(--muted);line-height:1.5}
+.cc-mock-mini-text strong{color:var(--green2)}
+
+/* ── QUICK ACTION BUTTONS ── */
+.cc-actions{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:.7rem;margin-bottom:.85rem;
+}
+@media(max-width:700px){.cc-actions{grid-template-columns:repeat(2,1fr)}}
+
+.cc-action-btn{
+  background:linear-gradient(150deg,rgba(8,16,40,0.98),rgba(4,9,24,1));
+  border-radius:18px;padding:1rem .85rem;
+  border:1px solid rgba(255,255,255,0.08);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1);
+  text-align:center;position:relative;overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.04);
+}
+/* Bottom color stripe */
+.cc-action-btn::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2.5px;
+  background:var(--cc-color,rgba(233,169,47,0.5));
+  transform:scaleX(0);transition:transform .25s;
+  box-shadow:0 0 10px var(--cc-color,rgba(233,169,47,0.4));
+}
+/* Top corner glow */
+.cc-action-btn::after{
+  content:'';position:absolute;top:-20px;right:-20px;
+  width:60px;height:60px;border-radius:50%;
+  background:var(--cc-color,rgba(233,169,47,0.08));
+  filter:blur(16px);pointer-events:none;
+  opacity:0;transition:opacity .25s;
+}
+.cc-action-btn:hover{transform:translateY(-5px);border-color:rgba(255,255,255,0.14)}
+.cc-action-btn:hover::before{transform:scaleX(1)}
+.cc-action-btn:hover::after{opacity:1}
+.cc-action-img{width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.5))}
+.cc-action-label{font-size:.68rem;font-weight:800;color:var(--text)}
+.cc-action-count{
+  font-size:.62rem;font-weight:800;
+  padding:.14rem .5rem;border-radius:999px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.1);
+  color:var(--muted);
+}
+
+/* ── EXAM COUNTDOWN STRIP ── */
+.cc-countdown{
+  background:linear-gradient(100deg,
+    rgba(233,169,47,0.1) 0%,
+    rgba(180,100,0,0.07) 40%,
+    rgba(128,85,245,0.08) 100%);
+  border:1px solid rgba(233,169,47,0.25);
+  border-radius:var(--radius-lg);
+  padding:.9rem 1.4rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:.6rem;
+  margin-bottom:.85rem;
+  box-shadow:
+    0 0 30px rgba(233,169,47,0.07),
+    inset 0 1px 0 rgba(255,220,100,0.1);
+  position:relative;overflow:hidden;
+}
+.cc-countdown::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(233,169,47,0.6),transparent);
+}
+.cc-countdown-label{font-size:.58rem;text-transform:uppercase;letter-spacing:.15em;color:var(--gold2);font-weight:900}
+.cc-countdown-days{font-size:1.9rem;font-weight:900;color:var(--gold);letter-spacing:-.04em;line-height:1;text-shadow:0 0 20px rgba(233,169,47,0.4)}
+.cc-countdown-sub{font-size:.64rem;color:var(--muted);margin-top:2px}
+.cc-countdown-right{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.cc-countdown-pill{
+  display:flex;flex-direction:column;align-items:center;
+  background:rgba(5,10,28,0.8);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px;padding:.4rem .75rem;min-width:3.5rem;text-align:center;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.05),0 0 10px rgba(0,0,0,0.3);
+}
+.cc-countdown-num{font-size:1.2rem;font-weight:900;line-height:1;color:var(--text);letter-spacing:-.02em}
+.cc-countdown-unit{font-size:.5rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-top:2px;font-weight:700}
+
+/* ── CC BRIEF pill (status indicator) ── */
+.cc-brief-pill{
+  display:inline-flex;align-items:center;gap:.35rem;
+  font-size:.7rem;font-weight:800;
+  padding:.35rem .9rem;border-radius:999px;white-space:nowrap;
+  backdrop-filter:blur(10px);
+}
+.cc-brief-pill.on-track{
+  background:rgba(16,201,149,0.12);border:1px solid rgba(16,201,149,0.3);
+  color:var(--green2);box-shadow:0 0 12px rgba(16,201,149,0.15);
+}
+.cc-brief-pill.needs-work{
+  background:rgba(233,169,47,0.12);border:1px solid rgba(233,169,47,0.3);
+  color:var(--gold2);box-shadow:0 0 12px rgba(233,169,47,0.15);
+}
+/* ═══════════════════════════════════════════
+   PREMIUM 3D STAT CARD WAVES
+═══════════════════════════════════════════ */
+.stat-card{position:relative;overflow:hidden}
+.stat-card .sc-wave{
+  position:absolute;bottom:-2px;left:0;right:0;
+  height:52px;pointer-events:none;opacity:.18;
+}
+.stat-card:hover .sc-wave{opacity:.32;transition:opacity .3s}
+.sc-icon-wrap{
+  box-shadow:0 4px 16px rgba(0,0,0,0.4);
+  transition:transform .2s,box-shadow .2s;
+}
+.stat-card:hover .sc-icon-wrap{transform:translateY(-3px) scale(1.1);box-shadow:0 8px 24px rgba(0,0,0,0.5)}
+.sc-icon-wrap.gold-wrap{
+  background:linear-gradient(145deg,rgba(255,200,80,0.25),rgba(255,120,0,0.15));
+  border:1px solid rgba(255,153,0,0.4);
+  box-shadow:0 4px 16px rgba(255,153,0,0.3),inset 0 1px 0 rgba(255,220,100,0.3);
+}
+.sc-icon-wrap.amber-wrap{
+  background:linear-gradient(145deg,rgba(255,220,100,0.25),rgba(200,120,0,0.15));
+  border:1px solid rgba(255,176,32,0.4);
+  box-shadow:0 4px 16px rgba(255,176,32,0.3),inset 0 1px 0 rgba(255,230,120,0.3);
+}
+.sc-icon-wrap.green-wrap{
+  background:linear-gradient(145deg,rgba(80,255,160,0.2),rgba(0,150,80,0.15));
+  border:1px solid rgba(34,197,94,0.4);
+  box-shadow:0 4px 16px rgba(34,197,94,0.3),inset 0 1px 0 rgba(80,255,160,0.3);
+}
+.sc-icon-wrap.purple-wrap{
+  background:linear-gradient(145deg,rgba(180,130,255,0.2),rgba(100,50,200,0.15));
+  border:1px solid rgba(139,92,246,0.4);
+  box-shadow:0 4px 16px rgba(139,92,246,0.3),inset 0 1px 0 rgba(200,170,255,0.3);
+}
+/* Inner glow shimmer on card hover */
+.stat-card::after{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent);
+  transition:left .5s ease;pointer-events:none;
+}
+.stat-card:hover::after{left:150%}
+
+/* ═══════════════════════════════════════════
+   PREMIUM KEY TERMS CARDS
+═══════════════════════════════════════════ */
+.kt-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.85rem;margin-bottom:1.2rem;
+}
+@media(max-width:600px){.kt-grid{grid-template-columns:1fr}}
+.kt-card{
+  background:linear-gradient(145deg,rgba(15,22,50,0.9),rgba(8,13,30,0.95));
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:18px;padding:1rem;
+  position:relative;overflow:hidden;
+  cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+}
+.kt-card:hover{transform:translateY(-4px) scale(1.01)}
+.kt-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
+}
+.kt-card::after{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent);
+  transition:left .5s;pointer-events:none;
+}
+.kt-card:hover::after{left:150%}
+.kt-card-top{display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem}
+.kt-emoji{
+  width:42px;height:42px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;flex-shrink:0;
+  box-shadow:0 4px 16px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.1);
+  transition:transform .2s;
+}
+.kt-card:hover .kt-emoji{transform:scale(1.15) rotate(-5deg)}
+.kt-term{font-size:.88rem;font-weight:800;color:var(--text);line-height:1.2}
+.kt-def{font-size:.78rem;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:.6rem}
+.kt-hook{
+  font-size:.72rem;font-weight:700;
+  padding:.35rem .65rem;border-radius:8px;
+  background:rgba(255,255,255,0.05);
+  border-left:3px solid;
+  line-height:1.5;
+}
+.kt-hook-label{font-size:.55rem;text-transform:uppercase;letter-spacing:.1em;opacity:.7;margin-bottom:2px}
+
+/* ═══════════════════════════════════════════
+   PREMIUM 3D FLASHCARDS
+═══════════════════════════════════════════ */
+.flashcard-3d{
+  perspective:1200px;
+  cursor:pointer;
+  user-select:none;
+  margin-bottom:1rem;
+  min-height:200px;
+}
+.flashcard-3d-inner{
+  position:relative;
+  transition:transform .65s cubic-bezier(.4,.2,.2,1);
+  transform-style:preserve-3d;
+  min-height:200px;
+  border-radius:22px;
+}
+.flashcard-3d.flipped .flashcard-3d-inner{transform:rotateY(180deg)}
+.fc3-face{
+  position:absolute;width:100%;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:22px;
+  padding:1.6rem;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;min-height:200px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.06);
+  overflow:hidden;
+}
+.fc3-face::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
+}
+.fc3-front{
+  background:linear-gradient(145deg,#0a1535,#070e28,#050c1e);
+  border:1px solid rgba(59,168,255,0.2);
+}
+.fc3-front::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:80px;
+  background:radial-gradient(ellipse at 50% 100%,rgba(59,168,255,0.1),transparent);
+  pointer-events:none;
+}
+.fc3-back{
+  background:linear-gradient(145deg,#071a12,#040e0a,#030d08);
+  border:1px solid rgba(34,197,94,0.25);
+  transform:rotateY(180deg);
+}
+.fc3-back::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:80px;
+  background:radial-gradient(ellipse at 50% 100%,rgba(34,197,94,0.12),transparent);
+  pointer-events:none;
+}
+.fc3-domain{
+  font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;
+  font-weight:800;margin-bottom:.8rem;
+  padding:.2rem .7rem;border-radius:999px;
+  background:rgba(59,168,255,0.1);border:1px solid rgba(59,168,255,0.2);
+  color:var(--blue2);
+}
+.fc3-question{
+  font-size:1rem;font-weight:700;line-height:1.65;color:var(--text);
+  margin-bottom:.8rem;
+}
+.fc3-hint{
+  font-size:.7rem;color:var(--muted);
+  display:flex;align-items:center;gap:.3rem;
+  animation:fc3Pulse 2s ease-in-out infinite;
+}
+@keyframes fc3Pulse{0%,100%{opacity:.5}50%{opacity:1}}
+.fc3-answer-label{
+  font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--green2);font-weight:800;margin-bottom:.6rem;
+  display:flex;align-items:center;gap:.3rem;
+}
+.fc3-answer{
+  font-size:.95rem;font-weight:800;color:var(--green2);
+  margin-bottom:.7rem;line-height:1.4;
+}
+.fc3-rationale{
+  font-size:.78rem;color:rgba(255,255,255,0.6);
+  line-height:1.65;
+  background:rgba(34,197,94,0.06);
+  border:1px solid rgba(34,197,94,0.1);
+  border-radius:10px;padding:.6rem .8rem;
+  width:100%;text-align:left;
+}
+/* Nav row */
+.fc3-nav{
+  display:flex;align-items:center;justify-content:center;
+  gap:.6rem;flex-wrap:wrap;margin-top:.5rem;
+}
+/* Progress dots */
+.fc3-dots{
+  display:flex;gap:4px;flex-wrap:wrap;justify-content:center;
+  margin-top:.75rem;max-width:100%;overflow:hidden;
+}
+.fc3-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(255,255,255,0.1);
+  transition:all .2s;cursor:pointer;
+}
+.fc3-dot.active{background:var(--blue2);box-shadow:0 0 8px var(--blue);transform:scale(1.4)}
+.fc3-dot.seen{background:rgba(34,197,94,0.5)}
+
+/* ═══════════════════════════════════════════
+   PREMIUM WEEKLY FLASHCARD DECK TABS
+═══════════════════════════════════════════ */
+.wfc-tab{
+  display:inline-flex;align-items:center;gap:.35rem;
+  padding:.35rem .75rem;border-radius:12px;
+  font-size:.72rem;font-weight:700;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.04);
+  color:var(--muted);cursor:pointer;transition:all .2s;
+  position:relative;overflow:hidden;
+}
+.wfc-tab:hover{color:var(--text);border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.08)}
+.wfc-tab.active{
+  background:linear-gradient(135deg,rgba(255,153,0,0.2),rgba(255,153,0,0.08));
+  border-color:rgba(255,153,0,0.4);color:var(--gold2);
+  box-shadow:0 0 16px rgba(255,153,0,0.15);
+}
+.wfc-tab-icon{font-size:.9rem}
+
+/* ═══════════════════════════════════════════
+   DOMAIN RING ITEMS UPGRADE
+═══════════════════════════════════════════ */
+.domain-ring-item{
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.05);
+  transition:background .2s,border-color .2s,transform .2s;
+}
+.domain-ring-item:hover{
+  background:rgba(255,255,255,0.05);
+  transform:translateY(-4px) scale(1.04);
+}
 </style>
 </head>
 <body>
@@ -871,22 +1850,22 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
       </div>
     </div>
 
-    <button class="nav-btn active" data-tab="home"><span class="nav-icon">🏠</span>Home</button>
-    <button class="nav-btn" data-tab="learn"><span class="nav-icon">📖</span>Learn</button>
-    <button class="nav-btn" data-tab="practice"><span class="nav-icon">🎯</span>Practice</button>
-    <button class="nav-btn" data-tab="mock"><span class="nav-icon">⏱️</span>Exam Mode</button>
+    <button class="nav-btn active" data-tab="home"><span class="nav-icon"><img src="aws_premium_sidebar_icons/01-home.svg" width="22" height="22" alt=""></span>Home</button>
+    <button class="nav-btn" data-tab="learn"><span class="nav-icon"><img src="aws_premium_sidebar_icons/02-learn.svg" width="22" height="22" alt=""></span>Learn</button>
+    <button class="nav-btn" data-tab="practice"><span class="nav-icon"><img src="aws_premium_sidebar_icons/03-practice.svg" width="22" height="22" alt=""></span>Practice</button>
+    <button class="nav-btn" data-tab="mock"><span class="nav-icon"><img src="aws_premium_sidebar_icons/04-exam-mode.svg" width="22" height="22" alt=""></span>Exam Mode</button>
     <button class="nav-btn" data-tab="games">
-      <span class="nav-icon">🎮</span>Games Arena
+      <span class="nav-icon"><img src="aws_premium_sidebar_icons/05-games-arena.svg" width="22" height="22" alt=""></span>Games Arena
       <span class="nav-badge new">NEW</span>
     </button>
-    <button class="nav-btn" data-tab="terminology"><span class="nav-icon">🏋️</span>Terminology Gym</button>
-    <button class="nav-btn" data-tab="universe"><span class="nav-icon">🏗️</span>Architecture Lab</button>
-    <button class="nav-btn" data-tab="diagnostic"><span class="nav-icon">🎤</span>Interview Prep</button>
-    <button class="nav-btn" data-tab="progress"><span class="nav-icon">📊</span>Progress</button>
-    <button class="nav-btn" data-tab="achievements"><span class="nav-icon">🏆</span>Achievements</button>
-    <button class="nav-btn" data-tab="weekly-flashcards"><span class="nav-icon">🃏</span>Week Flashcards</button>
-    <button class="nav-btn" data-tab="roadmap"><span class="nav-icon">🗓️</span>Study Roadmap</button>
-    <button class="nav-btn" data-tab="settings"><span class="nav-icon">⚙️</span>Settings</button>
+    <button class="nav-btn" data-tab="terminology"><span class="nav-icon"><img src="aws_premium_sidebar_icons/06-terminology-gym.svg" width="22" height="22" alt=""></span>Terminology Gym</button>
+    <button class="nav-btn" data-tab="universe"><span class="nav-icon"><img src="aws_premium_sidebar_icons/07-architecture-lab.svg" width="22" height="22" alt=""></span>Architecture Lab</button>
+    <button class="nav-btn" data-tab="diagnostic"><span class="nav-icon"><img src="aws_premium_sidebar_icons/08-interview-prep.svg" width="22" height="22" alt=""></span>Interview Prep</button>
+    <button class="nav-btn" data-tab="progress"><span class="nav-icon"><img src="aws_premium_sidebar_icons/09-progress.svg" width="22" height="22" alt=""></span>Progress</button>
+    <button class="nav-btn" data-tab="achievements"><span class="nav-icon"><img src="aws_premium_sidebar_icons/10-achievements.svg" width="22" height="22" alt=""></span>Achievements</button>
+    <button class="nav-btn" data-tab="weekly-flashcards"><span class="nav-icon"><img src="aws_premium_sidebar_icons/11-week-flashcards.svg" width="22" height="22" alt=""></span>Week Flashcards</button>
+    <button class="nav-btn" data-tab="roadmap"><span class="nav-icon"><img src="aws_premium_sidebar_icons/12-study-roadmap.svg" width="22" height="22" alt=""></span>Study Roadmap</button>
+    <button class="nav-btn" data-tab="settings"><span class="nav-icon"><img src="aws_premium_sidebar_icons/13-settings.svg" width="22" height="22" alt=""></span>Settings</button>
 
     <div style="flex:1"></div>
 
@@ -938,43 +1917,98 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
 
 <script>
 // ═══════════════════════════════════════════════════════════════
-//  SPACE CANVAS — stars + nebula
+//  SPACE CANVAS — deep nebula, waves + stars
 // ═══════════════════════════════════════════════════════════════
 (function(){
   const c=document.getElementById('space-canvas');
   const ctx=c.getContext('2d');
-  let stars=[];
+  let stars=[],wave1t=0,wave2t=0,wave3t=0;
+
   function resize(){c.width=window.innerWidth;c.height=window.innerHeight;initStars();}
+
   function initStars(){
     stars=[];
-    for(let i=0;i<220;i++){
-      stars.push({
-        x:Math.random()*c.width, y:Math.random()*c.height,
-        r:Math.random()*1.6+.2,
-        a:Math.random()*.8+.1,
-        twinkle:Math.random()*Math.PI*2,
-        speed:Math.random()*.025+.004
-      });
+    // Deep background stars (small, dim)
+    for(let i=0;i<180;i++){
+      stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*.9+.1,a:Math.random()*.4+.05,twinkle:Math.random()*Math.PI*2,speed:Math.random()*.012+.003,layer:0});
+    }
+    // Mid stars
+    for(let i=0;i<60;i++){
+      stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.4+.4,a:Math.random()*.6+.1,twinkle:Math.random()*Math.PI*2,speed:Math.random()*.02+.006,layer:1});
+    }
+    // Foreground bright stars
+    for(let i=0;i<15;i++){
+      stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+1,a:Math.random()*.9+.3,twinkle:Math.random()*Math.PI*2,speed:Math.random()*.03+.01,layer:2});
     }
   }
+
   window.addEventListener('resize',resize);resize();
+
+  function drawWave(y,amp,freq,speed,t,r,g,b,alpha){
+    ctx.beginPath();
+    ctx.moveTo(0,c.height);
+    for(let x=0;x<=c.width;x+=4){
+      const y1=y+Math.sin((x*freq)+t)*amp+Math.sin((x*freq*.7)+t*1.3)*amp*.4;
+      ctx.lineTo(x,y1);
+    }
+    ctx.lineTo(c.width,c.height);
+    ctx.closePath();
+    const grad=ctx.createLinearGradient(0,y-amp,0,c.height);
+    grad.addColorStop(0,`rgba(${r},${g},${b},${alpha})`);
+    grad.addColorStop(1,`rgba(${r},${g},${b},0)`);
+    ctx.fillStyle=grad;
+    ctx.fill();
+  }
+
   function draw(){
     ctx.clearRect(0,0,c.width,c.height);
-    const g1=ctx.createRadialGradient(c.width*.15,c.height*.25,0,c.width*.15,c.height*.25,c.width*.4);
-    g1.addColorStop(0,'rgba(59,168,255,0.05)');g1.addColorStop(1,'transparent');
-    ctx.fillStyle=g1;ctx.fillRect(0,0,c.width,c.height);
-    const g2=ctx.createRadialGradient(c.width*.85,c.height*.75,0,c.width*.85,c.height*.75,c.width*.35);
-    g2.addColorStop(0,'rgba(255,153,0,0.05)');g2.addColorStop(1,'transparent');
-    ctx.fillStyle=g2;ctx.fillRect(0,0,c.width,c.height);
-    const g3=ctx.createRadialGradient(c.width*.5,c.height*.5,0,c.width*.5,c.height*.5,c.width*.3);
-    g3.addColorStop(0,'rgba(139,92,246,0.03)');g3.addColorStop(1,'transparent');
-    ctx.fillStyle=g3;ctx.fillRect(0,0,c.width,c.height);
+
+    // Layered nebula glows
+    const n1=ctx.createRadialGradient(c.width*.12,c.height*.2,0,c.width*.12,c.height*.2,c.width*.38);
+    n1.addColorStop(0,'rgba(8,123,255,0.07)');n1.addColorStop(.5,'rgba(8,123,255,0.03)');n1.addColorStop(1,'transparent');
+    ctx.fillStyle=n1;ctx.fillRect(0,0,c.width,c.height);
+
+    const n2=ctx.createRadialGradient(c.width*.88,c.height*.72,0,c.width*.88,c.height*.72,c.width*.32);
+    n2.addColorStop(0,'rgba(233,169,47,0.06)');n2.addColorStop(.6,'rgba(233,169,47,0.02)');n2.addColorStop(1,'transparent');
+    ctx.fillStyle=n2;ctx.fillRect(0,0,c.width,c.height);
+
+    const n3=ctx.createRadialGradient(c.width*.5,c.height*.5,0,c.width*.5,c.height*.5,c.width*.28);
+    n3.addColorStop(0,'rgba(128,85,245,0.04)');n3.addColorStop(1,'transparent');
+    ctx.fillStyle=n3;ctx.fillRect(0,0,c.width,c.height);
+
+    const n4=ctx.createRadialGradient(c.width*.7,c.height*.15,0,c.width*.7,c.height*.15,c.width*.25);
+    n4.addColorStop(0,'rgba(0,207,255,0.04)');n4.addColorStop(1,'transparent');
+    ctx.fillStyle=n4;ctx.fillRect(0,0,c.width,c.height);
+
+    // Animated depth waves — 3 layers, different speeds
+    wave1t+=0.004;
+    wave2t+=0.007;
+    wave3t+=0.0025;
+    // Deep wave (blue, slowest)
+    drawWave(c.height*.72,c.height*.04,0.008,1,wave3t,8,80,180,0.06);
+    // Mid wave (blue-purple)
+    drawWave(c.height*.8,c.height*.035,0.011,1,wave2t,0,100,220,0.055);
+    // Foreground wave (gold tint)
+    drawWave(c.height*.88,c.height*.025,0.014,1,wave1t,180,120,30,0.04);
+
+    // Stars
     stars.forEach(s=>{
       s.twinkle+=s.speed;
       const a=s.a*(0.5+0.5*Math.sin(s.twinkle));
       ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fill();
+      if(s.layer===2){
+        // Bright stars get a subtle glow
+        const sg=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*4);
+        sg.addColorStop(0,`rgba(200,220,255,${a})`);
+        sg.addColorStop(1,'transparent');
+        ctx.fillStyle=sg;
+        ctx.arc(s.x,s.y,s.r*4,0,Math.PI*2);
+        ctx.fill();
+        ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      }
+      ctx.fillStyle=`rgba(241,245,255,${a})`;ctx.fill();
     });
+
     requestAnimationFrame(draw);
   }
   draw();
@@ -1036,7 +2070,11 @@ let diagnostic=load('clf_diagnostic',null);
 let xp=load('clf_xp',0);
 let streak=load('clf_streak',{count:0,lastDate:''});
 let missions=load('clf_missions',{date:'',done:[]});
-function saveAll(){save('clf_progress',progress);save('clf_history',history);save('clf_confusions',confusions);save('clf_diagnostic',diagnostic);save('clf_xp',xp);save('clf_streak',streak);save('clf_missions',missions);}
+let homeLayout=load('clf_home_layout','classic');
+let appTheme=load('clf_theme','default');
+let galaxyProgress=load('clf_galaxy_progress',{});
+function saveAll(){save('clf_progress',progress);save('clf_history',history);save('clf_confusions',confusions);save('clf_diagnostic',diagnostic);save('clf_xp',xp);save('clf_streak',streak);save('clf_missions',missions);save('clf_home_layout',homeLayout);save('clf_theme',appTheme);save('clf_galaxy_progress',galaxyProgress);}
+function applyTheme(t){document.body.setAttribute('data-theme',t==='default'?'':t);}
 function getQ(id){return window.QUESTIONS.find(q=>q.id===id);}
 function domainAccuracy(domain){
   const qs=window.QUESTIONS.filter(q=>q.domain===domain);
@@ -1063,6 +2101,7 @@ function recordAnswer(qid,chosen,correct){
       confusions[ck].count++;confusions[ck].lastSeen=now;
     }
   }
+  save('clf_progress',progress); // immediate save of the most critical data
   saveAll();
 }
 function addXP(amount){xp+=amount;save('clf_xp',xp);updateTopbar();}
@@ -1187,6 +2226,23 @@ function renderHome(){
     if(mockCount===0) score=Math.min(100,Math.round((overall||0)*.7+(domainsPracticed/4)*30));
     else{const mocks=history.filter(h=>h.mode==='mock');const avg=Math.round(mocks.slice(-3).reduce((s,m)=>s+m.score,0)/Math.min(mocks.length,3));score=Math.min(100,Math.round((overall||0)*.25+avg*.5+(domainsPracticed/4)*25));}
   }
+  const toggleHTML=`
+  <div class="home-controls">
+    <div class="layout-toggle">
+      <button class="layout-btn${homeLayout==='classic'?' active':''}" onclick="switchHomeLayout('classic')">◉ Classic</button>
+      <button class="layout-btn${homeLayout==='command'?' active':''}" onclick="switchHomeLayout('command')">⬡ Command</button>
+    </div>
+    <div class="theme-toggle">
+      <button class="theme-btn${appTheme==='default'?' active':''}" onclick="switchTheme('default')" title="Space Blue">🌌</button>
+      <button class="theme-btn${appTheme==='green'?' active':''}" onclick="switchTheme('green')" title="Midnight Green">🟢</button>
+      <button class="theme-btn${appTheme==='purple'?' active':''}" onclick="switchTheme('purple')" title="Deep Purple">🟣</button>
+    </div>
+  </div>`;
+  if(homeLayout==='command') return toggleHTML+renderHomeCommandCenter(days,due,overall,mockCount,totalAttempted,domainsPracticed,score);
+  return toggleHTML+renderHomeClassic(days,due,overall,mockCount,totalAttempted,domainsPracticed,score);
+}
+
+function renderHomeClassic(days,due,overall,mockCount,totalAttempted,domainsPracticed,score){
   const scoreColor=score>=90?'#22C55E':score>=70?'#FF9900':'#EF4444';
   const today=new Date().toDateString();
   if(missions.date!==today){missions={date:today,done:[]};save('clf_missions',missions);}
@@ -1231,27 +2287,45 @@ function renderHome(){
     <!-- Study Streak -->
     <div class="stat-card sc-streak">
       <div class="sc-header">
-        <div class="sc-icon-wrap gold-wrap">📅</div>
+        <div class="sc-icon-wrap gold-wrap" style="font-size:1.1rem">�</div>
         <div class="sc-title">Study Streak</div>
       </div>
-      <div class="sc-big gold-text">${streak.count} <span style="font-size:1.4rem">Days</span></div>
-      <div class="sc-sub gold-sub"><span class="sc-fire">🔥</span> ${streak.count>=7?'On Fire!':streak.count>=3?'Keep Going!':'Start Streak!'}</div>
-      <div class="sc-progress-wrap"><div class="sc-progress-fill gold-fill" style="width:${Math.min(100,streak.count/30*100)}%"></div></div>
+      <div class="sc-big gold-text">${streak.count} <span style="font-size:1.4rem;font-weight:600">Days</span></div>
+      <div class="sc-sub gold-sub">${streak.count>=7?'🔥 On Fire! Keep it up!':streak.count>=3?'⚡ Building momentum!':'💪 Start your streak!'}</div>
+      <div class="sc-progress-wrap" style="margin-top:.5rem"><div class="sc-progress-fill gold-fill" style="width:${Math.min(100,streak.count/30*100)}%"></div></div>
+      <svg class="sc-wave" viewBox="0 0 400 52" preserveAspectRatio="none">
+        <defs><linearGradient id="wg1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FF9900" stop-opacity="0"/><stop offset="50%" stop-color="#FF9900" stop-opacity="1"/><stop offset="100%" stop-color="#FFD060" stop-opacity="0"/></linearGradient></defs>
+        <path d="M0 40 Q50 10 100 32 Q150 52 200 28 Q250 8 300 36 Q350 52 400 24 L400 52 L0 52Z" fill="url(#wg1)">
+          <animateTransform attributeName="transform" type="translate" from="0 0" to="-400 0" dur="6s" repeatCount="indefinite"/>
+        </path>
+        <path d="M400 40 Q450 10 500 32 Q550 52 600 28 Q650 8 700 36 Q750 52 800 24 L800 52 L400 52Z" fill="url(#wg1)">
+          <animateTransform attributeName="transform" type="translate" from="0 0" to="-400 0" dur="6s" repeatCount="indefinite"/>
+        </path>
+      </svg>
     </div>
     <!-- Total XP -->
     <div class="stat-card sc-xp">
       <div class="sc-header">
-        <div class="sc-icon-wrap amber-wrap">🏆</div>
+        <div class="sc-icon-wrap amber-wrap" style="font-size:1.1rem">⚡</div>
         <div class="sc-title">Total XP</div>
       </div>
-      <div class="sc-big gold-text">${xp.toLocaleString()} <span style="font-size:1.1rem">XP</span></div>
-      <div class="sc-sub" style="color:var(--gold2)">Keep Going!</div>
-      <div class="sc-progress-wrap"><div class="sc-progress-fill gold-fill" style="width:${(xpInLevel/200*100).toFixed(0)}%"></div></div>
+      <div class="sc-big gold-text">${xp.toLocaleString()} <span style="font-size:1.1rem;font-weight:600">XP</span></div>
+      <div class="sc-sub" style="color:var(--gold2)">Level ${Math.floor(xp/200)+1} · ${200-(xpInLevel)} to level up</div>
+      <div class="sc-progress-wrap" style="margin-top:.5rem"><div class="sc-progress-fill gold-fill" style="width:${(xpInLevel/200*100).toFixed(0)}%"></div></div>
+      <svg class="sc-wave" viewBox="0 0 400 52" preserveAspectRatio="none">
+        <defs><linearGradient id="wg2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FFB020" stop-opacity="0"/><stop offset="50%" stop-color="#FFD060" stop-opacity="1"/><stop offset="100%" stop-color="#FFB020" stop-opacity="0"/></linearGradient></defs>
+        <path d="M0 36 Q60 8 120 30 Q180 52 240 22 Q300 4 360 34 Q380 46 400 30 L400 52 L0 52Z" fill="url(#wg2)">
+          <animateTransform attributeName="transform" type="translate" from="0 0" to="-400 0" dur="8s" repeatCount="indefinite"/>
+        </path>
+        <path d="M400 36 Q460 8 520 30 Q580 52 640 22 Q700 4 760 34 Q780 46 800 30 L800 52 L400 52Z" fill="url(#wg2)">
+          <animateTransform attributeName="transform" type="translate" from="0 0" to="-400 0" dur="8s" repeatCount="indefinite"/>
+        </path>
+      </svg>
     </div>
     <!-- Exam Readiness -->
     <div class="stat-card sc-readiness">
       <div class="sc-header">
-        <div class="sc-icon-wrap green-wrap">🎯</div>
+        <div class="sc-icon-wrap green-wrap" style="font-size:1.1rem">🎯</div>
         <div class="sc-title">Exam Readiness</div>
       </div>
       <div class="sc-readiness-wrap">
@@ -1260,23 +2334,42 @@ function renderHome(){
           <div class="sc-ring-num" style="color:${scoreColor}">${score}%</div>
         </div>
         <div>
-          <div class="sc-trend">↑ ${score>=70?'Excellent':score>=50?'Good':'Growing'} Progress</div>
-          <div class="sc-progress-wrap" style="margin-top:.4rem;width:90px"><div class="sc-progress-fill green-fill" style="width:${score}%"></div></div>
+          <div class="sc-trend" style="color:${scoreColor}">↑ ${score>=90?'Exam Ready!':score>=70?'Excellent':score>=50?'Good':'Growing'}</div>
+          <div style="font-size:.68rem;color:var(--muted);margin-top:.2rem">${score>=70?'🎉 Target in reach!':'📈 Keep practising'}</div>
+          <div class="sc-progress-wrap" style="margin-top:.5rem;width:90px"><div class="sc-progress-fill green-fill" style="width:${score}%"></div></div>
         </div>
       </div>
+      <svg class="sc-wave" viewBox="0 0 400 52" preserveAspectRatio="none">
+        <defs><linearGradient id="wg3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#22C55E" stop-opacity="0"/><stop offset="50%" stop-color="#4ADE80" stop-opacity="1"/><stop offset="100%" stop-color="#22C55E" stop-opacity="0"/></linearGradient></defs>
+        <path d="M0 44 Q40 20 80 38 Q140 52 200 26 Q260 4 320 38 Q370 52 400 32 L400 52 L0 52Z" fill="url(#wg3)">
+          <animateTransform attributeName="transform" type="translate" from="0 0" to="-400 0" dur="7s" repeatCount="indefinite"/>
+        </path>
+        <path d="M400 44 Q440 20 480 38 Q540 52 600 26 Q660 4 720 38 Q770 52 800 32 L800 52 L400 52Z" fill="url(#wg3)">
+          <animateTransform attributeName="transform" type="translate" from="0 0" to="-400 0" dur="7s" repeatCount="indefinite"/>
+        </path>
+      </svg>
     </div>
     <!-- Practice Tests -->
     <div class="stat-card sc-practice">
       <div class="sc-header">
-        <div class="sc-icon-wrap purple-wrap">⏱️</div>
+        <div class="sc-icon-wrap purple-wrap" style="font-size:1.1rem">🏆</div>
         <div class="sc-title">Practice Tests</div>
       </div>
       <div class="sc-big purple-text">${mockCount}</div>
-      <div class="sc-sub">Avg Score: ${mockBest!==null?mockBest+'%':'—'}</div>
+      <div class="sc-sub">Best: ${mockBest!==null?`<span style="color:var(--green2)">${mockBest}%</span>`:'—'} · Avg: ${mockCount>0?Math.round(history.filter(h=>h.mode==='mock').slice(-5).reduce((s,m)=>s+m.score,0)/Math.min(mockCount,5))+'%':'—'}</div>
       <div class="sc-mini-chart">
-        ${history.filter(h=>h.mode==='mock').slice(-5).map(m=>`<div class="sc-bar" style="height:${Math.max(4,m.score/100*26)}px;background:${m.score>=80?'var(--purple2)':m.score>=70?'var(--gold)':'var(--red)'};flex:1"></div>`).join('')}
+        ${history.filter(h=>h.mode==='mock').slice(-5).map(m=>`<div class="sc-bar" style="height:${Math.max(4,m.score/100*26)}px;background:${m.score>=80?'var(--purple2)':m.score>=70?'var(--gold)':'var(--red)'};flex:1;border-radius:3px 3px 0 0"></div>`).join('')}
         ${history.filter(h=>h.mode==='mock').length===0?'<div style="font-size:.68rem;color:var(--muted)">No tests yet</div>':''}
       </div>
+      <svg class="sc-wave" viewBox="0 0 400 52" preserveAspectRatio="none">
+        <defs><linearGradient id="wg4" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#8B5CF6" stop-opacity="0"/><stop offset="50%" stop-color="#A78BFA" stop-opacity="1"/><stop offset="100%" stop-color="#8B5CF6" stop-opacity="0"/></linearGradient></defs>
+        <path d="M0 38 Q70 12 140 34 Q200 52 260 20 Q320 4 380 36 L400 40 L400 52 L0 52Z" fill="url(#wg4)">
+          <animateTransform attributeName="transform" type="translate" from="0 0" to="-400 0" dur="9s" repeatCount="indefinite"/>
+        </path>
+        <path d="M400 38 Q470 12 540 34 Q600 52 660 20 Q720 4 780 36 L800 40 L800 52 L400 52Z" fill="url(#wg4)">
+          <animateTransform attributeName="transform" type="translate" from="0 0" to="-400 0" dur="9s" repeatCount="indefinite"/>
+        </path>
+      </svg>
     </div>
   </div>
 
@@ -1322,11 +2415,9 @@ function renderHome(){
         </div>
         <span class="card-header-link" onclick="navigate('universe')">Explore Universe →</span>
       </div>
-      <div class="galaxy-wrap">
+      <div class="galaxy-wrap" id="galaxy-wrap">
         <img src="assets/08-aws-cloud-services.png" alt="" class="galaxy-bg-img">
-        <div class="galaxy-overlay">
-          ${renderGalaxy()}
-        </div>
+        ${renderGalaxy()}
       </div>
     </div>
   </div>
@@ -1384,28 +2475,402 @@ function renderHome(){
 }
 
 // ═══════════════════════════════════════════════════════════════
-//  GALAXY NODES
+//  LAYOUT SWITCH
+// ═══════════════════════════════════════════════════════════════
+function switchHomeLayout(layout){
+  homeLayout=layout;
+  save('clf_home_layout',layout);
+  navigate('home');
+}
+function switchTheme(theme){
+  appTheme=theme;
+  save('clf_theme',theme);
+  applyTheme(theme);
+  navigate('home');
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  COMMAND CENTER LAYOUT — PREMIUM AWS CONTROL ROOM
+// ═══════════════════════════════════════════════════════════════
+function renderHomeCommandCenter(days,due,overall,mockCount,totalAttempted,domainsPracticed,score){
+  const scoreColor=score>=90?'#22C55E':score>=70?'#FF9900':'#EF4444';
+  const scoreColorRgb=score>=90?'34,197,94':score>=70?'255,153,0':'239,68,68';
+  const mockScores=history.filter(h=>h.mode==='mock');
+  const mockBest=mockScores.length>0?Math.max(...mockScores.map(m=>m.score)):null;
+  const mockAvg=mockScores.length>0?Math.round(mockScores.slice(-5).reduce((s,m)=>s+m.score,0)/Math.min(mockScores.length,5)):0;
+  const totalQs=window.QUESTIONS.length;
+  const dueCount=dueItems().length;
+  const today=new Date().toDateString();
+  if(missions.date!==today){missions={date:today,done:[]};save('clf_missions',missions);}
+  const xpInLevel=xp%200;
+  const level=Math.floor(xp/200)+1;
+
+  // Score history data — last 7 mock scores or simulated ramp
+  const sparkData=mockScores.length>=2
+    ? mockScores.slice(-7).map(m=>m.score)
+    : [0,0,0,0,score?Math.round(score*.4):0,score?Math.round(score*.7):0,score];
+  const sparkMax=Math.max(...sparkData,10);
+  const sparkMin=Math.min(...sparkData.filter(v=>v>0),0);
+  const sparkH=70,sparkW=240;
+
+  // Build smooth SVG path (using cubic bezier segments)
+  function smoothPath(pts,w,h){
+    const xs=pts.map((_,i)=>i/(pts.length-1)*w);
+    const ys=pts.map(v=>h-((v-sparkMin)/(sparkMax-sparkMin||1))*h);
+    if(pts.length<2) return '';
+    let d=`M${xs[0]},${ys[0]}`;
+    for(let i=0;i<xs.length-1;i++){
+      const cpx=(xs[i]+xs[i+1])/2;
+      d+=` C${cpx},${ys[i]} ${cpx},${ys[i+1]} ${xs[i+1]},${ys[i+1]}`;
+    }
+    return d;
+  }
+  const linePath=smoothPath(sparkData,sparkW,sparkH);
+  const areaPath=linePath.replace(`M${0},${sparkH-((sparkData[0]-sparkMin)/(sparkMax-sparkMin||1))*sparkH}`,`M0,${sparkH}`)
+    +` L${sparkW},${sparkH} Z`;
+  // compute point coordinates for dots
+  const sparkXs=sparkData.map((_,i)=>i/(sparkData.length-1)*sparkW);
+  const sparkYs=sparkData.map(v=>sparkH-((v-sparkMin)/(sparkMax-sparkMin||1))*sparkH);
+
+  const isOnTrack=score>=70;
+
+  return `
+  <div class="cc-wrapper">
+  <!-- ═══ COMMAND HEADER ═══════════════════════════════════════ -->
+  <div class="cc-header animate-in">
+    <div class="cc-header-inner">
+      <div class="cc-header-grid">
+        <!-- Left: title + actions -->
+        <div>
+          <div class="cc-header-eyebrow">
+            <span class="cc-beacon"></span>
+            AWS Cloud Practitioner Academy &nbsp;·&nbsp; CLF-C02
+          </div>
+          <div class="cc-header-title">
+            Cloud Operations
+            <span class="cc-gold">Command Centre</span>
+          </div>
+          <div class="cc-header-sub">
+            <span>Welcome back, Khwezi Maphumulo</span>
+            <span class="cc-dot-sep"></span>
+            <span>${new Date().toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'})}</span>
+            <span class="cc-dot-sep"></span>
+            <span class="cc-brief-pill ${isOnTrack?'on-track':'needs-work'}">${isOnTrack?'● On Track':'● Needs Work'}</span>
+          </div>
+          <div class="cc-header-actions">
+            <button class="btn btn-primary" onclick="navigate('mock')" style="font-size:.82rem;padding:.6rem 1.4rem;box-shadow:0 4px 24px rgba(233,169,47,0.5),0 0 40px rgba(233,169,47,0.2)">▶ Start Mock Exam</button>
+            <button class="btn btn-secondary btn-sm" onclick="startPractice('due')" style="border-color:rgba(8,123,255,0.3);color:var(--blue2)">📌 Review Queue${dueCount>0?' ('+dueCount+')':''}</button>
+            <button class="btn btn-secondary btn-sm" onclick="startPractice('domain','${DOMAINS[Math.floor(Math.random()*DOMAINS.length)]}',10)" style="border-color:rgba(16,201,149,0.3);color:var(--green2)">⚡ Quick Practice</button>
+          </div>
+        </div>
+        <!-- Right: countdown + readiness ring -->
+        <div class="cc-header-right">
+          <div class="cc-countdown-compact">
+            <div class="cc-countdown-compact-eyebrow">Exam Countdown</div>
+            <div class="cc-countdown-compact-days" id="live-days">${days}</div>
+            <div class="cc-countdown-compact-label">Days Remaining</div>
+            <div class="cc-countdown-compact-date">14 December 2026</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:.45rem">
+            <div class="cc-target-ring">
+              <svg viewBox="0 0 96 96" width="96" height="96">
+                <defs>
+                  <linearGradient id="trGrad2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="${scoreColor}"/>
+                    <stop offset="100%" stop-color="${scoreColor}99"/>
+                  </linearGradient>
+                  <filter id="ringGlow2"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                </defs>
+                <!-- Outer track -->
+                <circle cx="48" cy="48" r="42" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="7"/>
+                <!-- Background rings (decorative) -->
+                <circle cx="48" cy="48" r="35" fill="none" stroke="rgba(${scoreColorRgb},0.06)" stroke-width="1"/>
+                <!-- Progress arc -->
+                <circle cx="48" cy="48" r="42" fill="none" stroke="url(#trGrad2)" stroke-width="7"
+                  stroke-dasharray="${Math.round((score/100)*264)} 264"
+                  stroke-dashoffset="66" stroke-linecap="round"
+                  filter="url(#ringGlow2)"
+                  style="transition:stroke-dasharray 1.6s cubic-bezier(.4,0,.2,1) .3s"/>
+                <!-- Inner fill -->
+                <circle cx="48" cy="48" r="35" fill="rgba(${scoreColorRgb},0.06)"/>
+              </svg>
+              <div class="cc-target-ring-label">
+                <div style="font-size:1.3rem;font-weight:900;color:${scoreColor};line-height:1;text-shadow:0 0 20px ${scoreColor}80">${score}%</div>
+                <div style="font-size:.48rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-top:2px">Ready</div>
+              </div>
+            </div>
+            <div style="font-size:.6rem;color:var(--gold2);font-weight:900;text-align:center;letter-spacing:.04em">TARGET 95%+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ INTEL CARDS (4 metrics) ════════════════════════════= -->
+  <div class="cc-intel animate-in stagger-1">
+
+    <!-- Study Streak -->
+    <div class="cc-intel-card" style="--cc-card-accent:rgba(233,169,47,0.5);--cc-card-glow:rgba(233,169,47,0.12)">
+      <div class="cc-intel-card-shine"></div>
+      <div class="cc-intel-icon-wrap" style="background:linear-gradient(145deg,rgba(255,200,80,0.25),rgba(200,120,0,0.15));border:1px solid rgba(255,153,0,0.4);box-shadow:0 4px 16px rgba(255,153,0,0.3),inset 0 1px 0 rgba(255,220,100,0.3)">
+        <img src="assets/09-aws-rocket.png" alt="" onerror="this.style.display='none';this.parentElement.textContent='🚀'">
+      </div>
+      <div class="cc-intel-value" style="color:var(--gold);text-shadow:0 0 20px rgba(233,169,47,0.4)">${streak.count}</div>
+      <div class="cc-intel-label">Day Streak</div>
+      <div class="cc-intel-sub">${streak.count>=7?'🔥 On Fire!':streak.count>=3?'⚡ Building!':'Start today'}</div>
+      <div class="cc-intel-bar">
+        <div class="cc-intel-bar-fill" style="width:${Math.min(100,streak.count/30*100)}%;background:linear-gradient(90deg,var(--gold),var(--gold2));box-shadow:0 0 10px rgba(233,169,47,0.5)"></div>
+      </div>
+    </div>
+
+    <!-- Exam Readiness -->
+    <div class="cc-intel-card" style="--cc-card-accent:rgba(${scoreColorRgb},0.5);--cc-card-glow:rgba(${scoreColorRgb},0.1)">
+      <div class="cc-intel-card-shine"></div>
+      <div class="cc-intel-icon-wrap" style="background:linear-gradient(145deg,rgba(${scoreColorRgb},0.2),rgba(${scoreColorRgb},0.08));border:1px solid rgba(${scoreColorRgb},0.4);box-shadow:0 4px 16px rgba(${scoreColorRgb},0.3),inset 0 1px 0 rgba(255,255,255,0.15)">
+        <img src="assets/04-aws-certified-badge.png" alt="" onerror="this.style.display='none';this.parentElement.textContent='🎯'">
+      </div>
+      <div class="cc-intel-value" style="color:${scoreColor};text-shadow:0 0 20px ${scoreColor}60">${score}<span style="font-size:1.1rem">%</span></div>
+      <div class="cc-intel-label">Exam Readiness</div>
+      <div class="cc-intel-sub">${score>=90?'Exam ready!':score>=70?'Looking good':'Keep going'}</div>
+      <div class="cc-intel-bar">
+        <div class="cc-intel-bar-fill" style="width:${score}%;background:linear-gradient(90deg,${scoreColor},${scoreColor}cc);box-shadow:0 0 10px ${scoreColor}80"></div>
+      </div>
+    </div>
+
+    <!-- Total XP -->
+    <div class="cc-intel-card" style="--cc-card-accent:rgba(128,85,245,0.5);--cc-card-glow:rgba(128,85,245,0.12)">
+      <div class="cc-intel-card-shine"></div>
+      <div class="cc-intel-icon-wrap" style="background:linear-gradient(145deg,rgba(180,130,255,0.2),rgba(100,50,200,0.15));border:1px solid rgba(139,92,246,0.4);box-shadow:0 4px 16px rgba(139,92,246,0.3),inset 0 1px 0 rgba(200,170,255,0.3)">
+        <img src="assets/05-crown-achievement.png" alt="" onerror="this.style.display='none';this.parentElement.textContent='⚡'">
+      </div>
+      <div class="cc-intel-value" style="color:var(--purple2);text-shadow:0 0 20px rgba(128,85,245,0.4)">${xp>=1000?Math.floor(xp/1000)+'k':xp}</div>
+      <div class="cc-intel-label">Total XP</div>
+      <div class="cc-intel-sub">Level ${level} · ${200-xpInLevel} to next</div>
+      <div class="cc-intel-bar">
+        <div class="cc-intel-bar-fill" style="width:${((xpInLevel/200)*100).toFixed(0)}%;background:linear-gradient(90deg,var(--purple),var(--purple2));box-shadow:0 0 10px rgba(128,85,245,0.5)"></div>
+      </div>
+    </div>
+
+    <!-- Questions Done -->
+    <div class="cc-intel-card" style="--cc-card-accent:rgba(8,123,255,0.5);--cc-card-glow:rgba(8,123,255,0.12)">
+      <div class="cc-intel-card-shine"></div>
+      <div class="cc-intel-icon-wrap" style="background:linear-gradient(145deg,rgba(8,123,255,0.2),rgba(0,100,200,0.15));border:1px solid rgba(8,123,255,0.4);box-shadow:0 4px 16px rgba(8,123,255,0.3),inset 0 1px 0 rgba(80,180,255,0.3)">
+        <img src="aws_learning_galaxy_individual_icons/09-analytics.png" alt="" onerror="this.style.display='none';this.parentElement.textContent='📊'">
+      </div>
+      <div class="cc-intel-value" style="color:var(--blue2);text-shadow:0 0 20px rgba(8,123,255,0.4)">${totalAttempted}</div>
+      <div class="cc-intel-label">Questions Done</div>
+      <div class="cc-intel-sub">${totalQs>0?Math.round(totalAttempted/totalQs*100):0}% of ${totalQs} total</div>
+      <div class="cc-intel-bar">
+        <div class="cc-intel-bar-fill" style="width:${totalQs>0?Math.round(totalAttempted/totalQs*100):0}%;background:linear-gradient(90deg,var(--blue),var(--blue2));box-shadow:0 0 10px rgba(8,123,255,0.5)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MID ROW: Score Chart + Domain Breakdown ═══════════= -->
+  <div class="cc-mid animate-in stagger-2">
+
+    <!-- Score History Chart -->
+    <div class="cc-chart-card">
+      <div class="cc-chart-title">
+        <div class="cc-chart-title-left">
+          <span style="color:var(--blue2)">▲</span>
+          <span>Score History — Last ${sparkData.length} Sessions</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem">
+          <span class="cc-chart-badge">Live Data</span>
+          <span style="color:${scoreColor};font-size:.75rem;font-weight:900;text-shadow:0 0 10px ${scoreColor}80">${score}% Current</span>
+        </div>
+      </div>
+      <!-- Chart area -->
+      <div style="position:relative;border-radius:12px;overflow:hidden;border:1px solid rgba(8,123,255,0.1);background:rgba(0,0,0,0.3)">
+        <!-- Y-axis label overlay -->
+        <div style="position:absolute;top:0;left:0;bottom:0;width:28px;display:flex;flex-direction:column;justify-content:space-between;padding:6px 2px 6px 2px;z-index:2;pointer-events:none">
+          ${[100,75,50,25,0].map(v=>`<span style="font-size:7px;color:rgba(255,255,255,0.2);font-weight:700;text-align:right;display:block">${v}</span>`).join('')}
+        </div>
+        <svg class="cc-sparkline" viewBox="0 0 ${sparkW} ${sparkH+16}" preserveAspectRatio="none" style="height:100px;display:block;width:100%;padding-left:28px;box-sizing:border-box">
+          <defs>
+            <linearGradient id="sgArea" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="${scoreColor}" stop-opacity="0.35"/>
+              <stop offset="60%" stop-color="${scoreColor}" stop-opacity="0.08"/>
+              <stop offset="100%" stop-color="${scoreColor}" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="sgGlow"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="dotGlow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <!-- Grid lines -->
+          ${[25,50,75].map(v=>{
+            const gy=sparkH-((v-0)/(100-0))*sparkH+8;
+            return `<line x1="0" y1="${gy}" x2="${sparkW}" y2="${gy}" stroke="rgba(255,255,255,0.045)" stroke-width="1"/>
+                    <text x="2" y="${gy-3}" font-size="7.5" fill="rgba(255,255,255,0.2)" font-weight="700">${v}%</text>`;
+          }).join('')}
+          <!-- 70% pass line -->
+          <line x1="0" y1="${sparkH-((70)/(100))*sparkH+8}" x2="${sparkW}" y2="${sparkH-((70)/(100))*sparkH+8}"
+            stroke="rgba(16,201,149,0.3)" stroke-width="1" stroke-dasharray="4 3"/>
+          <text x="${sparkW-22}" y="${sparkH-((70)/(100))*sparkH+5}" font-size="7" fill="rgba(16,201,149,0.5)" font-weight="700">Pass</text>
+          <!-- Area fill -->
+          <path d="${linePath} L${sparkW},${sparkH+8} L0,${sparkH+8} Z" fill="url(#sgArea)" transform="translate(0,8)"/>
+          <!-- Line -->
+          <path d="${linePath}" fill="none" stroke="${scoreColor}" stroke-width="2.5"
+            stroke-linejoin="round" stroke-linecap="round"
+            filter="url(#sgGlow)" transform="translate(0,8)" opacity=".95"/>
+          <!-- Data points + labels -->
+          ${sparkYs.map((y,i)=>`
+            <circle cx="${sparkXs[i]}" cy="${y+8}" r="4" fill="${scoreColor}" stroke="rgba(3,8,20,0.9)" stroke-width="2" filter="url(#dotGlow)" opacity=".95"/>
+            <text x="${sparkXs[i]}" y="${y+8-10}" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.75)" font-weight="800">${sparkData[i]}%</text>
+          `).join('')}
+        </svg>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:.45rem">
+        <span style="font-size:.58rem;color:var(--muted)">← Oldest sessions</span>
+        <span style="font-size:.58rem;color:var(--muted)">Most recent →</span>
+      </div>
+    </div>
+
+    <!-- Domain Breakdown -->
+    <div class="cc-domains-card">
+      <div class="cc-chart-title">
+        <div class="cc-chart-title-left">
+          <span style="color:var(--gold)">◆</span>
+          <span>Domain Mastery</span>
+        </div>
+        <span class="card-header-link" onclick="navigate('progress')" style="font-size:.6rem">Full Report →</span>
+      </div>
+      ${DOMAINS.map(d=>{
+        const acc=domainAccuracy(d)||0;
+        const color=DOMAIN_COLOR[d];
+        const short=d.replace('Cloud Technology and Services','Cloud Tech').replace('Billing, Pricing and Support','Billing').replace('Security and Compliance','Security').replace('Cloud Concepts','Cloud Concepts');
+        const domainIcon={'Cloud Concepts':'aws_learning_galaxy_individual_icons/02-cloud-server.png','Security and Compliance':'aws_learning_galaxy_individual_icons/03-cloud-security.png','Cloud Technology and Services':'aws_learning_galaxy_individual_icons/01-microchip.png','Billing, Pricing and Support':'aws_learning_galaxy_individual_icons/09-analytics.png'};
+        return `<div class="cc-domain-row" onclick="startPractice('domain','${d}',10)" title="${d} — ${acc}% mastery">
+          <div class="cc-domain-icon-wrap" style="background:linear-gradient(145deg,${color}22,${color}0a);border:1px solid ${color}40">
+            <img src="${domainIcon[d]}" alt="" onerror="this.style.display='none'">
+          </div>
+          <span class="cc-domain-label">${short}</span>
+          <div class="cc-domain-track">
+            <div class="cc-domain-fill" style="width:${acc}%;background:linear-gradient(90deg,${color},${color}cc);box-shadow:0 0 8px ${color}80"></div>
+          </div>
+          <span class="cc-domain-pct" style="color:${color}">${acc}%</span>
+        </div>`;
+      }).join('')}
+      <!-- Mock exams summary -->
+      <div class="cc-mock-mini">
+        <div class="cc-mock-mini-num">${mockCount}</div>
+        <div class="cc-mock-mini-text">
+          Mock exams completed<br>
+          Best: <strong>${mockBest!==null?mockBest+'%':'—'}</strong> · Avg: <strong style="color:var(--blue2)">${mockCount>0?mockAvg+'%':'—'}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ QUICK ACTIONS ════════════════════════════════════════ -->
+  <div class="cc-actions animate-in stagger-3">
+    <div class="cc-action-btn" style="--cc-color:rgba(233,169,47,0.6)" onclick="startPractice('domain','${DOMAINS[Math.floor(Math.random()*DOMAINS.length)]}',10)">
+      <img class="cc-action-img" src="aws_learning_galaxy_individual_icons/01-microchip.png" alt="" onerror="this.style.fontSize='2rem';this.textContent='⚡'">
+      <span class="cc-action-label">Quick Practice</span>
+      <span class="cc-action-count">10 Qs</span>
+    </div>
+    <div class="cc-action-btn" style="--cc-color:rgba(128,85,245,0.6)" onclick="navigate('mock')">
+      <img class="cc-action-img" src="aws_learning_galaxy_individual_icons/08-server-rack.png" alt="" onerror="this.style.fontSize='2rem';this.textContent='🖥️'">
+      <span class="cc-action-label">Mock Exam</span>
+      <span class="cc-action-count">65 Qs</span>
+    </div>
+    <div class="cc-action-btn" style="--cc-color:rgba(8,123,255,0.6)" onclick="navigate('learn')">
+      <img class="cc-action-img" src="aws_learning_galaxy_individual_icons/02-cloud-server.png" alt="" onerror="this.style.fontSize='2rem';this.textContent='📚'">
+      <span class="cc-action-label">Study Domains</span>
+      <span class="cc-action-count">${domainsPracticed}/4</span>
+    </div>
+    <div class="cc-action-btn" style="--cc-color:rgba(16,201,149,0.6)" onclick="navigate('progress')">
+      <img class="cc-action-img" src="aws_learning_galaxy_individual_icons/09-analytics.png" alt="" onerror="this.style.fontSize='2rem';this.textContent='📊'">
+      <span class="cc-action-label">Full Analytics</span>
+      <span class="cc-action-count">→</span>
+    </div>
+  </div>
+
+  <!-- ═══ DUE ITEMS ALERT ══════════════════════════════════════ -->
+  ${due>0?`<div style="background:linear-gradient(90deg,rgba(239,68,68,0.08),rgba(239,68,68,0.04));border:1px solid rgba(239,68,68,0.28);border-radius:var(--radius-lg);padding:.85rem 1.3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.85rem;position:relative;overflow:hidden;box-shadow:0 0 20px rgba(239,68,68,0.06),inset 0 1px 0 rgba(239,68,68,0.1)">
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(239,68,68,0.5),transparent)"></div>
+    <div style="display:flex;align-items:center;gap:.8rem">
+      <div style="width:40px;height:40px;border-radius:50%;background:rgba(239,68,68,0.15);border:1.5px solid rgba(239,68,68,0.35);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;box-shadow:0 0 16px rgba(239,68,68,0.2)">📌</div>
+      <div>
+        <div style="font-weight:800;font-size:.9rem">${due} items due for review</div>
+        <div style="font-size:.74rem;color:var(--muted)">Spaced repetition queue waiting — strengthen your weak points</div>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="startPractice('due')" style="background:linear-gradient(135deg,rgba(239,68,68,0.9),rgba(200,30,30,0.9));box-shadow:0 4px 20px rgba(239,68,68,0.4)">Review Now →</button>
+  </div>`:''}
+
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+//  GALAXY — animated orbital AWS service hub
 // ═══════════════════════════════════════════════════════════════
 function renderGalaxy(){
   const nodes=[
-    {icon:'🛡️',label:'Security',color:'#22C55E',x:72,y:18},
-    {icon:'🖥️',label:'Compute',color:'#3BA8FF',x:30,y:38},
-    {icon:'🗂️',label:'Storage',color:'#FFB020',x:80,y:48},
-    {icon:'🌐',label:'Networking',color:'#8B5CF6',x:18,y:65},
-    {icon:'🗄️',label:'Databases',color:'#3BA8FF',x:82,y:72},
-    {icon:'📊',label:'Monitoring',color:'#FF9900',x:50,y:82},
+    {id:'security',img:'aws_learning_galaxy_individual_icons/03-cloud-security.png',label:'Security',  color:'#10C995', domain:'Security and Compliance',       bx:83, by:30, delay:.12},
+    {id:'compute', img:'aws_learning_galaxy_individual_icons/01-microchip.png',    label:'Compute',   color:'#087BFF', domain:'Cloud Technology and Services', bx:50, by:12, delay:.05},
+    {id:'storage', img:'aws_learning_galaxy_individual_icons/02-cloud-server.png', label:'Storage',   color:'#E9A92F', domain:'Cloud Technology and Services', bx:83, by:65, delay:.19},
+    {id:'database',img:'aws_learning_galaxy_individual_icons/06-database.png',     label:'Databases', color:'#B08AFF', domain:'Cloud Technology and Services', bx:50, by:83, delay:.26},
+    {id:'network', img:'aws_learning_galaxy_individual_icons/07-network.png',      label:'Networking',color:'#F472B6', domain:'Cloud Concepts',                bx:17, by:65, delay:.33},
+    {id:'billing', img:'aws_learning_galaxy_individual_icons/09-analytics.png',    label:'Billing',   color:'#FB923C', domain:'Billing, Pricing and Support',  bx:17, by:30, delay:.40}
   ];
+
+  const gxProgress=galaxyProgress;
+  const nodePct=n=>{const d=domainAccuracy(n.domain);return d||gxProgress[n.id]||0;};
+
+  const lines=nodes.map(n=>{
+    const pct=nodePct(n);
+    const len=Math.sqrt(Math.pow(n.bx-50,2)+Math.pow(n.by-50,2));
+    const total=len*2.2;
+    const drawn=Math.round(total*(pct/100));
+    return `<line x1="50%" y1="50%" x2="${n.bx}%" y2="${n.by}%"
+      stroke="${n.color}" stroke-width="0.9" opacity="0.3"
+      stroke-dasharray="${drawn} ${Math.round(total)}"
+      style="transition:stroke-dasharray 1.4s ease .3s"/>`;
+  }).join('');
+
+  const particles=[
+    {x:30,y:25,s:3,dur:4.2,d:0,c:'#3BA8FF'},{x:70,y:20,s:2,dur:3.8,d:1.1,c:'#FF9900'},
+    {x:85,y:55,s:2.5,dur:5,d:.7,c:'#22C55E'},{x:15,y:60,s:2,dur:4.5,d:2,c:'#A78BFA'},
+    {x:55,y:76,s:3,dur:3.5,d:1.5,c:'#F472B6'},{x:40,y:15,s:2,dur:4.8,d:.3,c:'#FB923C'},
+  ];
+
   return `
-  <div class="galaxy-orbit" style="width:130px;height:50px;border-color:rgba(59,168,255,0.25)"></div>
-  <div class="galaxy-orbit" style="width:220px;height:85px;border-color:rgba(255,153,0,0.18)"></div>
-  <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.35" viewBox="0 0 100 100" preserveAspectRatio="none">
-    ${nodes.map(n=>`<line x1="50" y1="50" x2="${n.x}" y2="${n.y}" stroke="${n.color}" stroke-width=".3" opacity=".8"/>`).join('')}
-  </svg>
-  <div class="galaxy-center-btn" onclick="navigate('universe')" title="AWS Universe" style="font-size:.8rem;font-weight:900;letter-spacing:.03em">aws</div>
-  ${nodes.map(n=>`<div class="galaxy-node" style="left:${n.x}%;top:${n.y}%;--node-color:${n.color}40" onclick="navigate('universe')" title="${n.label}">
-    <div class="galaxy-node-icon" style="background:${n.color}18;border-color:${n.color}70;box-shadow:0 0 14px ${n.color}40">${n.icon}</div>
-    <div class="galaxy-node-label">${n.label}</div>
-  </div>`).join('')}`;
+  <div class="gx-ring r1"></div>
+  <div class="gx-ring r2"></div>
+  <div class="gx-ring r3"></div>
+
+  <svg class="gx-lines" viewBox="0 0 100 100" preserveAspectRatio="none">${lines}</svg>
+
+  ${particles.map(p=>`<div class="gx-particle" style="left:${p.x}%;top:${p.y}%;width:${p.s}px;height:${p.s}px;background:${p.c};box-shadow:0 0 ${p.s*3}px ${p.c};animation-duration:${p.dur}s;animation-delay:${p.d}s"></div>`).join('')}
+
+  <div class="gx-center" onclick="navigate('universe')" title="Explore AWS Universe">
+    <div class="gx-center-logo">aws</div>
+    <span class="gx-center-arc"></span>
+    <div class="gx-center-label">Cloud Hub</div>
+  </div>
+
+  ${nodes.map(n=>{
+    const pct=nodePct(n);
+    const perim=188;
+    const dash=Math.round((pct/100)*perim);
+    return `<div class="gx-node" style="left:${n.bx}%;top:${n.by}%;animation-delay:${n.delay}s"
+      onclick="startPractice('domain','${n.domain}',10)" title="${n.label} · ${pct}% mastered">
+      <div class="gx-node-icon-wrap">
+        <div class="gx-node-bg" style="border-color:${n.color}70;box-shadow:0 0 16px ${n.color}40,0 4px 20px rgba(0,0,0,0.5);background:linear-gradient(145deg,${n.color}22,rgba(5,12,30,0.95))"><img src="${n.img}" alt="${n.label}" style="width:68%;height:68%;object-fit:contain;filter:drop-shadow(0 0 8px ${n.color}cc)" onerror="this.style.display='none'"></div>
+        <svg style="position:absolute;top:-3px;left:-3px;width:calc(100% + 6px);height:calc(100% + 6px);overflow:visible;pointer-events:none" viewBox="0 0 52 52">
+          <rect x="2" y="2" width="48" height="48" rx="15" ry="15" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="2.5"/>
+          <rect x="2" y="2" width="48" height="48" rx="15" ry="15" fill="none"
+            stroke="${n.color}" stroke-width="2.5"
+            stroke-dasharray="${dash} ${perim}" stroke-dashoffset="47" stroke-linecap="round"
+            style="transition:stroke-dasharray 1.4s cubic-bezier(.4,0,.2,1) .4s;filter:drop-shadow(0 0 3px ${n.color})"/>
+        </svg>
+      </div>
+      <div class="gx-node-label">${n.label}</div>
+      <div class="gx-node-pct" style="color:${n.color}">${pct}%</div>
+    </div>`;
+  }).join('')}`;
 }
 
 // Live countdown ticker
@@ -1866,15 +3331,117 @@ function renderExamKeywords(){
 //  KEY TERMS
 // ═══════════════════════════════════════════════════════════════
 function renderKeyTerms(){
-  const terms=[{term:'Availability Zone (AZ)',def:'One or more data centres with independent power, cooling, network.',domain:'CC',emoji:'🏢'},{term:'Region',def:'A geographic area containing 2+ AZs.',domain:'CC',emoji:'🌍'},{term:'Edge Location',def:'A small cache point for CloudFront. NOT a full data centre.',domain:'CC',emoji:'📡'},{term:'Elasticity',def:'Automatically scaling resources up or down with demand.',domain:'CC',emoji:'🔄'},{term:'High Availability',def:'System keeps working even when a part fails. Achieved by multiple AZs.',domain:'CC',emoji:'💚'},{term:'Fault Tolerance',def:'System keeps running even when components fail.',domain:'CC',emoji:'🛡️'},{term:'Loose Coupling',def:'Parts of a system do not depend on each other. SQS and SNS enable this.',domain:'CC',emoji:'🔗'},{term:'CapEx vs OpEx',def:'CapEx = buying hardware upfront. OpEx = paying as you use. Cloud = OpEx.',domain:'CC',emoji:'💳'},{term:'Shared Responsibility',def:'AWS secures the cloud (hardware). You secure IN the cloud (data, IAM, OS).',domain:'CC',emoji:'🤝'},{term:'Well-Architected',def:'Six pillars: Operational Excellence, Security, Reliability, Performance, Cost, Sustainability.',domain:'CC',emoji:'🏛️'},{term:'IAM',def:'Controls WHO can use WHICH AWS services and WHAT they can do.',domain:'SEC',emoji:'🗝️'},{term:'IAM Role',def:'Temporary permission badge for a service. No permanent keys.',domain:'SEC',emoji:'🎭'},{term:'Security Group',def:'Stateful firewall on an EC2 instance. ONLY allow rules.',domain:'SEC',emoji:'🚪'},{term:'NACL',def:'Stateless subnet firewall. Must write rules for BOTH directions.',domain:'SEC',emoji:'🧱'},{term:'CloudTrail',def:'Records every API call. Like CCTV.',domain:'SEC',emoji:'📸'},{term:'CloudWatch',def:'Monitors resources. Metrics, logs, alarms.',domain:'SEC',emoji:'🏥'},{term:'GuardDuty',def:'AI threat detector. Finds suspicious activity in logs.',domain:'SEC',emoji:'🕵️'},{term:'Inspector',def:'Scans EC2 for security holes (CVEs).',domain:'SEC',emoji:'🔍'},{term:'Shield',def:'DDoS protection. Standard = free. Advanced = $3,000/month.',domain:'SEC',emoji:'🛡️'},{term:'WAF',def:'Web Application Firewall. Blocks SQL injection and XSS.',domain:'SEC',emoji:'🧱'},{term:'EC2',def:'Virtual servers. Like renting a computer from AWS.',domain:'TECH',emoji:'🖥️'},{term:'S3',def:'Object storage. Unlimited filing cabinet — 11 nines durable.',domain:'TECH',emoji:'🗂️'},{term:'EBS',def:'Block storage attached to ONE EC2 instance. Stays in one AZ.',domain:'TECH',emoji:'💾'},{term:'EFS',def:'Shared file storage. MANY EC2 instances can mount it.',domain:'TECH',emoji:'🌐'},{term:'RDS',def:'Managed relational databases. AWS handles maintenance.',domain:'TECH',emoji:'🗄️'},{term:'DynamoDB',def:'Fast NoSQL. Millions of requests, single-digit ms. Serverless.',domain:'TECH',emoji:'⚡'},{term:'Lambda',def:'Serverless compute. Upload code, AWS runs it on events.',domain:'TECH',emoji:'🧞'},{term:'SQS',def:'Message queue. One system puts tasks, another picks them up.',domain:'TECH',emoji:'📬'},{term:'SNS',def:'Notification broadcast. One trigger, many endpoints.',domain:'TECH',emoji:'📢'},{term:'On-Demand',def:'Pay per second. No commitment. Most flexible.',domain:'BILL',emoji:'⏰'},{term:'Reserved Instances',def:'1 or 3-year commitment. Up to 72% discount.',domain:'BILL',emoji:'📅'},{term:'Spot Instances',def:'Spare AWS capacity at up to 90% discount. Can be interrupted.',domain:'BILL',emoji:'🎲'},{term:'Savings Plans',def:'Commit to $/hour for 1 or 3 years. Up to 66% off.',domain:'BILL',emoji:'🏦'},{term:'Cost Explorer',def:'Shows spending over time with charts.',domain:'BILL',emoji:'📊'},{term:'Budgets',def:'Set spending limits and alerts.',domain:'BILL',emoji:'⏰'},{term:'Support Plans',def:'Basic (free), Developer (email), Business (24/7 phone), Enterprise (TAM).',domain:'BILL',emoji:'📞'}];
-  return `<div class="card-sm" style="margin-bottom:1rem"><h2>📖 Key Terms in Plain English</h2></div>
-  ${DOMAINS.map(d=>{const domKey=DOMAIN_SHORT[d];const dt=terms.filter(t=>t.domain===domKey);return `<div class="glass-card animate-in" style="margin-bottom:.85rem;border-color:${DOMAIN_COLOR[d]}25">
-    <h3 style="display:flex;align-items:center;gap:.5rem;margin-bottom:.85rem">${DOMAIN_EMOJI[d]} <span class="badge ${DOMAIN_BADGE[d]}">${domKey}</span> ${d}</h3>
-    ${dt.map(t=>`<div style="display:flex;gap:.7rem;padding:.55rem 0;border-bottom:1px solid var(--border);align-items:flex-start">
-      <span style="font-size:1.2rem;flex-shrink:0">${t.emoji}</span>
-      <div><strong style="font-size:.87rem">${t.term}</strong><p style="font-size:.8rem;color:var(--muted);margin-top:.15rem;line-height:1.55">${t.def}</p></div>
-    </div>`).join('')}
-  </div>`;}).join('')}`;
+  // Memory hooks: short analogies that make each term stick
+  const HOOKS={
+    'Availability Zone (AZ)':'One BUILDING in a city. Each has own power + internet. If one floods, others stay dry.',
+    'Region':'A CITY. Multiple buildings (AZs). You pick city based on where users live.',
+    'Edge Location':'A WIFI HOTSPOT near users. CloudFront has 400+. NOT a full data centre.',
+    'Elasticity':'A RUBBER BAND. Stretches when traffic spikes, shrinks when it calms. Pay only for what you stretch.',
+    'High Availability':'A BACKUP GENERATOR. House stays lit even when the grid goes down — because you planned ahead.',
+    'Fault Tolerance':'A PLANE with 4 engines. Loses one and still lands safely.',
+    'Loose Coupling':'LEGO blocks. Each piece works alone — snap together or apart. SQS/SNS enable this.',
+    'CapEx vs OpEx':'CapEx = BUYING a car. OpEx = UBER — pay per ride. Cloud = OpEx.',
+    'Shared Responsibility':'LANDLORD vs TENANT. AWS = landlord (building/pipes). You = tenant (lock your door).',
+    'Well-Architected':'6 PILLARS holding a temple. Remove one and it collapses.',
+    'IAM':'A BOUNCER at the door. Controls WHO gets in and WHAT they can touch.',
+    'IAM Role':'A VISITOR BADGE. Temporary access — expires, no permanent keys.',
+    'Security Group':'A PERSONAL BODYGUARD for each EC2. ONLY allows — never denies explicitly.',
+    'NACL':'BORDER CONTROL at the subnet. Checks BOTH directions — inbound AND outbound.',
+    'CloudTrail':'CCTV for your AWS account. Records EVERY API call: who, what, when, from where.',
+    'CloudWatch':'A DOCTOR monitoring vitals. Metrics, alarms, dashboards — but not the audit log.',
+    'GuardDuty':'An AI DETECTIVE. Reads CloudTrail + VPC logs, spots suspicious patterns automatically.',
+    'Inspector':'A BUILDING INSPECTOR for EC2. Scans for CVEs and security holes.',
+    'Shield':'A RIOT SHIELD against DDoS. Standard = free. Advanced = $3k/month + response team.',
+    'WAF':'A LANGUAGE FILTER at the door. Blocks SQL injection and XSS before they reach your app.',
+    'EC2':'RENTING a computer from AWS. You manage the OS, apps, everything.',
+    'S3':'A FILING CABINET in the sky. Store any file, access via HTTP, virtually unlimited.',
+    'EBS':'A USB DRIVE plugged into ONE EC2. Must be in same AZ. Lost if unplugged.',
+    'EFS':'A SHARED NETWORK DRIVE. Hundreds of EC2 instances can mount it simultaneously.',
+    'RDS':'HIRING a DBA from AWS. They handle patching, backups, failover. You just query.',
+    'DynamoDB':'A RACING CAR database. Millisecond speed, serverless, auto-scales. Use for key-value.',
+    'Lambda':'A VENDING MACHINE. Put in a request, get output. No server to manage, pay per use.',
+    'SQS':'A MAILBOX. One person delivers, one person picks up. Queue holds mail until collected.',
+    'SNS':'A MEGAPHONE. Shout once, everyone subscribed hears it. Fan-out pattern.',
+    'On-Demand':'PAY-AS-YOU-GO coffee shop. No commitment, full price, most flexible.',
+    'Reserved Instances':'GYM MEMBERSHIP. Commit for 1–3 years, up to 72% off. Best for steady workloads.',
+    'Spot Instances':'STANDBY FLIGHT TICKETS. Up to 90% off but AWS can bump you when demand rises.',
+    'Savings Plans':'A SPEND COMMITMENT. Promise AWS $X/hour for 1–3 years. Applies broadly.',
+    'Cost Explorer':'Your CREDIT CARD STATEMENT with charts. Shows spend patterns over time.',
+    'Budgets':'A SPENDING ALARM. Set a limit, get alerted before you overspend.',
+    'Support Plans':'HOTEL TIERS. Basic=no room service. Developer=email. Business=phone 24/7. Enterprise=personal concierge (TAM).',
+  };
+
+  const COLOR={'CC':'#3BA8FF','SEC':'#FFB020','TECH':'#22C55E','BILL':'#FF9900'};
+  const BG={'CC':'rgba(59,168,255,0.12)','SEC':'rgba(255,176,32,0.12)','TECH':'rgba(34,197,94,0.12)','BILL':'rgba(255,153,0,0.12)'};
+  const terms=[
+    {term:'Availability Zone (AZ)',def:'One or more data centres with independent power, cooling, and networking.',domain:'CC',emoji:'🏢'},
+    {term:'Region',def:'A geographic area containing 2+ AZs. You choose based on latency and compliance.',domain:'CC',emoji:'🌍'},
+    {term:'Edge Location',def:'A small cache point for CloudFront CDN. NOT a full data centre.',domain:'CC',emoji:'📡'},
+    {term:'Elasticity',def:'Automatically scale resources up and down with demand.',domain:'CC',emoji:'🔄'},
+    {term:'High Availability',def:'System keeps working even when a component fails. Use multiple AZs.',domain:'CC',emoji:'💚'},
+    {term:'Fault Tolerance',def:'System keeps running even when parts fail — with zero downtime.',domain:'CC',emoji:'🛡️'},
+    {term:'Loose Coupling',def:'Components do not directly depend on each other. SQS and SNS enable this.',domain:'CC',emoji:'🔗'},
+    {term:'CapEx vs OpEx',def:'CapEx = upfront hardware purchase. OpEx = pay-as-you-go. Cloud = OpEx.',domain:'CC',emoji:'💳'},
+    {term:'Shared Responsibility',def:'AWS secures the cloud (hardware). You secure IN the cloud (data, IAM, OS).',domain:'CC',emoji:'🤝'},
+    {term:'Well-Architected',def:'Six pillars: Operational Excellence, Security, Reliability, Performance, Cost, Sustainability.',domain:'CC',emoji:'🏛️'},
+    {term:'IAM',def:'Controls WHO can use WHICH AWS services and WHAT they can do.',domain:'SEC',emoji:'🗝️'},
+    {term:'IAM Role',def:'Temporary credentials for a service or cross-account access. No permanent keys.',domain:'SEC',emoji:'🎭'},
+    {term:'Security Group',def:'Stateful firewall at the EC2 instance level. ONLY allow rules.',domain:'SEC',emoji:'🚪'},
+    {term:'NACL',def:'Stateless subnet firewall. Must write rules for BOTH inbound and outbound.',domain:'SEC',emoji:'🧱'},
+    {term:'CloudTrail',def:'Records every API call — who made it, from where, at what time.',domain:'SEC',emoji:'📸'},
+    {term:'CloudWatch',def:'Monitors resources. Collects metrics, stores logs, triggers alarms.',domain:'SEC',emoji:'📊'},
+    {term:'GuardDuty',def:'ML-based threat detector. Analyses CloudTrail, VPC Flow Logs, DNS logs.',domain:'SEC',emoji:'🕵️'},
+    {term:'Inspector',def:'Automated vulnerability scanner for EC2 instances and container images.',domain:'SEC',emoji:'🔍'},
+    {term:'Shield',def:'DDoS protection. Standard = free and automatic. Advanced = $3,000/month.',domain:'SEC',emoji:'🛡️'},
+    {term:'WAF',def:'Web Application Firewall. Blocks SQL injection, XSS at Layer 7.',domain:'SEC',emoji:'🧱'},
+    {term:'EC2',def:'Virtual servers you manage — OS, apps, config. Infrastructure as a Service.',domain:'TECH',emoji:'🖥️'},
+    {term:'S3',def:'Object storage — files in buckets, accessed via HTTP. 11 nines durable.',domain:'TECH',emoji:'🗂️'},
+    {term:'EBS',def:'Block storage attached to ONE EC2 instance in the same AZ.',domain:'TECH',emoji:'💾'},
+    {term:'EFS',def:'Managed NFS file system mountable by MANY EC2 instances simultaneously.',domain:'TECH',emoji:'🌐'},
+    {term:'RDS',def:'Managed relational database. AWS handles patching, backups, failover.',domain:'TECH',emoji:'🗄️'},
+    {term:'DynamoDB',def:'Serverless NoSQL database. Single-digit ms latency at any scale.',domain:'TECH',emoji:'⚡'},
+    {term:'Lambda',def:'Serverless compute. Upload code, AWS runs it on events. Pay per execution.',domain:'TECH',emoji:'🧞'},
+    {term:'SQS',def:'Message queue — one consumer per message. Decouples components.',domain:'TECH',emoji:'📬'},
+    {term:'SNS',def:'Pub/Sub broadcast — one message fans out to many subscribers.',domain:'TECH',emoji:'📢'},
+    {term:'On-Demand',def:'Pay per second. No commitment. Most flexible pricing model.',domain:'BILL',emoji:'⏰'},
+    {term:'Reserved Instances',def:'1 or 3-year commitment. Up to 72% discount over On-Demand.',domain:'BILL',emoji:'📅'},
+    {term:'Spot Instances',def:'Spare AWS capacity at up to 90% discount. Can be interrupted.',domain:'BILL',emoji:'🎲'},
+    {term:'Savings Plans',def:'Commit to $/hour for 1 or 3 years. Applies to EC2, Lambda, Fargate.',domain:'BILL',emoji:'🏦'},
+    {term:'Cost Explorer',def:'Visualise and analyse your AWS spending over time with charts.',domain:'BILL',emoji:'📊'},
+    {term:'Budgets',def:'Set spending limits and get alerts before you overspend.',domain:'BILL',emoji:'⏰'},
+    {term:'Support Plans',def:'Basic (free), Developer (email), Business (24/7 phone), Enterprise (TAM).',domain:'BILL',emoji:'📞'},
+  ];
+
+  return `
+  <div style="margin-bottom:1rem;padding:.8rem 1rem;background:rgba(255,153,0,0.07);border:1px solid rgba(255,153,0,0.2);border-radius:14px;font-size:.82rem;color:rgba(255,255,255,0.75)">
+    💡 <strong style="color:var(--gold2)">Memory Strategy:</strong> Each card has a <span style="color:var(--blue2)">definition</span> and a <span style="color:var(--gold)">memory hook</span> (the analogy). Read the hook — it makes the definition stick. Tap any card to start practising that domain.
+  </div>
+  ${DOMAINS.map(d=>{
+    const domKey=DOMAIN_SHORT[d];
+    const color=COLOR[domKey];
+    const bg=BG[domKey];
+    const dt=terms.filter(t=>t.domain===domKey);
+    return `
+    <div style="margin-bottom:1.5rem">
+      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.85rem;padding:.6rem .9rem;background:${bg};border:1px solid ${color}25;border-radius:12px;cursor:pointer" onclick="startPractice('domain','${d}',10)">
+        <span style="font-size:1.5rem">${DOMAIN_EMOJI[d]}</span>
+        <span class="badge ${DOMAIN_BADGE[d]}" style="font-size:.65rem">${domKey}</span>
+        <span style="font-weight:800;font-size:.9rem">${d}</span>
+        <span style="margin-left:auto;font-size:.7rem;color:${color};font-weight:700">${Math.round(DOMAIN_WEIGHT[d]*100)}% of exam · Practice →</span>
+      </div>
+      <div class="kt-grid">
+        ${dt.map(t=>`
+        <div class="kt-card" style="border-color:${color}25" onclick="startPractice('domain','${d}',10)">
+          <div class="kt-card-top">
+            <div class="kt-emoji" style="background:${bg};border:1px solid ${color}35;box-shadow:0 4px 16px ${color}25,inset 0 1px 0 rgba(255,255,255,0.1)">${t.emoji}</div>
+            <div class="kt-term">${t.term}</div>
+          </div>
+          <div class="kt-def">${t.def}</div>
+          ${HOOKS[t.term]?`<div class="kt-hook" style="border-color:${color};background:${bg}"><div class="kt-hook-label" style="color:${color}">🧠 Memory Hook</div>${HOOKS[t.term]}</div>`:''}
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('')}`;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1925,34 +3492,86 @@ function renderWeaknessDrill(){
 function renderFlashcards(){
   const unseen=window.QUESTIONS.filter(q=>!progress[q.id]||progress[q.id].attempts===0);
   const pool=shuffle(unseen.length>0?unseen:window.QUESTIONS).slice(0,10);
-  return `<div id="flashcard-container" data-idx="0" data-pool='${JSON.stringify(pool.map(q=>q.id))}'>
-    ${renderFlashcardItem(pool[0])}
-    <div style="display:flex;gap:.5rem;margin-top:1rem;align-items:center;flex-wrap:wrap">
-      <button class="btn btn-secondary btn-sm" id="fc-prev" disabled>← Prev</button>
-      <span class="muted" style="font-size:.85rem" id="fc-counter">1 / ${pool.length}</span>
-      <button class="btn btn-secondary btn-sm" id="fc-next">Next →</button>
-      <button class="btn btn-primary btn-sm" id="fc-flip">🔄 Flip Card</button>
+  const poolIds=pool.map(q=>q.id);
+  return `
+  <div style="margin-bottom:.75rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+    <div>
+      <div style="font-size:.82rem;color:var(--muted)"><strong style="color:var(--blue2)">${pool.length} cards</strong> · ${unseen.length>0?`${unseen.length} unseen questions`:'Full deck — all questions attempted'}</div>
+    </div>
+    <button class="btn btn-secondary btn-sm" onclick="renderAndReplace('practice-content',renderFlashcards)">🔀 New Shuffle</button>
+  </div>
+  <div id="flashcard-container" data-idx="0" data-pool='${JSON.stringify(poolIds)}'>
+    ${renderFlashcardItem(pool[0],0,pool.length)}
+    <div class="fc3-nav">
+      <button class="btn btn-secondary btn-sm" id="fc-prev" disabled onclick="fcNav(-1)">← Prev</button>
+      <span style="font-size:.82rem;color:var(--muted);min-width:3rem;text-align:center" id="fc-counter">1 / ${pool.length}</span>
+      <button class="btn btn-secondary btn-sm" id="fc-next" onclick="fcNav(1)">Next →</button>
+      <button class="btn btn-primary btn-sm" id="fc-flip" onclick="flipCard3d()">🔄 Flip</button>
+    </div>
+    <div class="fc3-dots" id="fc-dots">
+      ${pool.map((_,i)=>`<div class="fc3-dot${i===0?' active':''}" onclick="fcJump(${i})" title="Card ${i+1}"></div>`).join('')}
     </div>
   </div>`;
 }
-function renderFlashcardItem(q){
+
+function renderFlashcardItem(q,idx,total){
   if(!q) return '';
-  return `<div class="flashcard card" id="flashcard" onclick="flipCard()">
-    <div class="flashcard-inner">
-      <div class="flashcard-front"><div>
-        <div class="label" style="color:var(--info);margin-bottom:.5rem">${q.domain}</div>
-        <p style="font-size:.97rem;font-weight:600;line-height:1.65">${q.stem}</p>
-        <p class="muted" style="font-size:.78rem;margin-top:.7rem">👆 Tap to reveal answer</p>
-      </div></div>
-      <div class="flashcard-back"><div>
-        <div class="label" style="color:var(--ok);margin-bottom:.4rem">✅ Correct Answer</div>
-        <p style="font-weight:800;color:var(--ok2);font-size:.97rem;margin-bottom:.5rem">${q.options.filter(o=>q.correct.some(c=>o.startsWith(c+'.'))).join(', ')}</p>
-        <p style="font-size:.8rem;color:var(--muted);line-height:1.6">${getRationale(q)}</p>
-      </div></div>
+  const correctOpts=q.options.filter(o=>q.correct.some(c=>o.startsWith(c+'.')));
+  const rationale=getRationale(q);
+  return `<div class="flashcard-3d" id="flashcard" onclick="flipCard3d()">
+    <div class="flashcard-3d-inner">
+      <div class="fc3-face fc3-front">
+        <div class="fc3-domain">${q.domain}</div>
+        <div class="fc3-question">${q.stem}</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;margin-bottom:.8rem">
+          ${q.options.map(o=>`<div style="font-size:.72rem;color:var(--muted);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:.2rem .55rem">${o}</div>`).join('')}
+        </div>
+        <div class="fc3-hint">👆 Tap to reveal answer</div>
+      </div>
+      <div class="fc3-face fc3-back">
+        <div class="fc3-answer-label">✅ Correct Answer</div>
+        <div class="fc3-answer">${correctOpts.join(' · ')}</div>
+        ${rationale?`<div class="fc3-rationale">${rationale}</div>`:''}
+      </div>
     </div>
   </div>`;
 }
-function flipCard(){const el=document.getElementById('flashcard');if(el) el.classList.toggle('flipped');}
+
+function flipCard3d(){const el=document.getElementById('flashcard');if(el) el.classList.toggle('flipped');}
+
+function fcNav(dir){
+  const c=document.getElementById('flashcard-container');
+  if(!c) return;
+  const pool=JSON.parse(c.dataset.pool);
+  let idx=parseInt(c.dataset.idx)+dir;
+  if(idx<0||idx>=pool.length) return;
+  c.dataset.idx=idx;
+  const q=getQ(pool[idx]);
+  const fc=document.getElementById('flashcard');
+  if(fc) fc.outerHTML=renderFlashcardItem(q,idx,pool.length);
+  document.getElementById('fc-counter').textContent=`${idx+1} / ${pool.length}`;
+  document.getElementById('fc-prev').disabled=idx===0;
+  document.getElementById('fc-next').disabled=idx===pool.length-1;
+  document.querySelectorAll('.fc3-dot').forEach((d,i)=>{d.classList.toggle('active',i===idx);if(i<idx) d.classList.add('seen');});
+}
+
+function fcJump(idx){
+  const c=document.getElementById('flashcard-container');
+  if(!c) return;
+  c.dataset.idx=idx;
+  const pool=JSON.parse(c.dataset.pool);
+  const q=getQ(pool[idx]);
+  const fc=document.getElementById('flashcard');
+  if(fc) fc.outerHTML=renderFlashcardItem(q,idx,pool.length);
+  document.getElementById('fc-counter').textContent=`${idx+1} / ${pool.length}`;
+  document.getElementById('fc-prev').disabled=idx===0;
+  document.getElementById('fc-next').disabled=idx===pool.length-1;
+  document.querySelectorAll('.fc3-dot').forEach((d,i)=>{d.classList.toggle('active',i===idx);if(i<idx) d.classList.add('seen');});
+}
+
+function renderAndReplace(id,fn){const el=document.getElementById(id);if(el) el.innerHTML=fn();}
+
+function flipCard(){flipCard3d();}
 
 const SERVICE_INFO={'CloudTrail':{desc:'Records all API calls — the audit log.',points:['Logs: API calls, management events','Destination: S3 bucket','Exam trigger: "who deleted" / "API activity"']},'CloudWatch':{desc:'Monitors performance metrics and logs.',points:['Collects: CPU, memory, request counts','Exam trigger: "metric" / "alarm" / "dashboard"']},'Security Group':{desc:'Stateful firewall at the EC2 instance level.',points:['Level: instance','Stateful: YES — return traffic auto-allowed','Rules: allow ONLY (no deny)']},'Network ACL':{desc:'Stateless firewall at the VPC subnet level.',points:['Level: subnet','Stateful: NO — must allow both directions','Rules: allow AND deny']},'S3':{desc:'Object storage. Files in buckets, accessed via HTTP.',points:['Durability: 11 nines','Access: HTTP/S API, not a file system']},'EBS':{desc:'Block storage attached to a single EC2 instance.',points:['Attached: ONE instance at a time','Scope: same AZ as the EC2']},'EFS':{desc:'Managed NFS file system. Many instances mount it simultaneously.',points:['Attached: MANY instances at once','Auto-scales as files are added']},'SQS':{desc:'Message queue for decoupling components.',points:['Pattern: producer → queue → one consumer','Messages persist until consumed']},'SNS':{desc:'Pub/Sub broadcast. One message fans out to many.',points:['Pattern: publisher → topic → many subscribers','Exam trigger: "pub/sub" / "fan out"']},'Reserved Instances':{desc:'1 or 3-year commitment for up to 72% discount.',points:['Commitment: instance type + region','Discount: up to 72%']},'Savings Plans':{desc:'Commit to $/hour of compute for up to 66% discount.',points:['More flexible than Reserved Instances','Applies to: EC2, Lambda, Fargate']}};
 
@@ -2546,8 +4165,8 @@ function renderWeeklyFlashcards(){
   <!-- DECK SELECTOR -->
   <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem">
     ${window.FLASHCARD_DECKS.map((d,i)=>`
-    <button onclick="switchDeck(${i})" style="padding:.35rem .7rem;border-radius:999px;font-size:.72rem;font-weight:700;cursor:pointer;border:1px solid ${i===currentDeck?d.color:'rgba(255,255,255,0.1)'};background:${i===currentDeck?d.color+'20':'rgba(255,255,255,0.04)'};color:${i===currentDeck?d.color:'var(--muted)'};transition:all .18s">
-      ${d.emoji} W${d.week}
+    <button class="wfc-tab${i===currentDeck?' active':''}" onclick="switchDeck(${i})" style="${i===currentDeck?`border-color:${d.color}60;color:${d.color};background:${d.color}18;box-shadow:0 0 14px ${d.color}25`:''}">
+      <span class="wfc-tab-icon">${d.emoji}</span>W${d.week}
     </button>`).join('')}
   </div>
 
@@ -2600,34 +4219,33 @@ function renderWeeklyFlashcards(){
 function renderWeekCard(deck,idx){
   const card=deck.cards[idx];
   return `
-  <div id="wfc-card" onclick="toggleWFC()" style="cursor:pointer;border-radius:20px;min-height:220px;position:relative;border:1px solid ${deck.color}40;background:var(--bg-card);backdrop-filter:blur(16px);box-shadow:0 0 24px ${deck.color}15;overflow:hidden;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px ${deck.color}25'" onmouseout="this.style.transform='';this.style.boxShadow='0 0 24px ${deck.color}15'">
-    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,${deck.color},transparent)"></div>
-    <div id="wfc-front" style="padding:1.5rem;display:flex;flex-direction:column;justify-content:center;min-height:220px">
-      <div style="font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;font-weight:800;color:${deck.color};margin-bottom:.6rem">${deck.emoji} ${deck.title} · Card ${idx+1}</div>
-      <div style="font-size:1.05rem;font-weight:700;line-height:1.6;color:var(--text);margin-bottom:.8rem">${card.q}</div>
-      <div style="display:flex;align-items:center;gap:.35rem;font-size:.72rem;color:var(--muted)">
-        <span>👆 Tap card to reveal answer</span>
+  <div class="flashcard-3d" id="wfc-card" onclick="toggleWFC()" style="min-height:230px">
+    <div class="flashcard-3d-inner" id="wfc-inner" style="min-height:230px;border-radius:22px">
+      <div class="fc3-face fc3-front" style="border-color:${deck.color}35;min-height:230px">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,${deck.color},transparent);border-radius:22px 22px 0 0"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;height:60px;background:radial-gradient(ellipse at 50% 100%,${deck.color}18,transparent);border-radius:0 0 22px 22px;pointer-events:none"></div>
+        <div style="font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:${deck.color};margin-bottom:.75rem;padding:.2rem .7rem;border-radius:999px;background:${deck.color}15;border:1px solid ${deck.color}30">${deck.emoji} ${deck.title} · Card ${idx+1}</div>
+        <div style="font-size:1.02rem;font-weight:700;line-height:1.65;color:var(--text);margin-bottom:.8rem;max-width:90%">${card.q}</div>
+        <div class="fc3-hint">👆 Tap card to reveal answer</div>
       </div>
-    </div>
-    <div id="wfc-back" style="display:none;padding:1.5rem;min-height:220px">
-      <div style="font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;font-weight:800;color:var(--green);margin-bottom:.5rem">✅ Answer</div>
-      <div style="font-size:.92rem;line-height:1.75;color:var(--text);margin-bottom:.75rem;white-space:pre-line">${card.a}</div>
-      ${card.tip?`<div style="padding:.55rem .8rem;background:rgba(255,153,0,0.08);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-size:.78rem;line-height:1.6">
-        <span style="font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);font-weight:800;display:block;margin-bottom:.2rem">⚡ Exam Tip</span>
-        ${card.tip}
-      </div>`:''}
+      <div class="fc3-face fc3-back" style="border-color:${deck.color}25;min-height:230px">
+        <div style="position:absolute;bottom:0;left:0;right:0;height:60px;background:radial-gradient(ellipse at 50% 100%,${deck.color}12,transparent);border-radius:0 0 22px 22px;pointer-events:none"></div>
+        <div class="fc3-answer-label" style="color:${deck.color}">✅ Answer</div>
+        <div style="font-size:.92rem;font-weight:700;line-height:1.75;color:var(--text);margin-bottom:.75rem;max-width:92%;white-space:pre-line">${card.a}</div>
+        ${card.tip?`<div style="padding:.55rem .85rem;background:rgba(255,153,0,0.08);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;font-size:.78rem;line-height:1.6;width:100%;text-align:left">
+          <span style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-weight:800;display:block;margin-bottom:.2rem">⚡ Exam Tip</span>
+          ${card.tip}
+        </div>`:''}
+      </div>
     </div>
   </div>`;
 }
 
 function toggleWFC(){
   cardFlipped=!cardFlipped;
-  const front=document.getElementById('wfc-front');
-  const back=document.getElementById('wfc-back');
-  if(front&&back){
-    front.style.display=cardFlipped?'none':'flex';
-    back.style.display=cardFlipped?'block':'none';
-  }
+  const inner=document.getElementById('wfc-inner');
+  const card=document.getElementById('wfc-card');
+  if(card) card.classList.toggle('flipped',cardFlipped);
 }
 function wfcNav(dir){
   const deck=window.FLASHCARD_DECKS[currentDeck];
@@ -2669,8 +4287,14 @@ navigate('home');function renderTerminologyGym(){
   return `<div class="section-header"><h1>🏋️ Terminology Gym</h1><span class="muted">Exam keywords mapped to answers — from your Praesignis curriculum</span></div>` + renderExamKeywords().split('</div>').slice(1).join('</div>');
 }
 
+applyTheme(appTheme);
 navigate('home');
 updateTopbar();
+
+// Safety net: save state whenever the tab is hidden or closed (critical on mobile)
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden') saveAll();});
+window.addEventListener('beforeunload',()=>saveAll());
+window.addEventListener('pagehide',()=>saveAll());
 </script>
 </body>
 </html>
