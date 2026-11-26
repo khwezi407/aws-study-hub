@@ -254,7 +254,39 @@ input,select{font:inherit}
   .sidebar{display:none}
   .main-wrapper{margin-left:0}
   .bottom-nav{display:flex}
-  .main-content{padding-bottom:5rem}
+  .main-content{padding:.75rem .85rem 5.5rem}
+}
+@media(max-width:600px){
+  /* Hero: stack vertically, full width text */
+  .hero-banner{min-height:auto;display:flex;flex-direction:column}
+  .hero-astronaut-img{display:none}
+  .hero-content{
+    max-width:100%;
+    padding:1.1rem 1rem .6rem;
+    flex:1;
+  }
+  .hero-title{font-size:1.35rem}
+  .hero-target{
+    position:static;
+    transform:none;
+    flex-direction:row;
+    justify-content:flex-start;
+    align-items:center;
+    padding:.5rem 1rem .9rem;
+    gap:.75rem;
+    z-index:3;
+  }
+  .hero-target-ring{width:72px;height:72px;flex-shrink:0}
+  .hero-target-crown{font-size:1rem}
+  .hero-target-pct{font-size:1.2rem}
+  .hero-target-ribbon{font-size:.58rem}
+  /* Stat cards: keep 2-col grid on mobile */
+  .stat-cards-row{grid-template-columns:repeat(2,1fr)!important;gap:.6rem}
+  .sc-big{font-size:1.9rem}
+  /* Domain rings: slightly smaller on mobile */
+  .domain-ring-svg-wrap{width:65px;height:65px}
+  /* Bottom nav larger tap targets */
+  .bottom-nav .nav-btn{padding:.5rem .2rem}
 }
 .bottom-nav .nav-btn{
   flex:1;flex-direction:column;justify-content:center;
@@ -359,7 +391,7 @@ input,select{font:inherit}
   gap:.85rem;margin-bottom:1rem;
 }
 @media(max-width:1050px){.stat-cards-row{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.stat-cards-row{grid-template-columns:1fr}}
+/* Keep 2-col grid on mobile — handled in the 600px block above */
 
 .stat-card{
   background:var(--bg-card);
@@ -549,7 +581,8 @@ input,select{font:inherit}
   display:grid;grid-template-columns:1fr 1fr 1fr;
   gap:.85rem;margin-bottom:1rem;
 }
-@media(max-width:900px){.bottom-row{grid-template-columns:1fr}}
+@media(max-width:900px){.bottom-row{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.bottom-row{grid-template-columns:1fr}}
 @media(max-width:1100px) and (min-width:600px){.bottom-row{grid-template-columns:1fr 1fr}}
 
 /* mission card */
