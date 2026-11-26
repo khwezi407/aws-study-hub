@@ -1,0 +1,1909 @@
+﻿const SVC={
+  'Management Console':'a web-based UI for managing AWS services','AWS CLI':'a command-line tool for scripting AWS operations','AWS SDK':'libraries for calling AWS from app code in many languages','AWS API':'the low-level REST interface for AWS services',
+  'EC2':'virtual servers you manage â€” you control the OS, apps and config. It is IaaS.','Amazon EC2':'virtual servers you manage â€” you control the OS, apps and config. It is IaaS.',
+  'EC2 Auto Scaling':'automatically adds or removes EC2 instances based on demand','Auto Scaling':'automatically adds or removes EC2 instances based on demand',
+  'S3':'object storage â€” files in buckets, accessed via HTTP, virtually unlimited, 99.999999999% durable','Amazon S3':'object storage â€” files in buckets, accessed via HTTP, virtually unlimited',
+  'EBS':'block storage attached to one EC2 instance like a virtual hard drive, tied to one AZ','Amazon EBS':'block storage attached to one EC2 instance like a virtual hard drive, tied to one AZ',
+  'EFS':'managed NFS file system mountable by many EC2 instances at once, auto-scales','Amazon EFS':'managed NFS file system mountable by many EC2 instances at once, auto-scales',
+  'Instance Store':'ephemeral storage on the EC2 host â€” data is lost when the instance stops or terminates',
+  'RDS':'managed relational database â€” AWS handles patching, backups, failover. Supports MySQL, PostgreSQL, Oracle, SQL Server','Amazon RDS':'managed relational database â€” AWS handles patching, backups, failover',
+  'Aurora':'AWS cloud-native relational DB, MySQL/PostgreSQL compatible, 5x MySQL throughput, auto-replicates across 3 AZs','Amazon Aurora':'AWS cloud-native relational DB, MySQL/PostgreSQL compatible, 5x MySQL throughput',
+  'DynamoDB':'managed serverless NoSQL database â€” key-value and document, single-digit ms latency, auto-scales','Amazon DynamoDB':'managed serverless NoSQL database â€” key-value and document, single-digit ms latency',
+  'Redshift':'petabyte-scale data warehouse for analytical SQL on large datasets','Amazon Redshift':'petabyte-scale data warehouse for analytical SQL on large datasets',
+  'ElastiCache':'managed in-memory cache (Redis/Memcached) that reduces database read load','Amazon ElastiCache':'managed in-memory cache (Redis/Memcached) that reduces database read load',
+  'DAX':'DynamoDB Accelerator â€” in-memory cache for DynamoDB, microsecond latency',
+  'Lambda':'serverless compute â€” runs code on events, no server management, pay per execution','AWS Lambda':'serverless compute â€” runs code on events, no server management, pay per execution',
+  'ECS':'container orchestration â€” runs Docker containers on EC2 or Fargate','Amazon ECS':'container orchestration â€” runs Docker containers on EC2 or Fargate',
+  'EKS':'managed Kubernetes â€” AWS runs the control plane, you manage worker nodes','Amazon EKS':'managed Kubernetes â€” AWS runs the control plane, you manage worker nodes',
+  'Fargate':'serverless container runtime â€” AWS manages infrastructure, you define the container task','AWS Fargate':'serverless container runtime â€” AWS manages infrastructure, you define the container task',
+  'Elastic Beanstalk':'PaaS â€” upload code, AWS handles deployment, scaling, load balancing, monitoring','AWS Elastic Beanstalk':'PaaS â€” upload code, AWS handles deployment, scaling, load balancing, monitoring',
+  'Lightsail':'simplified VPS with pre-configured instances â€” easiest way to launch a simple website','Amazon Lightsail':'simplified VPS with pre-configured instances â€” easiest way to launch a simple website',
+  'VPC':'virtual private cloud â€” your isolated network in AWS where you define IP ranges and subnets','Amazon VPC':'virtual private cloud â€” your isolated network in AWS where you define IP ranges and subnets',
+  'Security Group':'stateful firewall at the instance level â€” allow rules only, return traffic auto-allowed',
+  'Network ACL':'stateless firewall at the subnet level â€” allow AND deny rules, must explicitly allow return traffic','NACL':'stateless firewall at the subnet level â€” allow AND deny rules, return traffic NOT auto-allowed',
+  'Route 53':'managed DNS service â€” domain registration, health checks, routing policies (latency, geolocation, failover)','Amazon Route 53':'managed DNS service â€” domain registration, health checks, routing policies',
+  'CloudFront':'CDN â€” caches content at edge locations globally to reduce latency for users','Amazon CloudFront':'CDN â€” caches content at edge locations globally to reduce latency for users',
+  'Elastic Load Balancing':'distributes traffic across targets (EC2, containers, Lambda) with health checks','ELB':'distributes traffic across targets (EC2, containers, Lambda) with health checks',
+  'Application Load Balancer':'Layer 7 load balancer â€” routes HTTP/HTTPS by URL path, host, headers','ALB':'Layer 7 load balancer â€” routes HTTP/HTTPS by URL path, host, headers',
+  'Network Load Balancer':'Layer 4 load balancer for TCP/UDP â€” ultra-high performance','NLB':'Layer 4 load balancer for TCP/UDP â€” ultra-high performance',
+  'SQS':'managed message queue â€” decouples components, one consumer per message, messages persist until processed','Amazon SQS':'managed message queue â€” decouples components, one consumer per message',
+  'SNS':'pub/sub notifications â€” fans out one message to many subscribers (email, SMS, Lambda, SQS)','Amazon SNS':'pub/sub notifications â€” fans out one message to many subscribers',
+  'SES':'email sending service for transactional and marketing emails','Amazon SES':'email sending service for transactional and marketing emails',
+  'Kinesis':'real-time data streaming for IoT, clickstreams, log aggregation at massive scale','Amazon Kinesis':'real-time data streaming for IoT, clickstreams, log aggregation at massive scale',
+  'CloudTrail':'records all API calls â€” audit trail showing who did what, when, from where. Logs go to S3','AWS CloudTrail':'records all API calls â€” audit trail showing who did what, when, from where',
+  'CloudWatch':'monitoring â€” collects metrics, stores logs, creates dashboards, triggers alarms on thresholds','Amazon CloudWatch':'monitoring â€” collects metrics, stores logs, creates dashboards, triggers alarms',
+  'Config':'records resource configuration changes over time, evaluates against compliance rules','AWS Config':'records resource configuration changes over time, evaluates against compliance rules',
+  'Trusted Advisor':'best-practice recommendations across cost, performance, security, fault tolerance, service limits','AWS Trusted Advisor':'best-practice recommendations across cost, performance, security, fault tolerance, service limits',
+  'Inspector':'automated vulnerability scanning for EC2 instances and ECR container images','Amazon Inspector':'automated vulnerability scanning for EC2 instances and ECR container images',
+  'GuardDuty':'ML-based threat detection â€” analyses CloudTrail, VPC Flow Logs, DNS logs for suspicious activity','Amazon GuardDuty':'ML-based threat detection â€” analyses CloudTrail, VPC Flow Logs, DNS logs',
+  'Macie':'ML-based discovery and classification of sensitive data (PII) in S3','Amazon Macie':'ML-based discovery and classification of sensitive data (PII) in S3',
+  'Security Hub':'aggregates security findings from GuardDuty, Inspector, Macie into one dashboard','AWS Security Hub':'aggregates security findings from GuardDuty, Inspector, Macie into one dashboard',
+  'Shield':'DDoS protection â€” Standard is free and automatic, Advanced costs ~$3000/month','AWS Shield':'DDoS protection â€” Standard is free and automatic, Advanced costs ~$3000/month',
+  'WAF':'web application firewall â€” blocks SQL injection, XSS at Layer 7','AWS WAF':'web application firewall â€” blocks SQL injection, XSS at Layer 7',
+  'KMS':'managed encryption key service â€” create, store, rotate, delete keys. Integrates with S3, RDS, EBS','AWS KMS':'managed encryption key service â€” create, store, rotate, delete keys',
+  'CloudHSM':'dedicated single-tenant HSM for FIPS 140-2 Level 3 compliance â€” customer controls keys exclusively','AWS CloudHSM':'dedicated single-tenant HSM for FIPS 140-2 Level 3 compliance',
+  'Secrets Manager':'stores and auto-rotates secrets (DB passwords, API keys) via Lambda. Integrates with RDS','AWS Secrets Manager':'stores and auto-rotates secrets (DB passwords, API keys) via Lambda',
+  'Certificate Manager':'provisions and manages SSL/TLS certificates for CloudFront and Load Balancers â€” free with AWS services','ACM':'provisions and manages SSL/TLS certificates â€” free with AWS services','AWS Certificate Manager':'provisions and manages SSL/TLS certificates â€” free with AWS services',
+  'Artifact':'self-service portal for downloading compliance reports (SOC, ISO, PCI) and agreements','AWS Artifact':'self-service portal for downloading compliance reports (SOC, ISO, PCI)',
+  'IAM':'Identity and Access Management â€” users, groups, roles, policies. Controls who can access what','AWS IAM':'Identity and Access Management â€” users, groups, roles, policies',
+  'IAM Role':'temporary credentials for AWS services or cross-account access â€” no permanent keys','IAM User':'long-term identity with password and/or access keys â€” for people or apps needing persistent credentials',
+  'IAM Group':'collection of users â€” attach a policy once, all members inherit it','IAM Policy':'JSON document defining permissions â€” attached to users, groups or roles',
+  'MFA':'Multi-Factor Authentication â€” second factor on top of password for extra security',
+  'Cognito':'user authentication for web/mobile apps â€” supports social providers (Google, Facebook) via identity pools','Amazon Cognito':'user authentication for web/mobile apps â€” supports social providers via identity pools',
+  'Organizations':'groups multiple accounts into hierarchy with consolidated billing and SCP guardrails','AWS Organizations':'groups multiple accounts into hierarchy with consolidated billing and SCP guardrails',
+  'SCP':'Service Control Policy â€” organisation-level guardrail that overrides even AdministratorAccess','Service Control Policy':'organisation-level guardrail that overrides even AdministratorAccess',
+  'Control Tower':'automates landing zone setup â€” secure multi-account environment with built-in guardrails','AWS Control Tower':'automates landing zone setup â€” secure multi-account environment with built-in guardrails',
+  'CloudFormation':'Infrastructure as Code â€” define resources in JSON/YAML templates, CloudFormation provisions them as a stack','AWS CloudFormation':'Infrastructure as Code â€” define resources in JSON/YAML templates',
+  'Snowball':'physical device for offline data transfer â€” AWS ships it, you load data, ship it back. For 50-80TB','AWS Snowball':'physical device for offline data transfer â€” AWS ships it, you load data, ship it back',
+  'Snowmobile':'shipping container for exabyte-scale data transfer to AWS. For 100PB+ migrations','AWS Snowmobile':'shipping container for exabyte-scale data transfer to AWS',
+  'Storage Gateway':'hybrid storage â€” connects on-premises apps to cloud storage, caches locally','AWS Storage Gateway':'hybrid storage â€” connects on-premises apps to cloud storage',
+  'Direct Connect':'dedicated private physical network connection to AWS â€” bypasses the public internet','AWS Direct Connect':'dedicated private physical network connection to AWS',
+  'Athena':'serverless SQL queries directly on S3 data â€” no loading into a database needed','Amazon Athena':'serverless SQL queries directly on S3 data â€” no loading needed',
+  'Glue':'serverless ETL â€” discovers, prepares and combines data for analytics','AWS Glue':'serverless ETL â€” discovers, prepares and combines data for analytics',
+  'SageMaker':'fully managed ML platform â€” build, train and deploy models','Amazon SageMaker':'fully managed ML platform â€” build, train and deploy models',
+  'Cost Explorer':'visualises and analyses historical AWS spending with charts and forecasts','AWS Cost Explorer':'visualises and analyses historical AWS spending with charts and forecasts',
+  'Budgets':'sets cost/usage thresholds and sends alerts when breached','AWS Budgets':'sets cost/usage thresholds and sends alerts when breached',
+  'Pricing Calculator':'estimates AWS costs before deployment by modelling expected usage','AWS Pricing Calculator':'estimates AWS costs before deployment by modelling expected usage',
+  'Consolidated Billing':'combines multiple accounts into one bill, aggregates usage for volume discounts',
+  'Systems Manager':'operational management for EC2 and hybrid â€” patch management, automation','AWS Systems Manager':'operational management for EC2 and hybrid â€” patch management, automation',
+  'DMS':'Database Migration Service â€” migrates databases to AWS with minimal downtime','AWS DMS':'Database Migration Service â€” migrates databases to AWS with minimal downtime',
+  'Transit Gateway':'connects multiple VPCs and on-premises networks through a central hub','AWS Transit Gateway':'connects multiple VPCs and on-premises networks through a central hub',
+  'NAT Gateway':'allows private subnet resources to access internet outbound without allowing inbound',
+  'Internet Gateway':'allows VPC instances to communicate with the public internet',
+  'Global Accelerator':'improves availability and performance using the AWS backbone network',
+  'Backup':'centralised automated backup service across AWS services','AWS Backup':'centralised automated backup service across AWS services',
+  'ECR':'Elastic Container Registry â€” managed Docker image registry','Amazon ECR':'Elastic Container Registry â€” managed Docker image registry',
+  'Rekognition':'image/video analysis API â€” face detection, object recognition, content moderation','Amazon Rekognition':'image/video analysis API â€” face detection, object recognition',
+  'X-Ray':'distributed tracing â€” tracks requests through your app to find performance issues','AWS X-Ray':'distributed tracing â€” tracks requests through your app to find performance issues',
+  'CodePipeline':'CI/CD pipeline orchestration â€” build, test, deploy stages','AWS CodePipeline':'CI/CD pipeline orchestration â€” build, test, deploy stages',
+  'Health Dashboard':'shows current status of all AWS services across all regions','AWS Health Dashboard':'shows current status of all AWS services across all regions',
+  'Marketplace':'digital catalogue to find, buy and deploy third-party software on AWS','AWS Marketplace':'digital catalogue to find, buy and deploy third-party software on AWS',
+};
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  EXAM PATTERNS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+const EXAM_PATTERNS=[
+  ['who did what|who took this action|who deleted|who terminated|API call|API activity','CloudTrail â€” records every API call with who, what, when and where'],
+  ['CPU utilization|metric|alarm|threshold|dashboard|monitor.*performance','CloudWatch â€” collects metrics, logs and triggers alarms on thresholds'],
+  ['configuration change|compliance rule|resource.*state.*over time|drift','AWS Config â€” tracks resource configuration changes and checks compliance'],
+  ['best practice.*recommendation|cost optim.*recommend|service limit','Trusted Advisor â€” recommendations across cost, security, performance, fault tolerance, limits'],
+  ['vulnerability|CVE|patch.*EC2|network exposure.*EC2','Inspector â€” scans EC2 instances and container images for vulnerabilities'],
+  ['threat|malicious|reconnaissance|compromis.*account|unusual.*API','GuardDuty â€” ML threat detection from CloudTrail, VPC Flow and DNS logs'],
+  ['sensitive data|PII|personally identifiable|classify.*S3','Macie â€” discovers and classifies sensitive data in S3'],
+  ['security finding.*aggregat|single.*pane.*security|consolidate.*security','Security Hub â€” aggregates findings from GuardDuty, Inspector, Macie'],
+  ['root cause.*security|investigat.*finding','Detective â€” investigates security findings using graph analysis'],
+  ['DDoS','Shield (Standard = free/auto, Advanced = $3000/mo) or WAF for Layer 7'],
+  ['SQL injection|XSS|cross-site scripting|web.*vulnerability|Layer 7','WAF â€” inspects HTTP/HTTPS requests and blocks web exploits'],
+  ['encryption key|encrypt.*data.*rest|KMS','KMS â€” manages encryption keys. CloudHSM for dedicated single-tenant HSMs'],
+  ['database password|secret.*rotat|API key.*rotat','Secrets Manager â€” stores and auto-rotates secrets via Lambda'],
+  ['SSL certificate|TLS certificate|HTTPS','Certificate Manager (ACM) â€” provisions and manages SSL/TLS certificates, free with AWS'],
+  ['compliance report|SOC|ISO 27001|PCI.*report|audit.*report','Artifact â€” portal for downloading compliance reports and certifications'],
+  ['temporary.*credential|role.*EC2|role.*Lambda','IAM Role â€” provides temporary credentials, no permanent access keys'],
+  ['least privilege','grant only the minimum permissions needed â€” nothing more'],
+  ['MFA|multi-factor','adds a second factor on top of password for extra security'],
+  ['mobile.*auth|social.*identity|Google.*Facebook.*auth','Cognito â€” user authentication with social identity providers'],
+  ['multiple account|central.*billing|consolidate.*billing','Organizations â€” groups accounts, consolidated billing, SCP guardrails'],
+  ['guardrail.*override|prevent.*even.*admin','SCP â€” Service Control Policy, overrides even AdministratorAccess'],
+  ['landing zone|multi-account.*setup.*best practice','Control Tower â€” automates landing zone setup with built-in guardrails'],
+  ['infrastructure.*code|template.*resource|IaC','CloudFormation â€” define resources in JSON/YAML templates, provision as a stack'],
+  ['NoSQL|key-value|single-digit.*millisecond','DynamoDB â€” managed serverless NoSQL, key-value and document'],
+  ['data warehouse|analytic.*SQL|petabyte|OLAP','Redshift â€” petabyte-scale data warehouse for analytical queries'],
+  ['in-memory cache|reduce.*read.*load|session.*cache','ElastiCache â€” managed Redis/Memcached cache'],
+  ['object storage|bucket|static website|unlimited storage','S3 â€” object storage, files in buckets, accessed via HTTP'],
+  ['block storage|virtual hard drive|attached.*EC2','EBS â€” block storage attached to one EC2 instance, tied to one AZ'],
+  ['shared file|NFS|mount.*multiple.*EC2','EFS â€” managed NFS file system mountable by many EC2 instances'],
+  ['serverless|event.*triggered|no server.*manage','Lambda â€” serverless compute, runs code on events, pay per execution'],
+  ['container.*no.*EC2|serverless.*container','Fargate â€” serverless container runtime, AWS manages infrastructure'],
+  ['Kubernetes','EKS â€” managed Kubernetes, AWS runs the control plane'],
+  ['deploy.*code.*automatic|PaaS|upload.*code.*AWS.*handle','Elastic Beanstalk â€” PaaS, upload code, AWS handles deployment'],
+  ['message queue|decouple|asynchronous.*process','SQS â€” managed queue, one consumer per message'],
+  ['pub.*sub|fan out|notification.*multiple','SNS â€” pub/sub, fans out one message to many subscribers'],
+  ['domain name|DNS|route.*latency|route.*geolocation','Route 53 â€” managed DNS with routing policies'],
+  ['CDN|content.*delivery|edge.*cache|low latency.*global','CloudFront â€” CDN, caches at edge locations globally'],
+  ['distribute.*traffic|load balanc|health check','ELB â€” distributes traffic across targets, health checks'],
+  ['scale.*in.*out|auto.*scal.*EC2|match.*demand','Auto Scaling â€” automatically adds/removes EC2 instances'],
+  ['large.*data.*transfer.*offline|physical device|100.*TB','Snowball/Snowmobile â€” physical devices for offline data transfer'],
+  ['private.*connection.*AWS|dedicated.*physical|bypass.*internet','Direct Connect â€” dedicated private physical network connection'],
+  ['hybrid.*storage|on-prem.*cloud','Storage Gateway â€” hybrid storage, connects on-premises apps to cloud'],
+  ['migrate database|minimal downtime','DMS â€” Database Migration Service'],
+  ['SQL.*S3|query.*S3.*without.*load','Athena â€” serverless SQL on S3 data, no loading needed'],
+  ['ETL|extract.*transform.*load','Glue â€” serverless ETL service with data catalogue'],
+  ['cost.*spend.*visual|billing.*history','Cost Explorer â€” visualises spending with charts'],
+  ['budget.*alert|spending.*threshold|notify.*cost.*exceed','Budgets â€” sets cost/usage thresholds and sends alerts'],
+  ['estimate.*cost.*before|pricing.*model','Pricing Calculator â€” estimates costs before deployment'],
+  ['spot.*interrupt|90%.*discount|spare capacity','Spot Instances â€” up to 90% discount, can be interrupted with 2-min warning'],
+  ['reserved.*commit|1.*year.*3.*year','Reserved Instances â€” 1 or 3 year commitment, up to 72% discount'],
+  ['savings plan.*flexible','Savings Plans â€” commit to $/hour, up to 66% discount'],
+  ['dedicated.*physical.*server|BYOL|bring.*own.*license','Dedicated Hosts â€” physical server for you, supports BYOL'],
+  ['shared responsibility','AWS secures the cloud (hardware, hypervisor, facilities), customer secures in the cloud (data, OS, access)'],
+  ['elasticity|scale.*demand','ability to automatically scale resources in and out'],
+  ['CapEx.*OpEx|capital.*variable','cloud converts upfront capital expense to pay-as-you-go operational expense'],
+  ['economies of scale','AWS aggregates demand across millions of customers, lowering per-unit costs'],
+  ['loose coupling|decouple','reduce dependencies between components â€” SQS and SNS enable this'],
+  ['design for failure','assume every component will fail and design the system to continue despite it'],
+  ['horizontal scal|scale out','adding more instances of the same size (not making one bigger)'],
+  ['high availability|minimal downtime|continue.*during.*failure','deploy across multiple AZs so if one fails, another continues serving'],
+  ['free tier.*12 month|750.*hour.*EC2','12-Month Free Tier: 750 hrs/mo t2.micro EC2, 5GB S3, 750 hrs RDS'],
+  ['always free|1 million.*Lambda','Always Free: Lambda 1M requests/mo, DynamoDB 25GB â€” never expires'],
+];
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  RATIONALE ENGINE
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function genRationale(q){
+  if(q.rationale&&q.rationale.length>10) return q.rationale;
+  const stemLc=q.stem.toLowerCase();
+  const correctOpts=q.options.filter(o=>q.correct.some(c=>o.startsWith(c+'.')));
+  for(const [pattern,answer] of EXAM_PATTERNS){
+    if(stemLc.match(pattern)){return answer+'. This matches the key concept tested in the question.';}
+  }
+  const correctSvcs=[];
+  for(const opt of correctOpts){
+    const text=opt.replace(/^[A-E]\.\s*/,'');
+    for(const key of Object.keys(SVC).sort((a,b)=>b.length-a.length)){
+      if(text.includes(key)){correctSvcs.push({name:key,desc:SVC[key]});break;}
+    }
+  }
+  if(correctSvcs.length>0){
+    return correctSvcs.map(s=>`${s.name} is ${s.desc}`).join('. ')+'. This is the concept the question is testing.';
+  }
+  const correctText=correctOpts.map(o=>o.replace(/^[A-E]\.\s*/,'')).join(', ');
+  return `The correct answer is ${correctText}. This best matches the requirement described in the question.`;
+}
+function genWrongRationale(q){
+  if(q.wrongRationale&&Object.keys(q.wrongRationale).length>0) return q.wrongRationale;
+  const wrongOpts=q.options.filter(o=>!q.correct.some(c=>o.startsWith(c+'.')));
+  const result={};
+  for(const opt of wrongOpts){
+    const letter=opt.charAt(0);
+    const text=opt.replace(/^[A-E]\.\s*/,'');
+    let desc=null;
+    for(const key of Object.keys(SVC).sort((a,b)=>b.length-a.length)){
+      if(text.includes(key)){desc=`${key} is ${SVC[key]}`;break;}
+    }
+    result[letter]=desc?desc+'. It does not match what the question is asking for.':
+      `${text} does not address the specific requirement in this question.`;
+  }
+  return result;
+}
+function getRationale(q){return genRationale(q);}
+function getWrongRationale(q){return genWrongRationale(q);}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  CONSTANTS & STATE
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+const EXAM_DATE=new Date('2026-12-14T07:00:00');
+const DOMAINS=['Cloud Concepts','Security and Compliance','Cloud Technology and Services','Billing, Pricing and Support'];
+const DOMAIN_SHORT={'Cloud Concepts':'CC','Security and Compliance':'SEC','Cloud Technology and Services':'TECH','Billing, Pricing and Support':'BILL'};
+const DOMAIN_WEIGHT={'Cloud Concepts':0.24,'Security and Compliance':0.30,'Cloud Technology and Services':0.34,'Billing, Pricing and Support':0.12};
+const DOMAIN_BADGE={'Cloud Concepts':'badge-cc','Security and Compliance':'badge-sec','Cloud Technology and Services':'badge-tech','Billing, Pricing and Support':'badge-bill'};
+const DOMAIN_COLOR={'Cloud Concepts':'var(--cc)','Security and Compliance':'var(--sec)','Cloud Technology and Services':'var(--tech)','Billing, Pricing and Support':'var(--bill)'};
+const DOMAIN_EMOJI={'Cloud Concepts':'â˜ï¸','Security and Compliance':'ðŸ›¡ï¸','Cloud Technology and Services':'âš™ï¸','Billing, Pricing and Support':'ðŸ’°'};
+const DOMAIN_HOVER={'Cloud Concepts':'card-hover-cc','Security and Compliance':'card-hover-sec','Cloud Technology and Services':'card-hover-tech','Billing, Pricing and Support':'card-hover-bill'};
+const INTERVALS=[1,2,4,7];
+
+function daysLeft(){
+  const ms=EXAM_DATE-new Date();
+  return Math.max(0,Math.ceil(ms/(1000*60*60*24)));
+}
+
+// localStorage
+function load(key,def){try{const v=localStorage.getItem(key);return v?JSON.parse(v):def;}catch{return def;}}
+function save(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch{}}
+
+let progress=load('clf_progress',{});
+let history=load('clf_history',[]);
+let confusions=load('clf_confusions',{});
+let diagnostic=load('clf_diagnostic',null);
+let xp=load('clf_xp',0);
+let streak=load('clf_streak',{count:0,lastDate:''});
+
+function saveAll(){
+  save('clf_progress',progress);
+  save('clf_history',history);
+  save('clf_confusions',confusions);
+  save('clf_diagnostic',diagnostic);
+  save('clf_xp',xp);
+  save('clf_streak',streak);
+}
+
+function getQ(id){return window.QUESTIONS.find(q=>q.id===id);}
+
+function domainAccuracy(domain){
+  const qs=window.QUESTIONS.filter(q=>q.domain===domain);
+  let correct=0,total=0;
+  qs.forEach(q=>{const p=progress[q.id];if(p&&p.attempts>0){total+=p.attempts;correct+=p.correct;}});
+  return total===0?null:Math.round(correct/total*100);
+}
+function overallAccuracy(){
+  let correct=0,total=0;
+  Object.values(progress).forEach(p=>{if(p.attempts>0){total+=p.attempts;correct+=p.correct;}});
+  return total===0?null:Math.round(correct/total*100);
+}
+function dueItems(){
+  const now=Date.now();
+  return window.QUESTIONS.filter(q=>{
+    const p=progress[q.id];
+    if(!p) return true;
+    if(p.interval===INTERVALS.length-1&&p.correct>0) return false;
+    return now>=p.nextDue;
+  });
+}
+
+function recordAnswer(qid,chosen,correct){
+  if(!progress[qid]) progress[qid]={interval:0,nextDue:0,correct:0,attempts:0};
+  const p=progress[qid];
+  p.attempts++;
+  const now=Date.now();
+  if(correct){
+    p.correct++;
+    const idx=Math.min((p.interval||0)+1,INTERVALS.length-1);
+    p.interval=idx;
+    p.nextDue=now+INTERVALS[idx]*86400000;
+    addXP(10);
+  } else {
+    p.interval=0;
+    p.nextDue=now+INTERVALS[0]*86400000;
+    addXP(2);
+    const q=getQ(qid);
+    if(q&&chosen.length===1&&q.correct.length===1){
+      const chosenLabel=q.options.find(o=>o.startsWith(chosen[0]+'.'))?.replace(/^[A-D]\.\s*/,'')||chosen[0];
+      const correctLabel=q.options.find(o=>o.startsWith(q.correct[0]+'.'))?.replace(/^[A-D]\.\s*/,'')||q.correct[0];
+      const ck=`${chosenLabel}|${correctLabel}`;
+      if(!confusions[ck]) confusions[ck]={count:0,lastSeen:0,aLabel:chosenLabel,bLabel:correctLabel};
+      confusions[ck].count++;
+      confusions[ck].lastSeen=now;
+    }
+  }
+  saveAll();
+}
+
+function addXP(amount){
+  xp+=amount;
+  updateStreakDisplay();
+}
+
+function showXPFloat(amount,x,y){
+  const el=document.createElement('div');
+  el.className='xp-float';
+  el.textContent=`+${amount} XP`;
+  el.style.left=(x||window.innerWidth/2-20)+'px';
+  el.style.top=(y||300)+'px';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),1000);
+}
+
+function updateStreakDisplay(){
+  const el=document.getElementById('sidebar-xp');
+  if(!el) return;
+  const level=Math.floor(xp/200)+1;
+  const xpInLevel=xp%200;
+  el.innerHTML=`
+    <div style="font-size:.68rem;color:var(--muted);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.06em">Your Progress</div>
+    <div class="xp-pill" style="margin-bottom:.35rem">âš¡ ${xp} XP Â· Level ${level}</div>
+    <div class="progress-wrap" style="height:4px"><div class="progress-fill ok" style="width:${(xpInLevel/200*100).toFixed(0)}%"></div></div>
+    <div style="font-size:.66rem;color:var(--muted2);margin-top:.3rem">${200-xpInLevel} XP to Level ${level+1}</div>
+  `;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  NAVIGATION
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+let currentTab='home';
+let countdownInterval=null;
+
+function navigate(tab){
+  currentTab=tab;
+  if(countdownInterval){clearInterval(countdownInterval);countdownInterval=null;}
+  document.querySelectorAll('.nav-btn').forEach(b=>{
+    b.classList.toggle('active',b.dataset.tab===tab);
+  });
+  renderTab(tab);
+}
+
+document.querySelectorAll('.nav-btn').forEach(b=>{
+  b.addEventListener('click',()=>navigate(b.dataset.tab));
+});
+
+function renderTab(tab){
+  const el=document.getElementById('main-content');
+  el.style.opacity='0';
+  el.style.transform='translateY(8px)';
+  setTimeout(()=>{
+    if(tab==='home') el.innerHTML=renderHome();
+    else if(tab==='diagnostic') el.innerHTML=renderDiagnosticMenu();
+    else if(tab==='practice') el.innerHTML=renderPracticeMenu();
+    else if(tab==='mock') el.innerHTML=renderMockMenu();
+    else if(tab==='progress') el.innerHTML=renderProgress();
+    el.style.opacity='1';
+    el.style.transform='translateY(0)';
+    el.style.transition='opacity .25s, transform .25s';
+    attachTabListeners(tab);
+    if(tab==='home') startCountdown();
+  },80);
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  TOAST
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+let toastTimer;
+function toast(msg,type=''){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.className='toast show'+(type?' toast-'+type:'');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>{el.className='toast';},2800);
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  CONFETTI BURST
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function confettiBurst(x,y){
+  const colors=['#f59e0b','#22c55e','#38bdf8','#a78bfa','#fbbf24','#4ade80'];
+  for(let i=0;i<16;i++){
+    const piece=document.createElement('div');
+    piece.className='confetti-piece';
+    piece.style.left=(x+Math.random()*80-40)+'px';
+    piece.style.top=y+'px';
+    piece.style.background=colors[i%colors.length];
+    piece.style.transform=`rotate(${Math.random()*360}deg)`;
+    piece.style.animationDelay=(Math.random()*0.3)+'s';
+    document.body.appendChild(piece);
+    setTimeout(()=>piece.remove(),1000);
+  }
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  COUNTDOWN TIMER
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function startCountdown(){
+  function tick(){
+    const now=new Date();
+    const diff=EXAM_DATE-now;
+    if(diff<=0){
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='00';});
+      return;
+    }
+    const days=Math.floor(diff/(1000*60*60*24));
+    const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    const mins=Math.floor((diff%(1000*60*60))/(1000*60));
+    const secs=Math.floor((diff%(1000*60))/1000);
+    const ids=['cd-days','cd-hours','cd-mins','cd-secs'];
+    const vals=[days,hours,mins,secs];
+    ids.forEach((id,i)=>{
+      const el=document.getElementById(id);
+      if(el){
+        const newVal=String(vals[i]).padStart(2,'0');
+        if(el.textContent!==newVal){
+          el.textContent=newVal;
+          el.classList.add('tick');
+          setTimeout(()=>el.classList.remove('tick'),150);
+        }
+      }
+    });
+  }
+  tick();
+  countdownInterval=setInterval(tick,1000);
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  HOME TAB
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderReadinessRing(score,color){
+  const r=48,cx=60,cy=60,circ=2*Math.PI*r;
+  const dash=(score/100)*circ;
+  return `<div class="readiness-ring">
+    <svg width="120" height="120" viewBox="0 0 120 120">
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="10"/>
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="10"
+        stroke-dasharray="${dash.toFixed(1)} ${circ.toFixed(1)}"
+        stroke-linecap="round"
+        style="filter:drop-shadow(0 0 8px ${color});transition:stroke-dasharray .9s cubic-bezier(.4,0,.2,1)"/>
+    </svg>
+    <div class="readiness-num">
+      <span style="color:${color}">${score}<span style="font-size:.95rem">%</span></span>
+      <span class="readiness-label">Readiness</span>
+    </div>
+  </div>`;
+}
+
+function renderHome(){
+  const days=daysLeft();
+  const due=dueItems().length;
+  const overall=overallAccuracy();
+  const diagDone=!!diagnostic;
+  const mockCount=history.filter(h=>h.mode==='mock').length;
+  const lastMock=history.filter(h=>h.mode==='mock').slice(-1)[0];
+  const totalAttempted=Object.values(progress).filter(p=>p.attempts>0).length;
+  const domainsPracticed=DOMAINS.filter(d=>domainAccuracy(d)!==null).length;
+
+  let score=0,statusText='Early Stage ðŸŒ±',statusColor='var(--err)',advice='';
+  if(totalAttempted===0){
+    score=0;advice='Take the diagnostic exam first â€” it sets your personalised starting point.';
+  } else if(mockCount===0){
+    score=Math.round((overall||0)*0.7+(domainsPracticed/4)*30);
+    score=Math.min(100,score);
+    advice='Looking good! Take a full mock exam next to test yourself under real exam conditions.';
+  } else {
+    const mocks=history.filter(h=>h.mode==='mock');
+    const avgMock=Math.round(mocks.slice(-3).reduce((s,m)=>s+m.score,0)/Math.min(mocks.length,3));
+    score=Math.min(100,Math.round((overall||0)*0.25+avgMock*0.5+(domainsPracticed/4)*25));
+    advice=score>=90?'You are exam-ready. Keep doing daily review. One more mock and you are there ðŸ†':
+           score>=75?'So close! Push harder on weak domains. Daily mock exams will get you over the line ðŸ”¥':
+           'Focus on your weakest domain today. Practice 20 questions, then review every wrong answer.';
+  }
+  if(score>=90){statusText='Exam-Ready ðŸ†';statusColor='var(--ok)';}
+  else if(score>=75){statusText='Almost There ðŸ”¥';statusColor='var(--accent)';}
+  else if(score>=55){statusText='Building Up ðŸ“ˆ';statusColor='var(--accent)';}
+
+  const phase=days>10?'rehearsal':'sprint';
+  const sprintDay=days>10?days-10:11-days;
+  let planHTML='';
+  if(!diagDone){
+    planHTML=`<div class="card-sm card-accent animate-in" style="margin-top:.75rem">
+      <div class="label" style="color:var(--accent)">First Step</div>
+      <p style="margin-top:.4rem;font-size:.88rem">Take the <strong>Diagnostic Exam</strong> to identify your weak spots. It takes ~60 minutes and will personalise your whole plan.</p>
+      <button class="btn btn-primary btn-sm" style="margin-top:.75rem" onclick="navigate('diagnostic')">Start Diagnostic â†’</button>
+    </div>`;
+  } else {
+    const domainScores=DOMAINS.map(d=>({domain:d,acc:domainAccuracy(d)}));
+    domainScores.sort((a,b)=>(a.acc===null?-1:b.acc===null?1:a.acc-b.acc));
+    const sprintPlans=[
+      {days:[1,2],label:'ðŸŽ¯ Foundation',items:['Review all due items (spaced repetition)','Study Cloud Concepts â€” Key Terms tab','Study Security & Compliance â€” Exam Keywords','Practice 20 questions in each domain','Review every wrong answer â€” read the WHY carefully']},
+      {days:[3,4],label:'âš™ï¸ Technology Deep-Dive',items:['Review all due items (spaced repetition)','Study Cloud Technology services + comparisons','Practice 25 Technology questions','Run Practice Exam #1 or #2 (kananinirav set)','Study the Exam Keywords tab â€” memorise patterns']},
+      {days:[5,6],label:'ðŸ’° Billing + First Mock',items:['Review all due items (spaced repetition)','Study Billing, Pricing & Support (smallest domain â€” learn it cold)','Practice 15 Billing questions','Take your FIRST full Mock Exam (65 Qs, 90 min)','Analyse results â€” which domain dropped the most?']},
+      {days:[7,8],label:'ðŸ” Mock Reps',items:['Review all due items (spaced repetition)','Run full Mock Exam #2 â€” aim for 80%+','Weakness Drill for your top 3 confusion pairs','Run Practice Exams #5-#8 for variety','Re-read Exam Keywords â€” these are your answer shortcuts']},
+      {days:[9,10],label:'ðŸ† Final Push',items:['Review all due items (spaced repetition)','Run full Mock Exam â€” aim for 90%+','Focus ONLY on wrong answers and weak domains','Re-read Key Terms and Exam Keywords once more','Stop learning new material â€” consolidate what you know']},
+    ];
+    const sp=sprintPlans.find(s=>s.days.includes(sprintDay))||sprintPlans[0];
+    const phaseLabel=phase==='sprint'?`${sp.label} Â· Day ${sprintDay}/10`:`ðŸŒ™ Rehearsal Phase Â· Day ${Math.abs(sprintDay)}`;
+    const items=phase==='sprint'?sp.items:['Review all due items (spaced repetition) â€” your main daily task','Run one full Mock Exam per day â€” aim for 90%+ consistently','Review wrong answers only â€” no new material','Re-read Exam Keywords once (5 minutes)','Sleep well â€” memory consolidates during sleep ðŸ§ '];
+    planHTML=`<div class="card-sm animate-in" style="margin-top:.75rem;border-left:3px solid var(--accent)">
+      <div class="label" style="color:var(--accent)">${phaseLabel}</div>
+      <ol style="padding-left:1.3rem;margin-top:.6rem;font-size:.875rem;line-height:2.1">
+        ${items.map(i=>`<li>${i}</li>`).join('')}
+      </ol>
+      <p style="font-size:.76rem;color:var(--muted);margin-top:.6rem">â±ï¸ Planned time: 2â€“3 hours. When done â€” stop. Rest is part of learning.</p>
+    </div>`;
+  }
+
+  // Daily missions
+  const missions=[
+    {text:`Review ${Math.min(due,20)} due items`,done:due===0},
+    {text:'Practice 10 questions in weakest domain',done:false},
+    {text:mockCount>0?'Run a full Mock Exam':'Take the Diagnostic Exam',done:false},
+  ];
+
+  return `
+  <!-- COUNTDOWN BANNER -->
+  <div class="days-banner animate-in">
+    <div>
+      <div class="label" style="color:var(--accent);margin-bottom:.5rem">Time until exam Â· 14 Dec 2026</div>
+      <div class="countdown-grid">
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-days">--</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-hours">--</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-mins">--</div>
+          <div class="countdown-label">Mins</div>
+        </div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-secs">--</div>
+          <div class="countdown-label">Secs</div>
+        </div>
+      </div>
+    </div>
+    <div class="days-info">
+      <h2>AWS Certified Cloud Practitioner</h2>
+      <p>CLF-C02 Â· Final exam date</p>
+      ${days<=7?`<p style="color:var(--err);font-weight:700;margin-top:.3rem">âš ï¸ Final stretch â€” mock exams only!</p>`:''}
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
+      <span class="streak-pill"><span class="flame">ðŸ”¥</span> ${streak.count} day streak</span>
+      <span class="xp-pill">âš¡ ${xp} XP</span>
+    </div>
+  </div>
+
+  <!-- READINESS CARD -->
+  <div class="card card-glow-amber animate-in stagger-1" style="margin-bottom:1.25rem">
+    <h2>ðŸŽ¯ Exam Readiness</h2>
+    <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap">
+      ${renderReadinessRing(score,statusColor)}
+      <div style="flex:1;min-width:180px">
+        <div style="font-size:1.05rem;font-weight:800;color:${statusColor};margin-bottom:.3rem">${statusText}</div>
+        <p style="font-size:.875rem;color:var(--muted);line-height:1.6">${advice}</p>
+        <div style="margin-top:.5rem;font-size:.73rem;color:var(--muted2)">${totalAttempted} questions attempted Â· ${domainsPracticed}/4 domains Â· ${mockCount} mock${mockCount!==1?'s':''} done</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAT ROW -->
+  <div class="grid-4 animate-in stagger-2" style="margin-bottom:1.25rem">
+    <div class="stat">
+      <div class="stat-num" style="color:var(--info)">${window.QUESTIONS.length}</div>
+      <div class="stat-label">Questions</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:${due>0?'var(--err)':'var(--ok)'}">${due}</div>
+      <div class="stat-label">Due Today</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:${overall===null?'var(--muted)':overall>=80?'var(--ok)':overall>=60?'var(--accent)':'var(--err)'}">${overall===null?'â€”':overall+'%'}</div>
+      <div class="stat-label">Accuracy</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:var(--flag)">${mockCount}</div>
+      <div class="stat-label">Mocks Done</div>
+    </div>
+  </div>
+
+  <!-- DOMAIN BARS -->
+  <div class="card animate-in stagger-3" style="margin-bottom:1.25rem">
+    <h2>Domain Overview</h2>
+    ${DOMAINS.map(d=>{
+      const acc=domainAccuracy(d);
+      const pct=acc===null?0:acc;
+      const color=DOMAIN_COLOR[d];
+      return `<div style="margin-bottom:.9rem">
+        <div style="display:flex;justify-content:space-between;margin-bottom:.3rem;align-items:center">
+          <span style="font-size:.875rem;font-weight:600">${DOMAIN_EMOJI[d]} ${d}</span>
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <span class="badge ${DOMAIN_BADGE[d]}">${Math.round(DOMAIN_WEIGHT[d]*100)}%</span>
+            <span style="font-size:.875rem;font-weight:800;color:${acc===null?'var(--muted)':color}">${acc===null?'â€”':acc+'%'}</span>
+          </div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-fill" style="width:${pct}%;background:linear-gradient(90deg,${color},${color}99);box-shadow:0 0 8px ${color}60"></div>
+        </div>
+      </div>`;
+    }).join('')}
+  </div>
+
+  <!-- DAILY MISSIONS -->
+  <div class="card animate-in stagger-4" style="margin-bottom:1.25rem">
+    <h2>ðŸŽ–ï¸ Daily Missions</h2>
+    ${missions.map((m,i)=>`<div class="mission-item">
+      <div class="mission-check ${m.done?'done':''}">${m.done?'âœ“':i+1}</div>
+      <span style="color:${m.done?'var(--muted)':'var(--text)'};text-decoration:${m.done?'line-through':'none'}">${m.text}</span>
+    </div>`).join('')}
+  </div>
+
+  <!-- STUDY PLAN -->
+  <div class="card animate-in" style="margin-bottom:1.25rem">
+    <h2>ðŸ“… Today's Study Plan</h2>
+    ${planHTML}
+  </div>
+
+  <!-- LAST MOCK -->
+  ${lastMock?`<div class="card-sm animate-in" style="margin-bottom:1.25rem;border-color:${lastMock.score>=90?'rgba(34,197,94,0.3)':lastMock.score>=70?'rgba(245,158,11,0.3)':'rgba(239,68,68,0.3)'}">
+    <div class="label">Last Mock Exam</div>
+    <div style="margin-top:.4rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+      <span style="font-size:1.8rem;font-weight:900;color:${lastMock.score>=90?'var(--ok)':lastMock.score>=70?'var(--accent)':'var(--err)'}">${lastMock.score}%</span>
+      <span class="muted">${new Date(lastMock.date).toLocaleDateString()}</span>
+      <button class="btn btn-secondary btn-sm" onclick="navigate('mock')">Take Another â†’</button>
+    </div>
+  </div>`:''}
+
+  <!-- QUICK ACTIONS -->
+  <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+    ${due>0?`<button class="btn btn-primary" onclick="startPractice('due')">ðŸ“Œ Review Due (${due})</button>`:''}
+    <button class="btn btn-secondary" onclick="navigate('mock')">â±ï¸ Start Mock Exam</button>
+    <button class="btn btn-secondary" onclick="navigate('practice')">ðŸ“š Practice</button>
+  </div>`;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  DIAGNOSTIC TAB
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderDiagnosticMenu(){
+  if(diagnostic){
+    const canRetake=!diagnostic.date||(Date.now()-diagnostic.date>7*86400000);
+    const scores=diagnostic.scores||{};
+    return `
+    <div class="section-header"><h1>ðŸ” Diagnostic Results</h1></div>
+    <div class="card card-glow-blue" style="margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.25rem">
+        ${renderReadinessRing(diagnostic.score,diagnostic.score>=80?'var(--ok)':diagnostic.score>=60?'var(--accent)':'var(--err)')}
+        <div>
+          <div class="label" style="margin-bottom:.4rem">Overall Diagnostic Score</div>
+          <div style="font-size:1rem;font-weight:600;margin-bottom:.2rem">${new Date(diagnostic.date).toLocaleDateString()} Â· ${diagnostic.total} questions</div>
+          <div class="muted" style="font-size:.875rem">${diagnostic.score>=80?'Strong start â€” now do mock exams':diagnostic.score>=60?'Good baseline â€” focus on the red domains below':'Needs work â€” start with weakest domain daily'}</div>
+        </div>
+      </div>
+      ${DOMAINS.map(d=>{
+        const pct=scores[d]||0;const color=DOMAIN_COLOR[d];
+        return `<div style="margin-bottom:.75rem">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.3rem;align-items:center">
+            <span style="display:flex;align-items:center;gap:.5rem">
+              <span class="badge ${DOMAIN_BADGE[d]}">${DOMAIN_SHORT[d]}</span>
+              <span style="font-size:.85rem">${d}</span>
+            </span>
+            <span style="font-weight:800;color:${pct>=80?'var(--ok)':pct>=60?'var(--accent)':'var(--err)'}">${pct}%</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-fill" style="width:${pct}%;background:linear-gradient(90deg,${color},${color}aa);box-shadow:0 0 8px ${color}60"></div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="card-sm card-accent" style="margin-bottom:1rem">
+      <h3>ðŸ’¡ Recommended Focus</h3>
+      ${DOMAINS.filter(d=>(scores[d]||0)<70).length===0
+        ?'<p class="muted" style="font-size:.875rem">Strong across all domains. Keep up the mock exams!</p>'
+        :`<ul style="padding-left:1.2rem;margin-top:.4rem;font-size:.88rem;line-height:2;color:var(--muted)">
+           ${DOMAINS.filter(d=>(scores[d]||0)<70).map(d=>`<li>${DOMAIN_EMOJI[d]} <strong style="color:var(--text)">${d}</strong> â€” ${scores[d]||0}% â†’ practice these questions first</li>`).join('')}</ul>`}
+    </div>
+    ${canRetake?`<button class="btn btn-secondary" onclick="startDiagnostic()">â†©ï¸ Retake Diagnostic</button>`:'<p class="muted" style="font-size:.875rem">Retake available in 7 days.</p>'}`;
+  }
+  return `
+  <div class="section-header"><h1>ðŸ” Diagnostic Exam</h1></div>
+  <div class="card card-glow-blue" style="margin-bottom:1.25rem">
+    <h2>Establish your baseline</h2>
+    <p class="muted" style="margin-bottom:1.1rem;font-size:.88rem">The diagnostic tests all four CLF-C02 domains so your study plan starts from your actual level, not from scratch.</p>
+    <div class="grid-4" style="margin-bottom:1.25rem">
+      <div class="stat"><div class="stat-num">40</div><div class="stat-label">Questions</div></div>
+      <div class="stat"><div class="stat-num">60</div><div class="stat-label">Min (soft)</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-label">Domains</div></div>
+      <div class="stat"><div class="stat-num">1Ã—</div><div class="stat-label">Per 7 days</div></div>
+    </div>
+    <div class="card-sm" style="margin-bottom:1.25rem">
+      <div class="label" style="margin-bottom:.6rem">Domain Distribution</div>
+      ${[['Cloud Concepts','10','badge-cc'],['Security and Compliance','12','badge-sec'],['Cloud Technology and Services','14','badge-tech'],['Billing, Pricing and Support','4','badge-bill']].map(([d,n,b])=>`
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:.35rem 0;border-bottom:1px solid var(--border)">
+        <span style="font-size:.875rem">${DOMAIN_EMOJI[d]} ${d}</span>
+        <span class="badge ${b}">${n} Qs</span>
+      </div>`).join('')}
+    </div>
+    <button class="btn btn-primary" onclick="startDiagnostic()">Begin Diagnostic â†’</button>
+  </div>`;
+}
+
+function startDiagnostic(){
+  const counts={'Cloud Concepts':10,'Security and Compliance':12,'Cloud Technology and Services':14,'Billing, Pricing and Support':4};
+  let qs=[];
+  DOMAINS.forEach(d=>{qs=qs.concat(shuffle(window.QUESTIONS.filter(q=>q.domain===d)).slice(0,counts[d]));});
+  runQuiz(shuffle(qs),'diagnostic',onDiagnosticComplete);
+}
+
+function onDiagnosticComplete(results){
+  const scores={};
+  DOMAINS.forEach(d=>scores[d]={correct:0,total:0});
+  results.forEach(r=>{const q=getQ(r.qid);if(!q)return;scores[q.domain].total++;if(r.correct)scores[q.domain].correct++;});
+  const domainPct={};
+  DOMAINS.forEach(d=>domainPct[d]=scores[d].total?Math.round(scores[d].correct/scores[d].total*100):0);
+  const overall=Math.round(results.filter(r=>r.correct).length/results.length*100);
+  diagnostic={score:overall,scores:domainPct,date:Date.now(),total:results.length};
+  saveAll();
+  navigate('diagnostic');
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  SERVICE CARDS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+const SERVICE_CARDS={
+  'Cloud Concepts':[
+    {emoji:'ðŸŒ',name:'Region',hook:'A city with multiple office buildings'},
+    {emoji:'ðŸ¢',name:'Availability Zone',hook:'One office building â€” independent power & network'},
+    {emoji:'ðŸ“¡',name:'Edge Location',hook:'A WiFi hotspot near your users (CloudFront cache)'},
+    {emoji:'ðŸ”§',name:'EC2',hook:'A rented workshop â€” you bring your own tools'},
+    {emoji:'ðŸ§ž',name:'Lambda',hook:'A genie that appears on demand, vanishes when done'},
+    {emoji:'ðŸª„',name:'Elastic Beanstalk',hook:'PaaS magic â€” you throw in code, AWS handles everything'},
+    {emoji:'ðŸ”„',name:'Auto Scaling',hook:'An accordion â€” stretches and shrinks with demand'},
+    {emoji:'ðŸš¦',name:'Load Balancer',hook:'A traffic cop splitting cars across lanes'},
+  ],
+  'Security and Compliance':[
+    {emoji:'ðŸ“¸',name:'CloudTrail',hook:'CCTV for your AWS account â€” records every API call'},
+    {emoji:'ðŸ¥',name:'CloudWatch',hook:'ICU monitor â€” tracks vitals and sounds alarms'},
+    {emoji:'ðŸ”‘',name:'KMS',hook:'A bank vault for your encryption keys'},
+    {emoji:'ðŸ•µï¸',name:'GuardDuty',hook:'AI detective scanning your logs for threats'},
+    {emoji:'ðŸ—ï¸',name:'Inspector',hook:'Building inspector checking for security violations'},
+    {emoji:'ðŸ”',name:'Macie',hook:'Finds hidden PII in your S3 buckets like a metal detector'},
+    {emoji:'ðŸ›¡ï¸',name:'Shield',hook:'DDoS bodyguard â€” Standard free, Advanced costs $3k/mo'},
+    {emoji:'ðŸ§±',name:'WAF',hook:'Firewall bouncer blocking SQL injection & XSS attacks'},
+    {emoji:'ðŸ›ï¸',name:'Artifact',hook:'Library of compliance certificates (SOC, ISO, PCI)'},
+    {emoji:'ðŸŽ­',name:'IAM Role',hook:'Temporary VIP pass â€” no permanent keys stored'},
+  ],
+  'Cloud Technology and Services':[
+    {emoji:'ðŸ—‚ï¸',name:'S3',hook:'Infinite filing cabinet â€” files in buckets, 11 nines durable'},
+    {emoji:'ðŸ’¾',name:'EBS',hook:'USB hard drive plugged into one EC2 â€” same AZ only'},
+    {emoji:'ðŸŒ',name:'EFS',hook:'Network drive â€” many EC2s mount it at the same time'},
+    {emoji:'ðŸ—„ï¸',name:'RDS',hook:'Managed DB â€” AWS patches it, you query it'},
+    {emoji:'âš¡',name:'DynamoDB',hook:'NoSQL rocket â€” single-digit ms, serverless, auto-scales'},
+    {emoji:'ðŸ“¦',name:'ECS',hook:'Docker container manager on EC2 or Fargate'},
+    {emoji:'ðŸš¢',name:'EKS',hook:'AWS-managed Kubernetes â€” control plane handled for you'},
+    {emoji:'ðŸ”®',name:'Fargate',hook:'Serverless containers â€” no EC2 to manage'},
+    {emoji:'ðŸ“¬',name:'SQS',hook:'Queue inbox â€” one item, one reader, async decoupling'},
+    {emoji:'ðŸ“¢',name:'SNS',hook:'Megaphone â€” one message fans out to many subscribers'},
+    {emoji:'ðŸŒ',name:'CloudFront',hook:'CDN â€” copies your content globally, serves from nearest edge'},
+    {emoji:'ðŸ—ºï¸',name:'Route 53',hook:'DNS phonebook + smart routing policies'},
+    {emoji:'ðŸ“‹',name:'CloudFormation',hook:'Blueprint that builds your whole AWS stack from code'},
+  ],
+  'Billing, Pricing and Support':[
+    {emoji:'ðŸ’³',name:'On-Demand',hook:'Pay as you go â€” no commitment, like a taxi'},
+    {emoji:'ðŸ“…',name:'Reserved Instances',hook:'1 or 3-year contract â€” up to 72% off, like a lease'},
+    {emoji:'ðŸŽ²',name:'Spot Instances',hook:'Spare capacity â€” up to 90% off, can be interrupted'},
+    {emoji:'ðŸ¦',name:'Savings Plans',hook:'Commit $/hour â€” flexible discount across services'},
+    {emoji:'ðŸ“Š',name:'Cost Explorer',hook:'Spending chart â€” see where every dollar goes'},
+    {emoji:'â°',name:'Budgets',hook:'Spending alarm â€” alerts before you overshoot'},
+    {emoji:'ðŸ“ž',name:'Support Plans',hook:'Basicâ†’Devâ†’Businessâ†’Enterprise. Need 24/7? Get Business.'},
+    {emoji:'ðŸ…',name:'Trusted Advisor',hook:'Free advisor checking cost, security, performance'},
+  ],
+};
+
+function renderServiceGrid(domain){
+  const cards=SERVICE_CARDS[domain]||[];
+  if(cards.length===0) return '';
+  return `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.75rem;margin-top:1rem">
+    ${cards.map(c=>`<div class="service-card">
+      <span class="service-emoji">${c.emoji}</span>
+      <div class="service-name">${c.name}</div>
+      <div class="service-hook">${c.hook}</div>
+    </div>`).join('')}
+  </div>`;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  PRACTICE TAB
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderPracticeMenu(){
+  return `
+  <div class="section-header"><h1>ðŸ“š Practice</h1></div>
+  <div class="sub-tabs" id="practice-subtabs">
+    <button class="sub-tab active" data-stab="by-domain">By Domain</button>
+    <button class="sub-tab" data-stab="exams">Practice Exams</button>
+    <button class="sub-tab" data-stab="visuals">ðŸ—ºï¸ Cloud Map</button>
+    <button class="sub-tab" data-stab="keywords">ðŸ”‘ Exam Keywords</button>
+    <button class="sub-tab" data-stab="terms">ðŸ“– Key Terms</button>
+    <button class="sub-tab" data-stab="interview">ðŸŽ¤ Interview Prep</button>
+    <button class="sub-tab" data-stab="due">Due Items</button>
+    <button class="sub-tab" data-stab="weakness">ðŸ” Weakness Drill</button>
+    <button class="sub-tab" data-stab="flashcards">ðŸƒ Flashcards</button>
+  </div>
+  <div id="practice-content">${renderPracticeByDomain()}</div>`;
+}
+
+function renderPracticeByDomain(){
+  return `<div class="grid-2">
+    ${DOMAINS.map(d=>{
+      const acc=domainAccuracy(d);
+      const count=window.QUESTIONS.filter(q=>q.domain===d).length;
+      const attempted=window.QUESTIONS.filter(q=>q.domain===d&&progress[q.id]&&progress[q.id].attempts>0).length;
+      const color=DOMAIN_COLOR[d];
+      const pct=count>0?attempted/count*100:0;
+      const hoverClass=DOMAIN_HOVER[d];
+      return `<div class="card ${hoverClass}" style="border-color:${acc!==null&&acc>=80?'rgba(34,197,94,0.25)':acc!==null&&acc>=60?'rgba(245,158,11,0.18)':acc!==null?'rgba(239,68,68,0.18)':'var(--border)'}">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem">
+          <span style="font-size:1.4rem">${DOMAIN_EMOJI[d]}</span>
+          <div>
+            <div style="font-size:.85rem;font-weight:700">${d}</div>
+            <span class="badge ${DOMAIN_BADGE[d]}">${Math.round(DOMAIN_WEIGHT[d]*100)}% of exam</span>
+          </div>
+          ${acc!==null?`<span style="margin-left:auto;font-size:1.05rem;font-weight:900;color:${acc>=80?'var(--ok)':acc>=60?'var(--accent)':'var(--err)'}">${acc}%</span>`:''}
+        </div>
+        <div style="font-size:.76rem;color:var(--muted);margin-bottom:.6rem">${attempted}/${count} attempted</div>
+        <div class="progress-wrap" style="margin-bottom:.75rem">
+          <div class="progress-fill" style="width:${pct.toFixed(0)}%;background:linear-gradient(90deg,${color},${color}99)"></div>
+        </div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" onclick="startPractice('domain','${d}',10)">10 Qs</button>
+          <button class="btn btn-secondary btn-sm" onclick="startPractice('domain','${d}',20)">20 Qs</button>
+          <button class="btn btn-secondary btn-sm" onclick="startPractice('domain','${d}',0)">All</button>
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+function renderPracticeExams(){
+  const examSources={};
+  window.QUESTIONS.forEach(q=>{
+    if(q.source){
+      const match=q.source.match(/exam-(\d+)/);
+      if(match){
+        const num=parseInt(match[1]);
+        if(!examSources[num]) examSources[num]={num,questions:[],attempted:0,correct:0};
+        examSources[num].questions.push(q);
+        const p=progress[q.id];
+        if(p&&p.attempts>0){examSources[num].attempted++;examSources[num].correct+=p.correct;}
+      }
+    }
+  });
+  const exams=Object.values(examSources).sort((a,b)=>a.num-b.num);
+  if(exams.length===0) return `<div class="card-sm"><p class="muted">No practice exams loaded. Make sure external-questions.js is present.</p></div>`;
+  return `<div class="card-sm" style="margin-bottom:1rem">
+    <h2>Practice Exams 1â€“${exams.length}</h2>
+    <p class="muted" style="font-size:.875rem">Community practice exams. ${window.EXTERNAL_QUESTIONS?window.EXTERNAL_QUESTIONS.length:0} questions across ${exams.length} exams.</p>
+  </div>
+  <div class="grid-2">
+    ${exams.map(e=>{
+      const acc=e.attempted>0?Math.round(e.correct/e.attempted*100):null;
+      return `<div class="card-sm">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem">
+          <span style="font-weight:800">Exam ${e.num}</span>
+          ${acc!==null?`<span style="font-weight:800;color:${acc>=80?'var(--ok)':acc>=60?'var(--accent)':'var(--err)'}">${acc}%</span>`:''}
+        </div>
+        <div class="muted" style="font-size:.8rem;margin-bottom:.5rem">${e.questions.length} questions</div>
+        <button class="btn btn-primary btn-sm" onclick="startPracticeExam(${e.num})">Start Exam ${e.num} â†’</button>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+function startPracticeExam(num){
+  const qs=shuffle(window.QUESTIONS.filter(q=>q.source&&q.source.includes(`exam-${num}`)));
+  if(qs.length===0){toast('No questions found for this exam.','err');return;}
+  runQuiz(qs,'practice',onPracticeComplete);
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  CLOUD MAP
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderCloudMap(){
+  return `
+  <div class="card-sm" style="margin-bottom:1rem">
+    <h2>ðŸ—ºï¸ Cloud Map â€” Every Service at a Glance</h2>
+    <p class="muted" style="font-size:.875rem">Each card is a memory hook. The emoji = the mental image. The tagline = what it does in one sentence. Hover for the 3D lift.</p>
+  </div>
+  ${DOMAINS.map(d=>`
+  <div class="card animate-in" style="margin-bottom:1.1rem">
+    <h3 style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem">
+      <span>${DOMAIN_EMOJI[d]}</span>
+      <span class="badge ${DOMAIN_BADGE[d]}">${DOMAIN_SHORT[d]}</span>
+      <span style="font-size:.92rem">${d}</span>
+    </h3>
+    ${renderServiceGrid(d)}
+  </div>`).join('')}`;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  EXAM KEYWORDS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderExamKeywords(){
+  const categories=[
+    {title:'ðŸ” Audit & Monitoring',color:'var(--info)',patterns:[
+      ['audit trail Â· who did what Â· API call','CloudTrail'],
+      ['CPU Â· metric Â· alarm Â· dashboard Â· monitor performance','CloudWatch'],
+      ['configuration change Â· compliance rule Â· drift over time','AWS Config'],
+      ['best practice recommendation Â· service limit','Trusted Advisor'],
+      ['trace request Â· performance bottleneck Â· distributed tracing','X-Ray'],
+    ]},
+    {title:'ðŸ›¡ï¸ Security Services',color:'var(--sec)',patterns:[
+      ['vulnerability Â· CVE Â· scan EC2 Â· patch assessment','Inspector'],
+      ['threat Â· malicious Â· unusual API Â· reconnaissance','GuardDuty'],
+      ['sensitive data Â· PII Â· classify S3','Macie'],
+      ['security findings Â· single pane Â· aggregate across services','Security Hub'],
+      ['root cause Â· investigate finding','Detective'],
+      ['DDoS','Shield (Standard=free, Advanced=$3k/mo)'],
+      ['SQL injection Â· XSS Â· web exploit Â· Layer 7','WAF'],
+      ['encryption key Â· encrypt at rest','KMS (CloudHSM for dedicated hardware)'],
+      ['database password Â· rotate secret Â· API key rotation','Secrets Manager'],
+      ['SSL/TLS certificate Â· HTTPS','Certificate Manager (ACM) â€” free with AWS'],
+      ['compliance report Â· SOC Â· ISO Â· PCI report','Artifact'],
+      ['least privilege','Grant only minimum permissions needed'],
+      ['MFA Â· multi-factor','Second factor on top of password'],
+      ['penetration test','Allowed on own EC2 without prior AWS permission'],
+    ]},
+    {title:'ðŸŒ Networking',color:'var(--cc)',patterns:[
+      ['DNS Â· domain name Â· routing policy','Route 53'],
+      ['CDN Â· edge cache Â· low latency global','CloudFront'],
+      ['load balance Â· distribute traffic Â· health check','ELB (ALB=Layer7, NLB=Layer4)'],
+      ['private subnet Â· internet outbound Â· NAT','NAT Gateway (not Internet Gateway)'],
+      ['dedicated private Â· bypass internet','Direct Connect'],
+      ['VPN Â· IPsec Â· encrypted tunnel','AWS Site-to-Site VPN'],
+      ['connect VPCs Â· transit Â· hub network','Transit Gateway'],
+      ['stateful firewall Â· instance level','Security Group (allow only, return auto-allowed)'],
+      ['stateless firewall Â· subnet level','NACL (allow AND deny, return must be explicit)'],
+    ]},
+    {title:'ðŸ’¾ Storage',color:'var(--tech)',patterns:[
+      ['object storage Â· bucket Â· static website','S3'],
+      ['block storage Â· virtual hard drive Â· attached EC2','EBS (one AZ, one instance)'],
+      ['shared file Â· NFS Â· mount multiple EC2','EFS (auto-scales, many instances at once)'],
+      ['ephemeral Â· deleted on stop Â· instance store','Instance Store â€” data LOST on stop'],
+      ['offline transfer Â· physical device Â· 100TB+','Snowball (Snowmobile for exabyte scale)'],
+      ['hybrid storage Â· on-prem to cloud','Storage Gateway'],
+      ['archive Â· long-term Â· glacier','S3 Glacier / Deep Archive'],
+    ]},
+    {title:'ðŸ—„ï¸ Databases',color:'var(--ok)',patterns:[
+      ['NoSQL Â· key-value Â· single-digit millisecond','DynamoDB'],
+      ['managed relational Â· MySQL Â· PostgreSQL','RDS'],
+      ['5x MySQL Â· cloud-native relational','Aurora (MySQL/PostgreSQL compatible)'],
+      ['data warehouse Â· analytical SQL Â· petabyte Â· OLAP','Redshift'],
+      ['in-memory cache Â· reduce read load','ElastiCache (Redis/Memcached)'],
+      ['graph database Â· connected data Â· social network','Neptune'],
+    ]},
+    {title:'âš™ï¸ Compute',color:'var(--accent)',patterns:[
+      ['serverless Â· event triggered Â· no server manage','Lambda'],
+      ['container Â· Docker','ECS (EC2 launch) or Fargate (serverless)'],
+      ['Kubernetes','EKS â€” AWS manages control plane'],
+      ['PaaS Â· upload code Â· AWS handles deployment','Elastic Beanstalk'],
+      ['simple website Â· WordPress Â· cheapest VPS','Lightsail'],
+      ['batch jobs Â· thousands of jobs','AWS Batch'],
+    ]},
+    {title:'ðŸ’¬ Messaging',color:'var(--flag)',patterns:[
+      ['message queue Â· decouple Â· async processing','SQS (one consumer per message)'],
+      ['pub/sub Â· fan out Â· notify many','SNS (one message â†’ many subscribers)'],
+      ['email sending Â· transactional','SES'],
+      ['real-time streaming Â· IoT Â· clickstream','Kinesis'],
+      ['workflow Â· state machine Â· orchestrate steps','Step Functions'],
+    ]},
+    {title:'ðŸ’° Billing & Support',color:'var(--bill)',patterns:[
+      ['cost estimate before deploy Â· pricing model','Pricing Calculator'],
+      ['spending visual Â· cost history Â· forecast','Cost Explorer'],
+      ['budget alert Â· spending threshold','Budgets'],
+      ['most granular billing Â· detailed report','Cost and Usage Report'],
+      ['consolidated billing Â· multiple accounts','Organizations'],
+      ['24/7 phone/chat support','Business Support (minimum for 24/7)'],
+      ['TAM Â· dedicated support contact','Enterprise Support'],
+      ['spot Â· 90% discount Â· interruptible','Spot Instances'],
+      ['reserved Â· 1 or 3 year Â· commit','Reserved Instances (up to 72% off)'],
+      ['savings plan Â· flexible Â· dollar per hour','Savings Plans (up to 66% off)'],
+      ['dedicated physical server Â· BYOL','Dedicated Hosts'],
+    ]},
+    {title:'â˜ï¸ Cloud Concepts',color:'var(--muted)',patterns:[
+      ['CapEx to OpEx Â· capital to variable','Cloud = pay-as-you-go, no upfront hardware'],
+      ['economies of scale','AWS aggregates demand â†’ lowers per-unit cost for everyone'],
+      ['elasticity Â· scale in out','Auto Scaling â€” matches resources to demand automatically'],
+      ['loose coupling Â· decouple','Reduce dependencies â€” SQS/SNS enable this pattern'],
+      ['design for failure','Assume every component fails â€” build to survive it'],
+      ['horizontal scaling Â· scale out','Add more instances (not make one bigger)'],
+      ['shared responsibility','AWS = cloud (hardware), You = in cloud (data, OS, IAM)'],
+      ['IaaS','You manage OS and above â€” EC2'],
+      ['PaaS','AWS manages platform â€” Elastic Beanstalk'],
+      ['FaaS Â· serverless','You provide only code â€” Lambda'],
+    ]},
+  ];
+  return `<div class="card-sm" style="margin-bottom:1rem">
+    <h2>ðŸ”‘ Exam Keywords â€” Spot the Word, Know the Answer</h2>
+    <p class="muted" style="font-size:.875rem">AWS exam questions use the same trigger words every time. See the keyword â†’ know the answer before reading all the options.</p>
+  </div>
+  ${categories.map(cat=>`
+  <div class="card animate-in" style="margin-bottom:1rem;border-left:3px solid ${cat.color}">
+    <h3 style="color:${cat.color};margin-bottom:.75rem">${cat.title}</h3>
+    ${cat.patterns.map(([pattern,answer])=>`
+    <div class="kw-row">
+      <code class="kw-code">${pattern}</code>
+      <span style="color:var(--muted);font-size:.82rem;flex-shrink:0">â†’</span>
+      <strong class="kw-answer">${answer}</strong>
+    </div>`).join('')}
+  </div>`).join('')}`;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  KEY TERMS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderKeyTerms(){
+  const terms=[
+    {term:'Availability Zone (AZ)',def:'One or more data centres with independent power, cooling, network. If one AZ fails, others keep running. Think: separate buildings on the same campus.',domain:'CC',emoji:'ðŸ¢'},
+    {term:'Region',def:'A geographic area containing 2+ Availability Zones. Choose based on where users are and data laws. Think: a city containing multiple office buildings.',domain:'CC',emoji:'ðŸŒ'},
+    {term:'Edge Location',def:'A small cache point in a city for CloudFront. Hundreds worldwide. NOT a full data centre â€” just content delivery. Think: a local vending machine.',domain:'CC',emoji:'ðŸ“¡'},
+    {term:'Elasticity',def:'Automatically scaling resources up or down with demand. Like a rubber band â€” stretches when busy, shrinks when quiet.',domain:'CC',emoji:'ðŸ”„'},
+    {term:'High Availability',def:'System keeps working even when a part fails. Achieved by using multiple AZs. Think: two power sources for a hospital.',domain:'CC',emoji:'ðŸ’š'},
+    {term:'Fault Tolerance',def:'System keeps running even when components fail without any degradation. Stronger than high availability.',domain:'CC',emoji:'ðŸ›¡ï¸'},
+    {term:'Loose Coupling',def:'Parts of a system do not depend on each other. If one breaks, others still work. SQS and SNS enable this. Think: LEGO bricks that snap together.',domain:'CC',emoji:'ðŸ”—'},
+    {term:'CapEx vs OpEx',def:'CapEx = buying hardware upfront. OpEx = paying as you use. Cloud moves you FROM CapEx TO OpEx.',domain:'CC',emoji:'ðŸ’³'},
+    {term:'Shared Responsibility Model',def:'AWS secures the cloud (hardware, buildings, network). You secure IN the cloud (your data, passwords, IAM settings).',domain:'CC',emoji:'ðŸ¤'},
+    {term:'IaaS / PaaS / FaaS',def:'IaaS (EC2) = you manage OS up. PaaS (Beanstalk) = you manage code only. FaaS (Lambda) = you manage only the function.',domain:'CC',emoji:'ðŸ“'},
+    {term:'Well-Architected Framework',def:'Six pillars: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimisation, Sustainability.',domain:'CC',emoji:'ðŸ›ï¸'},
+    {term:'IAM',def:'Identity and Access Management. Controls WHO can use WHICH AWS services and WHAT they can do with them.',domain:'SEC',emoji:'ðŸ—ï¸'},
+    {term:'IAM Role',def:'Temporary permission badge for a service (EC2, Lambda). No permanent keys stored. ALWAYS use roles over access keys for apps.',domain:'SEC',emoji:'ðŸŽ­'},
+    {term:'Security Group',def:'Stateful firewall on an EC2 instance. If you allow traffic in, the reply goes out automatically. ONLY allow rules (no deny).',domain:'SEC',emoji:'ðŸšª'},
+    {term:'Network ACL (NACL)',def:'Stateless firewall on a subnet. Must write rules for BOTH directions. Can have allow AND deny rules.',domain:'SEC',emoji:'ðŸ§±'},
+    {term:'Least Privilege',def:'Give someone ONLY the permissions they absolutely need. Never more. Core security principle.',domain:'SEC',emoji:'ðŸŽ¯'},
+    {term:'MFA',def:'Multi-Factor Authentication. A second proof of identity (like a phone code) on top of password.',domain:'SEC',emoji:'ðŸ“±'},
+    {term:'CloudTrail',def:'Records every API call in your account. Like CCTV â€” shows who did what, when and from where.',domain:'SEC',emoji:'ðŸ“¸'},
+    {term:'CloudWatch',def:'Monitors your resources. Collects metrics, stores logs, triggers alarms. Like a hospital ICU monitor.',domain:'SEC',emoji:'ðŸ¥'},
+    {term:'GuardDuty',def:'AI threat detector. Reads your logs and finds suspicious activity â€” like a detective analysing CCTV footage.',domain:'SEC',emoji:'ðŸ•µï¸'},
+    {term:'Inspector',def:'Scans EC2 instances for security holes (CVEs). Like a building inspector checking for fire hazards.',domain:'SEC',emoji:'ðŸ”'},
+    {term:'Shield',def:'DDoS protection. Standard = free and automatic. Advanced = $3,000/month with dedicated response team.',domain:'SEC',emoji:'ðŸ›¡ï¸'},
+    {term:'WAF',def:'Web Application Firewall. Blocks SQL injection and XSS attacks at the HTTP layer.',domain:'SEC',emoji:'ðŸ§±'},
+    {term:'Artifact',def:'A portal where you download AWS compliance certificates (SOC, ISO, PCI). Proof that AWS meets standards.',domain:'SEC',emoji:'ðŸ›ï¸'},
+    {term:'EC2',def:'Virtual servers. Like renting a computer from AWS. You choose size and pay for the time it runs.',domain:'TECH',emoji:'ðŸ–¥ï¸'},
+    {term:'S3',def:'Object storage. Unlimited filing cabinet â€” put files in buckets, access via HTTP. 11 nines durable.',domain:'TECH',emoji:'ðŸ—‚ï¸'},
+    {term:'EBS',def:'Block storage. Like a hard drive attached to ONE EC2 instance. Stays in one AZ.',domain:'TECH',emoji:'ðŸ’¾'},
+    {term:'EFS',def:'Shared file storage. Like a network drive that MANY EC2s can use at the same time.',domain:'TECH',emoji:'ðŸŒ'},
+    {term:'RDS',def:'Managed relational databases. AWS handles maintenance â€” you just query it. MySQL, PostgreSQL, etc.',domain:'TECH',emoji:'ðŸ—„ï¸'},
+    {term:'DynamoDB',def:'Fast NoSQL database. Handles millions of requests, single-digit milliseconds. No server management.',domain:'TECH',emoji:'âš¡'},
+    {term:'Lambda',def:'Serverless compute. Upload code, AWS runs it on events. Pay per second it executes. Zero servers.',domain:'TECH',emoji:'ðŸ§ž'},
+    {term:'SQS',def:'Message queue. Like a to-do list â€” one system puts tasks on it, another picks them up asynchronously.',domain:'TECH',emoji:'ðŸ“¬'},
+    {term:'SNS',def:'Notification broadcast. Like a fire alarm â€” one trigger and many endpoints all get the message.',domain:'TECH',emoji:'ðŸ“¢'},
+    {term:'CloudFront',def:'CDN. Copies your content to hundreds of edge locations so users get it fast from the nearest point.',domain:'TECH',emoji:'ðŸŒ'},
+    {term:'Route 53',def:'DNS service. Translates domain names to IP addresses. Can route users to the fastest or closest server.',domain:'TECH',emoji:'ðŸ—ºï¸'},
+    {term:'Direct Connect',def:'Private, dedicated physical connection from your office to AWS. Faster and more secure than the internet.',domain:'TECH',emoji:'ðŸ”Œ'},
+    {term:'On-Demand',def:'Pay per second (60s min). No commitment. Most flexible but most expensive. Good for unpredictable workloads.',domain:'BILL',emoji:'â°'},
+    {term:'Reserved Instances',def:'1 or 3-year commitment. Up to 72% discount. Best for steady workloads that run 24/7.',domain:'BILL',emoji:'ðŸ“…'},
+    {term:'Spot Instances',def:'Use spare AWS capacity at up to 90% discount. AWS can reclaim with 2-min warning. For fault-tolerant jobs only.',domain:'BILL',emoji:'ðŸŽ²'},
+    {term:'Savings Plans',def:'Commit to spend $/hour for 1 or 3 years. Up to 66% off. More flexible than Reserved â€” works across instance types.',domain:'BILL',emoji:'ðŸ¦'},
+    {term:'Cost Explorer',def:'Shows your spending over time with charts. Helps you forecast and understand where money goes.',domain:'BILL',emoji:'ðŸ“Š'},
+    {term:'Budgets',def:'Set spending limits and get alerts before you exceed them. Like a bank low-balance alert.',domain:'BILL',emoji:'â°'},
+    {term:'Support Plans',def:'Basic (free, forums), Developer (email biz hours), Business (24/7 phone/chat), Enterprise (dedicated TAM, 15-min response).',domain:'BILL',emoji:'ðŸ“ž'},
+    {term:'Trusted Advisor',def:'Checks your AWS account for problems â€” cost, security, performance, fault tolerance, service limits.',domain:'BILL',emoji:'ðŸ…'},
+    {term:'Consolidated Billing',def:'Combine multiple AWS accounts into one bill. Combined usage may reach volume discount thresholds.',domain:'BILL',emoji:'ðŸ§¾'},
+  ];
+  const domainMap={'CC':'Cloud Concepts','SEC':'Security and Compliance','TECH':'Cloud Technology and Services','BILL':'Billing, Pricing and Support'};
+  return `<div class="card-sm" style="margin-bottom:1rem">
+    <h2>ðŸ“– Key Terms in Plain English</h2>
+    <p class="muted" style="font-size:.875rem">Every AWS term explained simply. If a word confuses you, find it here.</p>
+  </div>
+  ${DOMAINS.map(d=>{
+    const domKey=DOMAIN_SHORT[d];
+    const domTerms=terms.filter(t=>t.domain===domKey);
+    return `<div class="card animate-in" style="margin-bottom:1rem">
+      <h3 style="display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem">
+        ${DOMAIN_EMOJI[d]} <span class="badge ${DOMAIN_BADGE[d]}">${domKey}</span> ${d}
+      </h3>
+      ${domTerms.map(t=>`
+      <div style="display:flex;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--border);align-items:flex-start">
+        <span style="font-size:1.3rem;flex-shrink:0">${t.emoji}</span>
+        <div>
+          <strong style="font-size:.88rem;color:var(--text)">${t.term}</strong>
+          <p style="font-size:.82rem;color:var(--muted);margin-top:.2rem;line-height:1.6">${t.def}</p>
+        </div>
+      </div>`).join('')}
+    </div>`;
+  }).join('')}`;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  INTERVIEW PREP
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+const INTERVIEW_QA=[
+  {q:'Walk me through the AWS Shared Responsibility Model.',a:'AWS is responsible for security OF the cloud â€” the physical hardware, data centres, hypervisor, and global network. I am responsible for security IN the cloud â€” my data, encryption, IAM policies, OS patches, and network configurations. The line depends on the service: for EC2 (IaaS) I manage the OS and above; for Lambda (FaaS) AWS manages almost everything and I only provide code.',category:'Foundational'},
+  {q:'What is the difference between a Security Group and a Network ACL?',a:'Security Groups are stateful firewalls at the instance level â€” if I allow inbound traffic, the response is automatically allowed out. They support allow rules only. NACLs are stateless firewalls at the subnet level â€” I must explicitly write rules for both inbound and outbound traffic. They support both allow and deny rules. In practice, Security Groups are the first line of defence, NACLs for subnet-level guardrails.',category:'Security'},
+  {q:'When would you use S3 vs EBS vs EFS?',a:'S3 for objects â€” static files, backups, data lakes, anything accessed via HTTP. EBS for block storage attached to a single EC2 instance, like a virtual hard drive for a database or OS. EFS when multiple EC2 instances need to share the same file system simultaneously â€” it mounts like a network drive and auto-scales.',category:'Storage'},
+  {q:'What is the difference between SQS and SNS?',a:'SQS is a message queue â€” one message gets processed by one consumer. It decouples systems asynchronously and messages persist until consumed. SNS is a pub/sub notification service â€” one message fans out to many subscribers simultaneously (email, SMS, Lambda, SQS). They are often used together: SNS fans out to multiple SQS queues for fan-out patterns.',category:'Messaging'},
+  {q:'Explain EC2 pricing models and when you\'d use each.',a:'On-Demand: pay per second, no commitment â€” for unpredictable or short workloads. Reserved Instances: 1 or 3-year commitment, up to 72% off â€” for steady 24/7 workloads. Spot Instances: spare capacity at up to 90% off, can be interrupted with 2-min warning â€” for fault-tolerant batch jobs. Savings Plans: commit to $/hour of compute, up to 66% off, more flexible than Reserved â€” good for mixed workloads. Dedicated Hosts: physical server for you â€” when you need BYOL licensing or compliance.',category:'Billing'},
+  {q:'What is auto scaling and how does it work with load balancing?',a:'Auto Scaling automatically adds or removes EC2 instances based on CloudWatch metrics like CPU utilisation. It works with Elastic Load Balancing â€” when Auto Scaling adds an instance, it registers it with the load balancer; when it removes one, it deregisters first. Together they provide elasticity (matching capacity to demand) and high availability (replacing unhealthy instances).',category:'Compute'},
+  {q:'How would you design a highly available architecture on AWS?',a:'I would deploy across at least two Availability Zones. Use an Application Load Balancer to distribute traffic. Put EC2 instances in an Auto Scaling Group across the AZs. Use RDS Multi-AZ for the database â€” automatic failover if the primary fails. Store static assets in S3 with CloudFront in front. This way if one AZ fails entirely, the application continues from the other AZ.',category:'Architecture'},
+  {q:'What is the difference between CloudTrail and CloudWatch?',a:'CloudTrail is an audit log â€” it records every API call in your account: who made it, from where, at what time. It is for security auditing and compliance. CloudWatch is a monitoring service â€” it collects performance metrics (CPU, memory, request counts), stores logs, creates dashboards, and triggers alarms when thresholds are breached. Think: CloudTrail = who did what, CloudWatch = how is the system performing.',category:'Monitoring'},
+  {q:'Explain IAM Roles and why they are preferred over access keys.',a:'IAM Roles provide temporary credentials that AWS rotates automatically. When an EC2 instance has a Role, the instance metadata service provides short-lived credentials to the app â€” no hardcoded keys. Access keys are long-term credentials that can be leaked if exposed in code, logs, or git repos. Roles eliminate that risk entirely. Best practice: never use access keys for applications running on AWS â€” always use roles.',category:'Security'},
+  {q:'What is the difference between horizontal and vertical scaling?',a:'Vertical scaling (scaling up) means making a single instance bigger â€” more CPU, RAM. It has an upper limit and requires downtime. Horizontal scaling (scaling out) means adding more instances of the same size. It has no theoretical limit, requires a load balancer, and enables high availability. AWS encourages horizontal scaling â€” it is why Auto Scaling and ELB exist.',category:'Foundational'},
+  {q:'When would you use DynamoDB vs RDS?',a:'DynamoDB for NoSQL workloads requiring single-digit millisecond latency at any scale â€” gaming, IoT, session stores, shopping carts. It is serverless and schema-less. RDS for relational workloads that need ACID transactions, complex joins, and existing SQL â€” financial data, user profiles, e-commerce orders. The question to ask: do I need SQL and joins? Yes â†’ RDS. No â†’ consider DynamoDB.',category:'Database'},
+  {q:'What does the AWS CAF stand for and what are its perspectives?',a:'Cloud Adoption Framework. It guides organisations adopting AWS across six perspectives: Business (ROI, business outcomes), People (culture, training), Governance (risk, compliance), Platform (architecture, infrastructure), Security (controls, incident response), Operations (service management, automation). It is a framework for organisational change, not just technical migration.',category:'Strategy'},
+];
+
+function renderInterviewPrep(){
+  const categories=[...new Set(INTERVIEW_QA.map(q=>q.category))];
+  return `
+  <div class="card card-glow-blue" style="margin-bottom:1rem">
+    <h2>ðŸŽ¤ Interview Prep â€” Real Questions, Real Answers</h2>
+    <p class="muted" style="font-size:.875rem">These are the questions interviewers actually ask for cloud-related roles. Click to expand each answer.</p>
+    <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.75rem">
+      ${categories.map(c=>`<span class="badge" style="background:rgba(167,139,250,0.08);color:var(--flag);border:1px solid rgba(167,139,250,0.18)">${c}</span>`).join('')}
+    </div>
+  </div>
+  ${INTERVIEW_QA.map((item,i)=>`
+  <div class="card animate-in" style="margin-bottom:.75rem;cursor:pointer" onclick="this.querySelector('.interview-answer').style.display=this.querySelector('.interview-answer').style.display==='none'?'block':'none'">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem">
+      <div>
+        <span class="badge" style="background:rgba(167,139,250,0.08);color:var(--flag);border:1px solid rgba(167,139,250,0.18);margin-bottom:.5rem">${item.category}</span>
+        <p style="font-weight:700;font-size:.92rem;line-height:1.5">Q: ${item.q}</p>
+      </div>
+      <span style="color:var(--muted);font-size:1.1rem;flex-shrink:0">â–¾</span>
+    </div>
+    <div class="interview-answer" style="display:none;margin-top:.75rem;padding:.75rem 1rem;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.14);border-radius:var(--radius);font-size:.875rem;line-height:1.75;color:var(--text)">
+      <div class="label" style="color:var(--flag);margin-bottom:.4rem">Model Answer</div>
+      ${item.a}
+      <div class="interview-tip">
+        <span class="tip-label">ðŸ’¡ Interview Tip</span>
+        Say this in your own words, not word-for-word. Use an example from your own experience when you can â€” it makes the answer memorable.
+      </div>
+    </div>
+  </div>`).join('')}`;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  DUE ITEMS + WEAKNESS DRILL + FLASHCARDS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderPracticeDue(){
+  const due=dueItems();
+  if(due.length===0) return `<div class="card-sm"><p style="color:var(--ok);font-weight:700">âœ… Nothing due right now â€” you're ahead of the curve! Come back tomorrow.</p></div>`;
+  return `<div class="card-sm card-accent" style="margin-bottom:1rem">
+    <div class="label">Spaced Repetition Queue</div>
+    <p style="margin-top:.4rem;color:var(--muted);font-size:.875rem">${due.length} item${due.length===1?'':'s'} due for review. Answer correctly to push them further out.</p>
+    <button class="btn btn-primary" style="margin-top:.75rem" onclick="startPractice('due')">Start Review (${due.length}) â†’</button>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:.35rem">
+    ${due.slice(0,24).map(q=>`<span class="badge ${DOMAIN_BADGE[q.domain]}" style="font-size:.66rem">${q.id}</span>`).join('')}
+    ${due.length>24?`<span class="muted" style="font-size:.8rem">+${due.length-24} more</span>`:''}
+  </div>`;
+}
+
+function getTopConfusions(n){
+  return Object.entries(confusions).map(([k,v])=>({...v,key:k})).sort((a,b)=>b.count-a.count).slice(0,n);
+}
+
+function renderWeaknessDrill(){
+  const top=getTopConfusions(5);
+  if(top.length===0) return `<div class="card-sm"><p class="muted">No confusion patterns yet. Answer some questions and your common mistakes will show up here.</p></div>`;
+  return `<div class="card-sm" style="margin-bottom:1rem">
+    <h2>ðŸ” Your Top Confusion Pairs</h2>
+    <p class="muted" style="font-size:.875rem;margin-bottom:.75rem">These are the pairs you keep mixing up. The more you drill them, the more the distinction sticks.</p>
+    ${top.map((c,i)=>`
+    <div class="confusion-pair" style="margin-bottom:.5rem">
+      <div>
+        <div class="confusion-services">${i+1}. ${c.aLabel} â†’ ${c.bLabel}</div>
+        <div class="confusion-count">Mixed up ${c.count} time${c.count===1?'':'s'} Â· Last: ${new Date(c.lastSeen).toLocaleDateString()}</div>
+      </div>
+      <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+        <button class="btn btn-secondary btn-sm" onclick="startConfusionDrill('${c.key.replace(/'/g,"\\'")}')">Drill</button>
+        <button class="btn btn-secondary btn-sm" onclick="showCompare('${c.key.replace(/'/g,"\\'")}')">Compare</button>
+      </div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function renderFlashcards(){
+  const unseen=window.QUESTIONS.filter(q=>!progress[q.id]||progress[q.id].attempts===0);
+  const pool=shuffle(unseen.length>0?unseen:window.QUESTIONS).slice(0,10);
+  return `
+  <div id="flashcard-container" data-idx="0" data-pool='${JSON.stringify(pool.map(q=>q.id))}'>
+    ${renderFlashcardItem(pool[0])}
+    <div style="display:flex;gap:.5rem;margin-top:1rem;align-items:center;flex-wrap:wrap">
+      <button class="btn btn-secondary btn-sm" id="fc-prev" disabled>â† Prev</button>
+      <span class="muted" style="font-size:.875rem" id="fc-counter">1 / ${pool.length}</span>
+      <button class="btn btn-secondary btn-sm" id="fc-next">Next â†’</button>
+      <button class="btn btn-primary btn-sm" id="fc-flip">ðŸ”„ Flip Card</button>
+    </div>
+  </div>`;
+}
+
+function renderFlashcardItem(q){
+  if(!q) return '';
+  return `<div class="flashcard card" id="flashcard" onclick="flipCard()">
+    <div class="flashcard-inner">
+      <div class="flashcard-front"><div>
+        <div class="label" style="margin-bottom:.5rem;color:var(--info)">${q.domain}</div>
+        <p style="font-size:1rem;font-weight:600;line-height:1.6">${q.stem}</p>
+        <p class="muted" style="font-size:.8rem;margin-top:.75rem">ðŸ‘† Tap to reveal answer</p>
+      </div></div>
+      <div class="flashcard-back"><div>
+        <div class="label ok" style="margin-bottom:.4rem">âœ… Correct Answer</div>
+        <p style="font-weight:800;color:var(--ok2);font-size:1rem;margin-bottom:.5rem">${q.options.filter(o=>q.correct.some(c=>o.startsWith(c+'.'))).join(', ')}</p>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.6">${getRationale(q)}</p>
+      </div></div>
+    </div>
+  </div>`;
+}
+
+function flipCard(){
+  const el=document.getElementById('flashcard');
+  if(el) el.classList.toggle('flipped');
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  SERVICE COMPARE
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+const SERVICE_INFO={
+  'CloudTrail':{desc:'Records all API calls â€” the audit log. Who did what, when, from where.',points:['Logs: API calls, management events','Destination: S3 bucket','Think: bank transaction history','Exam trigger: "who deleted" / "API activity"']},
+  'CloudWatch':{desc:'Monitors performance metrics and logs. Triggers alarms on thresholds.',points:['Collects: CPU, memory, request counts, custom metrics','Use: operational monitoring, alerting, dashboards','Think: hospital ICU monitor','Exam trigger: "metric" / "alarm" / "dashboard"']},
+  'Security Group':{desc:'Stateful firewall at the EC2 instance level.',points:['Level: instance / ENI','Stateful: YES â€” return traffic auto-allowed','Rules: allow ONLY (no deny)','Think: bouncer at a club door']},
+  'Network ACL':{desc:'Stateless firewall at the VPC subnet level.',points:['Level: subnet','Stateful: NO â€” must allow both directions','Rules: allow AND deny','Think: security checkpoint at a building entrance']},
+  'S3':{desc:'Object storage. Files in buckets, accessed via HTTP.',points:['Use: static files, backups, data lakes','Durability: 11 nines (99.999999999%)','Access: HTTP/S API, not a file system','Think: unlimited filing cabinet']},
+  'EBS':{desc:'Block storage attached to a single EC2 instance.',points:['Attached: ONE instance at a time','Scope: same AZ as the EC2','Use: boot volumes, databases','Think: a USB hard drive plugged into one laptop']},
+  'EFS':{desc:'Managed NFS file system. Many instances mount it simultaneously.',points:['Attached: MANY instances at once','Auto-scales as files are added','Use: shared file storage, CMS','Think: a network-attached storage drive']},
+  'GuardDuty':{desc:'Threat detection â€” analyses logs using ML to find threats.',points:['Input: CloudTrail, VPC Flow Logs, DNS','Output: security findings (threat alerts)','Exam trigger: "threat" / "malicious" / "unusual API"','Think: AI detective reading all your logs']},
+  'Inspector':{desc:'Vulnerability scanning for EC2 and container images.',points:['Scans: EC2, ECR container images','Finds: CVEs, missing patches, network exposure','Exam trigger: "vulnerability" / "CVE" / "scan"','Think: building inspector checking code violations']},
+  'SQS':{desc:'Message queue for decoupling components. One consumer per message.',points:['Pattern: producer â†’ queue â†’ one consumer','Messages persist until consumed','Use: task queues, decoupling microservices','Think: a to-do inbox']},
+  'SNS':{desc:'Pub/Sub broadcast. One message fans out to many subscribers.',points:['Pattern: publisher â†’ topic â†’ many subscribers','Subscribers: email, SMS, Lambda, SQS, HTTP','Use: event notifications, fan-out pattern','Think: a fire alarm â€” one trigger, everyone hears']},
+  'Reserved Instances':{desc:'1 or 3-year commitment for up to 72% discount.',points:['Commitment: instance type + region','Discount: up to 72%','Best for: steady 24/7 workloads','Risk: unused capacity still billed']},
+  'Savings Plans':{desc:'Commit to $/hour of compute for up to 66% discount.',points:['Commitment: $/hour of compute spend','Applies to: EC2, Lambda, Fargate','Discount: up to 66%','More flexible than Reserved Instances']},
+  'KMS':{desc:'Manages encryption keys for data at rest across AWS.',points:['Manages: symmetric + asymmetric keys','Integrates: S3, RDS, EBS, Secrets Manager','Multi-tenant (shared infrastructure)','Think: a shared secure key cabinet']},
+  'CloudHSM':{desc:'Dedicated single-tenant hardware security module.',points:['You control keys exclusively','FIPS 140-2 Level 3 compliance','Single-tenant (physical hardware for you)','Think: your own private safe deposit box']},
+};
+
+function showCompare(key){
+  const[aL,bL]=key.split('|');
+  const el=document.getElementById('practice-content');
+  el.innerHTML=`
+  <button class="btn btn-secondary btn-sm" style="margin-bottom:1rem" onclick="navigate('practice')">â† Back to Practice</button>
+  <h2 style="margin-bottom:.75rem">âš¡ Compare: <span style="color:var(--err)">${aL}</span> vs <span style="color:var(--ok)">${bL}</span></h2>
+  <div class="compare-grid">
+    ${renderCompareCol(aL,'var(--err)')}
+    ${renderCompareCol(bL,'var(--ok)')}
+  </div>
+  <button class="btn btn-primary" style="margin-top:1rem" onclick="startConfusionDrill('${key.replace(/'/g,"\\'")}')">Drill These Questions â†’</button>`;
+}
+
+function renderCompareCol(label,color){
+  const info=SERVICE_INFO[label]||{desc:'No comparison data yet.',points:[]};
+  return `<div class="compare-col" style="border-left:3px solid ${color}">
+    <h3 style="color:${color}">${label}</h3>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.75rem;line-height:1.6">${info.desc}</p>
+    <ul style="padding-left:1.1rem;font-size:.83rem;color:var(--muted);line-height:2">${info.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+  </div>`;
+}
+
+function startConfusionDrill(key){
+  const c=confusions[key];
+  if(!c) return;
+  const[aL,bL]=key.split('|');
+  const pool=window.QUESTIONS.filter(q=>{
+    const tags=q.tags.map(t=>t.toLowerCase());
+    return tags.some(t=>aL.toLowerCase().includes(t)||bL.toLowerCase().includes(t)||t.includes(aL.toLowerCase())||t.includes(bL.toLowerCase()));
+  });
+  const qs=shuffle(pool.length>0?pool:window.QUESTIONS).slice(0,8);
+  runQuiz(qs,'practice',onPracticeComplete);
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  GENERIC QUIZ RUNNER
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+let quizState=null;
+
+function startPractice(mode,domain,count){
+  let qs;
+  if(mode==='due') qs=shuffle(dueItems()).slice(0,30);
+  else if(mode==='domain'){
+    const pool=window.QUESTIONS.filter(q=>q.domain===domain);
+    qs=count===0?shuffle(pool):shuffle(pool).slice(0,count);
+  }
+  if(!qs||qs.length===0){toast('No questions available.','err');return;}
+  runQuiz(qs,'practice',onPracticeComplete);
+}
+
+function runQuiz(questions,mode,onComplete){
+  quizState={questions,mode,idx:0,results:[],onComplete,startTime:Date.now()};
+  document.getElementById('main-content').innerHTML=renderQuizQuestion();
+  attachQuizListeners();
+}
+
+function renderQuizQuestion(){
+  const{questions,idx}=quizState;
+  const q=questions[idx];
+  const isMulti=q.type==='multi';
+  const pct=Math.round(idx/questions.length*100);
+  return `
+  <div style="margin-bottom:1rem">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;flex-wrap:wrap;gap:.4rem">
+      <div style="display:flex;align-items:center;gap:.4rem">
+        <span class="badge ${DOMAIN_BADGE[q.domain]}">${DOMAIN_SHORT[q.domain]}</span>
+        ${!q.verified?`<span class="badge badge-unverified">unverified</span>`:''}
+      </div>
+      <span class="muted" style="font-size:.875rem;font-weight:600">${idx+1} / ${questions.length}</span>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-fill" style="width:${pct}%"></div>
+    </div>
+  </div>
+  ${isMulti?`<div class="card-sm card-accent" style="margin-bottom:.75rem;font-size:.83rem">âœ‹ Select <strong>all correct answers</strong> then click Submit.</div>`:''}
+  <div class="card animate-in" id="quiz-card">
+    <div class="q-stem">${q.stem}</div>
+    <div class="options-list" id="options-list">
+      ${q.options.map((o,i)=>`<button class="opt-btn animate-opt" style="animation-delay:${i*0.06}s" data-opt="${String.fromCharCode(65+i)}" ${isMulti?'data-multi="1"':''}>${o}</button>`).join('')}
+    </div>
+    ${isMulti?`<button class="btn btn-primary" id="submit-multi" style="margin-top:.75rem;display:none" disabled>Submit Answer</button>`:''}
+  </div>
+  <div id="rationale-area"></div>
+  <div style="display:flex;justify-content:flex-end;margin-top:1rem" id="next-wrap"></div>`;
+}
+
+function attachQuizListeners(){
+  const{questions,idx}=quizState;
+  const q=questions[idx];
+  const isMulti=q.type==='multi';
+  const opts=document.querySelectorAll('.opt-btn');
+  const submitBtn=document.getElementById('submit-multi');
+  if(isMulti){
+    opts.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        btn.classList.toggle('selected');
+        const any=document.querySelectorAll('.opt-btn.selected').length>0;
+        if(submitBtn){submitBtn.style.display='';submitBtn.disabled=!any;}
+      });
+    });
+    if(submitBtn) submitBtn.addEventListener('click',()=>{
+      const chosen=Array.from(document.querySelectorAll('.opt-btn.selected')).map(b=>b.dataset.opt);
+      submitQuizAnswer(chosen);
+    });
+  } else {
+    opts.forEach(btn=>{btn.addEventListener('click',()=>submitQuizAnswer([btn.dataset.opt]));});
+  }
+}
+
+function submitQuizAnswer(chosen){
+  const{questions,idx}=quizState;
+  const q=questions[idx];
+  const isCorrect=arraysEqual(chosen.sort(),q.correct.slice().sort());
+  recordAnswer(q.id,chosen,isCorrect);
+  quizState.results.push({qid:q.id,correct:isCorrect,chosen});
+  document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+  const submitBtn=document.getElementById('submit-multi');
+  if(submitBtn) submitBtn.disabled=true;
+  document.querySelectorAll('.opt-btn').forEach(b=>{
+    const letter=b.dataset.opt;
+    if(q.correct.includes(letter)) b.classList.add('reveal-correct');
+    if(chosen.includes(letter)&&!q.correct.includes(letter)) b.classList.add('incorrect');
+    if(chosen.includes(letter)&&q.correct.includes(letter)) b.classList.add('correct');
+  });
+  if(isCorrect){
+    const card=document.getElementById('quiz-card');
+    if(card){
+      const r=card.getBoundingClientRect();
+      confettiBurst(r.left+r.width/2,r.top);
+      showXPFloat(10,r.left+r.width/2-20,r.top+40);
+    }
+  }
+  const area=document.getElementById('rationale-area');
+  if(area){
+    const rationale=getRationale(q);
+    const wrongRationale=getWrongRationale(q);
+    const wrongOpts=q.options.filter(o=>!q.correct.some(c=>o.startsWith(c+'.'))).map(o=>{
+      const letter=o.charAt(0);
+      const explanation=wrongRationale[letter]||'';
+      return explanation?`<div class="wrong-opt-item"><strong>${o}</strong><br>${explanation}</div>`:'';
+    }).filter(Boolean).join('');
+    const tip=getInterviewTip(q);
+    area.innerHTML=`<div class="rationale-box ${isCorrect?'':'wrong'} animate-in">
+      <h4 style="color:${isCorrect?'var(--ok)':'var(--err)'}">${isCorrect?'âœ… Correct! +10 XP':'âŒ Incorrect â€” +2 XP for trying'}</h4>
+      <p>${rationale}</p>
+      ${wrongOpts?`<div class="wrong-opts"><div class="label" style="margin:.5rem 0 .4rem">Why the other options are wrong</div>${wrongOpts}</div>`:''}
+      ${tip?`<div class="interview-tip"><span class="tip-label">ðŸŽ¤ Interview Connection</span>${tip}</div>`:''}
+    </div>`;
+  }
+  const nextWrap=document.getElementById('next-wrap');
+  if(nextWrap){
+    if(idx+1<questions.length){
+      nextWrap.innerHTML=`<button class="btn btn-primary" id="btn-next">Next Question â†’</button>`;
+      document.getElementById('btn-next').addEventListener('click',advanceQuiz);
+    } else {
+      nextWrap.innerHTML=`<button class="btn btn-primary" id="btn-finish">View Results â†’</button>`;
+      document.getElementById('btn-finish').addEventListener('click',finishQuiz);
+    }
+  }
+}
+
+function getInterviewTip(q){
+  const tags=(q.tags||[]).map(t=>t.toLowerCase()).join(' ');
+  const stem=q.stem.toLowerCase();
+  if(stem.includes('cloudtrail')||tags.includes('cloudtrail')) return 'Interviewers love asking "how would you investigate who deleted that resource?" â€” answer: CloudTrail logs every API call, so I would check the CloudTrail event history.';
+  if(stem.includes('shared responsibility')||tags.includes('shared responsibility')) return 'This comes up in almost every cloud interview. The key line: "AWS is responsible for the cloud; I am responsible for what I put IN the cloud."';
+  if(stem.includes('iam role')||tags.includes('iam role')) return 'If asked about securing an EC2 application, always say you use an IAM Role â€” never hard-code access keys. This shows you know security best practices.';
+  if(stem.includes('high availab')||tags.includes('high availability')) return 'When answering "how would you make this highly available?" â€” always mention: multiple AZs, Load Balancer, Auto Scaling, RDS Multi-AZ.';
+  if(stem.includes('sqs')||tags.includes('sqs')||stem.includes('sns')||tags.includes('sns')) return 'Common interview question: "What is the difference between SQS and SNS?" SQS = one-to-one queue (one reader per message). SNS = one-to-many broadcast.';
+  if(stem.includes('lambda')||tags.includes('lambda')) return 'Interviewers ask: "When would you NOT use Lambda?" â€” answer: long-running tasks (over 15 min), workloads needing persistent connections, or high-throughput streaming.';
+  return null;
+}
+
+function advanceQuiz(){
+  quizState.idx++;
+  document.getElementById('main-content').innerHTML=renderQuizQuestion();
+  attachQuizListeners();
+}
+function finishQuiz(){
+  const{results,mode,onComplete}=quizState;
+  if(onComplete) onComplete(results);
+}
+
+function onPracticeComplete(results){
+  const correct=results.filter(r=>r.correct).length;
+  const pct=Math.round(correct/results.length*100);
+  const el=document.getElementById('main-content');
+  const color=pct>=80?'var(--ok)':pct>=60?'var(--accent)':'var(--err)';
+  const msg=pct>=80?'ðŸ† Excellent work!':pct>=60?'ðŸ“ˆ Getting there!':'ðŸ’ª Keep going â€” review the rationales!';
+  if(pct>=80) confettiBurst(window.innerWidth/2,200);
+  el.innerHTML=`
+  <div class="section-header"><h1>ðŸ“Š Session Results</h1></div>
+  <div class="card card-glow-${pct>=80?'green':'amber'}" style="margin-bottom:1rem;text-align:center;padding:2rem">
+    <div class="score-reveal" style="font-size:4rem;font-weight:900;color:${color};line-height:1;letter-spacing:-.05em;filter:drop-shadow(0 0 24px ${color}60)">${pct}%</div>
+    <div class="muted" style="margin-top:.4rem;font-size:.88rem">${correct} / ${results.length} correct</div>
+    <div style="font-size:1.05rem;font-weight:700;color:${color};margin-top:.4rem">${msg}</div>
+  </div>
+  <div class="card animate-in" style="margin-bottom:1rem">
+    ${results.map((r,i)=>{
+      const q=getQ(r.qid);
+      return `<div style="display:flex;align-items:center;gap:.6rem;padding:.5rem 0;border-bottom:1px solid var(--border)">
+        <span style="font-size:1rem">${r.correct?'âœ…':'âŒ'}</span>
+        <span style="font-size:.82rem;flex:1;color:var(--muted)">${q?q.stem.substring(0,90)+'â€¦':r.qid}</span>
+      </div>`;
+    }).join('')}
+  </div>
+  <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+    <button class="btn btn-primary" onclick="navigate('practice')">Practice More</button>
+    <button class="btn btn-secondary" onclick="navigate('home')">Home</button>
+  </div>`;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  MOCK EXAM
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+let mockState=null;
+
+function renderMockMenu(){
+  const mocks=history.filter(h=>h.mode==='mock');
+  const best=mocks.length>0?Math.max(...mocks.map(m=>m.score)):null;
+  return `
+  <div class="section-header"><h1>â±ï¸ Mock Exam</h1></div>
+  <div class="card card-glow-amber" style="margin-bottom:1.25rem">
+    <h2>CLF-C02 Full Mock Exam</h2>
+    <p class="muted" style="margin-bottom:1rem;font-size:.88rem">Simulates the real examination. 65 questions, 90 minutes, same domain weighting as the official exam. Aim for 90%+ three times in a row.</p>
+    <div class="grid-4" style="margin-bottom:1.1rem">
+      <div class="stat"><div class="stat-num">65</div><div class="stat-label">Questions</div></div>
+      <div class="stat"><div class="stat-num">90</div><div class="stat-label">Minutes</div></div>
+      <div class="stat"><div class="stat-num">~70%</div><div class="stat-label">Pass Mark</div></div>
+      <div class="stat"><div class="stat-num"><span style="color:${best===null?'var(--muted)':best>=90?'var(--ok)':best>=70?'var(--accent)':'var(--err)'}">${best===null?'â€”':best+'%'}</span></div><div class="stat-label">Best Score</div></div>
+    </div>
+    <div class="card-sm" style="margin-bottom:1rem;font-size:.83rem;color:var(--muted)">
+      <strong style="color:var(--text)">Domain weighting:</strong> CC 24% Â· SEC 30% Â· TECH 34% Â· BILL 12%
+    </div>
+    <button class="btn btn-primary" onclick="startMockExam()">ðŸš€ Start Mock Exam</button>
+    ${mocks.length===0?`<p class="muted" style="font-size:.78rem;margin-top:.75rem">ðŸ’¡ Take your first mock exam to unlock your readiness score.</p>`:''}
+  </div>
+  ${mocks.length>0?`
+  <div class="card animate-in">
+    <h2>Mock History</h2>
+    ${mocks.slice().reverse().slice(0,8).map((m,i)=>{
+      const color=m.score>=90?'var(--ok)':m.score>=70?'var(--accent)':'var(--err)';
+      return `<div style="display:flex;align-items:center;gap:1rem;padding:.65rem 0;border-bottom:1px solid var(--border);flex-wrap:wrap">
+        <div style="width:28px;height:28px;border-radius:50%;background:${color}22;border:2px solid ${color};display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:${color}">${mocks.length-i}</div>
+        <span style="font-size:1.3rem;font-weight:900;color:${color};min-width:50px">${m.score}%</span>
+        <span class="muted" style="font-size:.875rem">${new Date(m.date).toLocaleDateString()}</span>
+        <span style="font-size:.8rem;color:var(--muted)">${m.correct}/${m.total} Â· ${Math.round(m.duration/60)}m ${m.duration%60}s</span>
+        <span style="margin-left:auto;font-size:.8rem;color:${m.score>=70?'var(--ok)':'var(--err)'};font-weight:700">${m.score>=70?'PASS':'FAIL'}</span>
+      </div>`;
+    }).join('')}
+  </div>`:''}`;
+}
+
+function startMockExam(){
+  const counts={'Cloud Concepts':16,'Security and Compliance':20,'Cloud Technology and Services':22,'Billing, Pricing and Support':7};
+  let qs=[];
+  DOMAINS.forEach(d=>{
+    const pool=window.QUESTIONS.filter(q=>q.domain===d);
+    qs=qs.concat(shuffle(pool).slice(0,Math.min(counts[d],pool.length)));
+  });
+  while(qs.length<65){
+    const extra=shuffle(window.QUESTIONS.filter(q=>!qs.includes(q)))[0];
+    if(!extra) break;
+    qs.push(extra);
+  }
+  qs=shuffle(qs).slice(0,65);
+  mockState={
+    questions:qs,answers:{},flags:{},idx:0,
+    startTime:Date.now(),totalSeconds:90*60,remainingSeconds:90*60,
+    finished:false,timerInterval:null
+  };
+  renderMockExam();
+}
+
+function renderMockExam(){
+  document.getElementById('main-content').innerHTML=buildMockUI();
+  startMockTimer();
+  attachMockListeners();
+}
+
+function buildMockUI(){
+  const{questions,idx,answers,flags}=mockState;
+  const q=questions[idx];
+  const isMulti=q.type==='multi';
+  const chosen=answers[idx]||[];
+  const answeredCount=Object.keys(answers).length;
+  return `
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem">
+    <div style="display:flex;align-items:center;gap:.5rem">
+      <span class="badge ${DOMAIN_BADGE[q.domain]}">${DOMAIN_SHORT[q.domain]}</span>
+      <span class="muted" style="font-size:.875rem">Q${idx+1} of ${questions.length}</span>
+      <span class="muted" style="font-size:.78rem">(${answeredCount} answered)</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:.5rem">
+      <div class="timer" id="mock-timer">90:00</div>
+      <button class="btn btn-secondary btn-sm" id="btn-flag" style="border-color:${flags[idx]?'var(--flag)':'var(--border)'}">
+        ${flags[idx]?'ðŸš© Flagged':'âš‘ Flag'}
+      </button>
+    </div>
+  </div>
+  <div class="progress-wrap" style="margin-bottom:1rem">
+    <div class="progress-fill" style="width:${Math.round(answeredCount/questions.length*100)}%"></div>
+  </div>
+  ${isMulti?`<div class="card-sm card-accent" style="margin-bottom:.75rem;font-size:.83rem">âœ‹ Select <strong>all correct answers</strong>.</div>`:''}
+  <div class="card animate-in" style="margin-bottom:1rem">
+    <div class="q-stem">${q.stem}</div>
+    <div class="options-list" id="mock-options">
+      ${q.options.map((o,i)=>{
+        const letter=String.fromCharCode(65+i);
+        return `<button class="opt-btn ${chosen.includes(letter)?'selected':''}" data-opt="${letter}">${o}</button>`;
+      }).join('')}
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem">
+    <button class="btn btn-secondary btn-sm" id="btn-prev" ${idx===0?'disabled':''}>â† Prev</button>
+    <button class="btn btn-secondary btn-sm" id="btn-toggle-nav">Question Grid</button>
+    <button class="btn btn-secondary btn-sm" id="btn-next-mock" ${idx===questions.length-1?'disabled':''}>Next â†’</button>
+  </div>
+  <div id="mock-nav-grid" style="display:none" class="card-sm" style="margin-bottom:1rem"></div>
+  <div style="text-align:center;margin-top:1rem">
+    <button class="btn btn-danger" id="btn-submit-mock">Submit Exam</button>
+  </div>`;
+}
+
+function startMockTimer(){
+  if(mockState.timerInterval) clearInterval(mockState.timerInterval);
+  updateTimerDisplay();
+  mockState.timerInterval=setInterval(()=>{
+    mockState.remainingSeconds--;
+    updateTimerDisplay();
+    if(mockState.remainingSeconds<=0){clearInterval(mockState.timerInterval);finishMockExam(true);}
+  },1000);
+}
+
+function updateTimerDisplay(){
+  const el=document.getElementById('mock-timer');
+  if(!el) return;
+  const s=mockState.remainingSeconds;
+  const m=Math.floor(s/60),sec=s%60;
+  el.textContent=`${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  if(s<=15*60) el.classList.add('warning'); else el.classList.remove('warning');
+}
+
+function attachMockListeners(){
+  const{questions,idx,answers,flags}=mockState;
+  const q=questions[idx];
+  const isMulti=q.type==='multi';
+  document.querySelectorAll('#mock-options .opt-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const letter=btn.dataset.opt;
+      let chosen=answers[idx]||[];
+      if(isMulti) chosen=chosen.includes(letter)?chosen.filter(c=>c!==letter):[...chosen,letter];
+      else chosen=[letter];
+      mockState.answers[idx]=chosen;
+      document.querySelectorAll('#mock-options .opt-btn').forEach(b=>b.classList.toggle('selected',chosen.includes(b.dataset.opt)));
+      const bar=document.querySelector('.progress-fill');
+      if(bar) bar.style.width=`${Math.round(Object.keys(mockState.answers).length/questions.length*100)}%`;
+    });
+  });
+  document.getElementById('btn-flag')?.addEventListener('click',()=>{mockState.flags[idx]=!mockState.flags[idx];renderMockExam();attachMockListeners();});
+  document.getElementById('btn-prev')?.addEventListener('click',()=>{if(mockState.idx>0){mockState.idx--;renderMockExam();attachMockListeners();}});
+  document.getElementById('btn-next-mock')?.addEventListener('click',()=>{if(mockState.idx<mockState.questions.length-1){mockState.idx++;renderMockExam();attachMockListeners();}});
+  document.getElementById('btn-toggle-nav')?.addEventListener('click',()=>{
+    const grid=document.getElementById('mock-nav-grid');
+    if(!grid) return;
+    if(grid.style.display==='none'){
+      grid.style.display='block';
+      grid.innerHTML=`<div class="q-grid">${questions.map((_,i)=>`<button class="q-dot ${i===idx?'current':flags[i]?'flagged':answers[i]?'answered':''}" onclick="jumpMockQ(${i})">${i+1}</button>`).join('')}</div>`;
+    } else grid.style.display='none';
+  });
+  document.getElementById('btn-submit-mock')?.addEventListener('click',()=>{
+    const unanswered=mockState.questions.length-Object.keys(mockState.answers).length;
+    if(unanswered>0&&!confirm(`${unanswered} question${unanswered===1?'':'s'} unanswered. Submit anyway?`)) return;
+    clearInterval(mockState.timerInterval);finishMockExam(false);
+  });
+}
+
+function jumpMockQ(i){mockState.idx=i;renderMockExam();attachMockListeners();}
+
+function finishMockExam(timedOut){
+  if(mockState.timerInterval) clearInterval(mockState.timerInterval);
+  const{questions,answers,totalSeconds,remainingSeconds}=mockState;
+  const duration=totalSeconds-remainingSeconds;
+  let correct=0;
+  const domainResults={};
+  DOMAINS.forEach(d=>domainResults[d]={correct:0,total:0});
+  questions.forEach((q,i)=>{
+    const chosen=answers[i]||[];
+    const isCorrect=chosen.length>0&&arraysEqual(chosen.slice().sort(),q.correct.slice().sort());
+    if(isCorrect) correct++;
+    domainResults[q.domain].total++;
+    if(isCorrect) domainResults[q.domain].correct++;
+    recordAnswer(q.id,chosen,isCorrect);
+  });
+  const pct=Math.round(correct/questions.length*100);
+  const result={mode:'mock',date:Date.now(),score:pct,correct,total:questions.length,duration,domainScores:{}};
+  DOMAINS.forEach(d=>result.domainScores[d]=domainResults[d].total?Math.round(domainResults[d].correct/domainResults[d].total*100):0);
+  history.push(result);
+  saveAll();
+  if(pct>=90) confettiBurst(window.innerWidth/2,200);
+  renderMockReview(questions,answers,domainResults,pct,correct,duration,timedOut);
+}
+
+function renderMockReview(questions,answers,domainResults,pct,correct,duration,timedOut){
+  const mins=Math.floor(duration/60),secs=duration%60;
+  const color=pct>=90?'var(--ok)':pct>=70?'var(--accent)':'var(--err)';
+  const el=document.getElementById('main-content');
+  el.innerHTML=`
+  <div class="section-header"><h1>ðŸ“‹ Exam Review</h1></div>
+  ${timedOut?`<div class="card-sm" style="border-left:3px solid var(--err);margin-bottom:1rem;color:var(--err)">â° Time expired â€” exam was auto-submitted.</div>`:''}
+  <div class="card card-glow-${pct>=90?'green':'amber'}" style="margin-bottom:1.25rem">
+    <div style="text-align:center;padding:1rem 0">
+      <div class="score-reveal" style="font-size:4rem;font-weight:900;color:${color};letter-spacing:-.05em;line-height:1;filter:drop-shadow(0 0 24px ${color}60)">${pct}%</div>
+      <div class="muted" style="margin-top:.4rem">${correct} / ${questions.length} correct Â· ${mins}m ${secs}s</div>
+      <div style="margin-top:.5rem;font-size:1rem;font-weight:800;color:${pct>=70?'var(--ok)':'var(--err)'}">${pct>=70?'âœ… PASS â€” Great work!':'âŒ Below pass threshold â€” keep practising!'}</div>
+    </div>
+    <div class="grid-2" style="margin-top:1rem">
+      ${DOMAINS.map(d=>{
+        const r=domainResults[d];const p=r.total?Math.round(r.correct/r.total*100):0;const c2=DOMAIN_COLOR[d];
+        return `<div class="card-sm" style="border-left:3px solid ${c2}">
+          <span class="badge ${DOMAIN_BADGE[d]}">${DOMAIN_SHORT[d]}</span>
+          <div style="font-weight:900;font-size:1.3rem;margin-top:.3rem;color:${p>=70?'var(--ok)':p>=50?'var(--accent)':'var(--err)'}">${p}%</div>
+          <div class="muted" style="font-size:.78rem">${r.correct}/${r.total}</div>
+        </div>`;
+      }).join('')}
+    </div>
+  </div>
+  <h2 style="margin-bottom:.75rem">Question Review</h2>
+  ${questions.map((q,i)=>{
+    const chosen=answers[i]||[];const isCorrect=chosen.length>0&&arraysEqual(chosen.slice().sort(),q.correct.slice().sort());const skipped=chosen.length===0;
+    return `<div class="review-item ${skipped?'rv-skipped':isCorrect?'rv-correct':'rv-wrong'}">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;flex-wrap:wrap">
+        <span>${skipped?'â¬œ':isCorrect?'âœ…':'âŒ'}</span>
+        <span class="muted" style="font-size:.78rem">Q${i+1}</span>
+        <span class="badge ${DOMAIN_BADGE[q.domain]}">${DOMAIN_SHORT[q.domain]}</span>
+      </div>
+      <p style="font-size:.875rem;font-weight:500;margin-bottom:.4rem">${q.stem}</p>
+      ${!skipped?`<p style="font-size:.78rem;color:${isCorrect?'var(--ok)':'var(--err)'}">Your answer: ${chosen.join(', ')}</p>`:'<p style="font-size:.78rem;color:var(--muted)">Not answered</p>'}
+      <p style="font-size:.78rem;color:var(--ok)">Correct: ${q.correct.join(', ')}</p>
+      <p style="font-size:.78rem;color:var(--muted);margin-top:.3rem;line-height:1.5">${getRationale(q)}</p>
+    </div>`;
+  }).join('')}
+  <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem">
+    <button class="btn btn-primary" onclick="startMockExam()">Take Another Mock</button>
+    <button class="btn btn-secondary" onclick="navigate('home')">Home</button>
+  </div>`;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  PROGRESS TAB
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderProgress(){
+  const overall=overallAccuracy();
+  const totalAttempted=Object.values(progress).filter(p=>p.attempts>0).length;
+  const mastered=Object.values(progress).filter(p=>p.interval===INTERVALS.length-1&&p.correct>0).length;
+  const top=getTopConfusions(5);
+  const mocks=history.filter(h=>h.mode==='mock');
+  const level=Math.floor(xp/200)+1;
+
+  return `
+  <div class="section-header"><h1>ðŸ“Š Progress</h1></div>
+
+  <!-- XP & Level -->
+  <div class="card card-glow-blue animate-in" style="margin-bottom:1.25rem">
+    <div style="display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap">
+      <div style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,rgba(167,139,250,0.25),rgba(56,189,248,0.15));border:2px solid rgba(167,139,250,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <span style="font-size:1.8rem">âš¡</span>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:1.1rem;font-weight:800">Level ${level}</div>
+        <div class="muted" style="font-size:.875rem">${xp} XP total Â· ${200-(xp%200)} XP to Level ${level+1}</div>
+        <div class="progress-wrap" style="margin-top:.5rem;height:8px">
+          <div class="progress-fill ok" style="width:${((xp%200)/200*100).toFixed(0)}%;height:8px"></div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:2rem;font-weight:900;color:var(--accent)"><span class="flame">ðŸ”¥</span> ${streak.count}</div>
+        <div class="muted" style="font-size:.7rem;text-transform:uppercase;letter-spacing:.06em">Day streak</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid-4 animate-in" style="margin-bottom:1.25rem">
+    <div class="stat">
+      <div class="stat-num" style="color:${overall===null?'var(--muted)':overall>=80?'var(--ok)':overall>=60?'var(--accent)':'var(--err)'}">${overall===null?'â€”':overall+'%'}</div>
+      <div class="stat-label">Overall</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:var(--info)">${totalAttempted}</div>
+      <div class="stat-label">Attempted</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:var(--ok)">${mastered}</div>
+      <div class="stat-label">Mastered</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:${dueItems().length>0?'var(--err)':'var(--ok)'}">${dueItems().length}</div>
+      <div class="stat-label">Due</div>
+    </div>
+  </div>
+
+  <!-- Domain Accuracy -->
+  <div class="card animate-in" style="margin-bottom:1.25rem">
+    <h2>Domain Accuracy</h2>
+    ${DOMAINS.map(d=>{
+      const acc=domainAccuracy(d);const pct=acc===null?0:acc;const color=DOMAIN_COLOR[d];
+      const qs=window.QUESTIONS.filter(q=>q.domain===d);
+      const att=qs.filter(q=>progress[q.id]&&progress[q.id].attempts>0).length;
+      return `<div style="margin-bottom:1rem">
+        <div style="display:flex;justify-content:space-between;margin-bottom:.3rem;align-items:center">
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <span>${DOMAIN_EMOJI[d]}</span>
+            <span class="badge ${DOMAIN_BADGE[d]}">${DOMAIN_SHORT[d]}</span>
+            <span style="font-size:.83rem">${d}</span>
+          </div>
+          <span style="font-weight:800;color:${acc===null?'var(--muted)':color}">${acc===null?'â€”':acc+'%'} <span class="muted" style="font-weight:400;font-size:.78rem">${att}/${qs.length}</span></span>
+        </div>
+        <div class="progress-wrap" style="height:8px">
+          <div class="progress-fill" style="width:${pct}%;height:8px;background:linear-gradient(90deg,${color},${color}99);box-shadow:0 0 10px ${color}60"></div>
+        </div>
+      </div>`;
+    }).join('')}
+  </div>
+
+  <!-- SR Status -->
+  <div class="card animate-in" style="margin-bottom:1.25rem">
+    <h2>Spaced Repetition Status</h2>
+    ${renderSRStatus()}
+  </div>
+
+  <!-- Confusions -->
+  ${top.length>0?`
+  <div class="card animate-in" style="margin-bottom:1.25rem">
+    <h2>ðŸ” Top Confusion Pairs</h2>
+    <p class="muted" style="font-size:.875rem;margin-bottom:.75rem">Pairs you most often mix up. Drill them until the distinction is crystal clear.</p>
+    ${top.map((c,i)=>`
+    <div class="confusion-pair" style="margin-bottom:.5rem">
+      <div>
+        <div class="confusion-services">${i+1}. ${c.aLabel} â†’ ${c.bLabel}</div>
+        <div class="confusion-count">${c.count} mix-up${c.count!==1?'s':''} Â· Last: ${new Date(c.lastSeen).toLocaleDateString()}</div>
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="navigate('practice');setTimeout(()=>showCompare('${c.key.replace(/'/g,"\\'")}'),80)">Compare â†’</button>
+    </div>`).join('')}
+  </div>`:''}
+
+  <!-- Mock History -->
+  ${mocks.length>0?`
+  <div class="card animate-in">
+    <h2>Mock Exam History</h2>
+    ${renderMockHistoryChart(mocks)}
+  </div>`:''}`;
+}
+
+function renderMockHistoryChart(mocks){
+  const recent=mocks.slice(-10);
+  const max=100;
+  const chartH=80;
+  const pts=recent.map((m,i)=>({x:(i/(Math.max(recent.length-1,1)))*100,y:(1-m.score/max)*chartH,score:m.score,date:new Date(m.date).toLocaleDateString()}));
+  const pathD=pts.map((p,i)=>`${i===0?'M':'L'}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+  return `
+  <div style="margin-bottom:1rem;overflow:visible">
+    <svg viewBox="-2 -5 104 ${chartH+15}" style="width:100%;height:${chartH+30}px;overflow:visible">
+      <line x1="0" y1="${((1-0.7)*chartH).toFixed(1)}" x2="100" y2="${((1-0.7)*chartH).toFixed(1)}" stroke="rgba(34,197,94,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="1" y="${((1-0.7)*chartH-2).toFixed(1)}" fill="rgba(34,197,94,0.5)" font-size="4">70% pass</text>
+      <path d="${pathD}" fill="none" stroke="url(#lineGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <defs>
+        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="var(--accent)"/>
+          <stop offset="100%" stop-color="var(--ok)"/>
+        </linearGradient>
+      </defs>
+      ${pts.map(p=>`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="${p.score>=90?'var(--ok)':p.score>=70?'var(--accent)':'var(--err)'}" stroke="var(--bg)" stroke-width="1.5"/>
+      <text x="${p.x.toFixed(1)}" y="${(p.y-6).toFixed(1)}" text-anchor="middle" fill="var(--text)" font-size="5" font-weight="bold">${p.score}%</text>`).join('')}
+    </svg>
+  </div>
+  ${recent.map((m,i)=>{
+    const color=m.score>=90?'var(--ok)':m.score>=70?'var(--accent)':'var(--err)';
+    return `<div style="display:flex;align-items:center;gap:.75rem;padding:.5rem 0;border-bottom:1px solid var(--border);flex-wrap:wrap">
+      <span style="font-weight:800;font-size:1rem;color:${color};min-width:46px">${m.score}%</span>
+      <span class="muted" style="font-size:.78rem">${new Date(m.date).toLocaleDateString()}</span>
+      <span class="muted" style="font-size:.78rem">${m.correct}/${m.total} Â· ${Math.round(m.duration/60)}m ${m.duration%60}s</span>
+      <span style="margin-left:auto;font-size:.73rem;font-weight:700;color:${m.score>=70?'var(--ok)':'var(--err)'}">${m.score>=70?'PASS':'FAIL'}</span>
+    </div>`;
+  }).join('')}`;
+}
+
+function renderSRStatus(){
+  const now=Date.now();
+  const buckets={new:0,due:0,soon:0,scheduled:0,mastered:0};
+  window.QUESTIONS.forEach(q=>{
+    const p=progress[q.id];
+    if(!p||p.attempts===0){buckets.new++;return;}
+    if(p.interval===INTERVALS.length-1&&p.correct>0){buckets.mastered++;return;}
+    if(now>=p.nextDue){buckets.due++;return;}
+    const days=(p.nextDue-now)/86400000;
+    if(days<=3) buckets.soon++; else buckets.scheduled++;
+  });
+  const total=window.QUESTIONS.length;
+  const rows=[
+    ['ðŸ”µ New / Unseen',buckets.new,'var(--info)'],
+    ['ðŸ”´ Due Now',buckets.due,'var(--err)'],
+    ['ðŸŸ¡ Due Soon (â‰¤3 days)',buckets.soon,'var(--accent)'],
+    ['ðŸŸ¢ Scheduled (>3 days)',buckets.scheduled,'var(--ok)'],
+    ['â­ Mastered',buckets.mastered,'var(--flag)'],
+  ];
+  return rows.map(([label,count,color])=>`
+  <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.7rem">
+    <div style="width:38px;text-align:right;font-weight:800;font-size:.92rem;color:${color}">${count}</div>
+    <div class="progress-wrap" style="flex:1;height:8px"><div class="progress-fill" style="width:${(count/total*100).toFixed(0)}%;height:8px;background:${color};box-shadow:0 0 8px ${color}80"></div></div>
+    <div style="font-size:.8rem;color:var(--muted);min-width:160px">${label}</div>
+  </div>`).join('');
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  ATTACH TAB-SPECIFIC LISTENERS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function attachTabListeners(tab){
+  if(tab==='practice'){
+    document.querySelectorAll('#practice-subtabs .sub-tab').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('#practice-subtabs .sub-tab').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const stab=btn.dataset.stab;
+        const content=document.getElementById('practice-content');
+        if(stab==='by-domain') content.innerHTML=renderPracticeByDomain();
+        else if(stab==='due') content.innerHTML=renderPracticeDue();
+        else if(stab==='exams') content.innerHTML=renderPracticeExams();
+        else if(stab==='visuals') content.innerHTML=renderCloudMap();
+        else if(stab==='keywords') content.innerHTML=renderExamKeywords();
+        else if(stab==='terms') content.innerHTML=renderKeyTerms();
+        else if(stab==='interview') content.innerHTML=renderInterviewPrep();
+        else if(stab==='weakness') content.innerHTML=renderWeaknessDrill();
+        else if(stab==='flashcards'){content.innerHTML=renderFlashcards();attachFlashcardListeners();}
+      });
+    });
+  }
+}
+
+function attachFlashcardListeners(){
+  const container=document.getElementById('flashcard-container');
+  if(!container) return;
+  const pool=JSON.parse(container.dataset.pool);
+  let idx=parseInt(container.dataset.idx)||0;
+  const rebuild=()=>{
+    const q=getQ(pool[idx]);
+    container.innerHTML=renderFlashcardItem(q)+`
+    <div style="display:flex;gap:.5rem;margin-top:1rem;align-items:center;flex-wrap:wrap">
+      <button class="btn btn-secondary btn-sm" id="fc-prev" ${idx===0?'disabled':''}>â† Prev</button>
+      <span class="muted" style="font-size:.875rem" id="fc-counter">${idx+1} / ${pool.length}</span>
+      <button class="btn btn-secondary btn-sm" id="fc-next" ${idx===pool.length-1?'disabled':''}>Next â†’</button>
+      <button class="btn btn-primary btn-sm" id="fc-flip">ðŸ”„ Flip Card</button>
+    </div>`;
+    attachFlashcardListeners();
+  };
+  document.getElementById('fc-flip')?.addEventListener('click',flipCard);
+  document.getElementById('fc-next')?.addEventListener('click',()=>{if(idx<pool.length-1){idx++;rebuild();}});
+  document.getElementById('fc-prev')?.addEventListener('click',()=>{if(idx>0){idx--;rebuild();}});
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  UTILITIES
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+function arraysEqual(a,b){
+  if(a.length!==b.length) return false;
+  for(let i=0;i<a.length;i++) if(a[i]!==b[i]) return false;
+  return true;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  BOOT
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+(function(){
+  const today=new Date().toDateString();
+  if(streak.lastDate===today){/* same day */}
+  else if(streak.lastDate===new Date(Date.now()-86400000).toDateString()){streak.count++;streak.lastDate=today;}
+  else{streak.count=1;streak.lastDate=today;}
+  saveAll();
+})();
+
+navigate('home');
+up
