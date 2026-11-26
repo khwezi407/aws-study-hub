@@ -2427,6 +2427,9 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
 <div class="toast" id="toast"></div>
 
 <script>
+// Capture hash FIRST before any navigation mutates it
+const _bootHash = (location.hash||'').replace('#','').trim();
+
 // ═══════════════════════════════════════════════════════════════
 //  SPACE CANVAS — deep nebula, waves + stars
 // ═══════════════════════════════════════════════════════════════
@@ -2641,7 +2644,7 @@ let currentTab='home';
 function navigate(tab){
   currentTab=tab;
   // Persist current page in URL hash so reload returns here
-  window.history.replaceState(null,'','#'+tab);
+  try{ location.hash = tab; }catch(e){}
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
   const el=document.getElementById('main-content');
   el.style.opacity='0';el.style.transform='translateY(8px)';
@@ -6178,11 +6181,8 @@ function saveProfile(wasOnboarding=false){
 }
 
 function bootToPage(){
-  // Read hash to restore last-visited page; fall back to home
-  const hash=window.location.hash.replace('#','').trim();
   const validTabs=['home','learn','practice','mock','progress','achievements','terminology','universe','games','settings','roadmap','recommendation','weekly-flashcards','flashcards','interview prep','diagnostic'];
-  const tab=validTabs.includes(hash)?hash:'home';
-  applyTheme(appTheme);
+  const tab=validTabs.includes(_bootHash)?_bootHash:'home';
   navigate(tab);
   updateTopbar();
 }
