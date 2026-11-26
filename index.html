@@ -1453,6 +1453,47 @@ input,select{font:inherit}
 @keyframes confettiFall{0%{transform:translateY(-10px) rotateZ(0deg);opacity:1}100%{transform:translateY(80px) rotateZ(360deg);opacity:0}}
 .confetti-piece{position:fixed;width:7px;height:7px;border-radius:2px;pointer-events:none;z-index:999;animation:confettiFall .7s ease-out forwards}
 
+/* ═══ PROFILE / ONBOARDING MODAL ══════════════════════════ */
+.pmodal-overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;
+  animation:fadeIn .25s ease;
+}
+.pmodal{
+  background:linear-gradient(150deg,rgba(8,18,46,0.98),rgba(5,12,30,1));
+  border:1px solid rgba(255,153,0,0.25);
+  border-radius:24px;
+  padding:2.2rem 2.4rem;
+  width:min(480px,90vw);
+  box-shadow:0 32px 80px rgba(0,0,0,0.8),0 0 60px rgba(255,153,0,0.08);
+  animation:slideUp .32s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+.pmodal-title{font-size:1.4rem;font-weight:900;margin-bottom:.35rem;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pmodal-sub{font-size:.82rem;color:var(--muted);margin-bottom:1.6rem;line-height:1.6}
+.pmodal-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;font-weight:800;color:var(--muted);margin-bottom:.5rem}
+.pmodal-input{
+  width:100%;background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:12px;padding:.75rem 1rem;
+  color:var(--text);font-size:.95rem;font-weight:700;
+  outline:none;transition:border-color .2s;box-sizing:border-box;
+}
+.pmodal-input:focus{border-color:rgba(255,153,0,0.5);box-shadow:0 0 0 3px rgba(255,153,0,0.1)}
+.avatar-grid{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.6rem}
+.avatar-opt{
+  width:42px;height:42px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;cursor:pointer;
+  border:2px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.04);
+  transition:all .18s;
+}
+.avatar-opt:hover{border-color:rgba(255,153,0,0.4);background:rgba(255,153,0,0.08);transform:scale(1.12)}
+.avatar-opt.selected{border-color:var(--gold);background:rgba(255,153,0,0.14);box-shadow:0 0 14px rgba(255,153,0,0.3)}
+
 /* ═══ RING ANIMATION ══════════════════════ */
 @keyframes ringDraw{from{stroke-dasharray:0 999}to{stroke-dasharray:var(--dash) var(--circ)}}
 .ring-animate circle.fill{animation:ringDraw 1s cubic-bezier(.4,0,.2,1) .2s both}
@@ -2359,7 +2400,7 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
           <img src="assets/01-astronaut-hero.png" alt="User" onerror="this.parentElement.textContent='🧑'">
         </div>
         <div>
-          <div class="topbar-name" id="topbar-name">Khwezi Maphumulo</div>
+          <div class="topbar-name" id="topbar-name">Cloud Dreamer</div>
           <div class="topbar-level" id="topbar-level">Level 1 · 0 XP</div>
           <div class="topbar-xp-bar"><div class="topbar-xp-fill" id="topbar-xp-fill" style="width:0%"></div></div>
         </div>
@@ -2543,7 +2584,10 @@ let missions=load('clf_missions',{date:'',done:[]});
 let homeLayout=load('clf_home_layout','classic');
 let appTheme=load('clf_theme','default');
 let galaxyProgress=load('clf_galaxy_progress',{});
-function saveAll(){save('clf_progress',progress);save('clf_history',history);save('clf_confusions',confusions);save('clf_diagnostic',diagnostic);save('clf_xp',xp);save('clf_streak',streak);save('clf_missions',missions);save('clf_home_layout',homeLayout);save('clf_theme',appTheme);save('clf_galaxy_progress',galaxyProgress);}
+let userName=load('clf_username','');
+let userAvatar=load('clf_avatar','🚀');
+function saveAll(){save('clf_progress',progress);save('clf_history',history);save('clf_confusions',confusions);save('clf_diagnostic',diagnostic);save('clf_xp',xp);save('clf_streak',streak);save('clf_missions',missions);save('clf_home_layout',homeLayout);save('clf_theme',appTheme);save('clf_galaxy_progress',galaxyProgress);save('clf_username',userName);save('clf_avatar',userAvatar);}
+function displayName(){return userName||'Cloud Dreamer';}
 function applyTheme(t){document.body.setAttribute('data-theme',t==='default'?'':t);}
 function getQ(id){return window.QUESTIONS.find(q=>q.id===id);}
 function domainAccuracy(domain){
@@ -2596,6 +2640,8 @@ let currentTab='home';
 
 function navigate(tab){
   currentTab=tab;
+  // Persist current page in URL hash so reload returns here
+  window.history.replaceState(null,'','#'+tab);
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
   const el=document.getElementById('main-content');
   el.style.opacity='0';el.style.transform='translateY(8px)';
@@ -2656,7 +2702,9 @@ function toast(msg,type=''){
 function updateTopbar(){
   const level=Math.floor(xp/200)+1,xpInLevel=xp%200,pct=(xpInLevel/200*100).toFixed(0);
   const tb=document.getElementById('topbar-level');
+  const tn=document.getElementById('topbar-name');
   const fill=document.getElementById('topbar-xp-fill');
+  if(tn) tn.textContent=displayName();
   if(tb) tb.textContent=`Level ${level} · ${xp} XP`;
   if(fill) fill.style.width=pct+'%';
   updateSidebarXP();
@@ -2665,12 +2713,13 @@ function updateSidebarXP(){
   const el=document.getElementById('sidebar-xp');if(!el)return;
   const level=Math.floor(xp/200)+1,xpInLevel=xp%200;
   el.innerHTML=`
-  <div class="sidebar-profile">
-    <div class="profile-avatar">🧑</div>
+  <div class="sidebar-profile" onclick="openProfileModal()" title="Edit profile" style="cursor:pointer">
+    <div class="profile-avatar" style="font-size:1.3rem;line-height:1">${userAvatar}</div>
     <div style="flex:1;min-width:0">
-      <div style="font-size:.75rem;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cloud Dreamer</div>
+      <div style="font-size:.75rem;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${displayName()}</div>
       <div style="font-size:.62rem;color:var(--gold)">Level ${level} · ${xp} XP</div>
     </div>
+    <span style="font-size:.6rem;color:var(--muted);opacity:.6">✏️</span>
   </div>
   <div style="display:flex;gap:.35rem;margin-bottom:.4rem;flex-wrap:wrap">
     <span style="display:inline-flex;align-items:center;gap:.2rem;padding:.15rem .5rem;border-radius:999px;font-size:.62rem;font-weight:800;background:rgba(255,153,0,0.15);color:var(--gold);border:1px solid rgba(255,153,0,0.2)">🔥 ${streak.count}d</span>
@@ -3092,7 +3141,7 @@ function renderHomeCommandCenter(days,due,overall,mockCount,totalAttempted,domai
             <span class="cc-gold">Command Centre</span>
           </div>
           <div class="cc-header-sub">
-            <span>Welcome back, Khwezi Maphumulo</span>
+            <span>Welcome back, ${displayName()}</span>
             <span class="cc-dot-sep"></span>
             <span>${new Date().toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'})}</span>
             <span class="cc-dot-sep"></span>
@@ -5317,7 +5366,7 @@ function renderStudyRoadmap(){
 
   return `
   <div class="section-header">
-    <h1>🗓️ Khwezi's Study Roadmap</h1>
+    <h1>🗓️ ${displayName().split(' ')[0]}'s Study Roadmap</h1>
     <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
       <span style="padding:.3rem .75rem;border-radius:999px;background:rgba(255,153,0,0.15);border:1px solid rgba(255,153,0,0.3);font-size:.75rem;font-weight:800;color:var(--gold)">📅 Exam: 14 Dec 2026</span>
       <span style="padding:.3rem .75rem;border-radius:999px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);font-size:.75rem;font-weight:800;color:var(--red)">⏰ ${daysToExam} days left</span>
@@ -6057,9 +6106,99 @@ function gymShowService(svcName, catIdx){
   setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),60);
 }
 
+// ═══════════════════════════════════════════════════════════════
+//  PROFILE MODAL
+// ═══════════════════════════════════════════════════════════════
+const AVATARS=['🚀','🧑‍💻','👩‍💻','🧠','🌟','🔥','⚡','🎯','🏆','🛸','🧑‍🚀','👾','🤖','🦊','🐉'];
+let _selectedAvatar=userAvatar||'🚀';
+
+function openProfileModal(isOnboarding=false){
+  _selectedAvatar=userAvatar||'🚀';
+  const existing=document.getElementById('profile-modal-overlay');
+  if(existing) existing.remove();
+  const overlay=document.createElement('div');
+  overlay.className='pmodal-overlay';
+  overlay.id='profile-modal-overlay';
+  overlay.innerHTML=`
+  <div class="pmodal">
+    <div class="pmodal-title">${isOnboarding?'👋 Welcome to AWS Study Hub':'✏️ Edit Profile'}</div>
+    <div class="pmodal-sub">${isOnboarding
+      ?'Your progress, XP, and streak are saved right here in your browser. Close the tab, come back — it\'s all waiting for you.'
+      :'Changes save instantly to your browser.'}</div>
+
+    <div class="pmodal-label">Your Name</div>
+    <input class="pmodal-input" id="pmodal-name" type="text" placeholder="Enter your name…"
+      value="${isOnboarding?'':displayName()}" maxlength="30" autocomplete="off"
+      style="margin-bottom:1.4rem">
+
+    <div class="pmodal-label" style="margin-bottom:.5rem">Pick your avatar</div>
+    <div class="avatar-grid" id="avatar-grid">
+      ${AVATARS.map(a=>`<div class="avatar-opt${a===_selectedAvatar?' selected':''}" onclick="selectAvatar('${a}',this)">${a}</div>`).join('')}
+    </div>
+
+    <div style="display:flex;gap:.7rem;justify-content:flex-end">
+      ${!isOnboarding?`<button class="btn btn-secondary" onclick="document.getElementById('profile-modal-overlay').remove()">Cancel</button>`:''}
+      <button class="btn btn-primary" onclick="saveProfile(${isOnboarding})" style="min-width:120px">
+        ${isOnboarding?'🚀 Let\'s go!':'Save'}
+      </button>
+    </div>
+  </div>`;
+
+  // Close on backdrop click (only for edit, not onboarding)
+  if(!isOnboarding){
+    overlay.addEventListener('click',e=>{if(e.target===overlay) overlay.remove();});
+  }
+  document.body.appendChild(overlay);
+  setTimeout(()=>document.getElementById('pmodal-name').focus(),80);
+}
+
+function selectAvatar(emoji, el){
+  _selectedAvatar=emoji;
+  document.querySelectorAll('.avatar-opt').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function saveProfile(wasOnboarding=false){
+  const nameInput=document.getElementById('pmodal-name');
+  const name=(nameInput?.value||'').trim();
+  if(!name){nameInput.style.borderColor='rgba(239,68,68,0.6)';nameInput.focus();return;}
+  userName=name;
+  userAvatar=_selectedAvatar;
+  save('clf_username',userName);
+  save('clf_avatar',userAvatar);
+  document.getElementById('profile-modal-overlay')?.remove();
+  updateTopbar();
+  if(wasOnboarding){
+    // Now boot into the correct page
+    bootToPage();
+    toast(`Welcome, ${userName}! 🎉`,'ok');
+  } else {
+    toast('Profile saved ✓','ok');
+  }
+}
+
+function bootToPage(){
+  // Read hash to restore last-visited page; fall back to home
+  const hash=window.location.hash.replace('#','').trim();
+  const validTabs=['home','learn','practice','mock','progress','achievements','terminology','universe','games','settings','roadmap','recommendation','weekly-flashcards','flashcards','interview prep','diagnostic'];
+  const tab=validTabs.includes(hash)?hash:'home';
+  applyTheme(appTheme);
+  navigate(tab);
+  updateTopbar();
+}
+
 applyTheme(appTheme);
-navigate('home');
-updateTopbar();
+
+// ── Boot: show onboarding if no name yet, otherwise go to last page ──
+if(!userName){
+  // Render a minimal shell so the app looks alive behind the modal
+  navigate('home');
+  updateTopbar();
+  openProfileModal(true);
+} else {
+  bootToPage();
+  updateTopbar();
+}
 
 // Safety net: save state whenever the tab is hidden or closed (critical on mobile)
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden') saveAll();});
