@@ -1014,6 +1014,233 @@ input,select{font:inherit}
 .wrong-opt-item strong{color:var(--red2)}
 .interview-tip{margin-top:.7rem;padding:.6rem .9rem;background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(59,168,255,0.04));border:1px solid rgba(139,92,246,0.16);border-radius:var(--radius);font-size:.8rem;line-height:1.6}
 .interview-tip .tip-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--flag);font-weight:800;margin-bottom:.28rem;display:block}
+
+/* ── RICH EXPLANATION BOX ─────────────────────────────── */
+.exp-box{
+  margin-top:1rem;border-radius:var(--radius-lg);
+  font-size:.86rem;line-height:1.65;
+  animation:slideUp .32s cubic-bezier(.4,0,.2,1);
+  overflow:hidden;
+}
+.exp-correct{
+  background:linear-gradient(160deg,rgba(16,201,149,0.07),rgba(5,12,30,0.95));
+  border:1px solid rgba(16,201,149,0.22);
+  border-left:3px solid var(--ok);
+}
+.exp-wrong{
+  background:linear-gradient(160deg,rgba(239,68,68,0.07),rgba(5,12,30,0.95));
+  border:1px solid rgba(239,68,68,0.22);
+  border-left:3px solid var(--red);
+}
+
+/* status row */
+.exp-status-row{
+  display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;
+  padding:.75rem 1rem .6rem;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.exp-status-badge{
+  font-size:.72rem;font-weight:800;padding:.22rem .7rem;
+  border-radius:999px;letter-spacing:.03em;
+}
+.exp-badge-ok{background:rgba(16,201,149,0.18);color:var(--ok);border:1px solid rgba(16,201,149,0.3)}
+.exp-badge-err{background:rgba(239,68,68,0.18);color:var(--red2);border:1px solid rgba(239,68,68,0.3)}
+
+/* keyword chips */
+.exp-tags{display:flex;flex-wrap:wrap;gap:.3rem}
+.exp-tag{
+  font-size:.62rem;font-weight:700;padding:.15rem .45rem;border-radius:5px;
+  background:rgba(8,123,255,0.12);color:#7bbfff;
+  border:1px solid rgba(8,123,255,0.2);
+}
+
+/* sections */
+.exp-section{padding:.7rem 1rem;border-bottom:1px solid rgba(255,255,255,0.04)}
+.exp-section:last-child{border-bottom:none}
+.exp-section-label{
+  font-size:.62rem;text-transform:uppercase;letter-spacing:.09em;
+  font-weight:800;margin-bottom:.5rem;color:var(--muted2);
+}
+.exp-label-ok{color:var(--ok)}
+.exp-label-err{color:var(--red2)}
+
+/* rationale text */
+.exp-rationale-text{color:var(--text);line-height:1.75}
+
+/* correct option item */
+.exp-correct-item{
+  display:flex;align-items:flex-start;gap:.6rem;
+  padding:.45rem .55rem;
+  background:rgba(16,201,149,0.07);
+  border:1px solid rgba(16,201,149,0.15);
+  border-radius:var(--radius);
+}
+.exp-correct-letter{
+  width:22px;height:22px;border-radius:6px;flex-shrink:0;
+  background:var(--ok);color:#050c1e;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;font-weight:900;margin-top:1px;
+}
+.exp-correct-text{font-weight:700;color:var(--ok2);font-size:.86rem}
+
+/* wrong option item */
+.exp-wrong-item{
+  display:flex;align-items:flex-start;gap:.6rem;
+  padding:.45rem .55rem;
+  background:rgba(239,68,68,0.04);
+  border:1px solid rgba(239,68,68,0.1);
+  border-radius:var(--radius);margin-bottom:.35rem;
+}
+.exp-wrong-letter{
+  width:22px;height:22px;border-radius:6px;flex-shrink:0;
+  background:rgba(239,68,68,0.2);color:var(--red2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;font-weight:900;margin-top:1px;
+}
+.exp-wrong-text{font-weight:600;color:var(--text);font-size:.84rem;margin-bottom:.2rem}
+
+/* service definition — appears under both correct and wrong items */
+.exp-svc-def{
+  font-size:.78rem;color:var(--muted);line-height:1.5;
+  margin-top:.25rem;padding:.3rem .5rem;
+  background:rgba(255,255,255,0.03);border-radius:5px;
+  border-left:2px solid rgba(8,123,255,0.3);
+}
+.exp-why-wrong{
+  font-size:.78rem;margin-top:.3rem;
+  color:#ff9b9b;line-height:1.5;
+}
+
+/* collapsible wrong options */
+.exp-section-collapsible .exp-wrong-list{display:none}
+.exp-section-collapsible.open .exp-wrong-list{display:block}
+.exp-section-collapsible.open .exp-section-label::after{content:' ▴';font-size:.6rem}
+
+/* feynman + mental model */
+.exp-feynman,.exp-mental-fix,.exp-interview{
+  margin:.6rem 1rem;padding:.6rem .9rem;
+  border-radius:var(--radius);
+  font-size:.8rem;line-height:1.6;
+}
+.exp-feynman{
+  background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(59,168,255,0.05));
+  border:1px solid rgba(139,92,246,0.2);
+}
+.exp-mental-fix{
+  background:linear-gradient(135deg,rgba(239,68,68,0.08),rgba(255,153,0,0.05));
+  border:1px solid rgba(239,68,68,0.2);
+}
+.exp-interview{
+  background:linear-gradient(135deg,rgba(233,169,47,0.08),rgba(255,153,0,0.04));
+  border:1px solid rgba(233,169,47,0.18);
+}
+.exp-feynman-label{
+  display:block;font-size:.6rem;text-transform:uppercase;
+  letter-spacing:.09em;font-weight:800;
+  margin-bottom:.3rem;color:var(--flag);
+}
+
+/* ── RECOMMENDATION / STUDY PLAN ─────────────────────── */
+.rec-urgency-banner{
+  display:flex;align-items:center;gap:1.2rem;
+  padding:1rem 1.2rem;border-radius:var(--radius-lg);
+  background:linear-gradient(135deg,rgba(239,68,68,0.12),rgba(233,169,47,0.08));
+  border:1px solid rgba(239,68,68,0.25);
+}
+.rec-urgency-days{
+  font-size:3rem;font-weight:900;color:var(--red);
+  line-height:1;filter:drop-shadow(0 0 16px rgba(239,68,68,0.5));
+  flex-shrink:0;
+}
+.rec-urgency-label{font-size:.62rem;font-weight:700;color:var(--red2);text-transform:uppercase;letter-spacing:.06em}
+.rec-urgency-msg{flex:1}
+
+.rec-method-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+@media(max-width:600px){.rec-method-grid{grid-template-columns:1fr}}
+.rec-method-card{
+  padding:.7rem .85rem;border-radius:var(--radius);
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
+}
+.rec-method-icon{font-size:1.4rem;margin-bottom:.35rem}
+.rec-method-title{font-size:.8rem;font-weight:800;color:var(--text);margin-bottom:.25rem}
+.rec-method-desc{font-size:.76rem;color:var(--muted);line-height:1.6}
+
+.rec-priority-list{display:flex;flex-direction:column;gap:.55rem}
+.rec-priority-row{display:flex;align-items:center;gap:.7rem}
+.rec-priority-num{
+  width:22px;height:22px;border-radius:50%;flex-shrink:0;
+  background:var(--pc,#087BFF);color:#050c1e;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;font-weight:900;
+}
+.rec-priority-bar-wrap{width:120px;height:6px;background:rgba(255,255,255,0.07);border-radius:999px;overflow:hidden;flex-shrink:0}
+.rec-priority-bar{height:100%;border-radius:999px;box-shadow:0 0 8px var(--pc,#087BFF)}
+.rec-priority-info{flex:1}
+.rec-priority-domain{font-size:.82rem;font-weight:700;color:var(--text)}
+.rec-priority-pct{font-size:.7rem;color:var(--muted)}
+
+.rec-days-list{display:flex;flex-direction:column;gap:.75rem;margin-bottom:.5rem}
+.rec-day-card{
+  border-radius:var(--radius-lg);overflow:hidden;
+  border:1px solid rgba(255,255,255,0.07);
+  border-left:3px solid var(--dc,#087BFF);
+  background:linear-gradient(160deg,rgba(255,255,255,0.03),rgba(5,12,30,0.95));
+  transition:box-shadow .2s;
+}
+.rec-day-card:hover{box-shadow:0 4px 24px rgba(0,0,0,0.4),0 0 0 1px var(--dc,#087BFF)44}
+.rec-day-today{
+  border-color:var(--gold)!important;
+  background:linear-gradient(160deg,rgba(233,169,47,0.08),rgba(5,12,30,0.95))!important;
+  box-shadow:0 0 24px rgba(233,169,47,0.12);
+}
+.rec-day-past{opacity:.5}
+.rec-day-header{
+  display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+  padding:.7rem 1rem .4rem;
+}
+.rec-day-num-wrap{display:flex;flex-direction:column}
+.rec-day-num{font-size:.72rem;font-weight:900;color:var(--text);text-transform:uppercase;letter-spacing:.05em}
+.rec-day-phase{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.rec-day-time{
+  font-size:.62rem;font-weight:800;padding:.15rem .5rem;
+  border-radius:999px;background:rgba(255,255,255,0.07);
+  color:var(--muted);border:1px solid rgba(255,255,255,0.1);
+  margin-left:auto;
+}
+.rec-today-badge{
+  font-size:.6rem;font-weight:800;padding:.15rem .55rem;
+  border-radius:999px;background:rgba(233,169,47,0.2);
+  color:var(--gold);border:1px solid rgba(233,169,47,0.4);
+  animation:pulse 2s infinite;
+}
+.rec-day-title{font-size:.9rem;font-weight:800;color:var(--text);padding:0 1rem .2rem}
+.rec-day-why{font-size:.76rem;color:var(--muted);padding:0 1rem .6rem;line-height:1.5}
+
+.rec-blocks{padding:.5rem 1rem;display:flex;flex-direction:column;gap:.3rem;border-top:1px solid rgba(255,255,255,0.05)}
+.rec-block{display:flex;align-items:flex-start;gap:.6rem;padding:.3rem 0}
+.rec-block-break{opacity:.55}
+.rec-block-min{
+  font-size:.62rem;font-weight:900;color:var(--gold);
+  background:rgba(233,169,47,0.1);border:1px solid rgba(233,169,47,0.2);
+  padding:.12rem .4rem;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:1px;
+}
+.rec-block-min-break{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);color:var(--muted)}
+.rec-block-task{font-size:.8rem;color:var(--muted);line-height:1.6}
+
+.rec-keywords{
+  display:flex;flex-wrap:wrap;gap:.3rem;
+  padding:.5rem 1rem .6rem;border-top:1px solid rgba(255,255,255,0.05);
+}
+.rec-kw{
+  font-size:.62rem;font-weight:700;padding:.13rem .42rem;
+  border-radius:5px;background:rgba(8,123,255,0.1);
+  color:#7bbfff;border:1px solid rgba(8,123,255,0.18);
+}
+.rec-day-goal{
+  margin:.4rem 1rem .8rem;padding:.5rem .75rem;
+  background:rgba(16,201,149,0.07);border:1px solid rgba(16,201,149,0.15);
+  border-radius:var(--radius);font-size:.78rem;color:var(--ok2);line-height:1.5;
+}
 .progress-wrap{background:rgba(255,255,255,0.06);border-radius:999px;height:5px;overflow:hidden}
 .progress-fill{height:100%;border-radius:999px;transition:width .7s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,var(--gold),var(--gold2));box-shadow:0 0 8px rgba(255,153,0,0.35)}
 .progress-fill.ok{background:linear-gradient(90deg,var(--ok),var(--ok2));box-shadow:0 0 8px rgba(34,197,94,0.3)}
@@ -1865,6 +2092,7 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
     <button class="nav-btn" data-tab="achievements"><span class="nav-icon"><img src="aws_premium_sidebar_icons/10-achievements.svg" width="22" height="22" alt=""></span>Achievements</button>
     <button class="nav-btn" data-tab="weekly-flashcards"><span class="nav-icon"><img src="aws_premium_sidebar_icons/11-week-flashcards.svg" width="22" height="22" alt=""></span>Week Flashcards</button>
     <button class="nav-btn" data-tab="roadmap"><span class="nav-icon"><img src="aws_premium_sidebar_icons/12-study-roadmap.svg" width="22" height="22" alt=""></span>Study Roadmap</button>
+    <button class="nav-btn" data-tab="recommendation"><span class="nav-icon"><img src="aws_premium_sidebar_icons/09-progress.svg" width="22" height="22" alt=""></span>Recommendation</button>
     <button class="nav-btn" data-tab="settings"><span class="nav-icon"><img src="aws_premium_sidebar_icons/13-settings.svg" width="22" height="22" alt=""></span>Settings</button>
 
     <div style="flex:1"></div>
@@ -2142,6 +2370,7 @@ function navigate(tab){
     else if(tab==='games') el.innerHTML=renderGamesArena();
     else if(tab==='settings') el.innerHTML=renderSettings();
     else if(tab==='roadmap') el.innerHTML=renderStudyRoadmap();
+    else if(tab==='recommendation') el.innerHTML=renderRecommendation();
     else if(tab==='weekly-flashcards') el.innerHTML=renderWeeklyFlashcards();
     else el.innerHTML=renderHome();
     el.style.opacity='1';el.style.transform='translateY(0)';el.style.transition='opacity .22s,transform .22s';
@@ -3656,13 +3885,90 @@ function submitQuizAnswer(chosen){
   const area=document.getElementById('rationale-area');
   if(area){
     const rationale=getRationale(q),wrongRationale=getWrongRationale(q);
-    const wrongOpts=q.options.filter(o=>!q.correct.some(c=>o.startsWith(c+'.'))).map(o=>{const letter=o.charAt(0);const exp=wrongRationale[letter]||'';return exp?`<div class="wrong-opt-item"><strong>${o}</strong><br>${exp}</div>`:''}).filter(Boolean).join('');
     const tip=getInterviewTip(q);
-    area.innerHTML=`<div class="rationale-box ${isCorrect?'':'wrong'} animate-in">
-      <h4 style="color:${isCorrect?'var(--ok)':'var(--red)'}">${isCorrect?'✅ Correct! +10 XP':'❌ Incorrect — +2 XP for trying'}</h4>
-      <p>${rationale}</p>
-      ${wrongOpts?`<div class="wrong-opts"><div class="label" style="margin:.5rem 0 .3rem">Why the other options are wrong</div>${wrongOpts}</div>`:''}
-      ${tip?`<div class="interview-tip"><span class="tip-label">🎤 Interview Connection</span>${tip}</div>`:''}
+
+    // ── Keyword chips from q.tags ──────────────────────────────
+    const tagChips=(q.tags||[]).map(t=>`<span class="exp-tag">${t}</span>`).join('');
+
+    // ── Correct option(s) with service definition lookup ──────
+    const correctOptItems=q.options.filter(o=>q.correct.some(c=>o.startsWith(c+'.'))).map(o=>{
+      const text=o.replace(/^[A-E]\.\s*/,'');
+      let svcDef=null;
+      for(const key of Object.keys(SVC).sort((a,b)=>b.length-a.length)){if(text.includes(key)){svcDef=SVC[key];break;}}
+      return `<div class="exp-correct-item">
+        <span class="exp-correct-letter">${o.charAt(0)}</span>
+        <div>
+          <div class="exp-correct-text">${text}</div>
+          ${svcDef?`<div class="exp-svc-def">📖 ${svcDef}</div>`:''}
+        </div>
+      </div>`;
+    }).join('');
+
+    // ── Wrong options with service definition + why wrong ─────
+    const wrongOptItems=q.options.filter(o=>!q.correct.some(c=>o.startsWith(c+'.'))).map(o=>{
+      const letter=o.charAt(0);const text=o.replace(/^[A-E]\.\s*/,'');
+      const exp=wrongRationale[letter]||'';
+      let svcDef=null;
+      for(const key of Object.keys(SVC).sort((a,b)=>b.length-a.length)){if(text.includes(key)){svcDef=SVC[key];break;}}
+      return `<div class="exp-wrong-item">
+        <span class="exp-wrong-letter">${letter}</span>
+        <div>
+          <div class="exp-wrong-text">${text}</div>
+          ${svcDef?`<div class="exp-svc-def">📖 ${svcDef}</div>`:''}
+          ${exp?`<div class="exp-why-wrong">✗ ${exp}</div>`:''}
+        </div>
+      </div>`;
+    }).join('');
+
+    // ── Feynman challenge (after correct) ─────────────────────
+    const feynmanPrompt=isCorrect?`<div class="exp-feynman">
+      <span class="exp-feynman-label">🧠 Feynman Check</span>
+      Close your eyes. Can you explain <em>why</em> this answer is correct in one plain sentence — as if teaching someone who has never heard of AWS?
+    </div>`:'';
+
+    // ── Mental model fix (after wrong) ────────────────────────
+    const mentalModelFix=!isCorrect?(()=>{
+      const correctText=q.options.find(o=>q.correct.some(c=>o.startsWith(c+'.'))).replace(/^[A-E]\.\s*/,'');
+      const chosenText=q.options.find(o=>o.startsWith(chosen[0]+'.'))||'';
+      return `<div class="exp-mental-fix">
+        <span class="exp-feynman-label">🔁 Mental Model Fix</span>
+        You chose <strong>${chosenText.replace(/^[A-E]\.\s*/,'')}</strong> — the correct answer is <strong>${correctText}</strong>. Re-read the rationale, then say the correct answer out loud before clicking Next.
+      </div>`;
+    })():'';
+
+    area.innerHTML=`<div class="exp-box ${isCorrect?'exp-correct':'exp-wrong'} animate-in">
+
+      <!-- ── STATUS HEADER ── -->
+      <div class="exp-status-row">
+        <span class="exp-status-badge ${isCorrect?'exp-badge-ok':'exp-badge-err'}">${isCorrect?'✅ Correct +10 XP':'❌ Incorrect +2 XP'}</span>
+        ${tagChips?`<div class="exp-tags">${tagChips}</div>`:''}
+      </div>
+
+      <!-- ── CORRECT ANSWER SECTION ── -->
+      <div class="exp-section">
+        <div class="exp-section-label exp-label-ok">✓ Correct Answer${q.correct.length>1?'s':''}</div>
+        ${correctOptItems}
+      </div>
+
+      <!-- ── WHY IT'S CORRECT ── -->
+      <div class="exp-section">
+        <div class="exp-section-label">💡 Why this is correct</div>
+        <div class="exp-rationale-text">${rationale}</div>
+      </div>
+
+      ${feynmanPrompt}${mentalModelFix}
+
+      <!-- ── OTHER OPTIONS ── -->
+      ${wrongOptItems?`<div class="exp-section exp-section-collapsible" id="exp-wrong-toggle" onclick="this.classList.toggle('open')">
+        <div class="exp-section-label exp-label-err" style="cursor:pointer">✗ Other Options — tap to expand ▾</div>
+        <div class="exp-wrong-list">${wrongOptItems}</div>
+      </div>`:''}
+
+      ${tip?`<div class="exp-interview">
+        <span class="exp-feynman-label">🎤 Say it in an interview</span>
+        ${tip}
+      </div>`:''}
+
     </div>`;
   }
   const nextWrap=document.getElementById('next-wrap');
@@ -4030,6 +4336,260 @@ function renderRoadmapPreview(){
       <button class="btn btn-primary btn-sm" onclick="navigate('roadmap')">View Full Day Plan →</button>
     </div>`:`
     <div style="font-size:.85rem;color:var(--muted)">${phase?phase.tip:''}</div>`}
+  </div>`;
+}
+
+function renderRecommendation(){
+  const days=daysLeft();
+  // ── 8-day plan data ───────────────────────────────────────
+  const plan=[
+    {day:1, phase:'Foundation',   time:'90 min',
+     title:'Cloud Concepts — The Big Picture',
+     why:'24% of the exam. If you misunderstand cloud fundamentals everything else is foggy.',
+     blocks:[
+       {min:25,task:'Read: 6 Advantages of Cloud (CapEx vs OpEx, elasticity, go global, economies of scale, speed/agility, stop guessing capacity). Write each in one sentence in your own words.'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'Practice 10 Cloud Concepts questions in the app → read EVERY explanation, correct and wrong.'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'Feynman drill: pick 3 concepts, close the app, explain each out loud as if teaching a friend who has never used a computer.'},
+     ],
+     keywords:['CapEx','OpEx','elasticity','scalability','IaaS','PaaS','SaaS','Shared Responsibility','AZ','Region','Edge Location'],
+     goal:'You should be able to explain all 6 cloud advantages and the 3 service models without looking.'},
+
+    {day:2, phase:'Foundation',   time:'90 min',
+     title:'Cloud Concepts — Architecture + Well-Architected',
+     why:'Well-Architected has 1–3 questions every exam. Know all 6 pillars cold.',
+     blocks:[
+       {min:25,task:'Learn the 6 Well-Architected pillars (Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, Sustainability). Create a 1-word memory hook for each.'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'Learn deployment models (Public, Private, Hybrid) and connectivity services (VPN, Direct Connect, Transit Gateway). Sketch a simple diagram.'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'Practice 15 Cloud Concepts questions. After each wrong answer — say the correct answer out loud before clicking Next.'},
+     ],
+     keywords:['Well-Architected','Reliability','Operational Excellence','Security pillar','Cost Optimization','Sustainability','Hybrid','Direct Connect'],
+     goal:'Know all 6 pillars, what each covers, and all 3 deployment models.'},
+
+    {day:3, phase:'Core Services', time:'100 min',
+     title:'Security & Compliance — IAM + Shield + Encryption',
+     why:'30% of the exam — the BIGGEST domain. IAM alone is worth memorising deeply.',
+     blocks:[
+       {min:25,task:'IAM: users, groups, roles, policies. Rule: "least privilege". Key pattern: EC2 needs S3 → use an IAM Role, never hard-code keys.'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'Security services: Shield (DDoS), WAF (layer 7), GuardDuty (ML threat detect), Macie (PII in S3), Inspector (vulnerability scan), Security Hub (aggregator).'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'Encryption: KMS (managed keys), CloudHSM (dedicated HSM), Secrets Manager (auto-rotate secrets), ACM (SSL certs). Know WHICH service handles which job.'},
+       {min:5, task:'🔁 Break'},
+       {min:10,task:'Practice 10 Security questions. Flag every one you guess — come back to those tomorrow.'},
+     ],
+     keywords:['IAM','least privilege','IAM Role','IAM Policy','Shield Standard','Shield Advanced','WAF','GuardDuty','Macie','Inspector','KMS','CloudHSM','MFA','SCP'],
+     goal:'Explain IAM roles vs users vs groups, and name the right security service for any threat scenario.'},
+
+    {day:4, phase:'Core Services', time:'100 min',
+     title:'Security & Compliance — Compliance + Organizations + Responsibility Model',
+     why:'Shared Responsibility is a guaranteed question. Organizations/SCP appears often.',
+     blocks:[
+       {min:25,task:'Shared Responsibility Model: AWS owns the cloud (hardware, AZs, regions, hypervisor). YOU own what\'s in the cloud (OS patches, app config, data encryption, IAM).'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'AWS Organizations: consolidated billing, SCPs (guardrails that override AdministratorAccess), Control Tower (landing zone). CloudTrail: logs EVERY API call — answers "who deleted X?"'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'Compliance: Artifact (download compliance reports), Trusted Advisor (cost/security/performance recommendations), AWS Config (tracks resource config changes over time).'},
+       {min:5, task:'🔁 Break'},
+       {min:10,task:'Practice 15 Security questions. Focus on ones from Day 3 you got wrong.'},
+     ],
+     keywords:['Shared Responsibility','CloudTrail','AWS Config','Trusted Advisor','Organizations','SCP','Control Tower','Artifact'],
+     goal:'Recite the Shared Responsibility boundary instantly and name the right compliance/audit tool for any scenario.'},
+
+    {day:5, phase:'Core Services', time:'110 min',
+     title:'Cloud Technology — Compute, Storage & Databases',
+     why:'34% of the exam. Too many services — focus on WHAT EACH DOES, not deep config.',
+     blocks:[
+       {min:25,task:'Compute: EC2 (you manage OS), Lambda (serverless, event-driven), ECS (Docker), EKS (Kubernetes), Fargate (serverless containers), Elastic Beanstalk (PaaS). Know the abstraction level of each.'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'Storage: S3 (object, virtually unlimited, 11 9s durability), EBS (block, 1 AZ, one EC2), EFS (NFS, multi-EC2), Instance Store (ephemeral, lost on stop), Storage Gateway (hybrid).'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'Databases: RDS (managed relational, Multi-AZ HA), Aurora (MySQL/PostgreSQL-compatible, 5x MySQL speed), DynamoDB (serverless NoSQL), Redshift (data warehouse), ElastiCache (in-memory cache).'},
+       {min:5, task:'🔁 Break'},
+       {min:20,task:'Practice 20 Technology questions — compute + storage + DB only. Read every explanation.'},
+     ],
+     keywords:['EC2','Lambda','Fargate','ECS','EKS','S3','EBS','EFS','RDS','Aurora','DynamoDB','Redshift','ElastiCache','Elastic Beanstalk'],
+     goal:'For any service, instantly say: what it does, what category it is, and one thing it is NOT.'},
+
+    {day:6, phase:'Core Services', time:'100 min',
+     title:'Cloud Technology — Networking, Monitoring & Migration',
+     why:'VPC, CloudWatch and the migration services are frequent exam targets.',
+     blocks:[
+       {min:25,task:'Networking: VPC (your private network), Security Groups (stateful, instance-level), NACLs (stateless, subnet-level), Route 53 (DNS), CloudFront (CDN), ELB (ALB=L7, NLB=L4), API Gateway.'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'Monitoring: CloudWatch (metrics + logs + alarms), CloudTrail (API audit), X-Ray (distributed tracing), Systems Manager (patch + automation).'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'Migration: Snowball (50–80 TB physical), Snowmobile (100 PB+), DMS (database migration), Server Migration Service, Migration Hub. Data transfer: S3 Transfer Acceleration, Direct Connect.'},
+       {min:5, task:'🔁 Break'},
+       {min:10,task:'Practice 15 Technology questions — networking + monitoring + migration.'},
+     ],
+     keywords:['VPC','Security Group','NACL','Route 53','CloudFront','ALB','NLB','CloudWatch','Snowball','Snowmobile','DMS','NAT Gateway','Internet Gateway'],
+     goal:'Explain Security Group vs NACL difference and name the right migration service for any data size.'},
+
+    {day:7, phase:'Billing',      time:'80 min',
+     title:'Billing, Pricing & Support — Full Domain',
+     why:'Only 12% but straightforward marks. These are some of the easiest questions if you know the services.',
+     blocks:[
+       {min:25,task:'Pricing models: On-Demand (pay per second/hour), Reserved (1–3 year, up to 72% off), Spot (spare capacity, up to 90% off — can be interrupted), Savings Plans (flexible commitment), Dedicated Host (compliance). Know when to use each.'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'Cost tools: Cost Explorer (visualise + forecast), Budgets (alerts on threshold), Pricing Calculator (estimate before deploy), Consolidated Billing (one bill + volume discounts). Support plans: Basic → Developer → Business → Enterprise. Know what each adds.'},
+       {min:5, task:'🔁 Break'},
+       {min:20,task:'Practice all 20 Billing questions. These should be near 100%.'},
+     ],
+     keywords:['On-Demand','Reserved Instance','Spot Instance','Savings Plans','Dedicated Host','Cost Explorer','Budgets','Pricing Calculator','Consolidated Billing','Business Support','Enterprise Support'],
+     goal:'Explain all 5 EC2 pricing models and name the right cost tool for any scenario without hesitation.'},
+
+    {day:8, phase:'Full Mock',    time:'120 min',
+     title:'Full 65-Question Mock Exam + Targeted Review',
+     why:'Exam simulation under time pressure reveals gaps that topic-by-topic practice misses.',
+     blocks:[
+       {min:90,task:'🎯 Take the full 65-question mock exam in Exam Mode — no pausing, no looking things up. Simulate real conditions.'},
+       {min:5, task:'🔁 Break'},
+       {min:25,task:'Review every wrong answer. For each one: find the concept in your notes, say the correct answer out loud, write the keyword. Weak domain → do 10 more practice questions in that domain tonight.'},
+     ],
+     keywords:['All domains','Time management','65 questions','90 minutes','70%+ pass mark'],
+     goal:'Score 70%+ on the mock. If not, identify your weakest domain and add a focused 45-min review session on exam morning.'},
+  ];
+
+  const phaseColor={Foundation:'#087BFF',  'Core Services':'#10C995', Billing:'#E9A92F', 'Full Mock':'#B08AFF'};
+  const today=new Date();
+  // determine which plan day we're on relative to 8 days before exam
+  const msLeft=(new Date('2026-12-14T07:00:00')-today);
+  const daysToExam=Math.ceil(msLeft/86400000);
+  const planDay=Math.max(1,Math.min(8,9-Math.min(8,daysToExam)));
+
+  return `
+  <div class="section-header">
+    <h1>🎓 Study Recommendation</h1>
+    <span style="font-size:.8rem;color:var(--muted)">8-day exam prep · Feynman method · Pomodoro blocks</span>
+  </div>
+
+  <!-- ── URGENCY BANNER ── -->
+  <div class="rec-urgency-banner animate-in" style="margin-bottom:1.1rem">
+    <div class="rec-urgency-left">
+      <div class="rec-urgency-days">${days}</div>
+      <div class="rec-urgency-label">days to exam</div>
+    </div>
+    <div class="rec-urgency-msg">
+      <div style="font-size:.95rem;font-weight:800;color:var(--gold);margin-bottom:.2rem">Your plan starts NOW.</div>
+      <div style="font-size:.8rem;color:var(--muted);line-height:1.5">90 minutes minimum per day. Split into 25-min focus blocks (Pomodoro). After each block: close the app and explain what you just learned out loud. That's how Harvard and Princeton students lock in complex material — <em>teach it to retain it.</em></div>
+    </div>
+  </div>
+
+  <!-- ── LEARNING PRINCIPLES ── -->
+  <div class="glass-card animate-in" style="margin-bottom:1.1rem">
+    <div style="font-size:.8rem;font-weight:800;color:var(--gold);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.07em">🧠 The Method Behind This Plan</div>
+    <div class="rec-method-grid">
+      <div class="rec-method-card">
+        <div class="rec-method-icon">🪞</div>
+        <div class="rec-method-title">Feynman Technique</div>
+        <div class="rec-method-desc">After every study block, explain the concept in plain English as if teaching a 10-year-old. If you stumble, that's your gap — go back and re-read only that part.</div>
+      </div>
+      <div class="rec-method-card">
+        <div class="rec-method-icon">🃏</div>
+        <div class="rec-method-title">Active Recall (not re-reading)</div>
+        <div class="rec-method-desc">Don't re-read notes. Instead: close the app, write the answer from memory, then check. Every question you get wrong in practice = free study — read why, say it out loud, move on.</div>
+      </div>
+      <div class="rec-method-card">
+        <div class="rec-method-icon">🔁</div>
+        <div class="rec-method-title">Spaced Repetition</div>
+        <div class="rec-method-desc">The app tracks your due items. Every day: do your due flashcards first (5–10 min). This surfaces things you're forgetting before they fade. Never skip the Due Items queue.</div>
+      </div>
+      <div class="rec-method-card">
+        <div class="rec-method-icon">🗺️</div>
+        <div class="rec-method-title">Macro → Micro</div>
+        <div class="rec-method-desc">Learn the category first (what does Compute mean?), then the service (EC2, Lambda, Fargate), then the differentiator (what makes each unique?). Never memorise a detail without its context.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PRIORITY ORDER ── -->
+  <div class="glass-card animate-in" style="margin-bottom:1.1rem">
+    <div style="font-size:.8rem;font-weight:800;color:var(--gold);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.07em">📊 What to Learn First — By Exam Weight</div>
+    <div class="rec-priority-list">
+      <div class="rec-priority-row" style="--pc:#EF4444">
+        <div class="rec-priority-num">1</div>
+        <div class="rec-priority-bar-wrap"><div class="rec-priority-bar" style="width:34%;background:var(--pc)"></div></div>
+        <div class="rec-priority-info">
+          <div class="rec-priority-domain">Cloud Technology & Services</div>
+          <div class="rec-priority-pct">34% of exam · 22 of 65 questions</div>
+        </div>
+      </div>
+      <div class="rec-priority-row" style="--pc:#FFB020">
+        <div class="rec-priority-num">2</div>
+        <div class="rec-priority-bar-wrap"><div class="rec-priority-bar" style="width:30%;background:var(--pc)"></div></div>
+        <div class="rec-priority-info">
+          <div class="rec-priority-domain">Security & Compliance</div>
+          <div class="rec-priority-pct">30% of exam · 20 of 65 questions</div>
+        </div>
+      </div>
+      <div class="rec-priority-row" style="--pc:#3BA8FF">
+        <div class="rec-priority-num">3</div>
+        <div class="rec-priority-bar-wrap"><div class="rec-priority-bar" style="width:24%;background:var(--pc)"></div></div>
+        <div class="rec-priority-info">
+          <div class="rec-priority-domain">Cloud Concepts</div>
+          <div class="rec-priority-pct">24% of exam · 16 of 65 questions</div>
+        </div>
+      </div>
+      <div class="rec-priority-row" style="--pc:#22C55E">
+        <div class="rec-priority-num">4</div>
+        <div class="rec-priority-bar-wrap"><div class="rec-priority-bar" style="width:12%;background:var(--pc)"></div></div>
+        <div class="rec-priority-info">
+          <div class="rec-priority-domain">Billing, Pricing & Support</div>
+          <div class="rec-priority-pct">12% of exam · 7 of 65 questions · easiest marks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 8-DAY PLAN ── -->
+  <div style="margin-bottom:.6rem;font-size:.8rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.07em">📅 Your 8-Day Battle Plan</div>
+  <div class="rec-days-list">
+    ${plan.map((d,i)=>{
+      const isToday=(i+1)===planDay;
+      const isPast=(i+1)<planDay;
+      const col=phaseColor[d.phase]||'#087BFF';
+      return `<div class="rec-day-card ${isToday?'rec-day-today':''} ${isPast?'rec-day-past':''}" style="--dc:${col}">
+        <div class="rec-day-header">
+          <div class="rec-day-num-wrap">
+            <span class="rec-day-num">Day ${d.day}</span>
+            <span class="rec-day-phase" style="color:${col}">${d.phase}</span>
+          </div>
+          <span class="rec-day-time">${d.time}</span>
+          ${isToday?`<span class="rec-today-badge">TODAY</span>`:''}
+        </div>
+        <div class="rec-day-title">${d.title}</div>
+        <div class="rec-day-why">${d.why}</div>
+
+        <div class="rec-blocks">
+          ${d.blocks.map(b=>`<div class="rec-block ${b.min===5?'rec-block-break':''}">
+            ${b.min!==5?`<span class="rec-block-min">${b.min}m</span>`:`<span class="rec-block-min rec-block-min-break">break</span>`}
+            <span class="rec-block-task">${b.task}</span>
+          </div>`).join('')}
+        </div>
+
+        <div class="rec-keywords">
+          ${d.keywords.map(k=>`<span class="rec-kw">${k}</span>`).join('')}
+        </div>
+
+        <div class="rec-day-goal">🎯 By end of this session: ${d.goal}</div>
+      </div>`;
+    }).join('')}
+  </div>
+
+  <!-- ── DAILY MINIMUM ── -->
+  <div class="glass-card animate-in" style="margin-top:1rem;padding:1.1rem 1.2rem">
+    <div style="font-size:.8rem;font-weight:800;color:var(--gold);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.07em">⚡ Daily Non-Negotiables</div>
+    <div style="display:flex;flex-direction:column;gap:.5rem;font-size:.84rem;line-height:1.6">
+      <div>🕐 <strong>Minimum 90 minutes</strong> — split into 3 × 25-min blocks with 5-min breaks. Even if tired.</div>
+      <div>🃏 <strong>Start with Due Items</strong> — open the app, go to Practice → Due Items, clear the queue first (usually 5–10 min). These are cards you're about to forget.</div>
+      <div>🗣️ <strong>Explain out loud</strong> — after each study block, close everything and say the key concepts out loud. No app, no notes. If you can't, re-read that section only.</div>
+      <div>❌ <strong>Never skip wrong-answer review</strong> — every question you get wrong is a free exam mark if you understand why. Read the full explanation every time.</div>
+      <div>🌙 <strong>Before sleep</strong> — write 3 things you learned today in one sentence each. Sleep consolidates memory — this triggers it.</div>
+    </div>
   </div>`;
 }
 
