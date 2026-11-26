@@ -1140,7 +1140,98 @@ input,select{font:inherit}
   margin-bottom:.3rem;color:var(--flag);
 }
 
-/* ── RECOMMENDATION / STUDY PLAN ─────────────────────── */
+/* ── HOME RECOMMENDATION BANNER ─────────────────────────── */
+.home-rec-banner{
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;gap:1rem;
+  padding:.9rem 1.2rem;
+  border-radius:var(--radius-lg);
+  background:linear-gradient(135deg,rgba(5,12,30,0.98),rgba(8,18,42,0.98));
+  border:1px solid rgba(233,169,47,0.3);
+  border-left:3px solid var(--gold);
+  box-shadow:0 0 32px rgba(233,169,47,0.1),0 8px 32px rgba(0,0,0,0.5),inset 0 1px 0 rgba(233,169,47,0.1);
+  margin-bottom:1rem;
+  transition:box-shadow .22s,border-color .22s,transform .18s;
+}
+.home-rec-banner:hover{
+  box-shadow:0 0 48px rgba(233,169,47,0.18),0 8px 40px rgba(0,0,0,0.6),inset 0 1px 0 rgba(233,169,47,0.15);
+  border-color:rgba(233,169,47,0.5);
+  transform:translateY(-1px);
+}
+/* animated gold scanline */
+.home-rec-scan{
+  position:absolute;top:0;left:-100%;width:40%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(233,169,47,0.07),transparent);
+  animation:recScan 3.5s ease-in-out infinite;pointer-events:none;
+}
+@keyframes recScan{0%,100%{left:-40%}50%{left:140%}}
+
+/* spectral top border */
+.home-rec-banner::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(233,169,47,0.6),rgba(8,123,255,0.4),transparent);
+}
+
+.home-rec-left{
+  display:flex;flex-direction:column;align-items:center;
+  flex-shrink:0;min-width:52px;
+}
+.home-rec-days-num{
+  font-size:2.4rem;font-weight:900;line-height:1;
+  filter:drop-shadow(0 0 12px currentColor);
+}
+.home-rec-days-label{font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+
+.home-rec-divider{
+  width:1px;height:48px;flex-shrink:0;
+  background:linear-gradient(180deg,transparent,rgba(233,169,47,0.3),transparent);
+}
+
+.home-rec-centre{flex:1;min-width:0}
+.home-rec-eyebrow{display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem;flex-wrap:wrap}
+.home-rec-phase-pill{
+  font-size:.62rem;font-weight:800;padding:.12rem .45rem;
+  border-radius:5px;border:1px solid;
+}
+.home-rec-today-pill{
+  font-size:.62rem;font-weight:700;padding:.12rem .4rem;
+  border-radius:5px;background:rgba(255,255,255,0.07);
+  color:var(--muted);border:1px solid rgba(255,255,255,0.1);
+}
+.home-rec-title{
+  font-size:.88rem;font-weight:800;color:var(--text);
+  margin-bottom:.4rem;line-height:1.3;
+}
+.home-rec-quick-links{display:flex;flex-wrap:wrap;gap:.35rem}
+.home-rec-link{
+  font-size:.68rem;font-weight:700;padding:.15rem .5rem;
+  border-radius:5px;cursor:pointer;
+  background:rgba(8,123,255,0.1);
+  color:#7bbfff;border:1px solid rgba(8,123,255,0.22);
+  transition:all .18s;white-space:nowrap;
+}
+.home-rec-link:hover{background:rgba(8,123,255,0.22);color:#a8d5ff;transform:translateY(-1px)}
+
+.home-rec-right{
+  display:flex;flex-direction:column;align-items:flex-end;
+  flex-shrink:0;text-align:right;
+}
+.home-rec-score-label{font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.home-rec-score-num{font-size:1.6rem;font-weight:900;line-height:1.1;filter:drop-shadow(0 0 8px currentColor)}
+.home-rec-cta{
+  font-size:.68rem;font-weight:800;color:var(--gold);
+  margin-top:.25rem;
+  background:rgba(233,169,47,0.1);
+  border:1px solid rgba(233,169,47,0.25);
+  padding:.15rem .55rem;border-radius:5px;
+  transition:background .18s;
+}
+.home-rec-banner:hover .home-rec-cta{background:rgba(233,169,47,0.2)}
+
+@media(max-width:620px){
+  .home-rec-left,.home-rec-divider{display:none}
+  .home-rec-right{display:none}
+}
 .rec-urgency-banner{
   display:flex;align-items:center;gap:1.2rem;
   padding:1rem 1.2rem;border-radius:var(--radius-lg);
@@ -2377,7 +2468,16 @@ function navigate(tab){
     attachTabListeners(tab==='flashcards'||tab==='terminology'?'practice':tab);
   },75);
 }
-
+// Deep-link navigation with anchor scrolling
+function navigateTo(tab, anchor){
+  navigate(tab);
+  if(anchor){
+    setTimeout(()=>{
+      const target=document.getElementById(anchor);
+      if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+    },150);
+  }
+}
 function switchPracticeTab(stab){
   document.querySelectorAll('#practice-subtabs .sub-tab').forEach(b=>b.classList.toggle('active',b.dataset.stab===stab));
   const content=document.getElementById('practice-content');
@@ -2471,6 +2571,63 @@ function renderHome(){
   return toggleHTML+renderHomeClassic(days,due,overall,mockCount,totalAttempted,domainsPracticed,score);
 }
 
+function renderHomeRecBanner(days, score, domainsPracticed){
+  const planDay=Math.max(1,Math.min(8,9-Math.min(8,days)));
+  const phaseNames=['Foundation','Foundation','Core Services','Core Services','Core Services','Core Services','Billing','Full Mock'];
+  const phaseCols=['#087BFF','#087BFF','#10C995','#10C995','#10C995','#10C995','#E9A92F','#B08AFF'];
+  const phaseName=phaseNames[planDay-1]||'Foundation';
+  const phaseCol=phaseCols[planDay-1]||'#087BFF';
+  const dayTitles=[
+    'Cloud Concepts — The Big Picture',
+    'Well-Architected + Architecture',
+    'Security — IAM + Shield + Encryption',
+    'Security — Compliance + Shared Responsibility',
+    'Technology — Compute, Storage & Databases',
+    'Technology — Networking, Monitoring & Migration',
+    'Billing, Pricing & Support',
+    'Full 65-Question Mock Exam',
+  ];
+  const dayTitle=dayTitles[planDay-1]||'Cloud Concepts';
+  const urgencyColor=days<=3?'#EF4444':days<=5?'#FF9900':'#E9A92F';
+
+  return `
+  <div class="home-rec-banner animate-in" onclick="navigate('recommendation')" style="cursor:pointer;--rec-col:${phaseCol}">
+    <!-- animated scanline -->
+    <div class="home-rec-scan"></div>
+
+    <!-- left: urgency + today's day -->
+    <div class="home-rec-left">
+      <div class="home-rec-days-num" style="color:${urgencyColor}">${days}</div>
+      <div class="home-rec-days-label">days left</div>
+    </div>
+
+    <!-- divider -->
+    <div class="home-rec-divider"></div>
+
+    <!-- centre: today's focus -->
+    <div class="home-rec-centre">
+      <div class="home-rec-eyebrow">
+        <span class="home-rec-phase-pill" style="background:${phaseCol}22;color:${phaseCol};border-color:${phaseCol}44">${phaseName}</span>
+        <span class="home-rec-today-pill">Day ${planDay} of 8</span>
+      </div>
+      <div class="home-rec-title">📅 Today: ${dayTitle}</div>
+      <div class="home-rec-quick-links">
+        <span class="home-rec-link" onclick="event.stopPropagation();navigateTo('recommendation','rec-method')">🧠 The Method</span>
+        <span class="home-rec-link" onclick="event.stopPropagation();navigateTo('recommendation','rec-priority')">📊 Priority Order</span>
+        <span class="home-rec-link" onclick="event.stopPropagation();navigateTo('recommendation','rec-day-${planDay}')">📅 Today's Plan</span>
+        ${planDay<8?`<span class="home-rec-link" onclick="event.stopPropagation();navigateTo('recommendation','rec-day-${planDay+1}')">⏭ Day ${planDay+1}</span>`:''}
+      </div>
+    </div>
+
+    <!-- right: CTA -->
+    <div class="home-rec-right">
+      <div class="home-rec-score-label">Readiness</div>
+      <div class="home-rec-score-num" style="color:${score>=70?'#22C55E':score>=50?'#FF9900':'#EF4444'}">${score}%</div>
+      <div class="home-rec-cta">View Full Plan →</div>
+    </div>
+  </div>`;
+}
+
 function renderHomeClassic(days,due,overall,mockCount,totalAttempted,domainsPracticed,score){
   const scoreColor=score>=90?'#22C55E':score>=70?'#FF9900':'#EF4444';
   const today=new Date().toDateString();
@@ -2510,6 +2667,9 @@ function renderHomeClassic(days,due,overall,mockCount,totalAttempted,domainsPrac
       <div class="hero-target-ribbon">You've Got This!</div>
     </div>
   </div>
+
+  <!-- REC BANNER -->
+  ${renderHomeRecBanner(days, score, domainsPracticed)}
 
   <!-- STAT CARDS -->
   <div class="stat-cards-row animate-in stagger-1">
@@ -2836,6 +2996,8 @@ function renderHomeCommandCenter(days,due,overall,mockCount,totalAttempted,domai
   </div>
 
   <!-- ═══ INTEL CARDS (4 metrics) ════════════════════════════= -->
+  ${renderHomeRecBanner(days, score, domainsPracticed)}
+
   <div class="cc-intel animate-in stagger-1">
 
     <!-- Study Streak -->
@@ -4480,7 +4642,7 @@ function renderRecommendation(){
   </div>
 
   <!-- ── LEARNING PRINCIPLES ── -->
-  <div class="glass-card animate-in" style="margin-bottom:1.1rem">
+  <div class="glass-card animate-in" style="margin-bottom:1.1rem" id="rec-method">
     <div style="font-size:.8rem;font-weight:800;color:var(--gold);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.07em">🧠 The Method Behind This Plan</div>
     <div class="rec-method-grid">
       <div class="rec-method-card">
@@ -4507,7 +4669,7 @@ function renderRecommendation(){
   </div>
 
   <!-- ── PRIORITY ORDER ── -->
-  <div class="glass-card animate-in" style="margin-bottom:1.1rem">
+  <div class="glass-card animate-in" style="margin-bottom:1.1rem" id="rec-priority">
     <div style="font-size:.8rem;font-weight:800;color:var(--gold);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.07em">📊 What to Learn First — By Exam Weight</div>
     <div class="rec-priority-list">
       <div class="rec-priority-row" style="--pc:#EF4444">
@@ -4552,7 +4714,7 @@ function renderRecommendation(){
       const isToday=(i+1)===planDay;
       const isPast=(i+1)<planDay;
       const col=phaseColor[d.phase]||'#087BFF';
-      return `<div class="rec-day-card ${isToday?'rec-day-today':''} ${isPast?'rec-day-past':''}" style="--dc:${col}">
+      return `<div class="rec-day-card ${isToday?'rec-day-today':''} ${isPast?'rec-day-past':''}" id="rec-day-${d.day}" style="--dc:${col}">
         <div class="rec-day-header">
           <div class="rec-day-num-wrap">
             <span class="rec-day-num">Day ${d.day}</span>
