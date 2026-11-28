@@ -1,6 +1,6 @@
 [
   {
-    "t": "What Even Is the Cloud?", "tag": "Cloud Concepts", "domain": "Cloud Concepts", "ico": "\u2601\ufe0f", "color": "#3BA8FF",
+    "t": "What Even Is the Cloud?", "tag": "Cloud Concepts", "cat": "Cloud Basics", "domain": "Cloud Concepts", "ico": "☁️", "color": "#3BA8FF",
     "hook": "Cloud = electricity for computing. CapEx to OpEx.",
     "lines": [
       {"w":"A","t":"Coach, everyone says the cloud, but what is it actually?"},
@@ -22,7 +22,68 @@
     ]
   },
   {
-    "t": "IAM: The Bouncer and the Backstage Pass", "tag": "Security & Compliance", "domain": "Security & Compliance", "ico": "\ud83d\udee1\ufe0f", "color": "#FFB020",
+    "t": "The Six Advantages of the Cloud", "tag": "Cloud Concepts", "cat": "Cloud Basics", "domain": "Cloud Concepts", "ico": "🎯", "color": "#3BA8FF",
+    "hook": "Agility, elasticity, global, pay-as-you-go, stop guessing, economies of scale.",
+    "lines": [
+      {"w":"A","t":"The exam loves asking about cloud advantages. Give me the six in a way I'll never forget."},
+      {"w":"B","t":"Think of a gym membership. Six perks. One, agility: try any class today. Two, elasticity: the gym adds treadmills in January and removes them in March."},
+      {"w":"A","t":"Three?"},
+      {"w":"B","t":"Global reach: walk into any branch worldwide in minutes. Four, pay as you go: you pay for the days you actually show up."},
+      {"w":"A","t":"Five and six?"},
+      {"w":"B","t":"Five, stop guessing capacity: the gym already knows how many treadmills you need. Six, economies of scale: because thousands of members share, the price per day is tiny."},
+      {"w":"A","t":"So if a question lists one of those, the answer is cloud?"},
+      {"w":"B","t":"Right. Any one of the six is a cloud advantage. The exam often asks which is NOT an advantage, and the lie is usually fixed upfront cost, or managing your own data centers."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"Agility, elasticity, global, pay as you go, stop guessing, economies of scale. Six gym perks."},
+      {"w":"B","t":"Recall. Which is NOT a cloud advantage?"},
+      {"w":"pause","ms":4000,"prompt":"Which is NOT a cloud advantage?"},
+      {"w":"A","t":"Fixed upfront cost, or managing your own data centers."},
+      {"w":"B","t":"And the phrase for not overbuying hardware?"},
+      {"w":"pause","ms":3500,"prompt":"Phrase for not overbuying hardware?"},
+      {"w":"A","t":"Stop guessing capacity."}
+    ]
+  },
+  {
+    "t": "Migration Strategies: The 7 Rs", "tag": "Cloud Concepts", "cat": "Migration", "domain": "Cloud Concepts", "ico": "🚚", "color": "#8055F5",
+    "hook": "Rehost, Replatform, Refactor, Repurchase, Retire, Retain, Revisit.",
+    "lines": [
+      {"w":"A","t":"Moving to the cloud has fancy names. The seven Rs. Help."},
+      {"w":"B","t":"Picture moving house. Rehost is lift and shift, same stuff, new building. Replatform is a small renovation, like swapping the heating. Refactor is a full rebuild from scratch."},
+      {"w":"A","t":"The other four?"},
+      {"w":"B","t":"Repurchase means drop and rebuy, like ditching your old CRM for a cloud one. Retire means throw it away, it's not needed. Retain means keep it on-premises for now. Revisit means decide later."},
+      {"w":"A","t":"Exam tell for lift and shift?"},
+      {"w":"B","t":"Fastest, lowest risk, minimal change, that's Rehost. The phrase lift and shift is the giveaway."},
+      {"w":"A","t":"And the one where you rebuild?"},
+      {"w":"B","t":"Refactor. Highest cost, highest long-term benefit. Cloud native."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"Rehost, Replatform, Refactor, Repurchase, Retire, Retain, Revisit. Moving house, seven ways."},
+      {"w":"B","t":"Recall. Fastest, lowest risk, minimal change?"},
+      {"w":"pause","ms":4000,"prompt":"Fastest, lowest risk migration?"},
+      {"w":"A","t":"Rehost, lift and shift."},
+      {"w":"B","t":"Full rebuild, cloud native?"},
+      {"w":"pause","ms":3500,"prompt":"Full rebuild, cloud native?"},
+      {"w":"A","t":"Refactor."}
+    ]
+  },
+  {
+    "t": "Sustainability & the Green Cloud", "tag": "Cloud Concepts", "cat": "Cloud Basics", "domain": "Cloud Concepts", "ico": "🌱", "color": "#22C55E",
+    "hook": "Cloud is greener: AWS runs efficient data centers, you cut waste.",
+    "lines": [
+      {"w":"A","t":"There's a sustainability pillar now. What does the exam want?"},
+      {"w":"B","t":"Simple story. Your home server runs at full power all night, even when you sleep. AWS data centers share the load across thousands, so the lights are always efficiently used."},
+      {"w":"A","t":"So moving to the cloud is greener?"},
+      {"w":"B","t":"Usually yes. You stop running underused hardware. The exam line is that cloud providers achieve higher utilization and lower carbon per workload."},
+      {"w":"A","t":"Exam keyword?"},
+      {"w":"B","t":"Sustainability, carbon footprint, energy efficiency. The answer is almost always the cloud, or right-sizing, never over-provisioning."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"Shared data centers waste less power. Greener by sharing."},
+      {"w":"B","t":"Recall. Why is the cloud greener?"},
+      {"w":"pause","ms":3500,"prompt":"Why is the cloud greener?"},
+      {"w":"A","t":"Higher utilization, less wasted hardware and power."}
+    ]
+  },
+  {
+    "t": "IAM: The Bouncer and the Backstage Pass", "tag": "Security & Compliance", "cat": "Identity & Access", "domain": "Security & Compliance", "ico": "🛡️", "color": "#FFB020",
     "hook": "User = person. Role = temp pass for services. Policy = the rules.",
     "lines": [
       {"w":"A","t":"IAM confuses everyone. Users, roles, policies. Break it down."},
@@ -44,29 +105,73 @@
     ]
   },
   {
-    "t": "S3 vs EBS vs EFS: Warehouse, Locker, Shared Drive", "tag": "Cloud Technology", "domain": "Cloud Technology and Services", "ico": "\ud83d\udce6", "color": "#22C55E",
-    "hook": "S3 object. EBS one server. EFS many servers.",
+    "t": "Organizations & SCPs: The Family Rules", "tag": "Security & Compliance", "cat": "Identity & Access", "domain": "Security & Compliance", "ico": "🏫", "color": "#FFB020",
+    "hook": "Organizations = one family. SCP = house rules even parents follow.",
     "lines": [
-      {"w":"A","t":"Three storage services, one blurry mess. S3, EBS, EFS."},
-      {"w":"B","t":"S3 is a giant warehouse. Objects, accessed over the internet, basically unlimited, eleven nines of durability. Photos, backups, static websites."},
-      {"w":"A","t":"And EBS?"},
-      {"w":"B","t":"A locker that plugs into one server in one data center. Fast block storage. It's your database's hard drive."},
-      {"w":"A","t":"EFS?"},
-      {"w":"B","t":"A shared network drive that many servers mount at the same time. Perfect for lifting an old file share into the cloud."},
-      {"w":"A","t":"How do I never mix them up again?"},
-      {"w":"B","t":"Say it as a story. Object storage is the warehouse, S3. One server is the locker, EBS. Many servers sharing files is the shared drive, EFS."},
-      {"w":"A","t":"So if the question says shared file system across instances..."},
-      {"w":"B","t":"EFS. If it says object or static website, S3. If it says a single instance's volume, EBS."},
-      {"w":"B","t":"Recall. Many servers sharing the same files?"},
-      {"w":"pause","ms":4000,"prompt":"Many servers sharing files?"},
-      {"w":"A","t":"EFS, the shared drive."},
-      {"w":"B","t":"Object storage for a static website?"},
-      {"w":"pause","ms":3500,"prompt":"Object storage for a static website?"},
-      {"w":"A","t":"S3, the warehouse."}
+      {"w":"A","t":"AWS Organizations and SCPs. How do they fit?"},
+      {"w":"B","t":"Organizations is one household with many rooms, each room an account. Consolidated billing is the single family electricity bill."},
+      {"w":"A","t":"And SCPs?"},
+      {"w":"B","t":"House rules posted on the fridge. Even the parents, the admins, can't break them. An SCP can deny a region or a service across the whole family."},
+      {"w":"A","t":"So an SCP can override an admin?"},
+      {"w":"B","t":"Yes. That's the key exam point. SCPs are guardrails that apply even to root and admins. They don't grant, they only limit."},
+      {"w":"A","t":"Exam tell?"},
+      {"w":"B","t":"Multiple accounts, central governance, consolidated bill, that's Organizations. Prevent even admin, deny a region, that's an SCP."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"One family, one bill. House rules even parents follow."},
+      {"w":"B","t":"Recall. Can an SCP block even an admin?"},
+      {"w":"pause","ms":3500,"prompt":"Can an SCP block an admin?"},
+      {"w":"A","t":"Yes. It's a guardrail that applies to everyone."},
+      {"w":"B","t":"What gives one bill for many accounts?"},
+      {"w":"pause","ms":3500,"prompt":"One bill for many accounts?"},
+      {"w":"A","t":"Consolidated billing in Organizations."}
     ]
   },
   {
-    "t": "CloudTrail vs CloudWatch vs Config", "tag": "Security & Compliance", "domain": "Security & Compliance", "ico": "\ud83d\udd0d", "color": "#FFB020",
+    "t": "KMS vs CloudHSM vs Secrets Manager", "tag": "Security & Compliance", "cat": "Data Protection", "domain": "Security & Compliance", "ico": "🔐", "color": "#FFB020",
+    "hook": "KMS shared vault. CloudHSM your own vault. Secrets Manager rotating safe.",
+    "lines": [
+      {"w":"A","t":"Three key services that blur. KMS, CloudHSM, Secrets Manager."},
+      {"w":"B","t":"KMS is a bank vault shared by many customers, managed by AWS. You use keys, AWS runs the building."},
+      {"w":"A","t":"CloudHSM?"},
+      {"w":"B","t":"Your own private vault, single tenant, you run the hardware module. Needed for strict compliance like FIPS one hundred forty, level three."},
+      {"w":"A","t":"Secrets Manager?"},
+      {"w":"B","t":"A safe that auto-rotates passwords. Database password, API key, it changes them on a schedule so they never go stale."},
+      {"w":"A","t":"Exam tell for dedicated hardware?"},
+      {"w":"B","t":"Single tenant, dedicated HSM, FIPS level three, that's CloudHSM. Shared, managed, that's KMS."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"KMS shared vault, CloudHSM your vault, Secrets Manager rotating safe."},
+      {"w":"B","t":"Recall. Dedicated single-tenant hardware module?"},
+      {"w":"pause","ms":4000,"prompt":"Dedicated single-tenant HSM?"},
+      {"w":"A","t":"CloudHSM."},
+      {"w":"B","t":"Auto-rotating database password?"},
+      {"w":"pause","ms":3500,"prompt":"Auto-rotating password?"},
+      {"w":"A","t":"Secrets Manager."}
+    ]
+  },
+  {
+    "t": "GuardDuty, Inspector, Macie, WAF & Shield", "tag": "Security & Compliance", "cat": "Threat Detection", "domain": "Security & Compliance", "ico": "🕵️", "color": "#FFB020",
+    "hook": "GuardDuty detective, Inspector building inspector, Macie PII, WAF bouncer, Shield umbrella.",
+    "lines": [
+      {"w":"A","t":"So many security tools. Give me one story each."},
+      {"w":"B","t":"GuardDuty is a detective watching your logs for threats. Inspector is a building inspector scanning EC2 and containers for vulnerabilities."},
+      {"w":"A","t":"Macie?"},
+      {"w":"B","t":"A metal detector for sensitive data, PII, in S3. Credit card, SSN, it finds them."},
+      {"w":"A","t":"WAF and Shield?"},
+      {"w":"B","t":"WAF is a smart web bouncer, blocks SQL injection and cross site scripting at layer seven. Shield is an umbrella against DDoS, standard is free, advanced is paid."},
+      {"w":"A","t":"Exam tell?"},
+      {"w":"B","t":"Threat detection in logs, GuardDuty. Vulnerability scan, Inspector. PII in S3, Macie. Web exploit, WAF. DDoS, Shield."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"Detective, inspector, metal detector, bouncer, umbrella."},
+      {"w":"B","t":"Recall. PII hidden in S3?"},
+      {"w":"pause","ms":3500,"prompt":"PII in S3?"},
+      {"w":"A","t":"Macie, the metal detector."},
+      {"w":"B","t":"DDoS protection?"},
+      {"w":"pause","ms":3500,"prompt":"DDoS protection?"},
+      {"w":"A","t":"Shield, the umbrella."}
+    ]
+  },
+  {
+    "t": "CloudTrail vs CloudWatch vs Config", "tag": "Security & Compliance", "cat": "Monitoring", "domain": "Security & Compliance", "ico": "🔍", "color": "#FFB020",
     "hook": "CloudTrail who. CloudWatch how. Config what-state.",
     "lines": [
       {"w":"A","t":"These three sound identical. CloudTrail, CloudWatch, Config."},
@@ -88,29 +193,75 @@
     ]
   },
   {
-    "t": "EC2 Pricing: Taxi, Season Pass, Carpool", "tag": "Billing & Pricing", "domain": "Billing, Pricing and Support", "ico": "\ud83d\ude95", "color": "#FF9900",
-    "hook": "Taxi, season pass, carpool, prepaid card.",
+    "t": "S3 vs EBS vs EFS: Warehouse, Locker, Shared Drive", "tag": "Cloud Technology", "cat": "Storage", "domain": "Cloud Technology and Services", "ico": "📦", "color": "#22C55E",
+    "hook": "S3 object. EBS one server. EFS many servers.",
     "lines": [
-      {"w":"A","t":"On-Demand, Reserved, Spot, Savings Plans. Help me keep them straight."},
-      {"w":"B","t":"On-Demand is a taxi. Pay per ride, no commitment. Reserved is a season pass. Commit one or three years, save up to seventy two percent."},
-      {"w":"A","t":"Spot?"},
-      {"w":"B","t":"Carpool with strangers. Spare capacity, up to ninety percent off, but AWS can pull you over anytime. Great for fault-tolerant jobs."},
-      {"w":"A","t":"And Savings Plans?"},
-      {"w":"B","t":"A prepaid transit card. You commit dollars per hour, but keep flexibility across instance families."},
-      {"w":"A","t":"Exam keyword?"},
-      {"w":"B","t":"Most cost-effective and fault-tolerant, that's Spot. Steady, predictable, long term, that's Reserved or Savings Plans."},
-      {"w":"A","t":"So four stories."},
-      {"w":"B","t":"Taxi, season pass, carpool, prepaid card. Never mix them up again."},
-      {"w":"B","t":"Recall. Cheapest, interruptible, fault-tolerant?"},
-      {"w":"pause","ms":4000,"prompt":"Cheapest and interruptible?"},
-      {"w":"A","t":"Spot, the carpool, up to ninety percent off."},
-      {"w":"B","t":"Steady long-term commitment, biggest discount?"},
-      {"w":"pause","ms":3500,"prompt":"Long-term steady commitment?"},
-      {"w":"A","t":"Reserved or Savings Plans, the season pass."}
+      {"w":"A","t":"Three storage services, one blurry mess. S3, EBS, EFS."},
+      {"w":"B","t":"S3 is a giant warehouse. Objects, accessed over the internet, basically unlimited, eleven nines of durability. Photos, backups, static websites."},
+      {"w":"A","t":"And EBS?"},
+      {"w":"B","t":"A locker that plugs into one server in one data center. Fast block storage. It's your database's hard drive."},
+      {"w":"A","t":"EFS?"},
+      {"w":"B","t":"A shared network drive that many servers mount at the same time. Perfect for lifting an old file share into the cloud."},
+      {"w":"A","t":"How do I never mix them up again?"},
+      {"w":"B","t":"Say it as a story. Object storage is the warehouse, S3. One server is the locker, EBS. Many servers sharing files is the shared drive, EFS."},
+      {"w":"A","t":"So if the question says shared file system across instances..."},
+      {"w":"B","t":"EFS. If it says object or static website, S3. If it says a single instance's volume, EBS."},
+      {"w":"B","t":"Recall. Many servers sharing the same files?"},
+      {"w":"pause","ms":4000,"prompt":"Many servers sharing files?"},
+      {"w":"A","t":"EFS, the shared drive."},
+      {"w":"B","t":"Object storage for a static website?"},
+      {"w":"pause","ms":3500,"prompt":"Object storage for a static website?"},
+      {"w":"A","t":"S3, the warehouse."}
     ]
   },
   {
-    "t": "VPC & Security Groups vs NACLs: The Gated Community", "tag": "Cloud Technology", "domain": "Cloud Technology and Services", "ico": "\ud83c\udfd8\ufe0f", "color": "#22C55E",
+    "t": "S3 Storage Classes: The Closet Scale", "tag": "Cloud Technology", "cat": "Storage", "domain": "Cloud Technology and Services", "ico": "🧊", "color": "#22C55E",
+    "hook": "Standard, IA, Glacier, Deep Archive = closet, attic, freezer, deep freeze.",
+    "lines": [
+      {"w":"A","t":"S3 has so many storage classes. Standard, IA, Glacier, Deep Archive."},
+      {"w":"B","t":"Picture your home. Standard is the closet you use daily. Infrequent Access, IA, is the attic, cheaper to store but costs to fetch."},
+      {"w":"A","t":"Glacier and Deep Archive?"},
+      {"w":"B","t":"Glacier is the freezer, minutes to hours to retrieve. Deep Archive is the deep freeze, cheapest, but takes up to twelve hours."},
+      {"w":"A","t":"Exam tell for cheapest long term?"},
+      {"w":"B","t":"Cheapest, rarely accessed, long retention, that's Deep Archive. The phrase archive, or compliance retention, is the giveaway."},
+      {"w":"A","t":"And frequent access with low latency?"},
+      {"w":"B","t":"Standard. The exam loves pairing Standard against IA when it says immediately available."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"Closet, attic, freezer, deep freeze. Standard, IA, Glacier, Deep Archive."},
+      {"w":"B","t":"Recall. Cheapest, twelve hour retrieval?"},
+      {"w":"pause","ms":4000,"prompt":"Cheapest, 12-hour retrieval?"},
+      {"w":"A","t":"Deep Archive, the deep freeze."},
+      {"w":"B","t":"Daily use, immediate?"},
+      {"w":"pause","ms":3500,"prompt":"Daily use, immediate access?"},
+      {"w":"A","t":"Standard, the closet."}
+    ]
+  },
+  {
+    "t": "RDS vs DynamoDB vs Aurora: The Restaurants", "tag": "Cloud Technology", "cat": "Databases", "domain": "Cloud Technology and Services", "ico": "🍽️", "color": "#22C55E",
+    "hook": "RDS managed relational. DynamoDB key-value at any scale. Aurora MySQL turbo.",
+    "lines": [
+      {"w":"A","t":"Three databases. RDS, DynamoDB, Aurora. One story each."},
+      {"w":"B","t":"RDS is a managed restaurant, you order relational, MySQL, Postgres, AWS cooks and cleans. You don't manage the kitchen."},
+      {"w":"A","t":"DynamoDB?"},
+      {"w":"B","t":"A conveyor belt sushi bar. Key value, single digit millisecond, any scale. Perfect for shopping carts and leaderboards."},
+      {"w":"A","t":"Aurora?"},
+      {"w":"B","t":"A turbocharged version of MySQL and Postgres. Up to five times faster, and it separates storage from compute so it scales automatically."},
+      {"w":"A","t":"Exam tell for serverless, single digit millisecond?"},
+      {"w":"B","t":"DynamoDB. The phrases key value, any scale, or serverless, point there."},
+      {"w":"A","t":"And for a managed relational engine?"},
+      {"w":"B","t":"RDS. If it says MySQL compatible but faster and auto scaling storage, that's Aurora."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"RDS managed restaurant, DynamoDB sushi belt, Aurora turbo MySQL."},
+      {"w":"B","t":"Recall. Key value, any scale, single digit millisecond?"},
+      {"w":"pause","ms":4000,"prompt":"Key-value, any scale?"},
+      {"w":"A","t":"DynamoDB, the sushi belt."},
+      {"w":"B","t":"MySQL compatible but faster, auto scaling?"},
+      {"w":"pause","ms":3500,"prompt":"Faster MySQL, auto scaling?"},
+      {"w":"A","t":"Aurora, the turbo."}
+    ]
+  },
+  {
+    "t": "VPC & Security Groups vs NACLs: The Gated Community", "tag": "Cloud Technology", "cat": "Networking", "domain": "Cloud Technology and Services", "ico": "🏘️", "color": "#22C55E",
     "hook": "SG = per-house guard, stateful. NACL = community gate, stateless.",
     "lines": [
       {"w":"A","t":"VPC and all these acronyms. Where do I start?"},
@@ -132,7 +283,29 @@
     ]
   },
   {
-    "t": "Serverless & Containers: Food Truck vs Restaurant", "tag": "Cloud Technology", "domain": "Cloud Technology and Services", "ico": "\ud83c\udf54", "color": "#22C55E",
+    "t": "Route 53, CloudFront & Global Accelerator", "tag": "Cloud Technology", "cat": "Networking", "domain": "Cloud Technology and Services", "ico": "🌐", "color": "#22C55E",
+    "hook": "Route53 GPS. CloudFront teleporter. Global Accelerator backbone.",
+    "lines": [
+      {"w":"A","t":"Three global services. Route 53, CloudFront, Global Accelerator."},
+      {"w":"B","t":"Route 53 is GPS plus phonebook. It turns names into addresses, and it can route users to the nearest healthy copy."},
+      {"w":"A","t":"CloudFront?"},
+      {"w":"B","t":"A teleporter for content. It caches your files at edge locations worldwide, so users get them from nearby, low latency."},
+      {"w":"A","t":"Global Accelerator?"},
+      {"w":"B","t":"The AWS private motorway. It routes traffic over the AWS backbone, not the public internet, with static anycast IPs."},
+      {"w":"A","t":"Exam tell for caching at the edge?"},
+      {"w":"B","t":"CDN, edge, low latency, that's CloudFront. DNS and routing policy, that's Route 53."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"GPS, teleporter, private motorway."},
+      {"w":"B","t":"Recall. Caches content at edge locations?"},
+      {"w":"pause","ms":3500,"prompt":"Edge caching, low latency?"},
+      {"w":"A","t":"CloudFront, the teleporter."},
+      {"w":"B","t":"DNS and routing policies?"},
+      {"w":"pause","ms":3500,"prompt":"DNS, routing policy?"},
+      {"w":"A","t":"Route 53, the GPS."}
+    ]
+  },
+  {
+    "t": "Serverless & Containers: Food Truck vs Restaurant", "tag": "Cloud Technology", "cat": "Compute", "domain": "Cloud Technology and Services", "ico": "🍔", "color": "#22C55E",
     "hook": "Lambda = food truck. Fargate = staffless restaurant.",
     "lines": [
       {"w":"A","t":"Lambda, Fargate, ECS, EKS. Too many kitchens."},
@@ -154,7 +327,115 @@
     ]
   },
   {
-    "t": "Well-Architected & Shared Responsibility", "tag": "Cloud Concepts", "domain": "Cloud Concepts", "ico": "\ud83c\udfdb\ufe0f", "color": "#8055F5",
+    "t": "EC2 Auto Scaling & Load Balancing", "tag": "Cloud Technology", "cat": "Compute", "domain": "Cloud Technology and Services", "ico": "🎢", "color": "#22C55E",
+    "hook": "Auto Scaling adds lanes. ELB is the traffic officer.",
+    "lines": [
+      {"w":"A","t":"Auto Scaling and load balancing always appear together. Story?"},
+      {"w":"B","t":"Picture a theme park. Auto Scaling adds ride lanes when the queue grows, removes them when it shrinks. You set the target, like CPU at sixty percent."},
+      {"w":"A","t":"And the load balancer?"},
+      {"w":"B","t":"The traffic officer directing guests to the shortest lane, and skipping any ride that's broken, health checks."},
+      {"w":"A","t":"ALB versus NLB?"},
+      {"w":"B","t":"ALB is layer seven, it understands web traffic and paths. NLB is layer four, raw speed, millions of requests per second."},
+      {"w":"A","t":"Exam tell?"},
+      {"w":"B","t":"Scale out automatically to meet demand, that's Auto Scaling. Distribute traffic and health check, that's ELB."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"Auto Scaling adds lanes. ELB is the traffic officer."},
+      {"w":"B","t":"Recall. Distributes traffic, health checks?"},
+      {"w":"pause","ms":3500,"prompt":"Distributes traffic, health checks?"},
+      {"w":"A","t":"Elastic Load Balancing."},
+      {"w":"B","t":"Adds instances when demand rises?"},
+      {"w":"pause","ms":3500,"prompt":"Adds instances on demand?"},
+      {"w":"A","t":"Auto Scaling."}
+    ]
+  },
+  {
+    "t": "SQS vs SNS vs EventBridge: The Post Office", "tag": "Cloud Technology", "cat": "Integration", "domain": "Cloud Technology and Services", "ico": "📬", "color": "#22C55E",
+    "hook": "SQS queue. SNS broadcast. EventBridge router.",
+    "lines": [
+      {"w":"A","t":"SQS, SNS, EventBridge. Messaging soup."},
+      {"w":"B","t":"SQS is a post office queue. One message, one worker pulls it, does the job. Decouples your app so spikes don't crash it."},
+      {"w":"A","t":"SNS?"},
+      {"w":"B","t":"A broadcast tower. One message, many subscribers all get it. Email, SMS, Lambda, all at once."},
+      {"w":"A","t":"EventBridge?"},
+      {"w":"B","t":"A smart mail sorter. It routes events from many sources to many targets based on rules. Like SaaS apps talking to AWS."},
+      {"w":"A","t":"Exam tell for decoupling and buffering?"},
+      {"w":"B","t":"Queue, buffer, pull, that's SQS. Fan out, many subscribers, push, that's SNS."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"Queue, broadcast, router."},
+      {"w":"B","t":"Recall. One message, many subscribers?"},
+      {"w":"pause","ms":3500,"prompt":"One message, many subscribers?"},
+      {"w":"A","t":"SNS, the broadcast."},
+      {"w":"B","t":"Decouple with a buffer, workers pull?"},
+      {"w":"pause","ms":3500,"prompt":"Buffer, workers pull?"},
+      {"w":"A","t":"SQS, the queue."}
+    ]
+  },
+  {
+    "t": "EC2 Pricing: Taxi, Season Pass, Carpool", "tag": "Billing & Pricing", "cat": "Compute Pricing", "domain": "Billing, Pricing and Support", "ico": "🚕", "color": "#FF9900",
+    "hook": "Taxi, season pass, carpool, prepaid card.",
+    "lines": [
+      {"w":"A","t":"On-Demand, Reserved, Spot, Savings Plans. Help me keep them straight."},
+      {"w":"B","t":"On-Demand is a taxi. Pay per ride, no commitment. Reserved is a season pass. Commit one or three years, save up to seventy two percent."},
+      {"w":"A","t":"Spot?"},
+      {"w":"B","t":"Carpool with strangers. Spare capacity, up to ninety percent off, but AWS can pull you over anytime. Great for fault-tolerant jobs."},
+      {"w":"A","t":"And Savings Plans?"},
+      {"w":"B","t":"A prepaid transit card. You commit dollars per hour, but keep flexibility across instance families."},
+      {"w":"A","t":"Exam keyword?"},
+      {"w":"B","t":"Most cost-effective and fault-tolerant, that's Spot. Steady, predictable, long term, that's Reserved or Savings Plans."},
+      {"w":"A","t":"So four stories."},
+      {"w":"B","t":"Taxi, season pass, carpool, prepaid card. Never mix them up again."},
+      {"w":"B","t":"Recall. Cheapest, interruptible, fault-tolerant?"},
+      {"w":"pause","ms":4000,"prompt":"Cheapest and interruptible?"},
+      {"w":"A","t":"Spot, the carpool, up to ninety percent off."},
+      {"w":"B","t":"Steady long-term commitment, biggest discount?"},
+      {"w":"pause","ms":3500,"prompt":"Long-term steady commitment?"},
+      {"w":"A","t":"Reserved or Savings Plans, the season pass."}
+    ]
+  },
+  {
+    "t": "Billing Tools: Budgets, Cost Explorer, Cost & Usage", "tag": "Billing & Pricing", "cat": "Cost Management", "domain": "Billing, Pricing and Support", "ico": "💸", "color": "#FF9900",
+    "hook": "Budgets alarm. Cost Explorer graphs. Cost and Usage Report raw data.",
+    "lines": [
+      {"w":"A","t":"Three billing tools. Budgets, Cost Explorer, Cost and Usage Report."},
+      {"w":"B","t":"Budgets is a smoke alarm. Set a threshold, get alerted before you overspend. You can even set an S3 budget that stops a service."},
+      {"w":"A","t":"Cost Explorer?"},
+      {"w":"B","t":"The dashboard with graphs. Visualize spend over time, filter by service, forecast the bill."},
+      {"w":"A","t":"Cost and Usage Report?"},
+      {"w":"B","t":"The raw spreadsheet. The most detailed data, line by line, for deep analysis in a tool like Athena or QuickSight."},
+      {"w":"A","t":"Exam tell for an alert before overspending?"},
+      {"w":"B","t":"Budgets. The phrase alert, or threshold, is the giveaway."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"Alarm, graphs, raw spreadsheet."},
+      {"w":"B","t":"Recall. Get alerted before overspending?"},
+      {"w":"pause","ms":3500,"prompt":"Alert before overspending?"},
+      {"w":"A","t":"AWS Budgets, the smoke alarm."},
+      {"w":"B","t":"Most detailed line by line data?"},
+      {"w":"pause","ms":3500,"prompt":"Most detailed raw data?"},
+      {"w":"A","t":"Cost and Usage Report."}
+    ]
+  },
+  {
+    "t": "Support Plans: Basic to Enterprise", "tag": "Billing & Pricing", "cat": "Support", "domain": "Billing, Pricing and Support", "ico": "🎧", "color": "#FF9900",
+    "hook": "Basic free. Developer business hours. Business 24/7. Enterprise TAM.",
+    "lines": [
+      {"w":"A","t":"Support plans confuse me. Basic, Developer, Business, Enterprise."},
+      {"w":"B","t":"Basic is the free helmet, docs and community. Developer is business hours email support, for when you're testing."},
+      {"w":"A","t":"Business and Enterprise?"},
+      {"w":"B","t":"Business is twenty four seven, phone and chat, for production. Enterprise adds a Technical Account Manager, a dedicated expert who knows your setup."},
+      {"w":"A","t":"Exam tell for a dedicated expert?"},
+      {"w":"B","t":"TAM, that's Enterprise only. If the question says production, twenty four seven, that's Business at minimum."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"Helmet, email, twenty four seven, dedicated expert."},
+      {"w":"B","t":"Recall. Which plan includes a TAM?"},
+      {"w":"pause","ms":3500,"prompt":"Which plan has a TAM?"},
+      {"w":"A","t":"Enterprise."},
+      {"w":"B","t":"Production, twenty four seven, phone and chat?"},
+      {"w":"pause","ms":3500,"prompt":"24/7 production support?"},
+      {"w":"A","t":"Business."}
+    ]
+  },
+  {
+    "t": "Well-Architected & Shared Responsibility", "tag": "Cloud Concepts", "cat": "Frameworks", "domain": "Cloud Concepts", "ico": "🏛️", "color": "#8055F5",
     "hook": "AWS: security OF the cloud. You: security IN the cloud.",
     "lines": [
       {"w":"A","t":"The two big frameworks people fear. Well-Architected and Shared Responsibility."},
@@ -173,6 +454,28 @@
       {"w":"B","t":"Who owns the physical data centers?"},
       {"w":"pause","ms":3500,"prompt":"Who owns the physical infrastructure?"},
       {"w":"A","t":"AWS. Security of the cloud."}
+    ]
+  },
+  {
+    "t": "Disaster Recovery: The Four Patterns", "tag": "Cloud Concepts", "cat": "Reliability", "domain": "Cloud Concepts", "ico": "🚑", "color": "#3BA8FF",
+    "hook": "Backup, Pilot Light, Warm Standby, Multi-Site = spare tire, idling engine, warm engine, twin car.",
+    "lines": [
+      {"w":"A","t":"Disaster recovery has four patterns. Make them stick."},
+      {"w":"B","t":"Backup and restore is a spare tire in the trunk. Slow to swap, cheapest. Pilot light is an idling engine, minimal always on, scale up fast."},
+      {"w":"A","t":"Warm standby and multi-site?"},
+      {"w":"B","t":"Warm standby is a warm engine, scaled down but ready, seconds to failover. Multi-site is a twin car, fully running, active active, near zero downtime, most expensive."},
+      {"w":"A","t":"Exam tell for cheapest?"},
+      {"w":"B","t":"Backup and restore. Lowest cost, longest recovery. The exam pairs cost against recovery time."},
+      {"w":"A","t":"And near zero downtime?"},
+      {"w":"B","t":"Multi-site, active active. Most expensive, highest availability."},
+      {"w":"A","t":"Memory hook?"},
+      {"w":"B","t":"Spare tire, idling engine, warm engine, twin car."},
+      {"w":"B","t":"Recall. Cheapest, longest recovery?"},
+      {"w":"pause","ms":4000,"prompt":"Cheapest, longest recovery?"},
+      {"w":"A","t":"Backup and restore, the spare tire."},
+      {"w":"B","t":"Near zero downtime, active active?"},
+      {"w":"pause","ms":3500,"prompt":"Near-zero downtime?"},
+      {"w":"A","t":"Multi-site, the twin car."}
     ]
   }
 ]

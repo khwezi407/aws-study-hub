@@ -15,9 +15,11 @@ DATA = os.path.join(ROOT, "podcast-data.json")
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
 
 VOICE = {"A": "en-US-AvaNeural", "B": "en-US-AndrewNeural"}  # warm, natural
-RATE = "-5%"
-PITCH = {"A": "+3Hz", "B": "-3Hz"}
-GAP_MS = 180  # natural breath between spoken lines
+RATE = "-12%"  # relaxed, laid-back podcast pace
+PITCH = {"A": "+2Hz", "B": "-2Hz"}
+GAP_MS = 260   # natural breath between spoken lines
+PAD_MS = 120   # silence padded around each line so vowels/words never clip
+LEAD_MS = 80   # short lead-in before each line starts
 
 def dur_of(path):
     p = subprocess.run([FFMPEG, "-i", path], capture_output=True, text=True)
@@ -34,7 +36,16 @@ def make_silence(ms, path):
 
 async def synth_line(text, voice, pitch, path):
     c = edge_tts.Communicate(text, voice, rate=RATE, pitch=pitch)
-    await c.save(path)
+    raw = path + ".raw.mp3"
+    await c.save(raw)
+    # Pad with lead-in + tail silence so no phoneme is clipped at the edges.
+    # adelay adds lead-in ms; apad adds tail; atrim keeps it tight.
+    subprocess.run([FFMPEG, "-y", "-i", raw,
+                    "-af", f"adelay={LEAD_MS}|{LEAD_MS},apad=pad_dur={PAD_MS/1000:.3f}",
+                    "-ar", "24000", "-ac", "1", "-b:a", "48k", path],
+                   capture_output=True)
+    try: os.remove(raw)
+    except OSError: pass
 
 def fwd(p): return p.replace("\\", "/")
 

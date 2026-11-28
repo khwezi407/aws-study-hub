@@ -157,35 +157,46 @@ h1,h2,h3{letter-spacing:-.022em}
 /* ── 5. SIDEBAR & NAV ──────────────────────────────────────── */
 .sidebar{
   border-right:1px solid var(--hairline);
-  box-shadow:10px 0 46px -28px rgba(0,0,0,.95);
+  box-shadow:10px 0 46px -28px rgba(0,0,0,.95),inset -1px 0 0 rgba(255,255,255,.02);
 }
 .sidebar-section-label{
-  font-size:.52rem;letter-spacing:.16em;
-  color:rgba(226,232,240,.30);
+  font-size:.52rem;letter-spacing:.18em;font-weight:900;
+  color:rgba(226,232,240,.34);position:relative;padding-left:.2rem;
 }
+.sidebar-section-label::before{content:"";width:3px;height:10px;border-radius:2px;
+  background:linear-gradient(180deg,var(--gold,#e9a92f),rgba(233,169,47,.25));box-shadow:0 0 8px -1px rgba(233,169,47,.55)}
 .sidebar .nav-btn{
-  border-radius:10px;
-  font-size:.77rem;
-  transition:background .18s ease,color .18s ease,box-shadow .18s ease;
+  border-radius:12px;font-size:.78rem;position:relative;overflow:hidden;
+  border:1px solid transparent;
+  transition:background .2s ease,color .2s ease,box-shadow .2s ease,border-color .2s ease,transform .16s ease;
 }
+.sidebar .nav-btn::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.05) 50%,transparent 65%);
+  transform:translateX(-130%);transition:transform .55s ease}
+.sidebar .nav-btn:hover::after{transform:translateX(130%)}
+.sidebar .nav-btn:hover{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.07)}
+.sidebar .nav-btn:active{transform:scale(.99)}
 .sidebar .nav-btn .nav-icon{
-  border-radius:9px;
-  background:linear-gradient(160deg,#182238,#0a1120);
-  border:1px solid var(--hairline);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -8px 14px rgba(0,0,0,.55),0 5px 12px -5px rgba(0,0,0,.8);
+  border-radius:10px;
+  background:linear-gradient(160deg,#1b2740,#0a1120);
+  border:1px solid var(--hairline-strong);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -8px 14px rgba(0,0,0,.55),0 5px 14px -6px rgba(0,0,0,.85);
+  transition:transform .18s ease,box-shadow .2s ease,border-color .2s ease;
 }
 .sidebar .nav-btn:hover .nav-icon{
-  border-color:rgba(125,211,252,.28);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.20),inset 0 -8px 14px rgba(0,0,0,.5),0 8px 18px -6px rgba(0,0,0,.85),0 0 16px -8px rgba(59,130,246,.5);
+  transform:translateY(-1px);
+  border-color:rgba(125,211,252,.32);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -8px 14px rgba(0,0,0,.5),0 8px 20px -6px rgba(0,0,0,.9),0 0 18px -6px rgba(59,130,246,.55);
 }
 .sidebar .nav-btn.active{
-  background:linear-gradient(90deg,rgba(217,164,65,.14),rgba(217,164,65,.03) 72%,transparent);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  background:linear-gradient(100deg,rgba(233,169,47,.18),rgba(233,169,47,.04) 70%,transparent);
+  border-color:rgba(233,169,47,.24);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 0 0 1px rgba(233,169,47,.08) inset,0 8px 22px -16px rgba(233,169,47,.5);
 }
 .sidebar .nav-btn.active .nav-icon{
-  background:linear-gradient(160deg,rgba(217,164,65,.30),rgba(120,80,20,.12));
-  border-color:rgba(217,164,65,.44);
-  box-shadow:inset 0 1px 0 rgba(255,240,190,.28),inset 0 -8px 14px rgba(0,0,0,.45),0 0 18px -6px rgba(217,164,65,.45);
+  background:linear-gradient(160deg,rgba(233,169,47,.32),rgba(120,80,20,.12));
+  border-color:rgba(233,169,47,.5);
+  box-shadow:inset 0 1px 0 rgba(255,240,190,.3),inset 0 -8px 14px rgba(0,0,0,.45),0 0 20px -4px rgba(233,169,47,.5);
 }
 .nav-badge.due{
   background:linear-gradient(135deg,var(--blue),var(--purple));
@@ -511,6 +522,36 @@ input:focus,select:focus,textarea:focus{
   margin:1.2rem 0 .6rem;font-size:.8rem;font-weight:900;color:var(--gold);
   text-transform:uppercase;letter-spacing:.07em;
 }
+/* sub-category block + "Play all" hands-free button */
+.pod-cat{margin-bottom:1rem}
+.pod-cat-head{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin:.2rem 0 .5rem}
+.pod-cat-title{font-size:.68rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.pod-cat-all{
+  flex-shrink:0;cursor:pointer;font:inherit;font-size:.66rem;font-weight:800;
+  padding:.28rem .6rem;border-radius:999px;
+  color:var(--gold2,#f5c451);
+  background:linear-gradient(180deg,rgba(233,169,47,.18),rgba(233,169,47,.06));
+  border:1px solid rgba(233,169,47,.35);
+  box-shadow:0 0 14px -6px rgba(233,169,47,.5),inset 0 1px 0 rgba(255,255,255,.08);
+  transition:transform .16s ease,box-shadow .18s ease,background .18s ease;
+}
+.pod-cat-all:hover{transform:translateY(-1px);box-shadow:0 0 18px -6px rgba(233,169,47,.6),inset 0 1px 0 rgba(255,255,255,.1)}
+.pod-cat-all:active{transform:scale(.97)}
+/* now-playing queue bar */
+.pod-queue{
+  display:flex;align-items:center;gap:.5rem;margin-top:.6rem;padding:.5rem .7rem;
+  border-radius:12px;background:rgba(233,169,47,.08);border:1px solid rgba(233,169,47,.22);
+  font-size:.72rem;color:var(--muted);
+}
+.pod-queue-ico{font-size:1rem}
+.pod-queue-text{flex:1;min-width:0}
+.pod-queue-text b{color:var(--gold2,#f5c451)}
+.pod-queue-stop{
+  flex-shrink:0;cursor:pointer;font:inherit;font-size:.64rem;font-weight:800;
+  padding:.25rem .5rem;border-radius:8px;color:var(--muted);
+  background:rgba(255,255,255,.05);border:1px solid var(--hairline);
+}
+.pod-queue-stop:hover{color:var(--text);background:rgba(255,255,255,.09)}
 .pod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.75rem}
 .pod-card{
   text-align:left;cursor:pointer;font:inherit;color:var(--text);
@@ -671,6 +712,48 @@ body[data-theme="mono"]{
 .kw-row:hover{background:rgba(255,255,255,.03);box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--gold) 22%, transparent)}
 @media(prefers-reduced-motion:reduce){.kw-row{transition:none}}
 
+/* ═══════════════════════════════════════════════════════════════
+   §22 — CRAM SHEET + ACADEMY KEYWORDS: gold cinematic glow,
+   logically categorised, ordered for learning.
+   ═══════════════════════════════════════════════════════════════ */
+/* gold glowing keywords inside cram lines (the trigger terms) */
+.cram-line b{
+  color:var(--gold2,#f5c451);
+  text-shadow:0 0 12px rgba(233,169,47,.55),0 0 26px rgba(233,169,47,.22);
+  font-weight:900;
+}
+.cram-line .arrow{
+  color:var(--gold,#e9a92f);
+  text-shadow:0 0 10px rgba(233,169,47,.6);
+}
+/* numbers glow gold too */
+.cram-num b{
+  color:var(--gold2,#f5c451);
+  text-shadow:0 0 12px rgba(233,169,47,.5);
+}
+/* cram cards: premium glass with lit top edge + gold hover */
+.cram-card{
+  background:
+    radial-gradient(120% 80% at 50% -40%,rgba(255,255,255,.05),transparent 55%),
+    linear-gradient(180deg,rgba(17,26,44,.86),rgba(7,12,22,.94));
+  position:relative;overflow:hidden;
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.cram-card::after{content:"";position:absolute;top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(233,169,47,.4),transparent);opacity:.7}
+.cram-card:hover{border-color:rgba(233,169,47,.3);box-shadow:0 0 30px -14px rgba(233,169,47,.4),var(--elev-2)}
+/* cram section titles: gold cinematic */
+.cram-card-title{color:var(--gold2,#f5c451);text-shadow:0 0 14px rgba(233,169,47,.3)}
+/* tabs: clearer active state */
+.cram-tab{transition:background .18s ease,color .18s ease,box-shadow .18s ease}
+.cram-tab.active{background:linear-gradient(180deg,rgba(233,169,47,.22),rgba(233,169,47,.08));
+  border-color:rgba(233,169,47,.4);color:var(--gold2,#f5c451);
+  box-shadow:0 0 18px -8px rgba(233,169,47,.5)}
+/* academy-wide keyword chips: gold cinematic glow */
+.kw-code,.gym-kw-chip,.rec-kw,.domain-pill,.gold-pill,.pod-pill,.mp-chip{
+  text-shadow:0 0 12px color-mix(in srgb, var(--gold,#e9a92f) 50%, transparent);
+}
+
 /* ── 18. FINAL PREMIUM TOUCHES ─────────────────────────────── */
 ::selection{background:rgba(233,169,47,.28);color:#fff}
 .section-header h1,.hero-title{text-wrap:balance}
@@ -756,3 +839,42 @@ body[data-theme="mono"]{
   .mp-panel [style*="display:flex"]>div{min-width:0}
   .mp-panel .btn{white-space:normal}
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   §21 — CINEMATIC ACADEMY CONTENT (entire site, all pages)
+   Subtle depth, premium glass, lit accents — never overboard.
+   ═══════════════════════════════════════════════════════════════ */
+.main-content{position:relative}
+/* soft cinematic vignette + glow behind the content canvas */
+.main-content::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:
+    radial-gradient(60% 40% at 15% 0%,rgba(59,130,246,.06),transparent 60%),
+    radial-gradient(50% 40% at 85% 100%,rgba(233,169,47,.05),transparent 60%);
+}
+/* section headers: cinematic eyebrow + balanced title */
+.section-header{margin-bottom:1.1rem}
+.section-header h1{
+  background:linear-gradient(180deg,#fff,#cdd6e8);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+/* premium glass cards: deeper, with a lit top edge */
+.glass-card,.stat-card,.domain-card,.service-card,.mp-panel,.mp-block,.card{
+  background:
+    radial-gradient(120% 80% at 50% -40%,rgba(255,255,255,.06),transparent 55%),
+    linear-gradient(180deg,rgba(17,26,44,.86),rgba(7,12,22,.94));
+  position:relative;
+}
+.glass-card::after,.stat-card::after,.domain-card::after,.service-card::after,.mp-panel::after{
+  content:"";position:absolute;top:0;left:10%;right:10%;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);opacity:.7;
+}
+/* stat / number emphasis */
+.stat-card,.mp-stat{font-feature-settings:"tnum"}
+/* links & subtle text get a touch more contrast */
+.muted{color:rgba(226,232,240,.62)}
+/* premium scrollbar */
+*{scrollbar-width:thin;scrollbar-color:rgba(148,163,184,.28) transparent}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(148,163,184,.32),rgba(148,163,184,.16));border-radius:99px;border:2px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,rgba(125,211,252,.4),rgba(148,163,184,.24));background-clip:padding-box}
