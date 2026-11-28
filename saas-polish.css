@@ -282,6 +282,17 @@ h1,h2,h3{letter-spacing:-.022em}
   transition:transform .18s ease;
 }
 .topbar-bell:hover{transform:translateY(-1px)}
+/* Mobile: declutter the topbar — drop focus + history buttons, keep search & bell.
+   The bottom sheet handles navigation, so back/forward are redundant on phones. */
+@media(max-width:860px){
+  .topbar{gap:.5rem}
+  .topbar .hud-btn{display:none}
+  .nav-hist{display:none}
+  .topbar-search{min-width:0;max-width:40px;width:40px;padding:0;justify-content:center;gap:0}
+  .topbar-search-label,.topbar-search-kbd{display:none}
+  .topbar-bell{width:40px;height:40px}
+  .mobile-menu-btn{width:40px;height:40px}
+}
 
 /* ── 7. HERO ───────────────────────────────────────────────── */
 .hero-banner{

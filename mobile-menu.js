@@ -53,18 +53,21 @@
     backdrop.addEventListener('click', close);
     var h = document.getElementById('mobile-sheet-handle');
     if (h) {
-      var startY = 0, dragging = false;
-      h.addEventListener('touchstart', function (e) { startY = e.touches[0].clientY; dragging = true; }, { passive: true });
+      var startY = 0, lastY = 0, dragging = false;
+      h.addEventListener('touchstart', function (e) { startY = e.touches[0].clientY; lastY = startY; dragging = true; }, { passive: true });
       h.addEventListener('touchmove', function (e) {
         if (!dragging) return;
-        var dy = e.touches[0].clientY - startY;
+        var y = e.touches[0].clientY; lastY = y;
+        var dy = y - startY;
         if (dy > 0) sheet.style.transform = 'translateY(' + dy + 'px)';
       }, { passive: true });
-      h.addEventListener('touchend', function () {
+      h.addEventListener('touchend', function (e) {
+        if (!dragging) return;
         dragging = false;
+        var endY = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : lastY;
+        var dy = endY - startY;
         sheet.style.transform = '';
-        var dy = (window.event && window.event.changedTouches) ? window.event.changedTouches[0].clientY - startY : 0;
-        if (dy > 80) close();
+        if (dy > 70) close();
       });
       h.addEventListener('click', close);
     }
