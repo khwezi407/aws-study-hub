@@ -35,7 +35,7 @@
       '.notif-sub{font-size:.64rem;color:var(--muted,rgba(226,232,240,.55));margin-top:1px}',
       '.notif-foot{border-top:1px solid rgba(255,255,255,.08);margin-top:.35rem;padding:.45rem .7rem .25rem;',
       'font-size:.6rem;color:var(--muted,rgba(226,232,240,.4));text-align:center}',
-      '@media(max-width:860px){.notif-panel{top:auto;bottom:calc(64px + env(safe-area-inset-bottom));right:12px;transform-origin:bottom right}}',
+      '@media(max-width:860px){.notif-panel{top:60px;bottom:auto;right:10px;left:auto;transform-origin:top right}}',
       '@media(prefers-reduced-motion:reduce){.notif-panel{transition:none!important}}'
     ].join('');
     document.head.appendChild(s);
