@@ -100,16 +100,24 @@
     var u = new SpeechSynthesisUtterance(text);
     u.rate = RATES[rateIdx];
     u.pitch = 1;
+    u.volume = 1;
     var v = pickVoice();
     if (v) u.voice = v;
     keepAlive = u;            // keep a reference (Chrome GC bug)
     var started = false;
     u.onstart = function () { started = true; setSpeaking(true); };
     u.onend = function () { setSpeaking(false); keepAlive = null; };
-    u.onerror = function () { setSpeaking(false); keepAlive = null; };
+    u.onerror = function (ev) {
+      setSpeaking(false); keepAlive = null;
+      var why = ev && (ev.error || ev.message) ? String(ev.error || ev.message) : '';
+      if (why && why !== 'interrupted' && why !== 'canceled') {
+        try { toast('Read-aloud error: ' + why); } catch (e) { }
+      }
+    };
     setSpeaking(true);
-    // Chrome can ignore speak() fired in the same tick as cancel(); nudge it.
-    setTimeout(function () { try { synth.speak(u); } catch (e) { } }, 60);
+    // Speak SYNCHRONOUSLY inside the click handler. A setTimeout here breaks
+    // the browser's user-activation chain and Chrome silently blocks audio.
+    try { synth.speak(u); } catch (e) { setSpeaking(false); }
     // Watchdog: if nothing started, retry once (voices may have loaded late).
     setTimeout(function () {
       if (!started && keepAlive === u && speaking) {
