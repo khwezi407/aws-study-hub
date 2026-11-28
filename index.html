@@ -3304,21 +3304,23 @@ function navigate(tab, fromHist){
     }catch(err){ try{console.warn('render',err);}catch(e){} }
   };
 
-  // Clean, blur-free two-phase fade (no white flash, no jank)
+  // Clean, blur-free two-phase fade — smooth Apple-style unfold (no white flash, no jank)
   el.style.transformOrigin='50% 0%';
-  el.style.transition = reduce ? 'none' : 'opacity .14s ease, transform .14s ease';
+  el.style.willChange='opacity, transform';
+  el.style.transition = reduce ? 'none' : 'opacity .16s cubic-bezier(.4,0,.2,1), transform .16s cubic-bezier(.4,0,.2,1)';
   el.style.opacity = '0';
-  el.style.transform = reduce ? 'none' : 'translateY(6px)';
+  el.style.transform = reduce ? 'none' : 'translateY(8px) scale(.985)';
   const swap = ()=>{
     doSwap();
     requestAnimationFrame(()=>requestAnimationFrame(()=>{
       if(myToken !== _navToken) return;
-      el.style.transition = reduce ? 'none' : 'opacity .30s cubic-bezier(.22,1,.36,1), transform .30s cubic-bezier(.22,1,.36,1)';
+      el.style.transition = reduce ? 'none' : 'opacity .42s cubic-bezier(.22,1,.36,1), transform .42s cubic-bezier(.22,1,.36,1)';
       el.style.opacity = '1';
       el.style.transform = 'none';
+      setTimeout(()=>{ if(myToken===_navToken) el.style.willChange=''; }, 460);
     }));
   };
-  if(reduce){ doSwap(); } else { setTimeout(swap,130); }
+  if(reduce){ doSwap(); } else { setTimeout(swap,150); }
 }
 // Deep-link navigation with anchor scrolling
 function navigateTo(tab, anchor){
