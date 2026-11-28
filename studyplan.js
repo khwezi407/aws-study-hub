@@ -1,14 +1,13 @@
 // ═══════════════════════════════════════════════════════════════
 //  KHWEZI'S PERSONALISED STUDY PLAN
-//  Exam: 14 December 2026
-//  Free window: 26 Nov – 4 Dec (9 intensive days)
-//  Medical Missionary: 5 Dec – 20 Dec
-//  Presenting: 13 Dec – 18 Dec
+//  Exam: 8 December 2026 (10 days from 28 Nov)
+//  The app re-bases these 9 study days around the live exam date,
+//  so the plan always ends the day before your exam.
 // ═══════════════════════════════════════════════════════════════
 
 window.STUDY_PLAN = {
 
-  examDate: '2026-12-14',
+  examDate: '2026-12-08',
   targetScore: 90,
   studentName: 'Khwezi',
 
@@ -18,42 +17,42 @@ window.STUDY_PLAN = {
       label: 'Phase 1 — Intensive Prep',
       emoji: '🔥',
       color: '#FF9900',
-      dateRange: 'Nov 26 – Dec 4',
-      startDate: '2026-11-26',
-      endDate: '2026-12-04',
-      description: '9 days at home — full focus. This is your golden window. 6-8 hours/day.',
-      tip: 'You have ALL the hours. Treat this like a job. Morning = learn. Afternoon = practice. Evening = mock exam.',
+      dateRange: 'Start – Day 6',
+      startDate: '2026-11-28',
+      endDate: '2026-12-03',
+      description: 'Full focus window. Morning = learn, afternoon = practise, evening = mock or review.',
+      tip: 'You have the hours. Treat this like a job: 3 focused blocks, no phone, clear the due-review queue first.',
     },
     {
-      id: 'missionary',
+      id: 'taper',
       label: 'Phase 2 — Light Review',
       emoji: '📖',
       color: '#3BA8FF',
-      dateRange: 'Dec 5 – Dec 12',
-      startDate: '2026-12-05',
-      endDate: '2026-12-12',
-      description: 'Medical Missionary begins. 1-2 hrs/day max. Flashcards + weak domain drilling only.',
-      tip: 'No new content. Only review what you already know. Quick flashcard sessions between sessions.',
+      dateRange: 'Day 7 – Day 9',
+      startDate: '2026-12-04',
+      endDate: '2026-12-06',
+      description: 'Taper. Flashcards, weak-domain drills and mock review only. No new content.',
+      tip: 'Protect sleep. 1–2 focused hours beats a tired 5-hour cram. Drill only what you keep getting wrong.',
     },
     {
-      id: 'presenting',
+      id: 'final',
       label: 'Phase 3 — Exam Week',
       emoji: '⚡',
       color: '#8B5CF6',
-      dateRange: 'Dec 13 – 14',
-      startDate: '2026-12-13',
-      endDate: '2026-12-14',
-      description: 'You\'re presenting AND sitting the exam. Dec 13 = light review only. Dec 14 = EXAM DAY.',
-      tip: 'Dec 13: 30 min max. Review your cheat sheet. Sleep early. Dec 14: Trust your preparation. You\'ve got this.',
+      dateRange: 'Day before – Exam day',
+      startDate: '2026-12-07',
+      endDate: '2026-12-08',
+      description: 'Final 24 hours: light review, then the exam. No new material, no panic-cramming.',
+      tip: 'Night before: read the cram sheet once, pack your ID, sleep 8 hours. Exam day: read every question twice, flag and move on.',
     },
   ],
 
   // 9-day intensive day-by-day plan
   days: [
     {
-      date: '2026-11-26',
+      date: '2026-11-28',
       day: 1,
-      label: 'Day 1 — Wed 26 Nov',
+      label: 'Day 1 — Sat 28 Nov',
       emoji: '☁️',
       theme: 'Cloud Foundations',
       focus: 'Cloud Concepts (24% of exam)',
@@ -93,9 +92,9 @@ window.STUDY_PLAN = {
       weekFlashcards: 1,
     },
     {
-      date: '2026-11-27',
+      date: '2026-11-29',
       day: 2,
-      label: 'Day 2 — Thu 27 Nov',
+      label: 'Day 2 — Sun 29 Nov',
       emoji: '🛡️',
       theme: 'Security & IAM',
       focus: 'Security & Compliance (30% of exam — BIGGEST domain)',
@@ -135,9 +134,9 @@ window.STUDY_PLAN = {
       weekFlashcards: 6,
     },
     {
-      date: '2026-11-28',
+      date: '2026-11-30',
       day: 3,
-      label: 'Day 3 — Fri 28 Nov',
+      label: 'Day 3 — Mon 30 Nov',
       emoji: '🖥️',
       theme: 'Compute Services',
       focus: 'Cloud Technology & Services — Compute (part of 34%)',
@@ -177,9 +176,9 @@ window.STUDY_PLAN = {
       weekFlashcards: 2,
     },
     {
-      date: '2026-11-29',
+      date: '2026-12-01',
       day: 4,
-      label: 'Day 4 — Sat 29 Nov',
+      label: 'Day 4 — Tue 1 Dec',
       emoji: '💾',
       theme: 'Storage & Databases',
       focus: 'Cloud Technology & Services — Storage + DB',
@@ -220,9 +219,9 @@ window.STUDY_PLAN = {
       weekFlashcards: 3,
     },
     {
-      date: '2026-11-30',
+      date: '2026-12-02',
       day: 5,
-      label: 'Day 5 — Sun 30 Nov',
+      label: 'Day 5 — Wed 2 Dec',
       emoji: '🌐',
       theme: 'Networking + Management',
       focus: 'Networking, VPC, Management Tools',
@@ -263,9 +262,9 @@ window.STUDY_PLAN = {
       weekFlashcards: 5,
     },
     {
-      date: '2026-12-01',
+      date: '2026-12-03',
       day: 6,
-      label: 'Day 6 — Mon 1 Dec',
+      label: 'Day 6 — Thu 3 Dec',
       emoji: '🚀',
       theme: 'Apps, Migration & ML',
       focus: 'Migration Services + Application Integration + ML',
@@ -306,9 +305,9 @@ window.STUDY_PLAN = {
       weekFlashcards: 8,
     },
     {
-      date: '2026-12-02',
+      date: '2026-12-04',
       day: 7,
-      label: 'Day 7 — Tue 2 Dec',
+      label: 'Day 7 — Fri 4 Dec',
       emoji: '💰',
       theme: 'Billing & Full Domain Review',
       focus: 'Billing + Pricing (12%) — Complete domain sweep',
@@ -348,9 +347,9 @@ window.STUDY_PLAN = {
       weekFlashcards: 10,
     },
     {
-      date: '2026-12-03',
+      date: '2026-12-05',
       day: 8,
-      label: 'Day 8 — Wed 3 Dec',
+      label: 'Day 8 — Sat 5 Dec',
       emoji: '🎯',
       theme: 'Weak Spots + Exam Traps',
       focus: 'Targeted drilling of weakest areas',
@@ -390,12 +389,12 @@ window.STUDY_PLAN = {
       weekFlashcards: 10,
     },
     {
-      date: '2026-12-04',
+      date: '2026-12-06',
       day: 9,
-      label: 'Day 9 — Thu 4 Dec',
+      label: 'Day 9 — Sun 6 Dec',
       emoji: '🏆',
       theme: 'Confidence Day',
-      focus: 'Full simulation + confidence building before missionary',
+      focus: 'Full simulation + confidence building before the taper',
       color: '#FF9900',
       morning: {
         title: 'Final Full Simulation',
@@ -418,31 +417,18 @@ window.STUDY_PLAN = {
         duration: '2 hrs'
       },
       evening: {
-        title: 'Prep for Missionary + Pack Plan',
+        title: 'Exam Logistics + Wind-Down',
         tasks: [
-          'Set up your phone/tablet with flashcard access',
-          'Plan your Dec 5-12 light review (20 mins/day)',
+          'Confirm your exam booking, ID and start time',
+          'Plan the final 48 hours: taper, sleep, no new content',
           'Write your exam day checklist',
           'Get a good night\'s sleep — you\'ve earned it',
         ],
         duration: '1 hr'
       },
-      target: '🏆 90%+ confirmed. EXAM-READY. Travel with confidence.',
+      target: '🏆 90%+ confirmed. You are exam-ready — now protect your energy.',
       weekFlashcards: 7,
     },
-  ],
-
-  // Light review plan for Dec 5-12 (Medical Missionary)
-  lightReview: [
-    { date:'2026-12-05', label:'Dec 5', task:'Week 1 + Week 6 flashcards (20 min)', focus:'Cloud Concepts + Security' },
-    { date:'2026-12-06', label:'Dec 6', task:'Week 2 + Week 3 flashcards (20 min)', focus:'Compute + Storage' },
-    { date:'2026-12-07', label:'Dec 7', task:'Week 4 + Week 5 flashcards (20 min)', focus:'Databases + Networking' },
-    { date:'2026-12-08', label:'Dec 8', task:'Week 10 exam trap flashcards (15 min)', focus:'Tricky scenarios only' },
-    { date:'2026-12-09', label:'Dec 9', task:'Do 20 practice questions (25 min)', focus:'Mixed domain drill' },
-    { date:'2026-12-10', label:'Dec 10', task:'Week 7 + Week 8 flashcards (20 min)', focus:'Management + Migration' },
-    { date:'2026-12-11', label:'Dec 11', task:'Review your cheat sheet (15 min)', focus:'Key terms refresh' },
-    { date:'2026-12-12', label:'Dec 12', task:'Week 9 + exam keywords (15 min)', focus:'Dev Tools + final keywords' },
-    { date:'2026-12-13', label:'Dec 13', task:'30 min MAX: cheat sheet only. Sleep early.', focus:'Rest & trust your prep' },
   ],
 
   examDayTips: [

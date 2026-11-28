@@ -3,15 +3,19 @@
 ## Architecture
 ```
 AWS Study Hub/
-├── index.html          # Everything: UI, logic, styles (single file, ~1500 lines)
-├── questions.js        # Question bank (window.QUESTIONS array)
+├── index.html            # UI, logic and the base stylesheet
+├── theme-v3.css          # "Studio" layer: depth, light, 3D icon tiles
+├── premium.js            # Mission timeline, command palette, focus mode, cram sheet
+├── questions.js          # Authored question bank (window.QUESTIONS)
+├── external-questions.js # Additional bank, merged at load
+├── flashcards.js         # window.FLASHCARD_DECKS
+├── studyplan.js          # window.STUDY_PLAN (9-day exam sprint)
 ├── requirements.md
 ├── design.md
 └── tasks.md
 ```
 
-`index.html` loads `questions.js` via a `<script src="questions.js">` tag.
-No bundler, no framework. Vanilla JS with ES2020 features.
+`index.html` loads the data files and `theme-v3.css` in `<head>`, then `premium.js` at the end of `<body>`. No bundler, no framework, no build step. Vanilla JS with ES2020 features. Everything runs offline from `file://` or any static server.
 
 ## State (localStorage keys)
 | Key | Contents |
@@ -20,15 +24,20 @@ No bundler, no framework. Vanilla JS with ES2020 features.
 | `clf_history` | Array of session results {date, mode, score, domain_scores} |
 | `clf_confusions` | Map of "A→B" pairs to count and lastSeen |
 | `clf_diagnostic` | Diagnostic result + date |
-| `clf_settings` | examDate override, colorScheme |
+| `clf_exam_date` | ISO exam date (default `2026-12-08T07:00:00`) |
+| `clf_mastery_v1` | 90-day path: `{start, total, days:{1:[bool×5]}, notes:{day:text}}` |
+| `clf_xp`, `clf_streak`, `clf_missions` | Gamification state |
+| `clf_username`, `clf_avatar` | Profile |
+| `clf_home_layout`, `clf_theme` | UI preferences |
 
-## UI Sections (tabs)
-1. **Home** – Days-to-exam counter, daily plan, due-item count, quick links.
-2. **Diagnostic** – 40-question baseline. Locked if completed within 7 days.
-3. **Study** – Browse by domain → service cards with explanation, analogy, comparison.
-4. **Practice** – Filtered quiz: by domain, by tag, by due date, or weakness drill.
-5. **Mock Exam** – Full 65-question timed exam.
-6. **Progress** – Domain accuracy bars, confusion pairs, spaced-rep heat map, mock history.
+## UI Sections (tabs, in sidebar order)
+1. **Study Roadmap** – 9-day exam sprint, phases, exam-day tips.
+2. **Mastery Path** – 90-day curriculum (5 × 25-min blocks/day); compresses to the days remaining.
+3. **Home** – Days-to-exam counter, mission timeline, due count, today's mission, mastery strip.
+4. **Learn / Cram Sheet / Week Flashcards / Terminology Gym / Architecture Lab** – study material.
+5. **Practice / Review Queue / Exam Mode / Diagnostic Scan / Games Arena** – active practice.
+6. **Progress / Achievements / Study Method** – measurement and method.
+7. **Settings** – exam date, profile, theme, reset.
 
 ## Color scheme
 - Background: `#0f172a` (slate-900)

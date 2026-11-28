@@ -52,6 +52,18 @@ Build order is strict. Do not start a task until the one above it is complete an
 - [x] 7c. If diagnostic not done: plan says "Take diagnostic first"
 - [x] 7d. Hard-stop message shown at bottom of plan
 
+## Task 8 – Premium pass (Mission Control + Mastery Path)
+- [x] 8a. `theme-v3.css` depth layer: 3D nav-icon tiles, surface gradients, sheen, focus rings
+- [x] 8b. Sidebar regrouped into Plan / Study / Practise / Track / System; Study Roadmap first
+- [x] 8c. 90-Day Mastery Path: 12-week curriculum, 5 × 25-min daily blocks, auto-compression
+- [x] 8d. Mastery state persisted in `clf_mastery_v1`; block ticks, day streak, readiness
+- [x] 8e. Feynman teach-back modal with per-day notes
+- [x] 8f. Review Queue tab: due counts, domain backlog, leeches, confusion pairs
+- [x] 8g. Home mastery strip + live due badge in the sidebar
+- [x] 8h. Command palette groups and entries match the new sidebar
+- [x] 8i. Mobile: 390/820 px with zero horizontal overflow on all new pages
+- [x] 8j. `node --check` passes; zero console errors across the full tab sweep
+
 ## Completion criteria
 - Open index.html in Chrome, Firefox, or Edge — no errors in console.
 - All 120+ questions load.

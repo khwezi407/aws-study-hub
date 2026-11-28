@@ -1,0 +1,10 @@
+# Heavy reference monorepo (not part of the study site)
+saas-ui-main/
+
+# Podcast build leftovers (only ep0.mp3..ep7.mp3 are used by the app)
+podcast-audio/_lines/
+podcast-audio/ep*_*.mp3
+
+# Local temp / dev scratch
+_logic.tmp
+_mobile-check.html

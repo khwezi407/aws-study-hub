@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -22,6 +22,7 @@
   --bg-card:rgba(10,18,42,0.82);
   --bg-card-solid:#0D2550;
   --bg-sidebar:rgba(4,8,20,0.98);
+
 
   /* accents */
   --gold:#E9A92F;
@@ -368,42 +369,29 @@ input,select{font:inherit}
 /* ── RESPONSIVE ─────────────────────────── */
 @media(max-width:860px){
   .sidebar{display:none}
-  .main-wrapper{margin-left:0}
+  .main-wrapper{margin-left:0;min-width:0}
   .bottom-nav{display:flex}
-  .main-content{padding:.75rem .85rem 5.5rem}
+  .main-content{padding:.75rem .85rem 5.5rem;min-width:0}
+  /* Topbar must be allowed to shrink, or its nowrap items force page-wide overflow */
+  .topbar{padding:.5rem .85rem;gap:.45rem}
+  .topbar>div[style*="flex:1"]{display:none}
+  .topbar-mission{flex:0 1 auto;max-width:46%;margin-right:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #topbar-mission-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+  .topbar-user{flex:0 1 auto;min-width:0;padding:.25rem .6rem .25rem .3rem}
+  .topbar-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .topbar-xp-bar{width:48px}
 }
 @media(max-width:600px){
-  /* Hero: stack vertically, full width text */
-  .hero-banner{min-height:auto;display:flex;flex-direction:column}
-  .hero-astronaut-img{display:none}
-  .hero-content{
-    max-width:100%;
-    padding:1.1rem 1rem .6rem;
-    flex:1;
-  }
-  .hero-title{font-size:1.35rem}
-  .hero-target{
-    position:static;
-    transform:none;
-    flex-direction:row;
-    justify-content:flex-start;
-    align-items:center;
-    padding:.5rem 1rem .9rem;
-    gap:.75rem;
-    z-index:3;
-  }
-  .hero-target-ring{width:72px;height:72px;flex-shrink:0}
-  .hero-target-crown{font-size:1rem}
-  .hero-target-pct{font-size:1.2rem}
-  .hero-target-ribbon{font-size:.58rem}
-  /* Stat cards: keep 2-col grid on mobile */
-  .stat-cards-row{grid-template-columns:repeat(2,1fr)!important;gap:.6rem}
-  .sc-big{font-size:1.9rem}
-  /* Domain rings: slightly smaller on mobile */
-  .domain-ring-svg-wrap{width:65px;height:65px}
-  /* Bottom nav larger tap targets */
-  .bottom-nav .nav-btn{padding:.5rem .2rem}
+  .topbar-name{max-width:84px}
 }
+@media(max-width:420px){
+  .topbar-user>div:last-child{display:none}
+  .topbar-user{padding:.2rem;border-radius:50%}
+  .topbar-name{max-width:60px}
+  .hud-btn{width:31px;height:31px}
+}
+/* Hero/stat/ring/bottom-nav mobile overrides live at the end of this stylesheet,
+   after their base rules, so they are not overridden by later declarations. */
 .bottom-nav .nav-btn{
   flex:1;flex-direction:column;justify-content:center;
   gap:2px;padding:.4rem .2rem;font-size:.6rem;border-radius:0;
@@ -435,8 +423,7 @@ input,select{font:inherit}
     inset 0 0 60px rgba(8,123,255,0.03);
 }
 .hero-banner::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;  background:linear-gradient(90deg,
     transparent 0%,
     rgba(8,123,255,0.5) 25%,
     rgba(0,207,255,0.8) 45%,
@@ -451,6 +438,11 @@ input,select{font:inherit}
   object-fit:cover;object-position:center;
   opacity:0.22;
   mix-blend-mode:luminosity;
+}
+/* readability scrim: keeps headline clear of the astronaut artwork */
+.hero-banner .hero-scrim{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,rgba(3,9,28,0.94) 0%,rgba(3,9,28,0.82) 38%,rgba(3,9,28,0.35) 62%,transparent 78%);
 }
 .hero-astronaut-img{
   position:absolute;right:18%;top:0;bottom:0;
@@ -664,6 +656,7 @@ input,select{font:inherit}
   display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;
 }
 @media(max-width:500px){.domain-rings-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1250px) and (min-width:501px){.domain-rings-grid{grid-template-columns:repeat(2,1fr)}}
 .domain-ring-item{
   display:flex;flex-direction:column;align-items:center;
   cursor:pointer;padding:.5rem .3rem .4rem;
@@ -2337,7 +2330,383 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
   background:rgba(255,255,255,0.05);
   transform:translateY(-4px) scale(1.04);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   MISSION CONTROL — PREMIUM LAYER
+═══════════════════════════════════════════════════════════════ */@keyframes mcShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes mcPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.75)}}
+@keyframes mcFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes mcSpin{to{transform:rotate(360deg)}}
+@keyframes mcRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes mcScan{0%{transform:translateY(-120%)}100%{transform:translateY(1600%)}}
+
+/* ── SIDEBAR MISSION CLOCK ───────────────── */
+.mission-clock{
+  margin:.55rem .7rem .35rem;padding:.72rem .8rem .62rem;border-radius:16px;
+  background:linear-gradient(150deg,rgba(255,153,0,0.14),rgba(8,123,255,0.07) 55%,rgba(255,255,255,0.02));
+  border:1px solid rgba(255,153,0,0.24);position:relative;overflow:hidden;
+  box-shadow:0 8px 26px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,220,120,.14);
+}
+.mission-clock::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.08) 46%,transparent 60%);
+  background-size:250% 100%;animation:mcShimmer 7s linear infinite;
+}
+.mission-clock-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.15rem}
+.mission-clock-label{font-size:.52rem;text-transform:uppercase;letter-spacing:.16em;font-weight:800;color:var(--gold2)}
+.mission-clock-live{display:inline-flex;align-items:center;gap:.25rem;font-size:.5rem;font-weight:900;letter-spacing:.1em;color:var(--green2)}
+.pulse-dot{width:5px;height:5px;border-radius:50%;background:var(--green2);box-shadow:0 0 8px var(--green2);animation:mcPulse 1.6s ease-in-out infinite;display:inline-block}
+.mission-clock-main{display:flex;align-items:baseline;gap:.3rem;line-height:1}
+.mission-clock-main #mc-days{
+  font-size:1.85rem;font-weight:900;letter-spacing:-.04em;
+  background:linear-gradient(120deg,#FFE7A8,var(--gold) 45%,#fff2cc);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 12px rgba(233,169,47,.35));
+}
+.mc-unit{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.mission-clock-sub{font-size:.58rem;color:var(--muted);font-weight:700;margin-top:.05rem}
+.mission-clock-bar{height:4px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;margin:.42rem 0 .32rem}
+.mission-clock-bar>div{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--gold),#ff5f6d);box-shadow:0 0 10px rgba(233,169,47,.5);transition:width .9s cubic-bezier(.4,0,.2,1)}
+.mission-clock-foot{display:flex;justify-content:space-between;gap:.3rem;font-size:.5rem;font-weight:700;color:var(--muted2);letter-spacing:.02em}
+.mission-clock,.sidebar-section-label,.nav-btn{flex-shrink:0}
+@media(max-height:920px){.sidebar-dream-card{display:none}}
+@media(max-height:800px){
+  .nav-btn{padding:.4rem .9rem;font-size:.73rem}
+  .sidebar-section-label{padding:.5rem .9rem .12rem}
+  .mission-clock{margin:.35rem .6rem .2rem;padding:.55rem .7rem .45rem}
+  .mission-clock-main #mc-days{font-size:1.5rem}
+  .sidebar-logo{padding:.7rem .9rem .6rem}
+}
+
+/* ── TOPBAR HUD ──────────────────────────── */
+.topbar-mission{
+  display:inline-flex;align-items:center;gap:.45rem;
+  padding:.34rem .8rem;border-radius:999px;
+  background:rgba(255,153,0,.08);border:1px solid rgba(255,153,0,.22);
+  font-size:.66rem;font-weight:800;letter-spacing:.06em;color:var(--gold2);
+  text-transform:uppercase;white-space:nowrap;
+}
+.topbar-mission-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 9px var(--gold);animation:mcPulse 1.8s infinite}
+.hud-btn{
+  width:34px;height:34px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  color:var(--text);font-size:.72rem;font-weight:800;cursor:pointer;
+  transition:all .2s;margin-right:.4rem;font-family:inherit;
+}
+.hud-btn:hover{background:rgba(255,153,0,.14);border-color:rgba(255,153,0,.4);color:var(--gold2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,153,0,.18)}
+
+/* ── MISSION TIMELINE (HOME) ─────────────── */
+.mt-card{
+  position:relative;overflow:hidden;margin-bottom:1rem;border-radius:20px;
+  padding:1.05rem 1.15rem 1rem;
+  background:
+    radial-gradient(ellipse 70% 120% at 0% 0%,rgba(255,153,0,.10),transparent 60%),
+    radial-gradient(ellipse 60% 120% at 100% 100%,rgba(8,123,255,.12),transparent 60%),
+    linear-gradient(155deg,rgba(8,18,46,.97),rgba(5,12,30,.99));
+  border:1px solid rgba(255,153,0,.18);
+  box-shadow:0 10px 44px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,220,120,.09);
+}
+.mt-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,200,90,.5),rgba(80,170,255,.4),transparent);
+}
+.mt-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.7rem;flex-wrap:wrap;margin-bottom:.85rem}
+.mt-eyebrow{font-size:.55rem;text-transform:uppercase;letter-spacing:.18em;font-weight:900;color:var(--gold)}
+.mt-title{font-size:1.02rem;font-weight:900;letter-spacing:-.01em;margin-top:.1rem}
+.mt-title em{font-style:normal;color:var(--gold2)}
+.mt-sub{font-size:.72rem;color:var(--muted);margin-top:.12rem}
+.mt-link{
+  font-size:.64rem;font-weight:800;color:var(--blue2);cursor:pointer;white-space:nowrap;
+  padding:.32rem .7rem;border-radius:999px;border:1px solid rgba(8,123,255,.28);
+  background:rgba(8,123,255,.08);transition:all .2s;
+}
+.mt-link:hover{background:rgba(8,123,255,.18);color:#fff;transform:translateX(2px)}
+.mt-track{display:flex;gap:0;align-items:stretch;margin:.2rem 0 .9rem;overflow-x:auto;padding-bottom:.25rem;scrollbar-width:thin}
+.mt-node{
+  flex:1 0 74px;min-width:74px;position:relative;text-align:center;padding-top:1.15rem;cursor:pointer;
+}
+.mt-node::before{
+  content:'';position:absolute;top:.42rem;left:0;right:0;height:2px;background:rgba(255,255,255,.08);
+}
+.mt-node:first-child::before{left:50%}
+.mt-node:last-child::before{right:50%}
+.mt-node.done::before{background:linear-gradient(90deg,rgba(16,201,149,.55),rgba(16,201,149,.35))}
+.mt-dot{
+  position:absolute;top:.16rem;left:50%;transform:translateX(-50%);
+  width:14px;height:14px;border-radius:50%;background:#0a1730;border:2px solid rgba(255,255,255,.18);
+  display:flex;align-items:center;justify-content:center;font-size:.5rem;z-index:2;transition:all .2s;
+}
+.mt-node.done .mt-dot{background:rgba(16,201,149,.25);border-color:var(--ok);color:var(--ok)}
+.mt-node.today .mt-dot{
+  width:18px;height:18px;top:.08rem;background:var(--gold);border-color:#fff3cf;
+  box-shadow:0 0 0 4px rgba(255,153,0,.16),0 0 18px rgba(255,153,0,.65);animation:mcPulse 2s infinite;
+}
+.mt-day{font-size:.55rem;font-weight:800;letter-spacing:.05em;color:var(--muted2);text-transform:uppercase}
+.mt-node.today .mt-day{color:var(--gold2)}
+.mt-theme{font-size:.6rem;font-weight:700;color:var(--muted);margin-top:.05rem;line-height:1.3}
+.mt-node.today .mt-theme{color:var(--text)}
+.mt-today{
+  display:grid;grid-template-columns:1.1fr 1fr;gap:.7rem;
+}
+.mt-today-focus{
+  border-radius:14px;padding:.7rem .8rem;
+  background:linear-gradient(150deg,rgba(255,153,0,.09),rgba(255,255,255,.02));
+  border:1px solid rgba(255,153,0,.22);
+}
+.mt-today-tag{font-size:.52rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.mt-today-title{font-size:.86rem;font-weight:800;margin:.18rem 0 .1rem}
+.mt-today-desc{font-size:.68rem;color:var(--muted);line-height:1.5}
+.mt-blocks{display:flex;flex-direction:column;gap:.32rem}
+.mt-block{
+  display:flex;align-items:center;gap:.45rem;font-size:.66rem;color:var(--muted);
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+  border-radius:10px;padding:.34rem .55rem;line-height:1.35;
+}
+.mt-block b{color:var(--text);font-weight:700}
+.mt-block-ico{font-size:.8rem;flex-shrink:0}
+.mt-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
+.mt-btn{
+  display:inline-flex;align-items:center;gap:.35rem;padding:.46rem .95rem;border-radius:11px;
+  font-size:.7rem;font-weight:800;cursor:pointer;border:1px solid transparent;font-family:inherit;
+  transition:all .2s;
+}
+.mt-btn-primary{background:linear-gradient(135deg,#E9A92F,#c47800);color:#050817;box-shadow:0 4px 18px rgba(233,169,47,.35)}
+.mt-btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 26px rgba(233,169,47,.5)}
+.mt-btn-ghost{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.12);color:var(--text)}
+.mt-btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media(max-width:640px){.mt-today{grid-template-columns:1fr}}
+
+/* ── COMMAND PALETTE ─────────────────────── */
+.cmd-overlay{
+  position:fixed;inset:0;z-index:9000;display:none;
+  background:rgba(2,6,16,.72);backdrop-filter:blur(14px);
+  padding:10vh 1rem 1rem;justify-content:center;align-items:flex-start;
+}
+.cmd-overlay.open{display:flex;animation:mcRise .18s ease}
+.cmd-panel{
+  width:100%;max-width:620px;border-radius:20px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(12,24,52,.99),rgba(5,11,26,.99));
+  border:1px solid rgba(255,153,0,.24);
+  box-shadow:0 30px 90px rgba(0,0,0,.75),0 0 60px rgba(255,153,0,.08),inset 0 1px 0 rgba(255,255,255,.08);
+}
+.cmd-search-row{display:flex;align-items:center;gap:.6rem;padding:.9rem 1.05rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.cmd-search-ico{font-size:1rem;color:var(--gold)}
+.cmd-input{
+  flex:1;background:transparent;border:none;outline:none;color:var(--text);
+  font-size:.95rem;font-family:inherit;font-weight:600;
+}
+.cmd-input::placeholder{color:var(--muted2)}
+.cmd-kbd{font-size:.55rem;font-weight:800;padding:.18rem .42rem;border-radius:6px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:var(--muted)}
+.cmd-list{max-height:52vh;overflow-y:auto;padding:.45rem}
+.cmd-group{font-size:.52rem;text-transform:uppercase;letter-spacing:.15em;font-weight:900;color:var(--muted2);padding:.5rem .65rem .25rem}
+.cmd-item{
+  display:flex;align-items:center;gap:.6rem;padding:.55rem .65rem;border-radius:11px;
+  cursor:pointer;font-size:.8rem;font-weight:600;color:var(--muted);transition:all .12s;
+}
+.cmd-item:hover,.cmd-item.sel{background:linear-gradient(90deg,rgba(255,153,0,.14),rgba(255,153,0,.04));color:var(--text);box-shadow:inset 2px 0 0 var(--gold)}
+.cmd-item-ico{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);font-size:.8rem;flex-shrink:0}
+.cmd-item-hint{margin-left:auto;font-size:.58rem;color:var(--muted2);font-weight:700}
+.cmd-empty{padding:1.4rem;text-align:center;font-size:.8rem;color:var(--muted)}
+.cmd-foot{display:flex;gap:1rem;justify-content:flex-end;padding:.5rem 1rem;border-top:1px solid rgba(255,255,255,.06);font-size:.56rem;color:var(--muted2);font-weight:700}
+.cmd-foot b{color:var(--muted);font-weight:800}
+
+/* ── FOCUS MODE HUD ──────────────────────── */
+.focus-overlay{
+  position:fixed;inset:0;z-index:9100;display:none;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 50% 40%,rgba(8,20,45,.94),rgba(2,5,14,.98));
+  backdrop-filter:blur(18px);padding:1.2rem;
+}
+.focus-overlay.open{display:flex;animation:mcRise .25s ease}
+.focus-card{
+  width:100%;max-width:420px;text-align:center;border-radius:26px;padding:1.8rem 1.4rem 1.4rem;
+  background:linear-gradient(160deg,rgba(14,28,58,.96),rgba(5,11,26,.98));
+  border:1px solid rgba(255,153,0,.2);
+  box-shadow:0 30px 100px rgba(0,0,0,.8),0 0 70px rgba(255,153,0,.08),inset 0 1px 0 rgba(255,255,255,.07);
+  position:relative;overflow:hidden;
+}
+.focus-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,200,90,.6),transparent);
+}
+.focus-eyebrow{font-size:.55rem;text-transform:uppercase;letter-spacing:.2em;font-weight:900;color:var(--gold)}
+.focus-ring-wrap{position:relative;width:190px;height:190px;margin:1rem auto .6rem}
+.focus-ring-wrap svg{transform:rotate(-90deg)}
+.focus-time{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-size:2.5rem;font-weight:900;letter-spacing:-.04em;font-variant-numeric:tabular-nums;
+  text-shadow:0 0 30px rgba(255,153,0,.35);
+}
+.focus-time small{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-top:.2rem}
+.focus-state{font-size:.72rem;color:var(--muted);margin-bottom:1rem;font-weight:700}
+.focus-actions{display:flex;gap:.55rem;justify-content:center;flex-wrap:wrap}
+.focus-task{
+  font-size:.72rem;color:var(--gold2);background:rgba(255,153,0,.08);
+  border:1px solid rgba(255,153,0,.2);border-radius:12px;padding:.5rem .7rem;margin-bottom:1rem;line-height:1.5;
+}
+.focus-close{
+  position:absolute;top:.7rem;right:.8rem;width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:var(--muted);
+  cursor:pointer;font-size:.75rem;font-family:inherit;transition:all .2s;
+}
+.focus-close:hover{background:rgba(239,68,68,.18);color:#fff;border-color:rgba(239,68,68,.4)}
+
+/* ── WRONG-ANSWER SPOTLIGHT ──────────────── */
+.eww-hero{
+  margin:0 0 .85rem;border-radius:16px;overflow:hidden;position:relative;
+  background:linear-gradient(155deg,rgba(239,68,68,.16),rgba(120,10,10,.06) 60%,rgba(5,12,30,.6));
+  border:1px solid rgba(239,68,68,.38);
+  box-shadow:0 0 0 1px rgba(239,68,68,.08) inset,0 8px 30px rgba(239,68,68,.12);
+  animation:mcRise .3s ease;
+}
+.eww-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,#ef4444,transparent);
+}
+.eww-head{display:flex;align-items:center;gap:.45rem;padding:.6rem .9rem;border-bottom:1px solid rgba(239,68,68,.16)}
+.eww-label{font-size:.58rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#ff8f8f}
+.eww-body{padding:.8rem .9rem .85rem}
+.eww-choice{font-size:.8rem;line-height:1.55;color:rgba(255,255,255,.86);margin-bottom:.5rem}
+.eww-choice b{color:#ff9b9b;font-weight:800}
+.eww-reason{
+  font-size:.84rem;line-height:1.6;color:#fff;
+  background:rgba(0,0,0,.28);border-left:3px solid #ef4444;border-radius:0 10px 10px 0;
+  padding:.55rem .7rem;margin-bottom:.55rem;
+}
+.eww-reason .eww-why-tag{display:block;font-size:.54rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:#ff8f8f;margin-bottom:.2rem}
+.eww-fix{
+  display:flex;align-items:flex-start;gap:.5rem;font-size:.76rem;line-height:1.5;color:var(--muted);
+  border-top:1px dashed rgba(239,68,68,.2);padding-top:.55rem;margin-top:.15rem;
+}
+.eww-fix b{color:var(--ok)}
+.eww-hook{
+  display:flex;align-items:flex-start;gap:.5rem;font-size:.74rem;line-height:1.5;
+  color:var(--gold2);background:rgba(255,153,0,.08);border:1px solid rgba(255,153,0,.2);
+  border-radius:10px;padding:.5rem .65rem;margin-top:.55rem;
+}
+.eww-hook b{color:#fff}
+
+/* ── CRAM SHEET ──────────────────────────── */
+.cram-hero{
+  position:relative;overflow:hidden;border-radius:22px;padding:1.4rem 1.5rem;margin-bottom:1rem;
+  background:
+    radial-gradient(ellipse 80% 130% at 0% 0%,rgba(255,153,0,.16),transparent 60%),
+    radial-gradient(ellipse 70% 130% at 100% 100%,rgba(8,123,255,.18),transparent 60%),
+    linear-gradient(150deg,rgba(10,22,50,.98),rgba(4,10,24,.99));
+  border:1px solid rgba(255,153,0,.22);
+  box-shadow:0 16px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,220,120,.1);
+}
+.cram-hero::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.012) 3px 4px);
+}
+.cram-hero h1{font-size:1.55rem;font-weight:900;letter-spacing:-.02em;line-height:1.15;position:relative}
+.cram-hero h1 em{font-style:normal;background:linear-gradient(120deg,#FFE7A8,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.cram-hero p{font-size:.8rem;color:var(--muted);margin-top:.4rem;max-width:640px;position:relative}
+.cram-pills{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.75rem;position:relative}
+.cram-pill{font-size:.6rem;font-weight:800;padding:.28rem .7rem;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:var(--muted)}
+.cram-pill.gold{background:rgba(255,153,0,.14);border-color:rgba(255,153,0,.35);color:var(--gold2)}
+.cram-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.85rem;margin-bottom:1rem}
+.cram-card{
+  border-radius:16px;padding:.95rem 1rem;position:relative;overflow:hidden;
+  background:linear-gradient(155deg,rgba(9,20,45,.96),rgba(5,11,26,.98));
+  border:1px solid rgba(255,255,255,.07);
+  box-shadow:0 6px 28px rgba(0,0,0,.4);
+  transition:transform .2s,border-color .2s;
+}
+.cram-card:hover{transform:translateY(-2px);border-color:rgba(255,153,0,.24)}
+.cram-card-title{display:flex;align-items:center;gap:.45rem;font-size:.78rem;font-weight:900;letter-spacing:.02em;margin-bottom:.55rem}
+.cram-card-title span.ico{font-size:1rem}
+.cram-line{display:flex;gap:.5rem;font-size:.72rem;line-height:1.55;padding:.28rem 0;border-bottom:1px solid rgba(255,255,255,.045);color:var(--muted)}
+.cram-line:last-child{border-bottom:none}
+.cram-line b{color:var(--text);font-weight:800;flex-shrink:0}
+.cram-line .arrow{color:var(--gold);font-weight:900;flex-shrink:0}
+.cram-num{display:flex;align-items:baseline;gap:.45rem;padding:.26rem 0;font-size:.72rem;color:var(--muted);border-bottom:1px solid rgba(255,255,255,.045)}
+.cram-num:last-child{border-bottom:none}
+.cram-num b{font-size:.95rem;font-weight:900;color:var(--gold2);min-width:52px;font-variant-numeric:tabular-nums}
+.cram-warn{border-color:rgba(239,68,68,.3);background:linear-gradient(155deg,rgba(60,12,18,.6),rgba(5,11,26,.98))}
+.cram-tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.9rem}
+.cram-tab{
+  font-size:.66rem;font-weight:800;padding:.34rem .8rem;border-radius:999px;cursor:pointer;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:var(--muted);font-family:inherit;
+  transition:all .2s;
+}
+.cram-tab.active,.cram-tab:hover{background:rgba(255,153,0,.14);border-color:rgba(255,153,0,.4);color:var(--gold2)}
+
+/* ── SETTINGS EXAM DATE ──────────────────── */
+.exam-date-input{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);color:var(--text);
+  border-radius:10px;padding:.5rem .7rem;font-family:inherit;font-size:.82rem;font-weight:700;
+  color-scheme:dark;
+}
+.exam-date-input:focus{outline:none;border-color:rgba(255,153,0,.5);box-shadow:0 0 0 3px rgba(255,153,0,.12)}
+
+/* ── SCROLL REVEAL ───────────────────────── */
+.reveal-on-scroll{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s cubic-bezier(.4,0,.2,1)}
+.reveal-on-scroll.revealed{opacity:1;transform:none}
+
+/* ── MOCK REVIEW OPTION EXPLANATIONS ─────── */
+.rv-options{display:flex;flex-direction:column;gap:.3rem;margin:.5rem 0 .2rem}
+.rv-opt{
+  display:flex;align-items:flex-start;gap:.5rem;font-size:.74rem;line-height:1.5;
+  padding:.42rem .55rem;border-radius:9px;color:var(--muted);
+  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);
+}
+.rv-opt-letter{
+  flex-shrink:0;width:18px;height:18px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:.62rem;font-weight:900;background:rgba(255,255,255,.07);color:var(--muted);
+}
+.rv-opt-ok{background:rgba(16,201,149,.09);border-color:rgba(16,201,149,.28);color:var(--text)}
+.rv-opt-ok .rv-opt-letter{background:rgba(16,201,149,.22);color:var(--ok)}
+.rv-opt-bad{background:rgba(239,68,68,.09);border-color:rgba(239,68,68,.3);color:var(--text)}
+.rv-opt-bad .rv-opt-letter{background:rgba(239,68,68,.24);color:#ff9b9b}
+.rv-why{font-size:.7rem;color:#ffb3b3;margin-top:.18rem;line-height:1.5}
+.rv-tag{
+  flex-shrink:0;margin-left:auto;font-size:.5rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+  padding:.1rem .4rem;border-radius:999px;background:rgba(255,255,255,.07);color:var(--muted);
+}
+.rv-tag-ok{background:rgba(16,201,149,.18);color:var(--ok)}
+.rv-tag-bad{background:rgba(239,68,68,.2);color:#ff9b9b}
+
+/* ── MOBILE OVERRIDES (must come after base rules) ─────────── */
+@media(max-width:860px){
+  /* The command-centre grid overlay bleeds 40px on desktop; keep it inside on mobile */
+  .cc-wrapper::before{left:0;right:0}
+}
+@media(max-width:600px){
+  /* Hero: stack vertically, full width text */
+  .hero-banner{min-height:auto;display:flex;flex-direction:column}
+  .hero-astronaut-img{display:none}
+  .hero-content{
+    max-width:100%;
+    padding:1.1rem 1rem .6rem;
+    flex:1;
+  }
+  .hero-title{font-size:1.35rem}
+  .hero-target{
+    position:static;
+    transform:none;
+    flex-direction:row;
+    justify-content:flex-start;
+    align-items:center;
+    padding:.5rem 1rem .9rem;
+    gap:.75rem;
+    z-index:3;
+  }
+  .hero-target-ring{width:72px;height:72px;flex-shrink:0}
+  .hero-target-crown{font-size:1rem}
+  .hero-target-pct{font-size:1.2rem}
+  .hero-target-ribbon{font-size:.58rem}
+  /* Stat cards: keep 2-col grid on mobile */
+  .stat-cards-row{grid-template-columns:repeat(2,1fr)!important;gap:.6rem}
+  .sc-big{font-size:1.9rem}
+  /* Domain rings: slightly smaller on mobile */
+  .domain-ring-svg-wrap{width:65px;height:65px}
+  /* Bottom nav larger tap targets */
+  .bottom-nav .nav-btn{padding:.5rem .2rem}
+}
 </style>
+<link rel="stylesheet" href="theme-v3.css">
+<link rel="stylesheet" href="saas-polish.css">
 </head>
 <body>
 <canvas id="space-canvas"></canvas>
@@ -2360,22 +2729,48 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
       </div>
     </div>
 
+    <!-- MISSION CLOCK -->
+    <div class="mission-clock" id="mission-clock">
+      <div class="mission-clock-top">
+        <span class="mission-clock-label">Mission Clock</span>
+        <span class="mission-clock-live"><span class="pulse-dot"></span>LIVE</span>
+      </div>
+      <div class="mission-clock-main"><span id="mc-days">--</span><span class="mc-unit">days</span></div>
+      <div class="mission-clock-sub" id="mc-sub">to CLF-C02</div>
+      <div class="mission-clock-bar"><div id="mc-bar" style="width:0%"></div></div>
+      <div class="mission-clock-foot"><span id="mc-date">—</span><span id="mc-phase">—</span></div>
+    </div>
+
+    <div class="sidebar-section-label">Home</div>
     <button class="nav-btn active" data-tab="home"><span class="nav-icon"><img src="aws_premium_sidebar_icons/01-home.svg" width="22" height="22" alt=""></span>Home</button>
+
+    <div class="sidebar-section-label">Plan</div>
+    <button class="nav-btn" data-tab="roadmap"><span class="nav-icon"><img src="aws_premium_sidebar_icons/12-study-roadmap.svg" width="22" height="22" alt=""></span>Study Roadmap</button>
+    <button class="nav-btn" data-tab="mastery"><span class="nav-icon"><img src="aws_premium_sidebar_icons/14-mastery-path.svg" width="22" height="22" alt=""></span>Mastery Path<span class="nav-badge new">90D</span></button>
+
+    <div class="sidebar-section-label">Study</div>
     <button class="nav-btn" data-tab="learn"><span class="nav-icon"><img src="aws_premium_sidebar_icons/02-learn.svg" width="22" height="22" alt=""></span>Learn</button>
-    <button class="nav-btn" data-tab="practice"><span class="nav-icon"><img src="aws_premium_sidebar_icons/03-practice.svg" width="22" height="22" alt=""></span>Practice</button>
-    <button class="nav-btn" data-tab="mock"><span class="nav-icon"><img src="aws_premium_sidebar_icons/04-exam-mode.svg" width="22" height="22" alt=""></span>Exam Mode</button>
-    <button class="nav-btn" data-tab="games">
-      <span class="nav-icon"><img src="aws_premium_sidebar_icons/05-games-arena.svg" width="22" height="22" alt=""></span>Games Arena
-      <span class="nav-badge new">NEW</span>
-    </button>
+    <button class="nav-btn" data-tab="cram"><span class="nav-icon"><img src="aws_premium_sidebar_icons/06-terminology-gym.svg" width="22" height="22" alt=""></span>Cram Sheet</button>
+    <button class="nav-btn" data-tab="weekly-flashcards"><span class="nav-icon"><img src="aws_premium_sidebar_icons/11-week-flashcards.svg" width="22" height="22" alt=""></span>Week Flashcards</button>
     <button class="nav-btn" data-tab="terminology"><span class="nav-icon"><img src="aws_premium_sidebar_icons/06-terminology-gym.svg" width="22" height="22" alt=""></span>Terminology Gym</button>
     <button class="nav-btn" data-tab="universe"><span class="nav-icon"><img src="aws_premium_sidebar_icons/07-architecture-lab.svg" width="22" height="22" alt=""></span>Architecture Lab</button>
-    <button class="nav-btn" data-tab="diagnostic"><span class="nav-icon"><img src="aws_premium_sidebar_icons/08-interview-prep.svg" width="22" height="22" alt=""></span>Interview Prep</button>
+    <button class="nav-btn nav-btn-podcast" data-tab="podcast"><span class="nav-icon"><img src="aws_premium_sidebar_icons/11-week-flashcards.svg" width="22" height="22" alt=""></span>Audio Academy<span class="nav-badge new">NEW</span></button>
+
+    <div class="sidebar-section-label">Practise</div>
+    <button class="nav-btn" data-tab="practice"><span class="nav-icon"><img src="aws_premium_sidebar_icons/03-practice.svg" width="22" height="22" alt=""></span>Practice</button>
+    <button class="nav-btn" data-tab="review"><span class="nav-icon"><img src="aws_premium_sidebar_icons/15-review-queue.svg" width="22" height="22" alt=""></span>Review Queue<span class="nav-badge due" id="review-due-badge" style="display:none">0</span></button>
+    <button class="nav-btn" data-tab="mock"><span class="nav-icon"><img src="aws_premium_sidebar_icons/04-exam-mode.svg" width="22" height="22" alt=""></span>Exam Mode</button>
+    <button class="nav-btn" data-tab="diagnostic"><span class="nav-icon"><img src="aws_premium_sidebar_icons/08-interview-prep.svg" width="22" height="22" alt=""></span>Diagnostic Scan</button>
+    <button class="nav-btn" data-tab="games">
+      <span class="nav-icon"><img src="aws_premium_sidebar_icons/05-games-arena.svg" width="22" height="22" alt=""></span>Games Arena
+    </button>
+
+    <div class="sidebar-section-label">Track</div>
     <button class="nav-btn" data-tab="progress"><span class="nav-icon"><img src="aws_premium_sidebar_icons/09-progress.svg" width="22" height="22" alt=""></span>Progress</button>
     <button class="nav-btn" data-tab="achievements"><span class="nav-icon"><img src="aws_premium_sidebar_icons/10-achievements.svg" width="22" height="22" alt=""></span>Achievements</button>
-    <button class="nav-btn" data-tab="weekly-flashcards"><span class="nav-icon"><img src="aws_premium_sidebar_icons/11-week-flashcards.svg" width="22" height="22" alt=""></span>Week Flashcards</button>
-    <button class="nav-btn" data-tab="roadmap"><span class="nav-icon"><img src="aws_premium_sidebar_icons/12-study-roadmap.svg" width="22" height="22" alt=""></span>Study Roadmap</button>
-    <button class="nav-btn" data-tab="recommendation"><span class="nav-icon"><img src="aws_premium_sidebar_icons/09-progress.svg" width="22" height="22" alt=""></span>Recommendation</button>
+    <button class="nav-btn" data-tab="recommendation"><span class="nav-icon"><img src="aws_premium_sidebar_icons/09-progress.svg" width="22" height="22" alt=""></span>Study Method</button>
+
+    <div class="sidebar-section-label">System</div>
     <button class="nav-btn" data-tab="settings"><span class="nav-icon"><img src="aws_premium_sidebar_icons/13-settings.svg" width="22" height="22" alt=""></span>Settings</button>
 
     <div style="flex:1"></div>
@@ -2394,7 +2789,21 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
 
     <!-- TOP BAR -->
     <header class="topbar" id="topbar">
+      <div class="nav-hist">
+        <button class="nav-hist-btn" id="nav-back" onclick="navBack()" aria-label="Go back" title="Back">←</button>
+        <button class="nav-hist-btn" id="nav-forward" onclick="navForward()" aria-label="Go forward" title="Forward">→</button>
+      </div>
+      <div class="topbar-mission" id="topbar-mission">
+        <span class="topbar-mission-dot"></span>
+        <span id="topbar-mission-text">T-10 · Mission Control</span>
+      </div>
       <div style="flex:1"></div>
+      <button class="topbar-search" onclick="openCommandPalette()" aria-label="Search the academy (Ctrl+K)">
+        <span class="topbar-search-ico" aria-hidden="true">⌕</span>
+        <span class="topbar-search-label">Search the academy…</span>
+        <kbd class="topbar-search-kbd">Ctrl K</kbd>
+      </button>
+      <button class="hud-btn" onclick="openFocusMode(25)" title="Focus mode — 25 min">🎧</button>
       <div class="topbar-user" id="topbar-user">
         <div class="topbar-avatar">
           <img src="assets/01-astronaut-hero.png" alt="User" onerror="this.parentElement.textContent='🧑'">
@@ -2418,10 +2827,10 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
   <!-- BOTTOM NAV (mobile) -->
   <nav class="bottom-nav" id="bottom-nav">
     <button class="nav-btn" data-tab="home"><span class="nav-icon">🏠</span>Home</button>
+    <button class="nav-btn" data-tab="roadmap"><span class="nav-icon">🗺️</span>Roadmap</button>
     <button class="nav-btn" data-tab="practice"><span class="nav-icon">🎯</span>Practice</button>
     <button class="nav-btn" data-tab="mock"><span class="nav-icon">⏱️</span>Exam</button>
     <button class="nav-btn" data-tab="progress"><span class="nav-icon">📊</span>Progress</button>
-    <button class="nav-btn" data-tab="universe"><span class="nav-icon">🌌</span>Galaxy</button>
   </nav>
 </div>
 <div class="toast" id="toast"></div>
@@ -2538,6 +2947,176 @@ if(window.EXTERNAL_QUESTIONS) window.QUESTIONS=window.QUESTIONS.concat(window.EX
 // ═══════════════════════════════════════════════════════════════
 const SVC={'Management Console':'a web-based UI for managing AWS services','AWS CLI':'a command-line tool for scripting AWS operations','AWS SDK':'libraries for calling AWS from app code in many languages','AWS API':'the low-level REST interface for AWS services','EC2':'virtual servers you manage — you control the OS, apps and config. It is IaaS.','Amazon EC2':'virtual servers you manage — you control the OS, apps and config. It is IaaS.','EC2 Auto Scaling':'automatically adds or removes EC2 instances based on demand','Auto Scaling':'automatically adds or removes EC2 instances based on demand','S3':'object storage — files in buckets, accessed via HTTP, virtually unlimited, 99.999999999% durable','Amazon S3':'object storage — files in buckets, accessed via HTTP, virtually unlimited','EBS':'block storage attached to one EC2 instance like a virtual hard drive, tied to one AZ','Amazon EBS':'block storage attached to one EC2 instance like a virtual hard drive, tied to one AZ','EFS':'managed NFS file system mountable by many EC2 instances at once, auto-scales','Amazon EFS':'managed NFS file system mountable by many EC2 instances at once, auto-scales','Instance Store':'ephemeral storage on the EC2 host — data is lost when the instance stops or terminates','RDS':'managed relational database — AWS handles patching, backups, failover. Supports MySQL, PostgreSQL, Oracle, SQL Server','Amazon RDS':'managed relational database — AWS handles patching, backups, failover','Aurora':'AWS cloud-native relational DB, MySQL/PostgreSQL compatible, 5x MySQL throughput, auto-replicates across 3 AZs','Amazon Aurora':'AWS cloud-native relational DB, MySQL/PostgreSQL compatible, 5x MySQL throughput','DynamoDB':'managed serverless NoSQL database — key-value and document, single-digit ms latency, auto-scales','Amazon DynamoDB':'managed serverless NoSQL database — key-value and document, single-digit ms latency','Redshift':'petabyte-scale data warehouse for analytical SQL on large datasets','Amazon Redshift':'petabyte-scale data warehouse for analytical SQL on large datasets','ElastiCache':'managed in-memory cache (Redis/Memcached) that reduces database read load','Amazon ElastiCache':'managed in-memory cache (Redis/Memcached) that reduces database read load','DAX':'DynamoDB Accelerator — in-memory cache for DynamoDB, microsecond latency','Lambda':'serverless compute — runs code on events, no server management, pay per execution','AWS Lambda':'serverless compute — runs code on events, no server management, pay per execution','ECS':'container orchestration — runs Docker containers on EC2 or Fargate','Amazon ECS':'container orchestration — runs Docker containers on EC2 or Fargate','EKS':'managed Kubernetes — AWS runs the control plane, you manage worker nodes','Amazon EKS':'managed Kubernetes — AWS runs the control plane, you manage worker nodes','Fargate':'serverless container runtime — AWS manages infrastructure, you define the container task','AWS Fargate':'serverless container runtime — AWS manages infrastructure, you define the container task','Elastic Beanstalk':'PaaS — upload code, AWS handles deployment, scaling, load balancing, monitoring','AWS Elastic Beanstalk':'PaaS — upload code, AWS handles deployment, scaling, load balancing, monitoring','Lightsail':'simplified VPS with pre-configured instances — easiest way to launch a simple website','Amazon Lightsail':'simplified VPS with pre-configured instances — easiest way to launch a simple website','VPC':'virtual private cloud — your isolated network in AWS where you define IP ranges and subnets','Amazon VPC':'virtual private cloud — your isolated network in AWS where you define IP ranges and subnets','Security Group':'stateful firewall at the instance level — allow rules only, return traffic auto-allowed','Network ACL':'stateless firewall at the subnet level — allow AND deny rules, must explicitly allow return traffic','NACL':'stateless firewall at the subnet level — allow AND deny rules, return traffic NOT auto-allowed','Route 53':'managed DNS service — domain registration, health checks, routing policies (latency, geolocation, failover)','Amazon Route 53':'managed DNS service — domain registration, health checks, routing policies','CloudFront':'CDN — caches content at edge locations globally to reduce latency for users','Amazon CloudFront':'CDN — caches content at edge locations globally to reduce latency for users','Elastic Load Balancing':'distributes traffic across targets (EC2, containers, Lambda) with health checks','ELB':'distributes traffic across targets (EC2, containers, Lambda) with health checks','Application Load Balancer':'Layer 7 load balancer — routes HTTP/HTTPS by URL path, host, headers','ALB':'Layer 7 load balancer — routes HTTP/HTTPS by URL path, host, headers','Network Load Balancer':'Layer 4 load balancer for TCP/UDP — ultra-high performance','NLB':'Layer 4 load balancer for TCP/UDP — ultra-high performance','SQS':'managed message queue — decouples components, one consumer per message, messages persist until processed','Amazon SQS':'managed message queue — decouples components, one consumer per message','SNS':'pub/sub notifications — fans out one message to many subscribers (email, SMS, Lambda, SQS)','Amazon SNS':'pub/sub notifications — fans out one message to many subscribers','Kinesis':'real-time data streaming for IoT, clickstreams, log aggregation at massive scale','Amazon Kinesis':'real-time data streaming for IoT, clickstreams, log aggregation at massive scale','CloudTrail':'records all API calls — audit trail showing who did what, when, from where. Logs go to S3','AWS CloudTrail':'records all API calls — audit trail showing who did what, when, from where','CloudWatch':'monitoring — collects metrics, stores logs, creates dashboards, triggers alarms on thresholds','Amazon CloudWatch':'monitoring — collects metrics, stores logs, creates dashboards, triggers alarms','Config':'records resource configuration changes over time, evaluates against compliance rules','AWS Config':'records resource configuration changes over time, evaluates against compliance rules','Trusted Advisor':'best-practice recommendations across cost, performance, security, fault tolerance, service limits','AWS Trusted Advisor':'best-practice recommendations across cost, performance, security, fault tolerance, service limits','Inspector':'automated vulnerability scanning for EC2 instances and ECR container images','Amazon Inspector':'automated vulnerability scanning for EC2 instances and ECR container images','GuardDuty':'ML-based threat detection — analyses CloudTrail, VPC Flow Logs, DNS logs for suspicious activity','Amazon GuardDuty':'ML-based threat detection — analyses CloudTrail, VPC Flow Logs, DNS logs','Macie':'ML-based discovery and classification of sensitive data (PII) in S3','Amazon Macie':'ML-based discovery and classification of sensitive data (PII) in S3','Security Hub':'aggregates security findings from GuardDuty, Inspector, Macie into one dashboard','AWS Security Hub':'aggregates security findings from GuardDuty, Inspector, Macie into one dashboard','Shield':'DDoS protection — Standard is free and automatic, Advanced costs ~$3000/month','AWS Shield':'DDoS protection — Standard is free and automatic, Advanced costs ~$3000/month','WAF':'web application firewall — blocks SQL injection, XSS at Layer 7','AWS WAF':'web application firewall — blocks SQL injection, XSS at Layer 7','KMS':'managed encryption key service — create, store, rotate, delete keys. Integrates with S3, RDS, EBS','AWS KMS':'managed encryption key service — create, store, rotate, delete keys','CloudHSM':'dedicated single-tenant HSM for FIPS 140-2 Level 3 compliance','AWS CloudHSM':'dedicated single-tenant HSM for FIPS 140-2 Level 3 compliance','Secrets Manager':'stores and auto-rotates secrets (DB passwords, API keys) via Lambda','AWS Secrets Manager':'stores and auto-rotates secrets (DB passwords, API keys) via Lambda','Certificate Manager':'provisions and manages SSL/TLS certificates for CloudFront and Load Balancers — free with AWS services','ACM':'provisions and manages SSL/TLS certificates — free with AWS services','Artifact':'self-service portal for downloading compliance reports (SOC, ISO, PCI) and agreements','AWS Artifact':'self-service portal for downloading compliance reports (SOC, ISO, PCI)','IAM':'Identity and Access Management — users, groups, roles, policies. Controls who can access what','AWS IAM':'Identity and Access Management — users, groups, roles, policies','IAM Role':'temporary credentials for AWS services or cross-account access — no permanent keys','IAM User':'long-term identity with password and/or access keys','IAM Group':'collection of users — attach a policy once, all members inherit it','IAM Policy':'JSON document defining permissions','MFA':'Multi-Factor Authentication — second factor on top of password for extra security','Cognito':'user authentication for web/mobile apps — supports social providers via identity pools','Amazon Cognito':'user authentication for web/mobile apps — supports social providers via identity pools','Organizations':'groups multiple accounts into hierarchy with consolidated billing and SCP guardrails','AWS Organizations':'groups multiple accounts into hierarchy with consolidated billing and SCP guardrails','SCP':'Service Control Policy — organisation-level guardrail that overrides even AdministratorAccess','Control Tower':'automates landing zone setup — secure multi-account environment with built-in guardrails','AWS Control Tower':'automates landing zone setup — secure multi-account environment with built-in guardrails','CloudFormation':'Infrastructure as Code — define resources in JSON/YAML templates, CloudFormation provisions them as a stack','AWS CloudFormation':'Infrastructure as Code — define resources in JSON/YAML templates','Snowball':'physical device for offline data transfer — AWS ships it, you load data, ship it back. For 50-80TB','AWS Snowball':'physical device for offline data transfer — AWS ships it, you load data, ship it back','Snowmobile':'shipping container for exabyte-scale data transfer to AWS. For 100PB+ migrations','Storage Gateway':'hybrid storage — connects on-premises apps to cloud storage, caches locally','AWS Storage Gateway':'hybrid storage — connects on-premises apps to cloud storage','Direct Connect':'dedicated private physical network connection to AWS — bypasses the public internet','AWS Direct Connect':'dedicated private physical network connection to AWS','Transit Gateway':'connects multiple VPCs and on-premises networks through a central hub','Athena':'serverless SQL queries directly on S3 data — no loading into a database needed','Amazon Athena':'serverless SQL queries directly on S3 data — no loading needed','Glue':'serverless ETL — discovers, prepares and combines data for analytics','AWS Glue':'serverless ETL — discovers, prepares and combines data for analytics','SageMaker':'fully managed ML platform — build, train and deploy models','Amazon SageMaker':'fully managed ML platform — build, train and deploy models','Cost Explorer':'visualises and analyses historical AWS spending with charts and forecasts','AWS Cost Explorer':'visualises and analyses historical AWS spending with charts and forecasts','Budgets':'sets cost/usage thresholds and sends alerts when breached','AWS Budgets':'sets cost/usage thresholds and sends alerts when breached','Pricing Calculator':'estimates AWS costs before deployment by modelling expected usage','Consolidated Billing':'combines multiple accounts into one bill, aggregates usage for volume discounts','NAT Gateway':'allows private subnet resources to access internet outbound without allowing inbound','Internet Gateway':'allows VPC instances to communicate with the public internet','Global Accelerator':'improves availability and performance using the AWS backbone network','Backup':'centralised automated backup service across AWS services','ECR':'Elastic Container Registry — managed Docker image registry','Amazon ECR':'Elastic Container Registry — managed Docker image registry','X-Ray':'distributed tracing — tracks requests through your app to find performance issues','Systems Manager':'operational management for EC2 and hybrid — patch management, automation','DMS':'Database Migration Service — migrates databases to AWS with minimal downtime','Rekognition':'image/video analysis API — face detection, object recognition','Amazon Rekognition':'image/video analysis API — face detection, object recognition','CodePipeline':'CI/CD pipeline orchestration — build, test, deploy stages'};
 
+// Extra service definitions for the external question bank. These fill gaps so that
+// "why this option is wrong" and memory hooks name the real service instead of a generic line.
+// Existing definitions win — this only adds keys that are missing.
+const SVC_EXTRA={
+  'AWS Artifact':'the self-service portal for AWS compliance reports (SOC, ISO, PCI) and agreements',
+  'Artifact':'the portal for downloading AWS compliance reports',
+  'AWS Lambda':'serverless compute — run code on events with no servers to manage, paying per invocation',
+  'Lambda':'serverless compute that runs code in response to events',
+  'Amazon CloudFront':'a global content delivery network (CDN) that caches content at edge locations',
+  'CloudFront':'a CDN that caches content at edge locations for low latency',
+  'AWS Organizations':'central management of multiple AWS accounts with consolidated billing and service control policies',
+  'Organizations':'central management of multiple AWS accounts and consolidated billing',
+  'Amazon CloudWatch':'monitoring for metrics, logs and alarms',
+  'CloudWatch':'monitoring for metrics, logs and alarms',
+  'AWS Trusted Advisor':'automated best-practice checks for cost, security, performance, fault tolerance and service limits',
+  'Trusted Advisor':'automated best-practice recommendations across five categories',
+  'AWS Direct Connect':'a dedicated private network connection from on-premises to AWS',
+  'Direct Connect':'a dedicated private network link from your data centre to AWS',
+  'AWS CloudTrail':'records every API call — who did what, when and from where',
+  'CloudTrail':'an audit log of every AWS API call',
+  'AWS CloudFormation':'infrastructure as code — templates that provision AWS resources repeatably',
+  'CloudFormation':'infrastructure as code using templates',
+  'AWS Config':'tracks resource configuration changes and evaluates compliance rules',
+  'Amazon Route 53':'highly available DNS and domain registration with routing policies',
+  'Route 53':'the AWS DNS service with health checks and routing policies',
+  'AWS Elastic Beanstalk':'platform as a service — upload code and AWS provisions and scales the environment',
+  'Elastic Beanstalk':'a PaaS that deploys and scales your application for you',
+  'AWS TCO Calculator':'estimates the cost savings of moving from on-premises to AWS',
+  'TCO Calculator':'compares on-premises cost with AWS cost',
+  'Spot Instances':'spare EC2 capacity at up to a 90% discount, interruptible with a two-minute warning',
+  'On-Demand Instances':'EC2 capacity billed per second with no commitment',
+  'Reserved Instances':'a one- or three-year commitment for a large discount on steady workloads',
+  'Savings Plans':'a flexible commitment-based discount across compute usage',
+  'AWS WAF':'a web application firewall that filters HTTP and HTTPS requests at Layer 7',
+  'WAF':'filters malicious HTTP and HTTPS traffic at Layer 7',
+  'Availability Zone':'one or more isolated data centres within a Region',
+  'Availability Zones':'isolated data centres within a Region, connected by low-latency links',
+  'Dedicated Hosts':'a physical server fully dedicated to your use, for licensing and compliance',
+  'AWS Storage Gateway':'hybrid storage that connects on-premises software to AWS cloud storage',
+  'Storage Gateway':'hybrid storage bridging on-premises systems and AWS storage',
+  'AWS Marketplace':'a digital catalogue for buying third-party software that runs on AWS',
+  'Marketplace':'a catalogue of third-party software and services for AWS',
+  'AWS Shield':'managed DDoS protection — Standard is free and automatic, Advanced adds a response team',
+  'Shield':'managed DDoS protection',
+  'Amazon Inspector':'automated vulnerability scanning for EC2 instances and container images',
+  'Inspector':'automated vulnerability scanning for EC2 and containers',
+  'Amazon EC2 Auto Scaling':'automatically adds or removes EC2 instances to match demand',
+  'EC2 Auto Scaling':'automatically scales EC2 capacity with demand',
+  'Security Groups':'stateful virtual firewalls that control inbound and outbound traffic for instances',
+  'Security Group':'a stateful virtual firewall for EC2 instances',
+  'AWS KMS':'the managed encryption-key service for data at rest',
+  'KMS':'managed encryption keys',
+  'AWS OpsWorks':'configuration management using Chef and Puppet',
+  'OpsWorks':'managed Chef and Puppet configuration management',
+  'AWS Snowball':'a physical device for moving large amounts of data into or out of AWS',
+  'Snowball':'a physical data-transfer device for large migrations',
+  'AWS Personal Health Dashboard':'personalised alerts about AWS events that affect your specific resources',
+  'Personal Health Dashboard':'alerts about AWS events that affect your specific resources',
+  'AWS Budgets':'custom cost and usage budgets with alerts',
+  'Budgets':'cost and usage budgets with alerts',
+  'Amazon ElastiCache':'managed in-memory cache (Redis or Memcached) for sub-millisecond latency',
+  'ElastiCache':'managed in-memory caching',
+  'Elasticity':'the ability to scale resources up or down automatically with demand',
+  'AWS Professional Services':'an AWS consulting team that helps with migration and architecture',
+  'AWS Enterprise Support':'24/7 support with a technical account manager and a 15-minute response for critical issues',
+  'AWS Business Support':'24/7 support with a one-hour response for production issues',
+  'AWS Developer Support':'business-hours support for non-production workloads',
+  'AWS Basic Support':'free support with documentation, forums and billing help',
+  'AWS Cost Explorer':'visualises and forecasts your AWS spending',
+  'Cost Explorer':'visualises and forecasts AWS spending',
+  'AWS Cost and Usage Report':'the most detailed billing dataset, delivered to S3',
+  'Amazon SNS':'pub/sub messaging that fans out notifications to many subscribers',
+  'SNS':'pub/sub notifications',
+  'Amazon SQS':'a managed message queue that decouples application components',
+  'SQS':'a managed message queue for decoupling',
+  'Amazon Kinesis':'real-time streaming data ingestion and analytics',
+  'Kinesis':'real-time streaming data',
+  'AWS Glue':'a serverless ETL service that prepares and transforms data',
+  'Glue':'serverless ETL',
+  'Amazon Athena':'serverless SQL queries run directly on data in S3',
+  'Athena':'serverless SQL on S3',
+  'AWS DMS':'Database Migration Service — migrates databases to AWS with minimal downtime',
+  'DMS':'database migration with minimal downtime',
+  'AWS Snowmobile':'an exabyte-scale shipping container for massive data migration',
+  'Snowmobile':'exabyte-scale data migration',
+  'AWS Global Accelerator':'routes traffic to optimal endpoints over the AWS global network',
+  'Global Accelerator':'improves global availability and performance using the AWS network',
+  'AWS Transit Gateway':'a hub that connects VPCs and on-premises networks',
+  'Transit Gateway':'a hub connecting VPCs and on-premises networks',
+  'Amazon VPC':'an isolated virtual network you define with subnets, routes and gateways',
+  'VPC':'an isolated virtual network in AWS',
+  'NAT Gateway':'lets private-subnet instances reach the internet without inbound access',
+  'Internet Gateway':'connects a VPC to the internet',
+  'AWS PrivateLink':'private connectivity to services without exposing traffic to the internet',
+  'AWS Systems Manager':'operational tooling to manage fleets, patches and parameters',
+  'Systems Manager':'manage servers, patches and parameters at scale',
+  'AWS CodePipeline':'a continuous delivery pipeline that automates build, test and deploy',
+  'CodePipeline':'CI/CD pipeline automation',
+  'AWS CodeCommit':'a managed Git source-control repository',
+  'AWS CodeBuild':'a managed build service that compiles and tests code',
+  'AWS CodeDeploy':'automates application deployments to EC2, Lambda and on-premises',
+  'AWS X-Ray':'traces requests through distributed applications to find bottlenecks',
+  'Amazon Cognito':'identity for apps — user sign-up, sign-in and federation',
+  'Cognito':'app identity and user authentication',
+  'AWS IAM':'identity and access management — users, groups, roles and policies',
+  'IAM':'identity and access management',
+  'AWS STS':'Security Token Service — issues temporary credentials',
+  'AWS Secrets Manager':'stores and automatically rotates secrets such as database passwords',
+  'Secrets Manager':'secret storage with automatic rotation',
+  'AWS Certificate Manager':'provisions and renews free SSL and TLS certificates',
+  'ACM':'free SSL and TLS certificates',
+  'Amazon GuardDuty':'machine-learning threat detection from CloudTrail, VPC Flow and DNS logs',
+  'GuardDuty':'intelligent threat detection',
+  'Amazon Macie':'discovers and classifies sensitive data such as PII in S3',
+  'Macie':'sensitive-data discovery in S3',
+  'AWS Security Hub':'aggregates security findings in one place',
+  'Security Hub':'a central security findings dashboard',
+  'AWS Network Firewall':'a managed stateful firewall for VPC traffic',
+  'AWS Firewall Manager':'centrally configures and manages firewall rules across accounts',
+  'AWS Resource Access Manager':'shares AWS resources across accounts',
+  'AWS Service Catalog':'a curated catalogue of approved IT services for self-service provisioning',
+  'AWS License Manager':'tracks and controls software licences',
+  'AWS Well-Architected Tool':'reviews workloads against the six Well-Architected pillars',
+  'AWS Compute Optimizer':'recommends optimal compute resources to reduce cost',
+  'Amazon Lightsail':'simple fixed-price virtual private servers for small projects',
+  'AWS Fargate':'serverless containers — run containers without managing servers',
+  'Fargate':'serverless container compute',
+  'Amazon ECS':'managed container orchestration',
+  'Amazon EKS':'managed Kubernetes service',
+  'Amazon API Gateway':'a managed API front door with throttling and authentication',
+  'API Gateway':'a managed API endpoint',
+  'AWS Step Functions':'serverless workflow orchestration for multi-step processes',
+  'Step Functions':'workflow orchestration',
+  'Amazon EventBridge':'a serverless event bus that routes events between services',
+  'EventBridge':'an event bus for routing events',
+  'AWS Backup':'centralised backup across AWS services',
+  'AWS DataSync':'automated data transfer between on-premises and AWS storage',
+  'DataSync':'automated data transfer to AWS storage',
+  'AWS Migration Hub':'tracks application migrations across tools',
+  'AWS Application Migration Service':'lifts and shifts servers to AWS with minimal downtime',
+  'AWS Database Migration Service':'migrates databases to AWS with minimal downtime',
+  'Amazon FSx':'managed Windows File Server and Lustre file systems',
+  'FSx':'managed high-performance file systems',
+  'AWS Outposts':'AWS hardware and services running in your own data centre',
+  'Outposts':'AWS infrastructure on-premises',
+  'AWS Local Zones':'AWS compute and storage placed close to large population centres',
+  'AWS Wavelength':'AWS services at the edge of 5G networks',
+  'Amazon Connect':'a cloud contact centre',
+  'Amazon SES':'a managed email sending service',
+  'Amazon MQ':'a managed message broker for ActiveMQ and RabbitMQ',
+  'AWS AppSync':'a managed GraphQL API',
+  'Amazon QuickSight':'serverless business-intelligence dashboards',
+  'QuickSight':'business intelligence dashboards',
+  'AWS Lake Formation':'builds and secures a data lake',
+  'Amazon EMR':'managed big-data processing with Hadoop and Spark',
+  'EMR':'managed Hadoop and Spark big data',
+  'AWS Batch':'runs batch computing jobs at any scale',
+  'AWS Amplify':'builds and hosts full-stack web and mobile apps',
+  'AWS Device Farm':'tests apps on real devices in the cloud',
+  'Amazon Polly':'text-to-speech',
+  'Amazon Rekognition':'image and video analysis',
+  'Amazon Comprehend':'natural-language processing',
+  'Amazon Lex':'builds conversational chatbots',
+  'Amazon Textract':'extracts text and data from documents',
+  'Amazon Transcribe':'speech-to-text',
+  'Amazon Translate':'language translation',
+  'Amazon SageMaker':'builds, trains and deploys machine-learning models'
+};
+for(const k in SVC_EXTRA){if(!SVC[k]) SVC[k]=SVC_EXTRA[k];}
+
 const EXAM_PATTERNS=[['who did what|who took this action|who deleted|API call|API activity','CloudTrail — records every API call with who, what, when and where'],['CPU utilization|metric|alarm|threshold|dashboard|monitor.*performance','CloudWatch — collects metrics, logs and triggers alarms'],['configuration change|compliance rule|resource.*state.*over time|drift','AWS Config — tracks resource configuration changes and checks compliance'],['best practice.*recommendation|cost optim.*recommend|service limit','Trusted Advisor — recommendations across cost, security, performance, fault tolerance'],['vulnerability|CVE|patch.*EC2|network exposure.*EC2','Inspector — scans EC2 instances and container images for vulnerabilities'],['threat|malicious|reconnaissance|compromis.*account|unusual.*API','GuardDuty — ML threat detection from CloudTrail, VPC Flow and DNS logs'],['sensitive data|PII|personally identifiable|classify.*S3','Macie — discovers and classifies sensitive data in S3'],['security finding.*aggregat|single.*pane.*security|consolidate.*security','Security Hub — aggregates findings from GuardDuty, Inspector, Macie'],['root cause.*security|investigat.*finding','Detective — investigates security findings using graph analysis'],['DDoS','Shield (Standard=free/auto, Advanced=$3000/mo) or WAF for Layer 7'],['SQL injection|XSS|cross-site scripting|web.*vulnerability|Layer 7','WAF — inspects HTTP/HTTPS requests and blocks web exploits'],['encryption key|encrypt.*data.*rest|KMS','KMS — manages encryption keys. CloudHSM for dedicated single-tenant HSMs'],['database password|secret.*rotat|API key.*rotat','Secrets Manager — stores and auto-rotates secrets via Lambda'],['SSL certificate|TLS certificate|HTTPS','Certificate Manager (ACM) — free with AWS services'],['compliance report|SOC|ISO 27001|PCI.*report|audit.*report','Artifact — portal for downloading compliance reports'],['temporary.*credential|role.*EC2|role.*Lambda','IAM Role — provides temporary credentials, no permanent access keys'],['least privilege','grant only the minimum permissions needed'],['MFA|multi-factor','adds a second factor on top of password'],['mobile.*auth|social.*identity|Google.*Facebook.*auth','Cognito — user authentication with social identity providers'],['multiple account|central.*billing|consolidate.*billing','Organizations — groups accounts, consolidated billing, SCP guardrails'],['guardrail.*override|prevent.*even.*admin','SCP — Service Control Policy, overrides even AdministratorAccess'],['landing zone|multi-account.*setup.*best practice','Control Tower — automates landing zone setup'],['infrastructure.*code|template.*resource|IaC','CloudFormation — define resources in JSON/YAML templates'],['NoSQL|key-value|single-digit.*millisecond','DynamoDB — managed serverless NoSQL'],['data warehouse|analytic.*SQL|petabyte|OLAP','Redshift — petabyte-scale data warehouse'],['in-memory cache|reduce.*read.*load|session.*cache','ElastiCache — managed Redis/Memcached cache'],['object storage|bucket|static website|unlimited storage','S3 — object storage, files in buckets'],['block storage|virtual hard drive|attached.*EC2','EBS — block storage attached to one EC2 instance, tied to one AZ'],['shared file|NFS|mount.*multiple.*EC2','EFS — managed NFS file system mountable by many EC2 instances'],['serverless|event.*triggered|no server.*manage','Lambda — serverless compute, runs code on events'],['container.*no.*EC2|serverless.*container','Fargate — serverless container runtime'],['Kubernetes','EKS — managed Kubernetes, AWS runs the control plane'],['deploy.*code.*automatic|PaaS|upload.*code.*AWS.*handle','Elastic Beanstalk — PaaS, upload code, AWS handles deployment'],['message queue|decouple|asynchronous.*process','SQS — managed queue, one consumer per message'],['pub.*sub|fan out|notification.*multiple','SNS — pub/sub, fans out one message to many subscribers'],['domain name|DNS|route.*latency|route.*geolocation','Route 53 — managed DNS with routing policies'],['CDN|content.*delivery|edge.*cache|low latency.*global','CloudFront — CDN, caches at edge locations globally'],['distribute.*traffic|load balanc|health check','ELB — distributes traffic across targets'],['scale.*in.*out|auto.*scal.*EC2|match.*demand','Auto Scaling — automatically adds/removes EC2 instances'],['large.*data.*transfer.*offline|physical device|100.*TB','Snowball/Snowmobile — physical devices for offline data transfer'],['private.*connection.*AWS|dedicated.*physical|bypass.*internet','Direct Connect — dedicated private physical network connection'],['hybrid.*storage|on-prem.*cloud','Storage Gateway — hybrid storage'],['migrate database|minimal downtime','DMS — Database Migration Service'],['SQL.*S3|query.*S3.*without.*load','Athena — serverless SQL on S3 data'],['ETL|extract.*transform.*load','Glue — serverless ETL service'],['cost.*spend.*visual|billing.*history','Cost Explorer — visualises spending'],['budget.*alert|spending.*threshold|notify.*cost.*exceed','Budgets — sets cost/usage thresholds and sends alerts'],['estimate.*cost.*before|pricing.*model','Pricing Calculator — estimates costs before deployment'],['spot.*interrupt|90%.*discount|spare capacity','Spot Instances — up to 90% discount, can be interrupted'],['reserved.*commit|1.*year.*3.*year','Reserved Instances — 1 or 3 year commitment, up to 72% discount'],['savings plan.*flexible','Savings Plans — commit to $/hour, up to 66% discount'],['dedicated.*physical.*server|BYOL|bring.*own.*license','Dedicated Hosts — physical server for you, supports BYOL'],['shared responsibility','AWS secures the cloud (hardware), customer secures in the cloud (data, OS, access)'],['elasticity|scale.*demand','ability to automatically scale resources in and out'],['CapEx.*OpEx|capital.*variable','cloud converts upfront capital expense to pay-as-you-go'],['economies of scale','AWS aggregates demand across millions, lowering per-unit costs'],['loose coupling|decouple','reduce dependencies — SQS and SNS enable this'],['design for failure','assume every component will fail and design to survive it'],['horizontal scal|scale out','adding more instances of the same size'],['high availability|minimal downtime|continue.*during.*failure','deploy across multiple AZs so if one fails, another continues'],['free tier.*12 month|750.*hour.*EC2','12-Month Free Tier: 750 hrs/mo t2.micro EC2, 5GB S3'],['always free|1 million.*Lambda','Always Free: Lambda 1M requests/mo, DynamoDB 25GB — never expires']];
 
 function genRationale(q){
@@ -2547,7 +3126,7 @@ function genRationale(q){
   for(const [pattern,answer] of EXAM_PATTERNS){if(stemLc.match(pattern)) return answer+'. This matches the key concept tested.';}
   const correctSvcs=[];
   for(const opt of correctOpts){const text=opt.replace(/^[A-E]\.\s*/,'');for(const key of Object.keys(SVC).sort((a,b)=>b.length-a.length)){if(text.includes(key)){correctSvcs.push({name:key,desc:SVC[key]});break;}}}
-  if(correctSvcs.length>0) return correctSvcs.map(s=>`${s.name} is ${s.desc}`).join('. ')+'.';
+  if(correctSvcs.length>0) return correctSvcs.map(s=>`${s.name} — ${s.desc}`).join('. ')+'.';
   return `The correct answer is ${correctOpts.map(o=>o.replace(/^[A-E]\.\s*/,'')).join(', ')}. This best matches the question requirement.`;
 }
 function genWrongRationale(q){
@@ -2555,7 +3134,7 @@ function genWrongRationale(q){
   const result={};
   q.options.filter(o=>!q.correct.some(c=>o.startsWith(c+'.'))).forEach(opt=>{
     const letter=opt.charAt(0);const text=opt.replace(/^[A-E]\.\s*/,'');
-    let desc=null;for(const key of Object.keys(SVC).sort((a,b)=>b.length-a.length)){if(text.includes(key)){desc=`${key} is ${SVC[key]}`;break;}}
+    let desc=null;for(const key of Object.keys(SVC).sort((a,b)=>b.length-a.length)){if(text.includes(key)){desc=`${key} — ${SVC[key]}`;break;}}
     result[letter]=desc?desc+'. It does not match what the question asks for.':text+' does not address the specific requirement.';
   });
   return result;
@@ -2566,7 +3145,10 @@ function getWrongRationale(q){return genWrongRationale(q);}
 // ═══════════════════════════════════════════════════════════════
 //  CONSTANTS & STATE
 // ═══════════════════════════════════════════════════════════════
-const EXAM_DATE=new Date('2026-12-14T07:00:00');
+// Exam date is configurable in Settings. Default = 10 days from today (8 Dec 2026).
+const DEFAULT_EXAM_ISO='2026-12-08T07:00:00';
+let examDateISO=load('clf_exam_date',DEFAULT_EXAM_ISO);
+let EXAM_DATE=new Date(examDateISO);
 const DOMAINS=['Cloud Concepts','Security and Compliance','Cloud Technology and Services','Billing, Pricing and Support'];
 const DOMAIN_SHORT={'Cloud Concepts':'CC','Security and Compliance':'SEC','Cloud Technology and Services':'TECH','Billing, Pricing and Support':'BILL'};
 const DOMAIN_WEIGHT={'Cloud Concepts':0.24,'Security and Compliance':0.30,'Cloud Technology and Services':0.34,'Billing, Pricing and Support':0.12};
@@ -2574,7 +3156,31 @@ const DOMAIN_BADGE={'Cloud Concepts':'badge-cc','Security and Compliance':'badge
 const DOMAIN_COLOR={'Cloud Concepts':'#3BA8FF','Security and Compliance':'#FFB020','Cloud Technology and Services':'#22C55E','Billing, Pricing and Support':'#FF9900'};
 const DOMAIN_EMOJI={'Cloud Concepts':'☁️','Security and Compliance':'🛡️','Cloud Technology and Services':'⚙️','Billing, Pricing and Support':'💰'};
 const INTERVALS=[1,2,4,7];
-function daysLeft(){return Math.max(0,Math.ceil((EXAM_DATE-new Date())/(1000*60*60*24)));}
+function daysLeft(){
+  const n=new Date(),e=EXAM_DATE;
+  const a=Date.UTC(n.getFullYear(),n.getMonth(),n.getDate());
+  const b=Date.UTC(e.getFullYear(),e.getMonth(),e.getDate());
+  return Math.max(0,Math.round((b-a)/86400000));
+}
+function examDateLabel(short){try{return EXAM_DATE.toLocaleDateString('en-GB',{day:'numeric',month:short?'short':'long',year:'numeric'});}catch{return examDateISO.slice(0,10);}}
+function examISO(){const d=EXAM_DATE;return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function isoAdd(iso,days){const d=new Date(iso+'T12:00:00');d.setDate(d.getDate()+days);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function isoToday(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+// Re-base the 9-day study plan so it always ends the day before the live exam date.
+function planView(){
+  const p=window.STUDY_PLAN;if(!p) return null;
+  const exam=examISO(),today=isoToday();
+  // Exactly 10 days out: start the 9-day block today (leaving the final day free to taper).
+  // Otherwise anchor the block to exam-9 so today maps onto the correct plan day.
+  const start=(daysLeft()===10)?today:isoAdd(exam,-9);
+  const days=p.days.map((d,i)=>Object.assign({},d,{date:isoAdd(start,i),label:`Day ${d.day} — ${new Date(isoAdd(start,i)+'T12:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}`}));
+  const phases=[
+    Object.assign({},p.phases[0],{startDate:start,endDate:isoAdd(start,5),dateRange:`${new Date(start+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'})} – ${new Date(isoAdd(start,5)+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'})}`}),
+    Object.assign({},p.phases[1],{startDate:isoAdd(start,6),endDate:isoAdd(exam,-2),dateRange:`${new Date(isoAdd(start,6)+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'})} – ${new Date(isoAdd(exam,-2)+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'})}`}),
+    Object.assign({},p.phases[2],{startDate:isoAdd(exam,-1),endDate:exam,dateRange:`${new Date(isoAdd(exam,-1)+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'})} – EXAM DAY`})
+  ];
+  return {exam,start,today,days,phases};
+}
 function load(key,def){try{const v=localStorage.getItem(key);return v?JSON.parse(v):def;}catch{return def;}}
 function save(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch{}}
 let progress=load('clf_progress',{});
@@ -2601,7 +3207,12 @@ function domainAccuracy(domain){
 function overallAccuracy(){let c=0,t=0;Object.values(progress).forEach(p=>{if(p.attempts>0){t+=p.attempts;c+=p.correct;}});return t===0?null:Math.round(c/t*100);}
 function dueItems(){
   const now=Date.now();
-  return window.QUESTIONS.filter(q=>{const p=progress[q.id];if(!p)return true;if(p.interval===INTERVALS.length-1&&p.correct>0)return false;return now>=p.nextDue;});
+  return window.QUESTIONS.filter(q=>{
+    const p=progress[q.id];
+    if(!p||!p.attempts) return false;              // never-seen questions are not "due"
+    if(p.interval===INTERVALS.length-1&&p.correct>0) return false;
+    return now>=(p.nextDue||0);
+  });
 }
 function recordAnswer(qid,chosen,correct){
   if(!progress[qid]) progress[qid]={interval:0,nextDue:0,correct:0,attempts:0};
@@ -2640,34 +3251,73 @@ function confettiBurst(x,y){
 //  NAVIGATION
 // ═══════════════════════════════════════════════════════════════
 let currentTab='home';
+let _navToken=0;
+let navStack=['home'], navIdx=0;
 
-function navigate(tab){
+function updateNavButtons(){
+  const b=document.getElementById('nav-back'), f=document.getElementById('nav-forward');
+  if(b) b.disabled = navIdx<=0;
+  if(f) f.disabled = navIdx>=navStack.length-1;
+}
+function navBack(){ if(navIdx>0){ navIdx--; navigate(navStack[navIdx], true); } }
+function navForward(){ if(navIdx<navStack.length-1){ navIdx++; navigate(navStack[navIdx], true); } }
+
+function navigate(tab, fromHist){
   currentTab=tab;
+  if(!fromHist){
+    if(navStack[navIdx]!==tab){ navStack=navStack.slice(0,navIdx+1); navStack.push(tab); navIdx=navStack.length-1; }
+  }
+  updateNavButtons();
   // Persist current page in URL hash so reload returns here
   try{ location.hash = tab; }catch(e){}
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
   const el=document.getElementById('main-content');
-  el.style.opacity='0';el.style.transform='translateY(8px)';
-  setTimeout(()=>{
-    if(tab==='home') el.innerHTML=renderHome();
-    else if(tab==='diagnostic'||tab==='interview prep') el.innerHTML=renderDiagnosticMenu();
-    else if(tab==='learn') el.innerHTML=renderLearnHub();
-    else if(tab==='practice') el.innerHTML=renderPracticeMenu();
-    else if(tab==='mock') el.innerHTML=renderMockMenu();
-    else if(tab==='progress') el.innerHTML=renderProgress();
-    else if(tab==='achievements') el.innerHTML=renderAchievements();
-    else if(tab==='flashcards'){el.innerHTML=renderPracticeMenu();setTimeout(()=>switchPracticeTab('flashcards'),50);}
-    else if(tab==='terminology') el.innerHTML=renderTerminologyGym();
-    else if(tab==='universe'||tab==='architecture lab') el.innerHTML=renderUniverse();
-    else if(tab==='games') el.innerHTML=renderGamesArena();
-    else if(tab==='settings') el.innerHTML=renderSettings();
-    else if(tab==='roadmap') el.innerHTML=renderStudyRoadmap();
-    else if(tab==='recommendation') el.innerHTML=renderRecommendation();
-    else if(tab==='weekly-flashcards') el.innerHTML=renderWeeklyFlashcards();
-    else el.innerHTML=renderHome();
-    el.style.opacity='1';el.style.transform='translateY(0)';el.style.transition='opacity .22s,transform .22s';
-    attachTabListeners(tab==='flashcards'||tab==='terminology'?'practice':tab);
-  },75);
+  if(!el){return;}
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const myToken = ++_navToken;
+
+  const doSwap = ()=>{
+    if(myToken !== _navToken) return; // a newer navigation superseded this one
+    try{
+      if(tab==='home') el.innerHTML=renderHome();
+      else if(tab==='diagnostic'||tab==='interview prep') el.innerHTML=renderDiagnosticMenu();
+      else if(tab==='learn') el.innerHTML=renderLearnHub();
+      else if(tab==='practice') el.innerHTML=renderPracticeMenu();
+      else if(tab==='mock') el.innerHTML=renderMockMenu();
+      else if(tab==='progress') el.innerHTML=renderProgress();
+      else if(tab==='achievements') el.innerHTML=renderAchievements();
+      else if(tab==='flashcards'){el.innerHTML=renderPracticeMenu();setTimeout(()=>switchPracticeTab('flashcards'),50);}
+      else if(tab==='terminology') el.innerHTML=renderTerminologyGym();
+      else if(tab==='universe'||tab==='architecture lab') el.innerHTML=renderUniverse();
+      else if(tab==='games') el.innerHTML=renderGamesArena();
+      else if(tab==='settings') el.innerHTML=renderSettings();
+      else if(tab==='roadmap') el.innerHTML=renderStudyRoadmap();
+      else if(tab==='mastery') el.innerHTML=renderMasteryPath();
+      else if(tab==='review') el.innerHTML=renderReviewQueue();
+      else if(tab==='cram') el.innerHTML=(typeof renderCramSheet==='function')?renderCramSheet():'<div class="glass-card"><p class="muted">Loading cram sheet…</p></div>';
+      else if(tab==='podcast') el.innerHTML=(typeof renderPodcast==='function')?renderPodcast():'<div class="glass-card"><p class="muted">Loading Audio Academy…</p></div>';
+      else if(tab==='recommendation') el.innerHTML=renderRecommendation();
+      else if(tab==='weekly-flashcards') el.innerHTML=renderWeeklyFlashcards();
+      else el.innerHTML=renderHome();
+      attachTabListeners(tab==='flashcards'||tab==='terminology'?'practice':tab);
+    }catch(err){ try{console.warn('render',err);}catch(e){} }
+  };
+
+  // Clean, blur-free two-phase fade (no white flash, no jank)
+  el.style.transformOrigin='50% 0%';
+  el.style.transition = reduce ? 'none' : 'opacity .14s ease, transform .14s ease';
+  el.style.opacity = '0';
+  el.style.transform = reduce ? 'none' : 'translateY(6px)';
+  const swap = ()=>{
+    doSwap();
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      if(myToken !== _navToken) return;
+      el.style.transition = reduce ? 'none' : 'opacity .30s cubic-bezier(.22,1,.36,1), transform .30s cubic-bezier(.22,1,.36,1)';
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    }));
+  };
+  if(reduce){ doSwap(); } else { setTimeout(swap,130); }
 }
 // Deep-link navigation with anchor scrolling
 function navigateTo(tab, anchor){
@@ -2711,6 +3361,7 @@ function updateTopbar(){
   if(tb) tb.textContent=`Level ${level} · ${xp} XP`;
   if(fill) fill.style.width=pct+'%';
   updateSidebarXP();
+  if(typeof refreshReviewBadge==='function') refreshReviewBadge();
 }
 function updateSidebarXP(){
   const el=document.getElementById('sidebar-xp');if(!el)return;
@@ -2767,12 +3418,17 @@ function renderHome(){
     </div>
     <div class="theme-toggle">
       <button class="theme-btn${appTheme==='default'?' active':''}" onclick="switchTheme('default')" title="Space Blue">🌌</button>
+      <button class="theme-btn${appTheme==='midnight'?' active':''}" onclick="switchTheme('midnight')" title="Midnight Blue">🔵</button>
       <button class="theme-btn${appTheme==='green'?' active':''}" onclick="switchTheme('green')" title="Midnight Green">🟢</button>
       <button class="theme-btn${appTheme==='purple'?' active':''}" onclick="switchTheme('purple')" title="Deep Purple">🟣</button>
+      <button class="theme-btn${appTheme==='sunset'?' active':''}" onclick="switchTheme('sunset')" title="Sunset Ember">🌅</button>
+      <button class="theme-btn${appTheme==='mono'?' active':''}" onclick="switchTheme('mono')" title="Graphite">⚪</button>
     </div>
   </div>`;
-  if(homeLayout==='command') return toggleHTML+renderHomeCommandCenter(days,due,overall,mockCount,totalAttempted,domainsPracticed,score);
-  return toggleHTML+renderHomeClassic(days,due,overall,mockCount,totalAttempted,domainsPracticed,score);
+  const body = homeLayout==='command'
+    ? renderHomeCommandCenter(days,due,overall,mockCount,totalAttempted,domainsPracticed,score)
+    : renderHomeClassic(days,due,overall,mockCount,totalAttempted,domainsPracticed,score);
+  return toggleHTML+body+renderMasteryHomeCard();
 }
 
 function renderHomeRecBanner(days, score, domainsPracticed){
@@ -2812,7 +3468,7 @@ function renderHomeRecBanner(days, score, domainsPracticed){
     <div class="home-rec-centre">
       <div class="home-rec-eyebrow">
         <span class="home-rec-phase-pill" style="background:${phaseCol}22;color:${phaseCol};border-color:${phaseCol}44">${phaseName}</span>
-        <span class="home-rec-today-pill">Day ${planDay} of 8</span>
+        <span class="home-rec-today-pill">Sprint Day ${planDay} of 8</span>
       </div>
       <div class="home-rec-title">📅 Today: ${dayTitle}</div>
       <div class="home-rec-quick-links">
@@ -2852,12 +3508,13 @@ function renderHomeClassic(days,due,overall,mockCount,totalAttempted,domainsPrac
   <div class="hero-banner animate-in" style="margin-bottom:1rem">
     <img src="assets/02-aws-learn-build-grow.png" alt="" class="hero-bg-img">
     <img src="assets/01-astronaut-hero.png" alt="Astronaut" class="hero-astronaut-img">
+    <div class="hero-scrim"></div>
     <div class="hero-content">
       <div class="hero-eyebrow">AWS Cloud Practitioner Academy</div>
       <h1 class="hero-title">Your AWS Certification<span class="gold">Journey Starts Here!</span></h1>
       <p class="hero-sub">Understand deeply. Practise intelligently. Pass exceptionally.</p>
       <div class="hero-pills">
-        <span class="hero-pill gold-pill"><span class="pill-icon">📅</span>14 December 2026</span>
+        <span class="hero-pill gold-pill"><span class="pill-icon">📅</span>${examDateLabel()}</span>
         <span class="hero-pill gold-pill"><span class="pill-icon">⏰</span><span id="live-days">${days}</span> Days Left</span>
       </div>
     </div>
@@ -2875,15 +3532,18 @@ function renderHomeClassic(days,due,overall,mockCount,totalAttempted,domainsPrac
   <!-- REC BANNER -->
   ${renderHomeRecBanner(days, score, domainsPracticed)}
 
+  <!-- STUDY ROADMAP PREVIEW -->
+  ${renderMissionTimeline()}
+
   <!-- STAT CARDS -->
   <div class="stat-cards-row animate-in stagger-1">
     <!-- Study Streak -->
     <div class="stat-card sc-streak">
       <div class="sc-header">
-        <div class="sc-icon-wrap gold-wrap" style="font-size:1.1rem">�</div>
+        <div class="sc-icon-wrap gold-wrap" style="font-size:1.1rem">🔥</div>
         <div class="sc-title">Study Streak</div>
       </div>
-      <div class="sc-big gold-text">${streak.count} <span style="font-size:1.4rem;font-weight:600">Days</span></div>
+      <div class="sc-big gold-text">${streak.count} <span style="font-size:1.4rem;font-weight:600">${streak.count===1?'Day':'Days'}</span></div>
       <div class="sc-sub gold-sub">${streak.count>=7?'🔥 On Fire! Keep it up!':streak.count>=3?'⚡ Building momentum!':'💪 Start your streak!'}</div>
       <div class="sc-progress-wrap" style="margin-top:.5rem"><div class="sc-progress-fill gold-fill" style="width:${Math.min(100,streak.count/30*100)}%"></div></div>
       <svg class="sc-wave" viewBox="0 0 400 52" preserveAspectRatio="none">
@@ -3018,13 +3678,13 @@ function renderHomeClassic(days,due,overall,mockCount,totalAttempted,domainsPrac
   <!-- BOTTOM ROW -->
   <div class="bottom-row animate-in stagger-3">
     <!-- Today's Mission -->
-    <div class="mission-card">
+    ${(()=>{const tp=getTodayPlan();return `<div class="mission-card">
       <div class="mission-label">🎯 Today's Mission</div>
       <img src="assets/06-mission-checklist.png" alt="Mission" class="mission-img">
-      <div class="mission-title">Complete 1 practice exam to boost your confidence before the big day!</div>
-      <div class="mission-time">⏱ ~45 min</div>
-      <button class="btn btn-primary btn-sm" style="width:100%" onclick="navigate('practice')">Start Mission →</button>
-    </div>
+      <div class="mission-title">${tp?`${tp.emoji} ${tp.morning.title}`:'Complete 1 practice exam to boost your confidence before the big day!'}</div>
+      <div class="mission-time">⏱ ${tp?`${tp.morning.duration} · ${tp.focus}`:'~45 min · confidence'}</div>
+      <button class="btn btn-primary btn-sm" style="width:100%" onclick="${tp?`missionGo(${tp.day})`:`navigate('practice')`}">${tp?'Open today\'s plan →':'Start Mission →'}</button>
+    </div>`;})()}
     <!-- Recent Achievements -->
     <div class="achievements-card">
       <div class="card-header" style="margin-bottom:.5rem">
@@ -3061,10 +3721,7 @@ function renderHomeClassic(days,due,overall,mockCount,totalAttempted,domainsPrac
       <div class="muted">Your spaced repetition queue is waiting</div>
     </div>
     <button class="btn btn-primary" onclick="startPractice('due')">Review Now →</button>
-  </div>`:''}
-
-  <!-- STUDY ROADMAP PREVIEW -->
-  ${renderRoadmapPreview()}`;
+  </div>`:''}`;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -3162,7 +3819,7 @@ function renderHomeCommandCenter(days,due,overall,mockCount,totalAttempted,domai
             <div class="cc-countdown-compact-eyebrow">Exam Countdown</div>
             <div class="cc-countdown-compact-days" id="live-days">${days}</div>
             <div class="cc-countdown-compact-label">Days Remaining</div>
-            <div class="cc-countdown-compact-date">14 December 2026</div>
+            <div class="cc-countdown-compact-date">${examDateLabel()}</div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:.45rem">
             <div class="cc-target-ring">
@@ -3200,6 +3857,7 @@ function renderHomeCommandCenter(days,due,overall,mockCount,totalAttempted,domai
   </div>
 
   <!-- ═══ INTEL CARDS (4 metrics) ════════════════════════════= -->
+  ${renderMissionTimeline()}
   ${renderHomeRecBanner(days, score, domainsPracticed)}
 
   <div class="cc-intel animate-in stagger-1">
@@ -3465,8 +4123,7 @@ function renderGalaxy(){
 function startLiveCountdown(){
   if(window._countdownInterval) clearInterval(window._countdownInterval);
   window._countdownInterval=setInterval(()=>{
-    const ms=Math.max(0,EXAM_DATE-new Date());
-    const d=Math.ceil(ms/86400000);
+    const d=daysLeft();
     const dEl=document.getElementById('live-days');
     if(dEl) dEl.textContent=d;
   },1000);
@@ -3501,13 +4158,51 @@ function renderGamesArena(){
 function renderSettings(){
   return `<div class="section-header"><h1>⚙️ Settings</h1></div>
   <div class="glass-card gold-card" style="margin-bottom:1rem">
-    <h2>Study Preferences</h2>
-    <p class="muted" style="font-size:.85rem">Settings coming soon. Your progress and XP are always saved automatically.</p>
+    <h2>Exam Date</h2>
+    <p class="muted" style="font-size:.85rem">Everything adapts to this date: the countdown, the 9-day plan, the phases and the mission clock. Set your real booking date.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:.9rem">
+      <input type="date" class="exam-date-input" id="exam-date-input" value="${examISO()}">
+      <button class="btn btn-primary btn-sm" onclick="saveExamDate()">Save date</button>
+      <span style="font-size:.72rem;color:var(--muted)">Currently: <strong style="color:var(--gold)">${daysLeft()} days left</strong> · ${examDateLabel()}</span>
+    </div>
+  </div>
+
+  <div class="glass-card" style="margin-bottom:1rem">
+    <h2>The 5 methods this app runs on</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.55rem;margin-top:.8rem">
+      ${[
+        ['🔁','Active recall','Every question forces retrieval before you see the answer. Recognition is not recall.'],
+        ['📌','Spaced repetition','Wrong answers return tomorrow, then +2, +4, +7 days. Clear the Due queue daily.'],
+        ['🔀','Interleaving','Mix domains instead of blocking one. It feels harder — that is why it works.'],
+        ['❌','Error correction','Every wrong choice gets a specific “why you were wrong” explanation and a memory hook.'],
+        ['🗣️','Feynman check','After each correct answer, explain it out loud in one plain sentence. If you cannot, you do not know it.']
+      ].map(([i,t,d])=>`<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:.65rem .75rem">
+        <div style="font-size:1rem;margin-bottom:.15rem">${i}</div>
+        <div style="font-size:.78rem;font-weight:800;margin-bottom:.15rem">${t}</div>
+        <div style="font-size:.7rem;color:var(--muted);line-height:1.5">${d}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <div class="glass-card" style="margin-bottom:1rem">
+    <h2>Data</h2>
+    <p class="muted" style="font-size:.85rem">Everything lives in this browser only — no accounts, no servers, no cost.</p>
     <div style="margin-top:1rem;display:flex;gap:.7rem;flex-wrap:wrap">
       <button class="btn btn-secondary btn-sm" onclick="if(confirm('Reset ALL progress? This cannot be undone.')){localStorage.clear();location.reload();}">Reset All Progress</button>
       <button class="btn btn-primary btn-sm" onclick="navigate('home')">← Back to Home</button>
     </div>
   </div>`;
+}
+function saveExamDate(){
+  const input=document.getElementById('exam-date-input');
+  if(!input||!input.value) return;
+  examDateISO=input.value+'T07:00:00';
+  EXAM_DATE=new Date(examDateISO);
+  save('clf_exam_date',examDateISO);
+  if(window.STUDY_PLAN) window.STUDY_PLAN.examDate=input.value;
+  toast('Exam date saved — roadmap re-based ✨','success');
+  if(typeof updateMissionClock==='function') updateMissionClock();
+  navigate('settings');
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -4534,6 +5229,7 @@ let quizState=null;
 function startPractice(mode,domain,count){
   let qs;
   if(mode==='due') qs=shuffle(dueItems()).slice(0,30);
+  else if(mode==='mixed') qs=shuffle(window.QUESTIONS).slice(0,count||15);
   else if(mode==='domain'){const pool=window.QUESTIONS.filter(q=>q.domain===domain);qs=count===0?shuffle(pool):shuffle(pool).slice(0,count);}
   if(!qs||!qs.length){toast('No questions available.','err');return;}
   runQuiz(qs,'practice',onPracticeComplete);
@@ -4574,6 +5270,34 @@ function attachQuizListeners(){
     opts.forEach(btn=>{btn.addEventListener('click',()=>{btn.classList.toggle('selected');const any=document.querySelectorAll('.opt-btn.selected').length>0;if(submitBtn){submitBtn.style.display='';submitBtn.disabled=!any;}});});
     if(submitBtn) submitBtn.addEventListener('click',()=>submitQuizAnswer(Array.from(document.querySelectorAll('.opt-btn.selected')).map(b=>b.dataset.opt)));
   } else {opts.forEach(btn=>{btn.addEventListener('click',()=>submitQuizAnswer([btn.dataset.opt]));});}
+}
+function wrongAnswerReason(q,letter,wrongRationale){
+  const chosenText=((q.options.find(o=>o.startsWith(letter+'.'))||'').replace(/^[A-E]\.\s*/,'')).trim();
+  const base=(wrongRationale&&wrongRationale[letter])||'';
+  let svcName=null;
+  for(const key of Object.keys(SVC).sort((a,b)=>b.length-a.length)){if(chosenText.includes(key)){svcName=key;break;}}
+  if(base&&!/does not address the specific requirement/i.test(base)) return base;
+  if(svcName) return `${svcName} — ${SVC[svcName]}. That is real AWS, but it does not answer what this question is asking for, so it is the trap option.`;
+  return `"${chosenText}" is a plausible-sounding option, but it does not satisfy the exact requirement in the question stem. The correct option is the one that matches the scenario's key constraint.`;
+}
+function buildMemoryHook(q){
+  const stem=(q.stem||'').toLowerCase();
+  for(const [pattern,answer] of EXAM_PATTERNS){try{if(stem.match(pattern)) return answer;}catch(e){}}
+  const correctOpt=q.options.find(o=>q.correct.some(c=>o.startsWith(c+'.')))||'';
+  const text=correctOpt.replace(/^[A-E]\.\s*/,'');
+  for(const key of Object.keys(SVC).sort((a,b)=>b.length-a.length)){if(text.includes(key)) return `${key} — ${SVC[key]}`;}
+  // No pattern or service-dictionary match: reuse the synthesised rationale so the hook
+  // still names the actual answer instead of a generic "remember this keyword" line.
+  let rat='';
+  try{ rat=(typeof genRationale==='function'?genRationale(q):'')||''; }catch(e){}
+  rat=rat.replace(/\s+/g,' ').trim();
+  if(rat&&rat.length>12){
+    if(/^The correct answer is /i.test(rat)&&text) return `Correct answer: ${text}`;
+    const first=rat.split(/(?<=[.!?])\s/)[0];
+    return first.length>170?first.slice(0,167)+'…':first;
+  }
+  const tag=(q.tags&&q.tags[0])||q.domain;
+  return `Link the keyword "${tag}" to this answer. When you see that keyword in the exam, this is the answer pattern to reach for.`;
 }
 function submitQuizAnswer(chosen){
   const{questions,idx}=quizState,q=questions[idx];
@@ -4641,6 +5365,28 @@ function submitQuizAnswer(chosen){
       </div>`;
     })():'';
 
+    // ── WRONG-ANSWER SPOTLIGHT: why YOUR choice was wrong ─────
+    const wrongHero=(()=>{
+      if(isCorrect) return '';
+      const chosenWrong=chosen.filter(l=>!q.correct.includes(l));
+      if(!chosenWrong.length) return '';
+      const correctLetters=q.correct;
+      const correctText=q.options.find(o=>q.correct.some(c=>o.startsWith(c+'.')))?.replace(/^[A-E]\.\s*/,'')||'';
+      const rows=chosenWrong.map(l=>{
+        const t=((q.options.find(o=>o.startsWith(l+'.'))||'').replace(/^[A-E]\.\s*/,'')).trim();
+        return `<div class="eww-choice">You chose <b>${l} — ${t}</b></div>
+          <div class="eww-reason"><span class="eww-why-tag">Why this is wrong</span>${wrongAnswerReason(q,l,wrongRationale)}</div>`;
+      }).join('');
+      return `<div class="eww-hero">
+        <div class="eww-head"><span style="font-size:.9rem">⛔</span><span class="eww-label">Why your answer was wrong</span></div>
+        <div class="eww-body">
+          ${rows}
+          <div class="eww-fix"><span style="font-size:.85rem;flex-shrink:0">✅</span><span><b>Correct answer${correctLetters.length>1?'s':''}: ${correctLetters.join(', ')}</b> — ${correctText}. This is the only option that satisfies the question's key requirement.</span></div>
+          <div class="eww-hook"><span style="flex-shrink:0">🧠</span><span><b>Memory hook:</b> ${buildMemoryHook(q)}</span></div>
+        </div>
+      </div>`;
+    })();
+
     area.innerHTML=`<div class="exp-box ${isCorrect?'exp-correct':'exp-wrong'} animate-in">
 
       <!-- ── STATUS HEADER ── -->
@@ -4648,6 +5394,8 @@ function submitQuizAnswer(chosen){
         <span class="exp-status-badge ${isCorrect?'exp-badge-ok':'exp-badge-err'}">${isCorrect?'✅ Correct +10 XP':'❌ Incorrect +2 XP'}</span>
         ${tagChips?`<div class="exp-tags">${tagChips}</div>`:''}
       </div>
+
+      ${wrongHero}
 
       <!-- ── CORRECT ANSWER SECTION ── -->
       <div class="exp-section">
@@ -4664,8 +5412,8 @@ function submitQuizAnswer(chosen){
       ${feynmanPrompt}${mentalModelFix}
 
       <!-- ── OTHER OPTIONS ── -->
-      ${wrongOptItems?`<div class="exp-section exp-section-collapsible" id="exp-wrong-toggle" onclick="this.classList.toggle('open')">
-        <div class="exp-section-label exp-label-err" style="cursor:pointer">✗ Other Options — tap to expand ▾</div>
+      ${wrongOptItems?`<div class="exp-section exp-section-collapsible${isCorrect?'':' open'}" id="exp-wrong-toggle" onclick="this.classList.toggle('open')">
+        <div class="exp-section-label exp-label-err" style="cursor:pointer">✗ Every other option — why it's wrong ${isCorrect?'— tap to expand ▾':'▾'}</div>
         <div class="exp-wrong-list">${wrongOptItems}</div>
       </div>`:''}
 
@@ -4853,12 +5601,22 @@ function renderMockReview(questions,answers,domainResults,pct,correct,duration,t
     </div>
   </div>
   <h2 style="margin-bottom:.7rem">Question Review</h2>
-  ${questions.map((q,i)=>{const chosen=answers[i]||[];const isCorrect=chosen.length>0&&arraysEqual(chosen.slice().sort(),q.correct.slice().sort());const skipped=!chosen.length;return `<div class="review-item ${skipped?'rv-skipped':isCorrect?'rv-correct':'rv-wrong'}">
+  ${questions.map((q,i)=>{const chosen=answers[i]||[];const isCorrect=chosen.length>0&&arraysEqual(chosen.slice().sort(),q.correct.slice().sort());const skipped=!chosen.length;
+    const wr=getWrongRationale(q);
+    const optionRows=q.options.map(o=>{
+      const L=o.charAt(0),txt=o.replace(/^[A-E]\.\s*/,'');
+      const isCorr=q.correct.includes(L),isChosen=chosen.includes(L);
+      if(isCorr) return `<div class="rv-opt rv-opt-ok"><span class="rv-opt-letter">${L}</span><span>${txt}</span><span class="rv-tag rv-tag-ok">correct</span></div>`;
+      if(isChosen) return `<div class="rv-opt rv-opt-bad"><span class="rv-opt-letter">${L}</span><span>${txt}<div class="rv-why">✗ ${wrongAnswerReason(q,L,wr)}</div></span><span class="rv-tag rv-tag-bad">your answer</span></div>`;
+      return `<div class="rv-opt"><span class="rv-opt-letter">${L}</span><span>${txt}<div class="rv-why">✗ ${wrongAnswerReason(q,L,wr)}</div></span></div>`;
+    }).join('');
+    return `<div class="review-item ${skipped?'rv-skipped':isCorrect?'rv-correct':'rv-wrong'}">
     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem;flex-wrap:wrap"><span>${skipped?'⬜':isCorrect?'✅':'❌'}</span><span class="muted" style="font-size:.78rem">Q${i+1}</span><span class="badge ${DOMAIN_BADGE[q.domain]}">${DOMAIN_SHORT[q.domain]}</span></div>
     <p style="font-size:.83rem;font-weight:500;margin-bottom:.35rem">${q.stem}</p>
-    ${!skipped?`<p style="font-size:.78rem;color:${isCorrect?'var(--ok)':'var(--red)'}">Your: ${chosen.join(', ')}</p>`:'<p style="font-size:.78rem;color:var(--muted)">Not answered</p>'}
+    ${!skipped?`<p style="font-size:.78rem;color:${isCorrect?'var(--ok)':'var(--red)'}">Your answer: ${chosen.join(', ')}</p>`:'<p style="font-size:.78rem;color:var(--muted)">Not answered</p>'}
     <p style="font-size:.78rem;color:var(--ok)">Correct: ${q.correct.join(', ')}</p>
-    <p style="font-size:.78rem;color:var(--muted);margin-top:.25rem;line-height:1.5">${getRationale(q)}</p>
+    ${!isCorrect?`<div class="rv-options">${optionRows}</div>`:''}
+    <p style="font-size:.78rem;color:var(--muted);margin-top:.35rem;line-height:1.5">${getRationale(q)}</p>
   </div>`;}).join('')}
   <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.1rem">
     <button class="btn btn-primary" onclick="startMockExam()">Take Another Mock</button>
@@ -5039,14 +5797,14 @@ function arraysEqual(a,b){if(a.length!==b.length) return false;for(let i=0;i<a.l
 //  STUDY ROADMAP — RENDER FUNCTIONS
 // ═══════════════════════════════════════════════════════════════
 function getTodayPlan(){
-  if(!window.STUDY_PLAN) return null;
-  const today=new Date().toISOString().split('T')[0];
-  return window.STUDY_PLAN.days.find(d=>d.date===today)||null;
+  const v=planView();
+  if(!v) return null;
+  return v.days.find(d=>d.date===v.today)||null;
 }
 function getCurrentPhase(){
-  if(!window.STUDY_PLAN) return null;
-  const today=new Date().toISOString().split('T')[0];
-  return window.STUDY_PLAN.phases.find(p=>today>=p.startDate&&today<=p.endDate)||null;
+  const v=planView();
+  if(!v) return null;
+  return v.phases.find(p=>v.today>=p.startDate&&v.today<=p.endDate)||null;
 }
 function getDaysUntil(dateStr){
   return Math.max(0,Math.ceil((new Date(dateStr)-new Date())/(1000*60*60*24)));
@@ -5085,6 +5843,10 @@ function renderRoadmapPreview(){
     </div>`:`
     <div style="font-size:.85rem;color:var(--muted)">${phase?phase.tip:''}</div>`}
   </div>`;
+}
+
+function renderMissionTimeline(){
+  return (typeof window.__missionTimeline==='function')?window.__missionTimeline():renderRoadmapPreview();
 }
 
 function renderRecommendation(){
@@ -5204,9 +5966,8 @@ function renderRecommendation(){
 
   const phaseColor={Foundation:'#087BFF',  'Core Services':'#10C995', Billing:'#E9A92F', 'Full Mock':'#B08AFF'};
   const today=new Date();
-  // determine which plan day we're on relative to 8 days before exam
-  const msLeft=(new Date('2026-12-14T07:00:00')-today);
-  const daysToExam=Math.ceil(msLeft/86400000);
+  // determine which plan day we're on relative to the live exam date
+  const daysToExam=daysLeft();
   const planDay=Math.max(1,Math.min(8,9-Math.min(8,daysToExam)));
 
   return `
@@ -5353,16 +6114,17 @@ function renderRecommendation(){
 function renderStudyRoadmap(){
   if(!window.STUDY_PLAN){return `<div class="section-header"><h1>🗓️ Study Roadmap</h1></div><div class="glass-card"><p class="muted">Study plan not loaded. Make sure studyplan.js is in the folder.</p></div>`;}
   const plan=window.STUDY_PLAN;
-  const today=new Date().toISOString().split('T')[0];
+  const view=planView();
+  const today=view.today;
   const todayPlan=getTodayPlan();
   const phase=getCurrentPhase();
-  const daysToExam=getDaysUntil(plan.examDate);
+  const daysToExam=daysLeft();
 
   return `
   <div class="section-header">
     <h1>🗓️ ${displayName().split(' ')[0]}'s Study Roadmap</h1>
     <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
-      <span style="padding:.3rem .75rem;border-radius:999px;background:rgba(255,153,0,0.15);border:1px solid rgba(255,153,0,0.3);font-size:.75rem;font-weight:800;color:var(--gold)">📅 Exam: 14 Dec 2026</span>
+      <span style="padding:.3rem .75rem;border-radius:999px;background:rgba(255,153,0,0.15);border:1px solid rgba(255,153,0,0.3);font-size:.75rem;font-weight:800;color:var(--gold)">📅 Exam: ${examDateLabel()}</span>
       <span style="padding:.3rem .75rem;border-radius:999px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);font-size:.75rem;font-weight:800;color:var(--red)">⏰ ${daysToExam} days left</span>
       <span style="padding:.3rem .75rem;border-radius:999px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);font-size:.75rem;font-weight:800;color:var(--green)">🎯 Target: 90%+</span>
     </div>
@@ -5384,7 +6146,7 @@ function renderStudyRoadmap(){
 
   <!-- PHASES -->
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-bottom:1rem">
-    ${plan.phases.map(p=>{
+    ${view.phases.map(p=>{
       const isActive=today>=p.startDate&&today<=p.endDate;
       const isPast=today>p.endDate;
       return `<div class="glass-card" style="border-color:${p.color}${isActive?'60':'25'};${isActive?`box-shadow:0 0 24px ${p.color}30`:''}">
@@ -5401,9 +6163,9 @@ function renderStudyRoadmap(){
   <!-- 9-DAY INTENSIVE PLAN -->
   <div class="glass-card gold-card animate-in" style="margin-bottom:1rem">
     <div class="card-header">
-      <div class="card-header-left"><span class="card-header-icon">🔥</span><div><div class="card-header-title">9-Day Intensive Plan — Nov 26 to Dec 4</div><div class="card-header-sub">Your golden window. Full focus every day.</div></div></div>
+      <div class="card-header-left"><span class="card-header-icon">🔥</span><div><div class="card-header-title">9-Day Intensive Plan — ${new Date(view.start+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'})} to ${new Date(view.days[8].date+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</div><div class="card-header-sub">Your golden window. Full focus every day.</div></div></div>
     </div>
-    ${plan.days.map(d=>{
+    ${view.days.map(d=>{
       const isToday=d.date===today;
       const isPast=today>d.date;
       // Domain mapping per day
@@ -5412,7 +6174,7 @@ function renderStudyRoadmap(){
       const dayDomainColor={'Cloud Concepts':'#3BA8FF','Security and Compliance':'#FFB020','Cloud Technology and Services':'#10C995','Billing, Pricing and Support':'#E9A92F'}[dayDomain]||d.color;
       const isMockDay=d.day===8;
       return `
-      <div style="border:1px solid ${isToday?d.color+'60':'rgba(255,255,255,0.07)'};border-radius:14px;padding:.85rem 1rem;margin-bottom:.6rem;background:${isToday?`rgba(255,153,0,0.06)`:'rgba(255,255,255,0.02)'};${isToday?`box-shadow:0 0 16px ${d.color}20`:''}">
+      <div id="roadmap-day-${d.day}" style="border:1px solid ${isToday?d.color+'60':'rgba(255,255,255,0.07)'};border-radius:14px;padding:.85rem 1rem;margin-bottom:.6rem;background:${isToday?`rgba(255,153,0,0.06)`:'rgba(255,255,255,0.02)'};${isToday?`box-shadow:0 0 16px ${d.color}20`:''}">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;flex-wrap:wrap;gap:.4rem">
           <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
             <span style="font-size:1.1rem">${d.emoji}</span>
@@ -5461,21 +6223,21 @@ function renderStudyRoadmap(){
     }).join('')}
   </div>
 
-  <!-- LIGHT REVIEW DEC 5-13 -->
+  <!-- FINAL 24 HOURS -->
   <div class="glass-card blue-card animate-in" style="margin-bottom:1rem">
     <div class="card-header">
-      <div class="card-header-left"><span class="card-header-icon">📖</span><div><div class="card-header-title">Light Review — Dec 5 to Dec 13</div><div class="card-header-sub">Medical Missionary. 15-25 min/day max. Maintenance only.</div></div></div>
+      <div class="card-header-left"><span class="card-header-icon">🌙</span><div><div class="card-header-title">Final 24 Hours — ${examDateLabel(true)}</div><div class="card-header-sub">Taper, don't cram. Memory consolidates in sleep.</div></div></div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem">
-      ${plan.lightReview.map(r=>{
-        const isToday=r.date===today;
-        const isPast=today>r.date;
-        return `<div style="padding:.6rem .75rem;border-radius:12px;background:${isToday?'rgba(59,168,255,0.1)':'rgba(255,255,255,0.03)'};border:1px solid ${isToday?'rgba(59,168,255,0.4)':'rgba(255,255,255,0.07)'};${isToday?'box-shadow:0 0 12px rgba(59,168,255,0.2)':''}">
-          <div style="font-size:.7rem;font-weight:800;color:${isToday?'var(--blue)':'var(--muted)'};margin-bottom:.25rem">${r.label}${isToday?' ● TODAY':''}</div>
-          <div style="font-size:.75rem;font-weight:700;color:var(--text);margin-bottom:.2rem">${r.task}</div>
-          <div style="font-size:.65rem;color:var(--muted)">${r.focus}</div>
-        </div>`;
-      }).join('')}
+      ${[
+        ['☀️','Morning before','20 min: read the Cram Sheet trigger table only. No new topics.'],
+        ['🌤️','Afternoon before','Clear the due-review queue. Stop after 30 minutes.'],
+        ['🌙','Night before','Pack ID + exam details. Read the 10 exam-day tips. Sleep 8 hours.'],
+        ['🚀','Exam morning','Light breakfast. Skim the numbers list once. Arrive 30 min early.']
+      ].map(([i,t,d])=>`<div style="padding:.6rem .75rem;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07)">
+        <div style="font-size:.7rem;font-weight:800;color:var(--blue2);margin-bottom:.25rem">${i} ${t}</div>
+        <div style="font-size:.72rem;color:var(--muted);line-height:1.5">${d}</div>
+      </div>`).join('')}
     </div>
   </div>`;
 }
@@ -6349,10 +7111,513 @@ function saveProfile(wasOnboarding=false){
   }
 }
 
+// ═══════════════════════════════════════════════════════════════
+//  90-DAY MASTERY PATH
+//  Twelve weeks of curriculum, five 25-minute blocks a day.
+//  Compresses automatically when the exam is closer than 90 days.
+// ═══════════════════════════════════════════════════════════════
+const MASTERY_CURRICULUM=[
+  ['CC','What cloud computing is — the six advantages'],
+  ['CC','Deployment models: public, private, hybrid'],
+  ['CC','Service models: IaaS, PaaS, SaaS'],
+  ['CC','Global infrastructure: Regions, AZs and edge locations'],
+  ['CC','Well-Architected Framework — the six pillars'],
+  ['CC','High availability vs fault tolerance vs disaster recovery'],
+  ['CC','Scalability vs elasticity'],
+  ['CC','AWS Cloud Adoption Framework (CAF)'],
+  ['CC','Migration strategies — the 7 Rs'],
+  ['CC','CapEx vs OpEx and cloud economics'],
+  ['CC','Total Cost of Ownership (TCO)'],
+  ['CC','AWS pricing model fundamentals'],
+  ['CC','Consolidated billing and AWS Organizations'],
+  ['CC','Review: cloud concepts mixed drill'],
+  ['SEC','The Shared Responsibility Model'],
+  ['SEC','IAM users, groups, roles and policies'],
+  ['SEC','IAM best practice: MFA, least privilege, root user'],
+  ['SEC','IAM roles vs users; STS temporary credentials'],
+  ['SEC','Identity federation, Cognito and IAM Identity Center'],
+  ['SEC','Security groups vs network ACLs'],
+  ['SEC','Review: identity and access drill'],
+  ['SEC','Encryption at rest vs in transit; AWS KMS'],
+  ['SEC','Certificate Manager, Secrets Manager, Parameter Store'],
+  ['SEC','CloudTrail vs CloudWatch vs AWS Config'],
+  ['SEC','GuardDuty, Inspector, Macie and Security Hub'],
+  ['SEC','WAF, Shield, Firewall Manager and Network Firewall'],
+  ['SEC','Compliance: AWS Artifact and audit programs'],
+  ['SEC','Review: security services drill'],
+  ['TECH','EC2 instance types, AMIs and lifecycle'],
+  ['TECH','EC2 purchasing: On-Demand, Reserved, Spot, Savings Plans'],
+  ['TECH','Auto Scaling and Elastic Load Balancing'],
+  ['TECH','Lambda and event-driven serverless'],
+  ['TECH','Containers: ECS, EKS, Fargate and ECR'],
+  ['TECH','Elastic Beanstalk, Batch, Lightsail and Outposts'],
+  ['TECH','Review: compute drill'],
+  ['TECH','S3 storage classes, durability and lifecycle'],
+  ['TECH','S3 features: versioning, replication, encryption, Object Lock'],
+  ['TECH','EBS, EFS, FSx, Storage Gateway and the Snow family'],
+  ['TECH','RDS, Aurora, Multi-AZ vs read replicas'],
+  ['TECH','DynamoDB, ElastiCache and Redshift'],
+  ['TECH','Database migration: DMS and Schema Conversion Tool'],
+  ['TECH','Review: storage and database drill'],
+  ['TECH','VPC: subnets, route tables, internet and NAT gateways'],
+  ['TECH','VPC security: security groups, NACLs, endpoints, PrivateLink'],
+  ['TECH','Route 53 routing policies and health checks'],
+  ['TECH','CloudFront, edge caching and Global Accelerator'],
+  ['TECH','Direct Connect, Site-to-Site VPN and Transit Gateway'],
+  ['TECH','Hybrid and multi-account networking'],
+  ['TECH','Review: networking drill'],
+  ['TECH','CloudFormation and infrastructure as code'],
+  ['TECH','OpsWorks, Systems Manager and Elastic Beanstalk recap'],
+  ['TECH','CloudWatch metrics, logs and alarms in practice'],
+  ['TECH','Trusted Advisor and the AWS Health Dashboards'],
+  ['TECH','SNS, SQS, EventBridge and Step Functions'],
+  ['TECH','Kinesis, Glue, Athena, EMR, QuickSight and Lake Formation'],
+  ['TECH','Review: management and analytics drill'],
+  ['TECH','Migration Hub, Application Migration Service and DataSync'],
+  ['TECH','Snowball, Snowmobile and Transfer Family'],
+  ['TECH','AI/ML: SageMaker, Rekognition, Polly, Lex and Comprehend'],
+  ['TECH','Developer tools: CodeCommit, CodeBuild, CodeDeploy, CodePipeline, X-Ray'],
+  ['TECH','End-user computing: WorkSpaces and AppStream 2.0'],
+  ['TECH','IoT, blockchain and quantum — awareness level'],
+  ['TECH','Review: technology mixed drill'],
+  ['BILL','AWS pricing fundamentals: pay-as-you-go'],
+  ['BILL','Free Tier, cost drivers and cost optimisation'],
+  ['BILL','Cost Explorer, Budgets and the Cost and Usage Report'],
+  ['BILL','Savings Plans vs Reserved Instances vs Spot economics'],
+  ['BILL','Support plans: Basic, Developer, Business and Enterprise'],
+  ['BILL','TCO Calculator, Migration Evaluator and AWS Marketplace'],
+  ['BILL','Review: billing and pricing drill'],
+  ['BILL','Consolidated billing, cost allocation tags and chargeback'],
+  ['BILL','Well-Architected trade-offs in exam scenarios'],
+  ['BILL','Scenario drills: security and compliance'],
+  ['BILL','Scenario drills: cloud technology'],
+  ['BILL','Scenario drills: cloud concepts'],
+  ['BILL','Scenario drills: billing and support'],
+  ['BILL','Review: mixed 30-question set'],
+  ['TECH','Full mock #1 + error autopsy'],
+  ['TECH','Repair your weakest domain'],
+  ['TECH','Full mock #2 + error autopsy'],
+  ['TECH','Repair your second weakest domain'],
+  ['TECH','Timing and question-stem strategy'],
+  ['TECH','Full mock #3 + error autopsy'],
+  ['CC','Rapid recall: 100 facts'],
+  ['SEC','Weak-spot lightning round'],
+  ['TECH','Full mock #4'],
+  ['BILL','Error notebook review'],
+  ['TECH','Full mock #5'],
+  ['CC','Final recall sweep'],
+  ['TECH','Light review + exam-day logistics']
+];
+const MASTERY_CODE_TO_DOMAIN={CC:0,SEC:1,TECH:2,BILL:3};
+const MASTERY_BLOCKS=[
+  {k:'recall',label:'Warm Recall',min:25,cta:'Start recall',desc:'Retrieve before you re-read. Clear today’s due reviews and yesterday’s misses.'},
+  {k:'learn',label:'Deep Learn',min:25,cta:'Open Learn',desc:'One topic only. Read it, close the notes, then write what you remember.'},
+  {k:'drill',label:'Targeted Drill',min:25,cta:'Drill 15',desc:'Fifteen questions on today’s domain. Accuracy first — speed comes later.'},
+  {k:'teach',label:'Feynman Teach',min:25,cta:'Teach it back',desc:'Explain the topic in plain words. Where you stall is where you study next.'},
+  {k:'test',label:'Interleaved Test',min:25,cta:'Mixed 15',desc:'Mixed questions from other domains so recall is not tied to one context.'}
+];
+
+let masteryState=load('clf_mastery_v1',null);
+function todayISO(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function masteryInit(){
+  if(!masteryState||!masteryState.start||!masteryState.total){
+    const dl=daysLeft();
+    const total=Math.max(1,Math.min(90,dl>0?dl:1));
+    masteryState={start:todayISO(),total,days:{},notes:{}};
+    save('clf_mastery_v1',masteryState);
+  }
+  if(!masteryState.days) masteryState.days={};
+  if(!masteryState.notes) masteryState.notes={};
+  return masteryState;
+}
+function masteryDayIndex(){
+  const start=new Date(masteryState.start+'T00:00:00');
+  const now=new Date();now.setHours(0,0,0,0);
+  const diff=Math.round((now-start)/86400000);
+  return Math.max(1,Math.min(masteryState.total,diff+1));
+}
+function masteryCurriculumIndex(day,total){
+  if(total<=1) return 89;
+  return Math.max(0,Math.min(89,Math.round((day-1)/(total-1)*89)));
+}
+function masteryDayInfo(day){
+  const total=masteryState.total;
+  const idx=masteryCurriculumIndex(day,total);
+  const entry=MASTERY_CURRICULUM[idx];
+  const domain=DOMAINS[MASTERY_CODE_TO_DOMAIN[entry[0]]];
+  return {day,total,idx,topic:entry[1],domain,week:Math.floor(idx/7)+1,code:entry[0]};
+}
+function masterySummary(){
+  masteryInit();
+  const total=masteryState.total;
+  let doneDays=0,blocks=0;
+  for(let d=1;d<=total;d++){
+    const c=(masteryState.days[d]||[]).filter(Boolean).length;
+    blocks+=c;
+    if(c>=5) doneDays++;
+  }
+  const today=masteryDayIndex();
+  const overall=overallAccuracy();
+  const attempted=Object.values(progress).filter(p=>p.attempts>0).length;
+  const coverage=window.QUESTIONS.length?attempted/window.QUESTIONS.length:0;
+  const readiness=Math.round((overall||0)*0.7+coverage*100*0.3);
+  return {total,today,doneDays,blocks,todayPct:Math.round(today/total*100),readiness,coverage:Math.round(coverage*100),overall};
+}
+function masteryStreak(){
+  masteryInit();
+  let s=0,d=masteryDayIndex();
+  if(!(masteryState.days[d]||[]).some(Boolean)) d--;
+  while(d>=1&&(masteryState.days[d]||[]).some(Boolean)){s++;d--;}
+  return s;
+}
+function masteryWeeks(){
+  const total=masteryState.total,today=masteryDayIndex(),out=[];
+  for(let s=1;s<=total;s+=7){
+    const e=Math.min(total,s+6);
+    const a=masteryDayInfo(s),b=masteryDayInfo(e);
+    const doms=[...new Set([a.domain,b.domain])];
+    let done=0,blocks=0;
+    for(let d=s;d<=e;d++){const c=(masteryState.days[d]||[]).filter(Boolean).length;blocks+=c;if(c>=5)done++;}
+    out.push({s,e,doms,done,total:e-s+1,blocks,blocksTotal:(e-s+1)*5,state:today>e?'done':(today>=s?'current':'upcoming')});
+  }
+  return out;
+}
+function toggleMasteryBlock(day,i){
+  masteryInit();
+  const arr=(masteryState.days[day]||[false,false,false,false,false]).slice();
+  arr[i]=!arr[i];
+  masteryState.days[day]=arr;
+  save('clf_mastery_v1',masteryState);
+  if(arr.every(Boolean)){addXP(40);toast('Day '+day+' complete — two hours banked. 🎯','ok');}
+  renderMasteryPathInto();
+}
+function resyncMastery(){
+  masteryInit();
+  const dl=daysLeft();
+  masteryState.start=todayISO();
+  masteryState.total=Math.max(1,Math.min(90,dl>0?dl:1));
+  save('clf_mastery_v1',masteryState);
+  toast('Mastery path re-synced to your exam date.','ok');
+  renderMasteryPathInto();
+}
+function renderMasteryPathInto(){
+  if(currentTab!=='mastery') return;
+  const el=document.getElementById('main-content');
+  if(!el) return;
+  const y=window.scrollY;
+  el.innerHTML=renderMasteryPath();
+  window.scrollTo(0,y);
+}
+function masteryBlockAction(k){
+  const info=masteryDayInfo(masteryDayIndex());
+  if(k==='recall'){
+    if(!dueItems().length){toast('Nothing due yet — running a mixed 10 instead.','');return startPractice('mixed',null,10);}
+    return startPractice('due');
+  }
+  if(k==='learn') return navigate('learn');
+  if(k==='drill') return startPractice('domain',info.domain,15);
+  if(k==='teach') return openTeachBack();
+  if(k==='test') return startPractice('mixed',null,15);
+}
+function openTeachBack(){
+  masteryInit();
+  const info=masteryDayInfo(masteryDayIndex());
+  const note=(masteryState.notes&&masteryState.notes[info.day])||'';
+  document.getElementById('tb-overlay')?.remove();
+  const ov=document.createElement('div');
+  ov.id='tb-overlay';ov.className='tb-overlay';
+  ov.innerHTML=`<div class="tb-modal" role="dialog" aria-modal="true" aria-label="Feynman teach-back">
+    <div class="tb-eyebrow">Block 4 · Feynman Teach · Day ${info.day}</div>
+    <h2 class="tb-title">Teach: ${info.topic}</h2>
+    <p class="tb-sub">Explain it in plain English as if to a friend who has never used AWS. No jargon you cannot define. Where you stall is the next thing to study.</p>
+    <textarea id="tb-note" class="tb-note" placeholder="In my own words…"></textarea>
+    <div class="tb-foot">
+      <span class="tb-hint">Saved to your notes for Day ${info.day}.</span>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn btn-secondary" onclick="document.getElementById('tb-overlay').remove()">Close</button>
+        <button class="btn btn-primary" onclick="saveTeachBack()">Save note</button>
+      </div>
+    </div>
+  </div>`;
+  document.body.appendChild(ov);
+  const ta=document.getElementById('tb-note');
+  ta.value=note;
+  setTimeout(()=>ta.focus(),60);
+  ov.addEventListener('click',e=>{if(e.target===ov)ov.remove();});
+}
+function saveTeachBack(){
+  const ta=document.getElementById('tb-note');if(!ta)return;
+  masteryInit();
+  const day=masteryDayIndex();
+  masteryState.notes[day]=ta.value;
+  const arr=(masteryState.days[day]||[false,false,false,false,false]).slice();
+  arr[3]=true;masteryState.days[day]=arr;
+  save('clf_mastery_v1',masteryState);
+  document.getElementById('tb-overlay')?.remove();
+  toast('Teach-back saved — Block 4 done. 🧠','ok');
+  renderMasteryPathInto();
+}
+function renderMasteryPath(){
+  masteryInit();
+  const sum=masterySummary();
+  const info=masteryDayInfo(sum.today);
+  const blocks=masteryState.days[sum.today]||[];
+  const done=blocks.filter(Boolean).length;
+  const compressed=sum.total<90;
+  const R=52,C=2*Math.PI*R;
+  const weeks=masteryWeeks();
+  const pctBlocks=Math.round(sum.blocks/(sum.total*5)*100);
+  const note=(masteryState.notes&&masteryState.notes[sum.today])||'';
+  const how=[
+    ['🧠','Active recall','Close the notes and retrieve. Testing yourself beats re-reading every time.'],
+    ['⏳','Spaced repetition','Reviews return at 1, 2, 4 and 7 days — just before you would forget.'],
+    ['🔴','Error correction','Every wrong answer gets a reason. The error notebook is where the score climbs.'],
+    ['🔀','Interleaving','Mix domains so recall is not tied to one context. The real exam is mixed.'],
+    ['🗣️','Feynman','Teach it simply. Gaps in your explanation are gaps in your understanding.']
+  ];
+  return `
+  <div class="mp-head section-header">
+    <div>
+      <h1>🧭 90-Day Mastery Path</h1>
+      <div class="muted" style="font-size:.8rem;margin-top:.2rem">Two hours a day in five 25-minute blocks: recall, learn, drill, teach, test.</div>
+    </div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <span class="mp-chip">🎯 Target <b>90%+</b></span>
+      <span class="mp-chip">📅 Exam <b>${examDateLabel(true)}</b></span>
+      <span class="mp-chip">⏳ <b>${daysLeft()}</b> days left</span>
+      <button class="mp-chip" onclick="resyncMastery()" title="Re-sync the path to your exam date" style="cursor:pointer;font-family:inherit">🔄 Re-sync</button>
+    </div>
+  </div>
+
+  ${compressed?`<div class="mp-panel" style="padding:.8rem 1rem;border-color:rgba(59,130,246,.28);margin-bottom:.9rem">
+    <div style="font-size:.78rem;color:var(--blue2);font-weight:800;margin-bottom:.2rem">Compressed mode</div>
+    <div style="font-size:.74rem;color:var(--muted);line-height:1.55">The full 90-day curriculum is mapped onto your ${sum.total}-day window. Each day covers a whole phase, so nothing is skipped — the pace is just higher. Set a later exam date in Settings for the full 90-day cadence.</div>
+  </div>`:''}
+
+  <div class="mp-hero">
+    <div class="mp-ring">
+      <svg viewBox="0 0 118 118" width="118" height="118" aria-hidden="true">
+        <defs><linearGradient id="mpg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe9a0"/><stop offset=".5" stop-color="#f7c65a"/><stop offset="1" stop-color="#c9871d"/></linearGradient></defs>
+        <circle cx="59" cy="59" r="${R}" fill="none" stroke="rgba(148,163,184,.16)" stroke-width="7"/>
+        <circle cx="59" cy="59" r="${R}" fill="none" stroke="url(#mpg)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C*(1-sum.todayPct/100)).toFixed(1)}" transform="rotate(-90 59 59)"/>
+      </svg>
+      <div class="mp-ring-center"><div class="mp-ring-day">${sum.today}</div><div class="mp-ring-label">of ${sum.total}</div></div>
+    </div>
+    <div>
+      <div class="mp-eyebrow">Week ${info.week} · ${DOMAIN_EMOJI[info.domain]} ${info.domain}</div>
+      <div class="mp-title">${info.topic}</div>
+      <div class="mp-sub">Today's five blocks are below. Tick each one as you finish — the plan tracks itself and the exam-day projection updates with your accuracy.</div>
+      <div class="mp-hero-meta">
+        <span class="mp-chip">🧠 <b>${done}/5</b> blocks today</span>
+        <span class="mp-chip">🔥 <b>${masteryStreak()}</b> day streak</span>
+        <span class="mp-chip">📈 Readiness <b>${sum.readiness}%</b></span>
+        <span class="mp-chip">🗂️ <b>${sum.blocks}</b> blocks banked</span>
+      </div>
+    </div>
+    <div class="mp-hero-side">
+      <button class="btn btn-primary" onclick="masteryBlockAction('recall')">▶ Start today's recall</button>
+      <button class="btn btn-secondary" onclick="navigate('review')">Review queue (${dueItems().length})</button>
+    </div>
+  </div>
+
+  <div class="mp-stats">
+    <div class="mp-stat gold"><b>${sum.doneDays}</b><span>Days completed</span><small>of ${sum.total} planned</small></div>
+    <div class="mp-stat blue"><b>${sum.blocks}</b><span>Blocks banked</span><small>${pctBlocks}% of the path</small></div>
+    <div class="mp-stat green"><b>${masteryStreak()}</b><span>Day streak</span><small>consistency beats intensity</small></div>
+    <div class="mp-stat purple"><b>${sum.readiness}%</b><span>Exam readiness</span><small>accuracy ${sum.overall==null?'—':sum.overall+'%'} · coverage ${sum.coverage}%</small></div>
+  </div>
+
+  <div class="mp-panel">
+    <div class="mp-panel-head">
+      <div><div class="mp-panel-title">Today's five blocks</div><div class="mp-panel-sub">Two hours, split into 25-minute sprints. Tick the box when a block is done.</div></div>
+      <div class="mp-total">${done}/5 done${done===5?' · <span class="mp-done-pill">Day complete</span>':''}</div>
+    </div>
+    <div class="mp-blocks">
+      ${MASTERY_BLOCKS.map((b,i)=>{
+        const isDone=!!blocks[i];
+        return `<div class="mp-block${isDone?' done':''}">
+          <div class="mp-block-top"><span class="mp-block-label">Block ${i+1}</span><span class="mp-block-min">${b.min} min</span></div>
+          <div class="mp-block-title">${b.label}</div>
+          <div class="mp-block-desc">${b.desc}</div>
+          <div class="mp-block-actions">
+            <button class="btn btn-secondary" onclick="masteryBlockAction('${b.k}')">${isDone?'Revisit':b.cta}</button>
+            <button class="mp-check" onclick="toggleMasteryBlock(${sum.today},${i})" title="Mark block ${i+1} done" aria-label="Mark block ${i+1} done">✓</button>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap;margin-top:.8rem">
+      <div class="mp-total">🧠 Feynman note for today: ${note?'<b style="color:var(--green2)">saved</b>':'<span style="color:var(--muted2)">not written yet</span>'}</div>
+      <button class="btn btn-secondary" onclick="openTeachBack()">Write today's teach-back</button>
+    </div>
+  </div>
+
+  <div class="mp-panel">
+    <div class="mp-panel-head"><div><div class="mp-panel-title">The full path</div><div class="mp-panel-sub">Every domain in weight order, ending with a mock-exam phase.</div></div></div>
+    <div class="mp-weeks">
+      ${weeks.map(w=>`
+        <div class="mp-week ${w.state}">
+          <div class="mp-week-top"><span class="mp-week-num">Days ${w.s}–${w.e}</span><span class="mp-week-status">${w.state==='done'?'Done':w.state==='current'?'Now':'Next'}</span></div>
+          <div class="mp-week-title">${w.doms.map(d=>DOMAIN_EMOJI[d]+' '+d.replace(' and ',' & ')).join(' → ')}</div>
+          <div class="mp-week-blurb">${MASTERY_CURRICULUM[masteryCurriculumIndex(w.s,sum.total)][1]} → ${MASTERY_CURRICULUM[masteryCurriculumIndex(w.e,sum.total)][1]}</div>
+          <div class="mp-week-meta">${w.blocks}/${w.blocksTotal} blocks · ${w.done}/${w.total} days</div>
+          <div class="mp-days">${Array.from({length:7},(_,i)=>{
+            const d=w.s+i;
+            if(d>w.e) return '<div class="mp-day" style="opacity:.25"></div>';
+            const c=(masteryState.days[d]||[]).filter(Boolean).length;
+            const cls=c>=5?'done':d===sum.today?'today':'';
+            return `<div class="mp-day ${cls}" title="Day ${d}: ${c}/5 blocks"></div>`;
+          }).join('')}</div>
+        </div>`).join('')}
+    </div>
+  </div>
+
+  <div class="mp-panel">
+    <div class="mp-panel-head"><div><div class="mp-panel-title">Why this works</div><div class="mp-panel-sub">Five evidence-based methods, run every single day.</div></div></div>
+    <div class="mp-how">
+      ${how.map(h=>`<div class="mp-how-item"><div class="mp-how-ico">${h[0]}</div><div class="mp-how-title">${h[1]}</div><div class="mp-how-desc">${h[2]}</div></div>`).join('')}
+    </div>
+    <div class="mp-ladder">
+      <span class="mp-ladder-step">Recall</span><span class="mp-ladder-arrow">→</span>
+      <span class="mp-ladder-step">Understand</span><span class="mp-ladder-arrow">→</span>
+      <span class="mp-ladder-step">Apply</span><span class="mp-ladder-arrow">→</span>
+      <span class="mp-ladder-step">Analyse</span><span class="mp-ladder-arrow">→</span>
+      <span class="mp-ladder-step">Master</span>
+    </div>
+  </div>`;
+}
+function renderMasteryHomeCard(){
+  masteryInit();
+  const sum=masterySummary();
+  const info=masteryDayInfo(sum.today);
+  const done=(masteryState.days[sum.today]||[]).filter(Boolean).length;
+  return `<div class="mp-home animate-in">
+    <div class="mp-home-main">
+      <div class="mp-eyebrow">90-Day Mastery Path · Day ${sum.today} of ${sum.total}</div>
+      <div class="mp-home-title">${DOMAIN_EMOJI[info.domain]} ${info.topic}</div>
+      <div class="mp-home-sub">${done}/5 blocks today · ${sum.blocks} banked · readiness ${sum.readiness}%</div>
+      <div class="mp-progress"><div style="width:${Math.round(sum.blocks/(sum.total*5)*100)}%"></div></div>
+    </div>
+    <div class="mp-home-stats">
+      <div><b>${sum.doneDays}</b><span>days done</span></div>
+      <div><b>${masteryStreak()}</b><span>day streak</span></div>
+      <div><b>${sum.readiness}%</b><span>readiness</span></div>
+    </div>
+    <button class="btn btn-primary" onclick="navigate('mastery')">Open today →</button>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  REVIEW QUEUE — what the scheduler says to do next
+// ═══════════════════════════════════════════════════════════════
+function refreshReviewBadge(){
+  const rb=document.getElementById('review-due-badge');
+  if(!rb) return;
+  const n=dueItems().length;
+  rb.textContent=n;
+  rb.style.display=n?'inline-flex':'none';
+}
+function renderReviewQueue(){
+  const due=dueItems();
+  const attempted=Object.values(progress).filter(p=>p.attempts>0).length;
+  const mastered=Object.values(progress).filter(p=>p.interval===INTERVALS.length-1&&p.correct>0).length;
+  const learning=Math.max(0,attempted-mastered);
+  const unseen=Math.max(0,(window.QUESTIONS?window.QUESTIONS.length:0)-attempted);
+  const acc=overallAccuracy();
+  const byDomain=DOMAINS.map(d=>{
+    const pool=window.QUESTIONS.filter(q=>q.domain===d);
+    const seen=pool.filter(q=>progress[q.id]&&progress[q.id].attempts>0).length;
+    return {d,due:due.filter(q=>q.domain===d).length,acc:domainAccuracy(d),seen,total:pool.length};
+  });
+  const weakest=[...byDomain].filter(x=>x.acc!==null).sort((a,b)=>a.acc-b.acc)[0];
+  const leeches=window.QUESTIONS.map(q=>({q,p:progress[q.id]})).filter(x=>x.p&&x.p.attempts>=3&&x.p.correct/x.p.attempts<0.6)
+    .sort((a,b)=>a.p.correct/a.p.attempts-b.p.correct/b.p.attempts).slice(0,8);
+  const confusions=getTopConfusions(6);
+  return `
+  <div class="section-header">
+    <div>
+      <h1>🔁 Review Queue</h1>
+      <div class="muted" style="font-size:.8rem;margin-top:.2rem">Spaced repetition decides what you see next — not your mood.</div>
+    </div>
+    <span class="mp-chip">📅 Exam <b>${examDateLabel(true)}</b></span>
+  </div>
+
+  <div class="mp-hero">
+    <div class="mp-ring" style="width:104px;height:104px;border-radius:50%;border:1px solid rgba(217,164,65,.25);background:radial-gradient(circle at 50% 0%,rgba(217,164,65,.14),transparent 70%)">
+      <div class="mp-ring-center"><div class="mp-ring-day" style="font-size:1.9rem">${due.length}</div><div class="mp-ring-label">due now</div></div>
+    </div>
+    <div>
+      <div class="mp-eyebrow">Scheduled for today</div>
+      <div class="mp-title">${due.length?`${due.length} question${due.length===1?'':'s'} ready for review`:'You are clear for now'}</div>
+      <div class="mp-sub">${due.length?'These are cards whose interval has elapsed. Retrieving them now is the single highest-value use of your next 25 minutes.':'Nothing is due yet. Do a mixed set or open the Mastery Path to build new memories.'}</div>
+      <div class="mp-hero-meta">
+        <span class="mp-chip">🎯 Accuracy <b>${acc==null?'—':acc+'%'}</b></span>
+        <span class="mp-chip">🌱 Learning <b>${learning}</b></span>
+        <span class="mp-chip">✅ Mastered <b>${mastered}</b></span>
+        <span class="mp-chip">🌑 Unseen <b>${unseen}</b></span>
+      </div>
+    </div>
+    <div class="mp-hero-side">
+      ${due.length
+        ? `<button class="btn btn-primary" onclick="startPractice('due')">▶ Review ${due.length} now</button>`
+        : `<button class="btn btn-primary" onclick="startPractice('mixed',null,15)">▶ Mixed 15 now</button>`}
+      ${weakest?`<button class="btn btn-secondary" onclick="startPractice('domain','${weakest.d}',15)">Drill weakest: ${DOMAIN_SHORT[weakest.d]}</button>`:''}
+      ${due.length
+        ? `<button class="btn btn-secondary" onclick="startPractice('mixed',null,15)">Mixed 15</button>`
+        : `<button class="btn btn-secondary" onclick="navigate('mastery')">Open Mastery Path</button>`}
+    </div>
+  </div>
+
+  <div class="mp-panel">
+    <div class="mp-panel-head"><div><div class="mp-panel-title">Due by domain</div><div class="mp-panel-sub">Where the backlog is building.</div></div></div>
+    <div style="display:grid;gap:.5rem">
+      ${byDomain.map(x=>`
+        <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem .7rem;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(148,163,184,.12)">
+          <span style="font-size:1rem">${DOMAIN_EMOJI[x.d]}</span>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:.78rem;font-weight:800;display:flex;justify-content:space-between;gap:.5rem">
+              <span>${x.d}</span><span style="color:var(--muted)">${x.acc==null?'not started':x.acc+'%'}</span>
+            </div>
+            <div class="mp-progress" style="margin-top:.35rem"><div style="width:${x.acc||0}%"></div></div>
+            <div style="font-size:.62rem;color:var(--muted2);margin-top:.25rem">${x.seen}/${x.total} seen · ${x.due} due</div>
+          </div>
+          <button class="btn btn-secondary" style="padding:.32rem .6rem;font-size:.68rem" onclick="startPractice('domain','${x.d}',15)" ${x.due?'':'disabled'}>${x.due?x.due+' due':'—'}</button>
+        </div>`).join('')}
+    </div>
+  </div>
+
+  ${leeches.length?`<div class="mp-panel">
+    <div class="mp-panel-head"><div><div class="mp-panel-title">Leeches — your repeat offenders</div><div class="mp-panel-sub">Missed three or more times. These are worth more than new questions.</div></div></div>
+    <div style="display:grid;gap:.45rem">
+      ${leeches.map(({q,p})=>`
+        <div style="display:flex;gap:.6rem;align-items:flex-start;padding:.5rem .65rem;border-radius:10px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.16)">
+          <span style="font-size:.62rem;font-weight:900;color:var(--red2);flex-shrink:0;margin-top:.1rem">${p.correct}/${p.attempts}</span>
+          <div style="font-size:.72rem;line-height:1.5;color:var(--muted)">${q.stem.length>150?q.stem.slice(0,147)+'…':q.stem}</div>
+        </div>`).join('')}
+    </div>
+    <div style="margin-top:.7rem"><button class="btn btn-secondary" onclick="startPractice('mixed',null,15)">Re-test these patterns</button></div>
+  </div>`:''}
+
+  ${confusions.length?`<div class="mp-panel">
+    <div class="mp-panel-head"><div><div class="mp-panel-title">Confusion pairs</div><div class="mp-panel-sub">Services you keep mixing up — learn the one-line difference.</div></div></div>
+    <div style="display:grid;gap:.45rem">
+      ${confusions.map(c=>`
+        <div style="display:flex;align-items:center;gap:.6rem;padding:.5rem .65rem;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(148,163,184,.12)">
+          <span style="font-size:.72rem;font-weight:800;color:var(--gold2)">${(c.aLabel||c.key.split('|')[0]||'').slice(0,46)}</span>
+          <span style="color:var(--muted2)">vs</span>
+          <span style="font-size:.72rem;font-weight:800;color:var(--blue2)">${(c.bLabel||c.key.split('|')[1]||'').slice(0,46)}</span>
+          <span style="margin-left:auto;font-size:.62rem;color:var(--muted2)">${c.count}×</span>
+        </div>`).join('')}
+    </div>
+  </div>`:''}
+  `;
+}
+
 function bootToPage(){
-  const validTabs=['home','learn','practice','mock','progress','achievements','terminology','universe','games','settings','roadmap','recommendation','weekly-flashcards','flashcards','interview prep','diagnostic'];
+  const validTabs=['home','learn','practice','mock','progress','achievements','terminology','universe','games','settings','roadmap','mastery','review','cram','recommendation','weekly-flashcards','flashcards','interview prep','diagnostic','podcast'];
   const tab=validTabs.includes(_bootHash)?_bootHash:'home';
-  navigate(tab);
+  navStack=[tab]; navIdx=0;
+  navigate(tab, true);
   updateTopbar();
 }
 
@@ -6371,8 +7636,15 @@ if(!userName){
 
 // Safety net: save state whenever the tab is hidden or closed (critical on mobile)
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden') saveAll();});
+// Back/forward + manual hash edits keep you on the right page (no forced home)
+window.addEventListener('hashchange',()=>{const t=(location.hash||'').replace('#','').trim(); if(t && t!==currentTab) navigate(t,true);});
 window.addEventListener('beforeunload',()=>saveAll());
 window.addEventListener('pagehide',()=>saveAll());
 </script>
+<script src="premium.js"></script>
+<script src="audio-learn.js"></script>
+<script src="podcast-timing.js"></script>
+<script src="podcast.js"></script>
+<script src="coach.js"></script>
 </body>
 </html>

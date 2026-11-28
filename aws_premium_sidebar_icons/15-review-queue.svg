@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 48 48" role="img" aria-label="Review queue">
+  <defs>
+    <radialGradient id="bg" cx="32%" cy="24%" r="78%">
+      <stop offset="0" stop-color="#24395f"/>
+      <stop offset="0.62" stop-color="#101a32"/>
+      <stop offset="1" stop-color="#070d1b"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff2b0"/>
+      <stop offset="0.25" stop-color="#f7c65a"/>
+      <stop offset="0.62" stop-color="#c9871d"/>
+      <stop offset="1" stop-color="#ffe9a0"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#76dcff"/>
+      <stop offset="1" stop-color="#2876dc"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="1.4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <circle cx="24" cy="24" r="22" fill="url(#bg)" stroke="#34496e" stroke-width="1.1"/>
+  <circle cx="24" cy="24" r="19.2" fill="none" stroke="#dba744" stroke-opacity=".32" stroke-width=".7"/>
+  <g filter="url(#glow)">
+    <rect x="11" y="10" width="21" height="26" rx="4" fill="#0d1830" stroke="url(#blue)" stroke-width="1.6"/>
+    <rect x="15" y="14" width="21" height="26" rx="4" fill="#101d38" stroke="url(#gold)" stroke-width="1.8"/>
+  </g>
+  <g fill="none" stroke="url(#blue)" stroke-width="1.5" stroke-linecap="round" opacity=".9">
+    <path d="M20 21h11M20 25h8M20 29h10"/>
+  </g>
+  <g filter="url(#glow)">
+    <path d="M33 30a7 7 0 1 1-2.2-5" fill="none" stroke="url(#gold)" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M35.5 20.5V26h-5.4" fill="none" stroke="url(#gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <circle cx="12" cy="12" r="1.2" fill="#8bdcff" opacity=".9"/>
+</svg>
