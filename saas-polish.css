@@ -731,3 +731,26 @@ body[data-theme="mono"]{
 }
 .mobile-menu-btn:hover{border-color:rgba(125,211,252,.32);background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04))}
 .mobile-menu-btn:active{transform:scale(.94)}
+
+/* ── Review Queue / Mastery hero: keep action buttons INSIDE the box on mobile ── */
+@media(max-width:640px){
+  .mp-hero{padding:1.1rem 1rem;gap:1rem}
+  .mp-hero-side{
+    flex-direction:row;flex-wrap:wrap;gap:.4rem;
+    align-items:stretch;justify-content:flex-start;text-align:left;
+    width:100%;
+  }
+  .mp-hero-side .btn{
+    white-space:normal;flex:1 1 auto;min-width:0;
+    padding:.5rem .7rem;font-size:.72rem;text-align:center;
+  }
+  .mp-hero-meta{gap:.35rem}
+  .mp-chip{font-size:.6rem;padding:.2rem .5rem}
+  .mp-title{font-size:1.15rem}
+  .mp-sub{font-size:.78rem}
+}
+/* Review Queue rows: prevent the trailing action button from overflowing its row */
+@media(max-width:480px){
+  .mp-panel [style*="display:flex"]{flex-wrap:wrap}
+  .mp-panel .btn{white-space:normal}
+}
