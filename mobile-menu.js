@@ -51,32 +51,31 @@
 
   function wire() {
     backdrop.addEventListener('click', close);
-    var h = document.getElementById('mobile-sheet-handle');
-    if (h) {
-      var startY = 0, lastY = 0, dragging = false, moved = false;
-      h.addEventListener('touchstart', function (e) {
-        startY = e.touches[0].clientY; lastY = startY; dragging = true; moved = false;
-      }, { passive: true });
-      h.addEventListener('touchmove', function (e) {
-        if (!dragging) return;
-        var y = e.touches[0].clientY; lastY = y;
-        var dy = y - startY;
-        if (Math.abs(dy) > 6) moved = true;
-        if (dy > 0) { e.preventDefault(); sheet.style.transform = 'translateY(' + dy + 'px)'; }
-      }, { passive: false });
-      h.addEventListener('touchend', function (e) {
-        if (!dragging) return;
-        dragging = false;
-        var endY = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : lastY;
-        var dy = endY - startY;
-        sheet.style.transform = '';
-        // close on a downward drag OR a simple tap/press (no movement)
-        if (dy > 50 || !moved) close();
-      });
-      // mouse/desktop fallback: click the handle to close
-      h.addEventListener('click', function (e) { e.preventDefault(); close(); });
-    }
+    // Use event delegation on the sheet so the handle keeps working even though
+    // buildContent() replaces innerHTML (which destroys the handle node) on each open.
+    var startY = 0, lastY = 0, dragging = false, moved = false;
+    sheet.addEventListener('touchstart', function (e) {
+      if (!e.target.closest || !e.target.closest('.mobile-sheet-handle')) return;
+      startY = e.touches[0].clientY; lastY = startY; dragging = true; moved = false;
+    }, { passive: true });
+    sheet.addEventListener('touchmove', function (e) {
+      if (!dragging) return;
+      var y = e.touches[0].clientY; lastY = y;
+      var dy = y - startY;
+      if (Math.abs(dy) > 6) moved = true;
+      if (dy > 0) { e.preventDefault(); sheet.style.transform = 'translateY(' + dy + 'px)'; }
+    }, { passive: false });
+    sheet.addEventListener('touchend', function (e) {
+      if (!dragging) return;
+      dragging = false;
+      var endY = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : lastY;
+      var dy = endY - startY;
+      sheet.style.transform = '';
+      if (dy > 50 || !moved) close();
+    });
     sheet.addEventListener('click', function (e) {
+      // handle tap/click closes
+      if (e.target.closest && e.target.closest('.mobile-sheet-handle')) { e.preventDefault(); close(); return; }
       var btn = e.target.closest ? e.target.closest('.mobile-sheet-item') : null;
       if (btn && btn.dataset.tab) {
         var tab = btn.dataset.tab;
