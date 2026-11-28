@@ -95,18 +95,28 @@
     if (!supported) { try { toast('Read-aloud is not supported in this browser'); } catch (e) { } return; }
     var text = cleanText();
     if (!text) { try { toast('Nothing to read on this page yet'); } catch (e) { } return; }
-    synth.cancel();
+    try { synth.cancel(); } catch (e) { }
+    try { synth.resume(); } catch (e) { }
     var u = new SpeechSynthesisUtterance(text);
     u.rate = RATES[rateIdx];
     u.pitch = 1;
     var v = pickVoice();
     if (v) u.voice = v;
-    u.onstart = function () { setSpeaking(true); };
+    keepAlive = u;            // keep a reference (Chrome GC bug)
+    var started = false;
+    u.onstart = function () { started = true; setSpeaking(true); };
     u.onend = function () { setSpeaking(false); keepAlive = null; };
     u.onerror = function () { setSpeaking(false); keepAlive = null; };
-    keepAlive = u;            // keep a reference so Chrome doesn't GC it
     setSpeaking(true);
-    synth.speak(u);
+    // Chrome can ignore speak() fired in the same tick as cancel(); nudge it.
+    setTimeout(function () { try { synth.speak(u); } catch (e) { } }, 60);
+    // Watchdog: if nothing started, retry once (voices may have loaded late).
+    setTimeout(function () {
+      if (!started && keepAlive === u && speaking) {
+        try { synth.cancel(); } catch (e) { }
+        setTimeout(function () { try { synth.speak(u); } catch (e) { } }, 60);
+      }
+    }, 700);
     try { toast('🔊 Reading aloud…'); } catch (e) { }
   }
 

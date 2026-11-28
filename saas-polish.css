@@ -685,3 +685,16 @@ body[data-theme="mono"]{
 @media(max-width:400px){
   .topbar-user .topbar-name,.topbar-user .topbar-level{display:none}
 }
+
+/* ── 21. MOBILE MENU BUTTON (premium) ──────────────────────── */
+.mobile-menu-btn{
+  width:32px;height:32px;border-radius:9px;cursor:pointer;flex-shrink:0;
+  align-items:center;justify-content:center;
+  font-size:1.05rem;color:var(--text);
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+  border:1px solid var(--hairline-strong);
+  box-shadow:var(--sheen),0 4px 12px -10px rgba(0,0,0,.9);
+  transition:transform .16s ease,border-color .16s ease,background .16s ease;
+}
+.mobile-menu-btn:hover{border-color:rgba(125,211,252,.32);background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04))}
+.mobile-menu-btn:active{transform:scale(.94)}

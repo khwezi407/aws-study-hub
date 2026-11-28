@@ -2789,6 +2789,7 @@ h3{font-size:.9rem;font-weight:600;margin-bottom:.45rem}
 
     <!-- TOP BAR -->
     <header class="topbar" id="topbar">
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" onclick="toggleMobileMenu()">☰</button>
       <div class="nav-hist">
         <button class="nav-hist-btn" id="nav-back" onclick="navBack()" aria-label="Go back" title="Back">←</button>
         <button class="nav-hist-btn" id="nav-forward" onclick="navForward()" aria-label="Go forward" title="Forward">→</button>
@@ -7646,5 +7647,6 @@ window.addEventListener('pagehide',()=>saveAll());
 <script src="podcast-timing.js"></script>
 <script src="podcast.js"></script>
 <script src="coach.js"></script>
+<script src="mobile-menu.js"></script>
 </body>
 </html>
