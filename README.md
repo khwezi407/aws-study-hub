@@ -9,9 +9,21 @@ Open `index.html` in any modern browser and study immediately. No account, no bu
 ## Purpose
 
 - **Pass CLF-C02 with 90%+** using proven learning methods (spaced repetition, active recall, elaboration, dual coding).
-- **Fit a 10-day sprint** for someone who is behind and needs to retain concepts fast.
+- **Go at your own pace** - set your exam date in **Settings** and the mission clock and study plan adapt automatically. A short 10-day push works if you are behind, but it is not required.
 - **Be shareable** with classmates (AWS re/Start cohort) - it is a static site with all progress stored locally in each person's browser.
 - **Zero cost and offline** - no paid APIs, no tracking, no login.
+
+## Inspired by AWS re/Start (Praesignis)
+
+This hub was built by a graduate of the **3-month AWS re/Start program run by Praesignis**. The program's learn-by-doing philosophy shaped how this app teaches:
+
+- **Learn by doing, not just watching** - every concept is tied to practice questions and drills, not passive notes.
+- **Spaced, repeated exposure** - core services resurface over days (spaced repetition) until they stick, instead of one-and-done reading.
+- **Explain it simply** - real-world analogies and stories turn abstract services into something you can actually remember.
+- **Consistency beats cramming** - short daily reps (the 10-Minute Win) outperform one long session.
+- **Learn together** - built to be shared with the whole cohort so everyone can get certified faster.
+
+The aim is to pass on what worked during the program and help the next person walk into the exam confident.
 
 ---
 
@@ -63,12 +75,13 @@ node _serve.js
 ## How to use
 
 1. **First run:** set your name in the profile modal.
-2. **Take the Diagnostic Scan** to get a baseline (or skip and start practising).
-3. **Daily loop (10 minutes is enough):**
+2. **Set your exam date** in **Settings** (top of the page). The mission clock, countdown, and study plan adapt to whatever date you pick - change it anytime you reschedule.
+3. **Take the Diagnostic Scan** to get a baseline (or skip and start practising).
+4. **Daily loop (10 minutes is enough):**
    - Tap **10-Minute Win** on the Home mission card (or `Ctrl+K` -> "Start the 10-minute win").
    - Or: clear the **Review Queue** (due items) -> do one weak-area set -> listen to one **Audio Academy** episode.
-4. **Listen while you do chores:** open **Audio Academy**, press Play, tap **Eyes-free**, and walk away. Episodes end with recall pauses - answer out loud.
-5. **Before the exam:** re-read the **Cram Sheet** and take a full **Exam Mode** mock.
+5. **Listen while you do chores:** open **Audio Academy**, press Play, tap **Eyes-free**, and walk away. Episodes end with recall pauses - answer out loud.
+6. **Before the exam:** re-read the **Cram Sheet** and take a full **Exam Mode** mock.
 
 Keyboard: `Ctrl/⌘+K` command palette, `/` search, `F` focus timer, `Alt+L` read-aloud.
 
